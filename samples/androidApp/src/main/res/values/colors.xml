@@ -3,7 +3,4 @@
     <color name="colorPrimary">#039be5</color>
     <color name="colorPrimaryDark">#006db3</color>
     <color name="colorAccent">#fdd835</color>
-
-    <color name="header_background">#ebebeb</color>
-    <color name="list_item_connection">#979797</color>
 </resources>
