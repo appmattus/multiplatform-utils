@@ -1,0 +1,15 @@
+build:
+  maxIssues: 0
+
+style:
+  MagicNumber:
+    excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/*.gradle.kts"
+  MaxLineLength:
+    active: false
+
+formatting:
+  StringTemplate:
+    excludes: "**/*.gradle.kts"
+  MaximumLineLength:
+    maxLineLength: 145
+    excludes: "**/resources/**"

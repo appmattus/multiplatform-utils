@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        android:id="@+id/readyToCollapsed"
+        app:constraintSetEnd="@id/readyCollapsed"
+        app:constraintSetStart="@id/ready">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:maxAcceleration="10"
+            app:touchAnchorId="@id/recycler_view"
+            app:touchAnchorSide="top" />
+
+        <KeyFrameSet>
+            <KeyPosition
+                app:framePosition="50"
+                app:keyPositionType="pathRelative"
+                app:motionTarget="@id/image"
+                app:percentX="0.75"
+                app:sizePercent="0.75" />
+
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/ready">
+        <Constraint android:id="@+id/loading">
+            <PropertySet android:visibility="invisible" />
+        </Constraint>
+
+        <!-- content -->
+        <Constraint android:id="@+id/header_background">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/image">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/name">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/tagline">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/location">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/chipGroup">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/recycler_view">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+        <Constraint android:id="@+id/pad">
+            <PropertySet android:visibility="visible" />
+        </Constraint>
+    </ConstraintSet>
+
+
+    <ConstraintSet
+        android:id="@+id/readyCollapsed"
+        app:deriveConstraintsFrom="@id/ready">
+
+        <Constraint android:id="@+id/image">
+            <Layout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/tagline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/name"
+                app:layout_constraintVertical_bias="0.5" />
+        </Constraint>
+
+        <Constraint android:id="@+id/name">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toTopOf="parent" />
+        </Constraint>
+
+        <Constraint android:id="@+id/tagline">
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintStart_toEndOf="@id/image"
+                app:layout_constraintTop_toBottomOf="@id/name" />
+        </Constraint>
+
+        <Constraint android:id="@+id/location">
+            <PropertySet android:visibility="invisible" />
+            <Layout
+                android:layout_width="wrap_content"
+                android:layout_height="1dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tagline" />
+        </Constraint>
+
+        <Constraint android:id="@+id/chipGroup">
+            <PropertySet android:visibility="invisible" />
+            <Layout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location" />
+        </Constraint>
+    </ConstraintSet>
+
+</MotionScene>

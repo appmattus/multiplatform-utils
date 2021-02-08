@@ -1,0 +1,5 @@
+include(":battery")
+include(":connectivity")
+include(":package-info")
+include(":samples:shared")
+include(":samples:androidApp")

@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright 2021 Appmattus Limited
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <group android:scaleX="0.14688"
+      android:scaleY="0.14688"
+      android:translateX="17.28"
+      android:translateY="17.28">
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M0,0H500V500H0V0Z"/>
+    <path
+        android:pathData="M354,0l146,0l0,500l-342.487,0z"
+        android:fillColor="#32DE84"/>
+    <path
+        android:pathData="M156.881,321.718C148.419,329.931 139.084,328.649 130.185,324.778C120.724,320.829 112.076,320.579 102.084,324.778C89.64,330.149 83.037,328.587 75.544,321.718C33.236,278.161 39.48,211.811 87.564,209.313C99.226,209.938 107.392,215.76 114.261,216.243C124.471,214.167 134.244,208.22 145.173,209C158.302,210.062 168.122,215.246 174.679,224.566C147.671,240.802 154.072,276.397 178.878,286.389C173.914,299.424 167.545,312.304 156.866,321.827ZM113.325,208.844C112.06,189.485 127.75,173.562 145.798,172C148.279,194.325 125.502,211.03 113.325,208.844Z"
+        android:fillColor="#FFFFFF"/>
+    <path
+        android:pathData="M413.213,229.701L428.308,203.547C429.16,202.082 428.646,200.219 427.198,199.366C425.753,198.515 423.869,199.011 423.04,200.477L407.742,226.966C396.073,221.635 382.936,218.664 368.81,218.664C354.685,218.664 341.549,221.635 329.879,226.966L314.582,200.477C313.732,199.011 311.869,198.515 310.405,199.366C308.936,200.219 308.441,202.082 309.294,203.547L324.392,229.701C298.358,243.807 280.724,270.157 277.811,301.005L459.811,301.005C456.898,270.157 439.265,243.807 413.213,229.701ZM327.025,275.446C322.806,275.446 319.398,272.02 319.398,267.819C319.398,263.599 322.825,260.192 327.025,260.192C331.247,260.192 334.655,263.621 334.655,267.819C334.675,272.02 331.247,275.446 327.025,275.446ZM410.576,275.446C406.356,275.446 402.95,272.02 402.95,267.819C402.95,263.599 406.376,260.192 410.576,260.192C414.795,260.192 418.205,263.621 418.205,267.819C418.224,272.02 414.795,275.446 410.576,275.446Z"
+        android:strokeWidth="0.287836"
+        android:fillColor="#FFFFFF"/>
+  </group>
+</vector>
