@@ -19,48 +19,50 @@ import Combine
 import shared
 
 public extension Kotlinx_coroutines_coreFlow {
-    func asPublisher<T : AnyObject>() -> AnyPublisher<T, Never> {
-        return (FlowPublisher(flow: self) as FlowPublisher<T>).eraseToAnyPublisher()
+    func asPublisher<T: AnyObject>() -> AnyPublisher<T, Never> {
+        (FlowPublisher(flow: self) as FlowPublisher<T>).eraseToAnyPublisher()
     }
 }
 
 private struct FlowPublisher<T: Any>: Publisher {
     public typealias Output = T
     public typealias Failure = Never
-    
+
     private let flow: Kotlinx_coroutines_coreFlow
+
     public init(flow: Kotlinx_coroutines_coreFlow) {
         self.flow = flow
     }
-    
+
     public func receive<S: Subscriber>(subscriber: S) where S.Input == T, S.Failure == Failure {
         let subscription = FlowSubscription(flow: flow, subscriber: subscriber)
         subscriber.receive(subscription: subscription)
     }
-    
+
     final class FlowSubscription<S: Subscriber>: Subscription where S.Input == T, S.Failure == Failure {
         private var subscriber: S?
-        private var job: Kotlinx_coroutines_coreJob? = nil
-        
+        private var job: Kotlinx_coroutines_coreJob?
+
         private let flow: Kotlinx_coroutines_coreFlow
-        
+
         init(flow: Kotlinx_coroutines_coreFlow, subscriber: S) {
             self.flow = flow
             self.subscriber = subscriber
-            
+
             job = SubscribeKt.subscribe(
-                flow,
-                onEach: { position in _ = subscriber.receive(position as! T) },
-                onComplete: { subscriber.receive(completion: .finished) },
-                onThrow: { error in debugPrint(error) }
+                    flow,
+                    onEach: { position in if let position = position as? T { _ = subscriber.receive(position) }},
+                    onComplete: { subscriber.receive(completion: .finished) },
+                    onThrow: { error in debugPrint(error) }
             )
         }
-        
+
         func cancel() {
             subscriber = nil
             job?.cancel(cause: nil)
         }
-        
-        func request(_ demand: Subscribers.Demand) {}
+
+        func request(_ demand: Subscribers.Demand) {
+        }
     }
 }

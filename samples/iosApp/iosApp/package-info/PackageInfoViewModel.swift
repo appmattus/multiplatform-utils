@@ -18,15 +18,15 @@ import SwiftUI
 import Combine
 import shared
 
-class PackageInfoViewModel : ObservableObject {
-    
+class PackageInfoViewModel: ObservableObject {
+
     @Published var appName = "n/a"
     @Published var packageName = "n/a"
     @Published var version = "n/a"
     @Published var buildNumber = "n/a"
 
     private let packageInfo = PackageInfo()
-    
+
     init() {
         appName = packageInfo.appName ?? "n/a"
         packageName = packageInfo.packageName ?? "n/a"

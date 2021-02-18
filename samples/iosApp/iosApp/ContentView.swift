@@ -18,7 +18,7 @@ import SwiftUI
 import shared
 
 struct ContentView: View {
-    
+
     var body: some View {
         NavigationView {
             List {
@@ -28,7 +28,7 @@ struct ContentView: View {
                 NavigationLink(destination: ConnectivityView()) {
                     SingleLineTextRow(primaryText: "connectivity")
                 }
-                NavigationLink(destination: NavigationLazyView(PackageInfoView())) {
+                NavigationLink(destination: PackageInfoView()) {
                     SingleLineTextRow(primaryText: "package-info")
                 }
             }
@@ -40,16 +40,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-// https://stackoverflow.com/a/61234030
-struct NavigationLazyView<Content: View>: View {
-    let build: () -> Content
-    init(_ build: @autoclosure @escaping () -> Content) {
-        self.build = build
-    }
-    var body: Content {
-        build()
     }
 }

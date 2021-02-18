@@ -18,15 +18,15 @@ import SwiftUI
 import Combine
 import shared
 
-class ConnectivityViewModel : ObservableObject {
-    
+class ConnectivityViewModel: ObservableObject {
+
     @Published var connectivityStatus = ConnectivityStatus(status: ConnectivityStatus.Status.none)
-    
+
     private let connectivity = Connectivity(nodename: "example.com")
-    
+
     init() {
         (connectivity.connectivityStatus.asPublisher() as AnyPublisher<ConnectivityStatus, Never>)
-            .receive(on: RunLoop.main)
-            .assign(to: &$connectivityStatus)
+                .receive(on: RunLoop.main)
+                .assign(to: &$connectivityStatus)
     }
 }

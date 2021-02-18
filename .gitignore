@@ -295,4 +295,8 @@ fabric.properties
 
 !/gradle/wrapper/gradle-wrapper.jar
 
+# Swiftlint files
+.swiftlint/
+!swiftlint-wrapper.jar
+
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,xcode,swift,kotlin

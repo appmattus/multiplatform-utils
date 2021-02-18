@@ -18,14 +18,16 @@ import SwiftUI
 import Combine
 
 struct ConnectivityView: View {
-    
+
     @StateObject private var connectivityViewModel = ConnectivityViewModel()
-    
+
     var body: some View {
         List {
-            TwoLineTextRow(primaryText: "connectivityStatus", secondaryText: connectivityViewModel.connectivityStatus.description)
-        }
-        .navigationTitle("connectivity")
+            TwoLineTextRow(
+                primaryText: "connectivityStatus",
+                secondaryText: connectivityViewModel.connectivityStatus.description
+            )
+        }.navigationTitle("connectivity")
     }
 }
 

@@ -18,7 +18,7 @@ import SwiftUI
 import shared
 
 struct PackageInfoView: View {
-    
+
     @StateObject private var packageInfoViewModel = PackageInfoViewModel()
 
     var body: some View {
@@ -27,8 +27,7 @@ struct PackageInfoView: View {
             TwoLineTextRow(primaryText: "packageName", secondaryText: packageInfoViewModel.packageName)
             TwoLineTextRow(primaryText: "version", secondaryText: packageInfoViewModel.version)
             TwoLineTextRow(primaryText: "buildNumber", secondaryText: packageInfoViewModel.buildNumber)
-        }
-        .navigationTitle("package-info")
+        }.navigationTitle("package-info")
     }
 }
 

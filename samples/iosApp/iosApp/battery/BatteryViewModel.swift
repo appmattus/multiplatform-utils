@@ -18,19 +18,19 @@ import SwiftUI
 import Combine
 import shared
 
-class BatteryViewModel : ObservableObject {
-    
+class BatteryViewModel: ObservableObject {
+
     @Published var batteryLevel: Int32 = 0
-    
+
     @Published var chargingStatus = ChargingStatus(status: ChargingStatus.Status.unavailable)
-        
+
     private let battery = Battery()
-    
+
     init() {
         batteryLevel = battery.batteryLevel
-        
+
         (battery.chargingStatus.asPublisher() as AnyPublisher<ChargingStatus, Never>)
-            .receive(on: RunLoop.main)
-            .assign(to: &$chargingStatus)
+                .receive(on: RunLoop.main)
+                .assign(to: &$chargingStatus)
     }
 }

@@ -18,15 +18,20 @@ import SwiftUI
 import Combine
 
 struct BatteryView: View {
-    
+
     @StateObject private var batteryViewModel = BatteryViewModel()
-    
+
     var body: some View {
         List {
-            TwoLineTextRow(primaryText: "batteryLevel", secondaryText: batteryViewModel.batteryLevel.description)
-            TwoLineTextRow(primaryText: "chargingStatus", secondaryText: batteryViewModel.chargingStatus.status.description)
-        }
-        .navigationTitle("battery")
+            TwoLineTextRow(
+                primaryText: "batteryLevel",
+                secondaryText: batteryViewModel.batteryLevel.description
+            )
+            TwoLineTextRow(
+                primaryText: "chargingStatus",
+                secondaryText: batteryViewModel.chargingStatus.status.description
+            )
+        }.navigationTitle("battery")
     }
 }
 

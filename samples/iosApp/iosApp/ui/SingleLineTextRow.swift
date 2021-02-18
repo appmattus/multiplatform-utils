@@ -16,7 +16,7 @@
 
 import SwiftUI
 
-struct SingleLineTextRow : View {
+struct SingleLineTextRow: View {
     var primaryText: String
     var body: some View {
         HStack {
