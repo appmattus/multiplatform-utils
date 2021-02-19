@@ -1,12 +1,16 @@
 # multiplatform-utils
 
-A collection of Kotlin Multiplatform Mobile libraries to aid in mobile app development.
+A collection of Kotlin Multiplatform Mobile libraries to aid in mobile app
+development.
 
-| Library | Description|
-| - | - |
-| [battery](battery/README.md) | Access various information about the battery of the device the app is running on |
-| [connectivity](connectivity/README.md) | Discover network connectivity and distinguish between cellular vs WiFi connection |
-| [package-info](package-info/README.md) | An API for querying information about an application package |
+[battery](battery/README.md): Access various information about the battery of
+the device the app is running on.
+
+[connectivity](connectivity/README.md): Discover network connectivity and
+distinguish between cellular vs WiFi connection.
+
+[package-info](package-info/README.md): An API for querying information about
+an application package.
 
 ## Contributing
 
