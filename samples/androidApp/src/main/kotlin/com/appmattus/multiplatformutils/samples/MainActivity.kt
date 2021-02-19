@@ -19,7 +19,6 @@ package com.appmattus.multiplatformutils.samples
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.appmattus.multiplatformutils.samples.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

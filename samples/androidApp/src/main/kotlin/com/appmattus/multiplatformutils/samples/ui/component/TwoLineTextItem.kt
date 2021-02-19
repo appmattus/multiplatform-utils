@@ -31,8 +31,8 @@ data class TwoLineTextItem(
     override fun isSameAs(other: Item<*>): Boolean = primaryText == (other as? TwoLineTextItem)?.primaryText
 
     override fun hasSameContentAs(other: Item<*>): Boolean {
-        return primaryText == (other as? TwoLineTextItem)?.primaryText
-                && secondaryText == (other as? TwoLineTextItem)?.secondaryText
+        return primaryText == (other as? TwoLineTextItem)?.primaryText &&
+                secondaryText == (other as? TwoLineTextItem)?.secondaryText
     }
 
     override fun initializeViewBinding(view: View) = TwoLineTextItemBinding.bind(view)

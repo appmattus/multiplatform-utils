@@ -37,9 +37,9 @@ actual class Battery {
         get() = with(UIDevice.currentDevice) {
             batteryMonitoringEnabled = true
             when {
-                NSProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != null -> 100
+                NSProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != null -> BATTERY_MAX_VALUE
                 batteryState == UIDeviceBatteryState.UIDeviceBatteryStateUnknown -> -1
-                else -> (batteryLevel * 100).toInt()
+                else -> (batteryLevel * BATTERY_MAX_VALUE).toInt()
             }
         }
 
@@ -83,5 +83,7 @@ actual class Battery {
                 send(element)
             }
         }
+
+        private const val BATTERY_MAX_VALUE = 100
     }
 }

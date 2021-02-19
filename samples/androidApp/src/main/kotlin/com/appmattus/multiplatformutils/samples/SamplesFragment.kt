@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appmattus.multiplatformutils.samples.ui.component.SingleLineTextHeaderItem
 import com.appmattus.multiplatformutils.samples.ui.component.SingleLineTextItem
-import com.appmattus.multiplatformutils.samples.R
 import com.appmattus.multiplatformutils.samples.databinding.RecyclerViewFragmentBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
