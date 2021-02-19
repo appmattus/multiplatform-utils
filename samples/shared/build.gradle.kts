@@ -42,22 +42,11 @@ kotlin {
                 api(project(":package-info"))
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-                implementation("io.kotest:kotest-assertions-core:${Versions.kotest}")
-            }
-        }
-        val androidMain by getting {}
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:${Versions.junit4}")
-            }
-        }
-        val iosMain by getting {}
-        val iosTest by getting {}
+        val commonTest by getting
+        val androidMain by getting
+        val androidTest by getting
+        val iosMain by getting
+        val iosTest by getting
     }
 }
 

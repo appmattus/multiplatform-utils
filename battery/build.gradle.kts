@@ -19,10 +19,9 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("maven-publish")
+    id("com.vanniktech.maven.publish")
+    id("org.jetbrains.dokka")
 }
-
-//apply(from = "$rootDir/gradle/scripts/jacoco-multiplatform.gradle.kts")
 
 kotlin {
     android()
@@ -38,29 +37,14 @@ kotlin {
                 }
             }
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
-            }
-        }
+        val commonTest by getting
         val androidMain by getting {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
             }
         }
-        val androidTest by getting {
-            dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("junit:junit:${Versions.junit4}")
-            }
-        }
-
-        val iosMain by getting {
-            dependencies {
-
-            }
-        }
+        val androidTest by getting
+        val iosMain by getting
         val iosTest by getting
     }
 }
@@ -87,28 +71,3 @@ android {
 }
 
 tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString() }
-
-tasks.register<Jar>("samplesSourcesJar") {
-    archiveClassifier.set("samplessources")
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            artifact(project.tasks.named("samplesSourcesJar").get())
-        }
-    }
-
-    repositories {
-        maven {
-            credentials {
-                username =
-                    System.getenv("BINTRAY_USER") ?: System.getProperty("BINTRAY_USER") ?: "unknown"
-                password =
-                    System.getenv("BINTRAY_KEY") ?: System.getProperty("BINTRAY_KEY") ?: "unknown"
-            }
-            url =
-                uri("https://api.bintray.com/maven/appmattus/testing/gherkin/;publish=1;override=1")
-        }
-    }
-}

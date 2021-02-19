@@ -35,6 +35,8 @@ import io.gitlab.arturbosch.detekt.Detekt
 plugins {
     id("io.gitlab.arturbosch.detekt") version Versions.detektGradlePlugin
     id("com.appmattus.markdown") version Versions.markdownlintGradlePlugin
+    id("com.vanniktech.maven.publish") version Versions.gradleMavenPublishPlugin apply false
+    id("org.jetbrains.dokka") version Versions.dokkaPlugin
 }
 
 buildscript {
@@ -87,6 +89,23 @@ tasks.maybeCreate("check").dependsOn(tasks.named("detekt"))
 tasks.maybeCreate("check").dependsOn(tasks.named("markdownlint"))
 
 allprojects {
-    group = "com.appmattus.multiplatformutils"
     version = System.getenv("GITHUB_REF")?.substring(10) ?: System.getProperty("GITHUB_REF")?.substring(10) ?: "unknown"
+
+    plugins.withType<org.jetbrains.dokka.gradle.DokkaPlugin> {
+        tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+            dokkaSourceSets {
+                configureEach {
+                    if (name.startsWith("ios")) {
+                        displayName.set("ios")
+                    }
+
+                    sourceLink {
+                        localDirectory.set(rootDir)
+                        remoteUrl.set(java.net.URL("https://github.com/appmattus/multiplatform-utils/blob/main"))
+                        remoteLineSuffix.set("#L")
+                    }
+                }
+            }
+        }
+    }
 }
