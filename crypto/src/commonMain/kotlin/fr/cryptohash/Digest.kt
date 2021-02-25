@@ -132,7 +132,7 @@ interface Digest {
      *
      * @return  the clone
      */
-    fun copy(): Digest?
+    fun copy(): Digest
 
     /**
      * Return the "block length" for the hash function. This

@@ -45,7 +45,7 @@ class SHA1
 
     /** @see Digest
      */
-    override fun copy(): Digest? {
+    override fun copy(): Digest {
         val d = SHA1()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)

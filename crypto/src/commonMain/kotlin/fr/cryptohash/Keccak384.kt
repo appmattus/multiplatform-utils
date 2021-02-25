@@ -1,10 +1,10 @@
-// $Id: SHA224.java 156 2010-04-26 17:55:11Z tp $
+// $Id: Keccak384.java 189 2010-05-14 21:21:46Z tp $
 package fr.cryptohash
 
 /**
  *
- * This class implements the SHA-224 digest algorithm under the
- * [Digest] API. SHA-224 is specified by FIPS 180-2.
+ * This class implements the Keccak-384 digest algorithm under the
+ * [Digest] API.
  *
  * <pre>
  * ==========================(LICENSE BEGIN)============================
@@ -33,35 +33,22 @@ package fr.cryptohash
  * ===========================(LICENSE END)=============================
 </pre> *
  *
- * @version   $Revision: 156 $
+ * @version   $Revision: 189 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA224
+class Keccak384
 /**
  * Create the engine.
  */
-    : SHA2Core() {
-    /** @see SHA2Core
+    : KeccakCore() {
+    /** @see Digest
      */
-    override val initVal: IntArray
-        get() = Companion.initVal
+    override fun copy(): Digest {
+        return copyState(Keccak384())
+    }
 
     /** @see Digest
      */
     override val digestLength: Int
-        get() = 28
-
-    /** @see Digest
-     */
-    override fun copy(): Digest {
-        return copyState(SHA224())
-    }
-
-    companion object {
-        /** The initial value for SHA-224.  */
-        private val initVal = intArrayOf(
-            -0x3efa6128, 0x367CD507, 0x3070DD17, -0x8f1a6c7,
-            -0x3ff4cf, 0x68581511, 0x64F98FA7, -0x4105b05c
-        )
-    }
+        get() = 48
 }

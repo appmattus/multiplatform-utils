@@ -48,7 +48,7 @@ class MD2 : DigestEngine() {
 
     /** @see Digest
      */
-    override fun copy(): Digest? {
+    override fun copy(): Digest {
         val d = MD2()
         X.copyInto(d.X, 0, 0, X.size)
         C.copyInto(d.C, 0, 0, C.size)
