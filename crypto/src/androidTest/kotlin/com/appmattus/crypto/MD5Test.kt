@@ -4,6 +4,7 @@ import fr.cryptohash.Digest
 import fr.cryptohash.MD2
 import fr.cryptohash.MD4
 import fr.cryptohash.MD5
+import fr.cryptohash.SHA256
 import java.security.MessageDigest
 import kotlin.test.Test
 import kotlin.test.fail
@@ -164,6 +165,28 @@ class MD5Test {
                     + "f965ab6ff72a70")
         )
         reportSuccess("MD5")
+    }
+
+    /**
+     * Test SHA-256 implementation.
+     */
+    @Test
+    fun testSHA256() {
+        val dig: Digest = SHA256()
+        testKat(
+            dig, "abc",
+            "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        )
+        testKat(
+            dig, "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
+                    + "nomnopnopq",
+            "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+        )
+        testKatMillionA(
+            dig,
+            "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
+        )
+        reportSuccess("SHA-256")
     }
 
     private fun reportSuccess(name: String) {
