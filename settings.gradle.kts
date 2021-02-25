@@ -1,5 +1,6 @@
 include(":battery")
 include(":connectivity")
+include(":crypto")
 include(":package-info")
 include(":samples:shared")
 include(":samples:androidApp")
