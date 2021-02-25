@@ -4,7 +4,12 @@ import fr.cryptohash.Digest
 import fr.cryptohash.MD2
 import fr.cryptohash.MD4
 import fr.cryptohash.MD5
+import fr.cryptohash.SHA0
+import fr.cryptohash.SHA1
+import fr.cryptohash.SHA224
 import fr.cryptohash.SHA256
+import fr.cryptohash.SHA384
+import fr.cryptohash.SHA512
 import java.security.MessageDigest
 import kotlin.test.Test
 import kotlin.test.fail
@@ -168,6 +173,91 @@ class MD5Test {
     }
 
     /**
+     * Test SHA-0 implementation.
+     */
+    @Test
+    fun testSHA0() {
+        val dig: Digest = SHA0()
+        testKat(dig, "abc", "0164b8a914cd2a5e74c4f7ff082c4d97f1edf880")
+        testKat(
+            dig, "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
+                    + "nomnopnopq",
+            "d2516ee1acfa5baf33dfc1c471e438449ef134c8"
+        )
+        testKatMillionA(
+            dig,
+            "3232affa48628a26653b5aaa44541fd90d690603"
+        )
+        testCollision(
+            dig,
+            "a766a602b65cffe773bcf25826b322b3d01b1a972684ef533e"
+                    + "3b4b7f53fe376224c08e47e959b2bc3b519880b928656824"
+                    + "7d110f70f5c5e2b4590ca3f55f52feeffd4c8fe68de83532"
+                    + "9e603cc51e7f02545410d1671d108df5a4000dcf20a43949"
+                    + "49d72cd14fbb0345cf3a295dcda89f998f87552c9a58b1bd"
+                    + "c384835e477185f96e68bebb0025d2d2b69edf21724198f6"
+                    + "88b41deb9b4913fbe696b5457ab39921e1d7591f89de8457"
+                    + "e8613c6c9e3b242879d4d8783b2d9ca9935ea526a729c06e"
+                    + "dfc50137e69330be976012cc5dfe1c14c4c68bd1db3ecb24"
+                    + "438a59a09b5db435563e0d8bdf572f77b53065cef31f32dc"
+                    + "9dbaa04146261e9994bd5cd0758e3d",
+            ("a766a602b65cffe773bcf25826b322b1d01b1ad72684ef51be"
+                    + "3b4b7fd3fe3762a4c08e45e959b2fc3b51988039286528a4"
+                    + "7d110d70f5c5e034590ce3755f52fc6ffd4c8d668de87532"
+                    + "9e603e451e7f02d45410d1e71d108df5a4000dcf20a43949"
+                    + "49d72cd14fbb0145cf3a695dcda89d198f8755ac9a58b13d"
+                    + "c384815e4771c5796e68febb0025d052b69edda17241d876"
+                    + "88b41f6b9b49117be696f5c57ab399a1e1d7199f89de8657"
+                    + "e8613cec9e3b26a879d498783b2d9e29935ea7a6a729806e"
+                    + "dfc50337e693303e9760104c5dfe5c14c4c68951db3ecba4"
+                    + "438a59209b5db435563e0d8bdf572f77b53065cef31f30dc"
+                    + "9dbae04146261c1994bd5c50758e3d")
+        )
+        reportSuccess("SHA-0")
+    }
+
+    /**
+     * Test SHA-1 implementation.
+     */
+    @Test
+    fun testSHA1() {
+        val dig: Digest = SHA1()
+        testKat(dig, "abc", "a9993e364706816aba3e25717850c26c9cd0d89d")
+        testKat(
+            dig, ("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
+                    + "nomnopnopq"),
+            "84983e441c3bd26ebaae4aa1f95129e5e54670f1"
+        )
+        testKatMillionA(
+            dig,
+            "34aa973cd4c4daa4f61eeb2bdbad27316534016f"
+        )
+        reportSuccess("SHA-1")
+    }
+
+    /**
+     * Test SHA-224 implementation.
+     */
+    @Test
+    fun testSHA224() {
+        val dig: Digest = SHA224()
+        testKat(
+            dig, "abc",
+            "23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7"
+        )
+        testKat(
+            dig, ("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
+                    + "nomnopnopq"),
+            "75388b16512776cc5dba5da1fd890150b0c6455cb4f58b1952522525"
+        )
+        testKatMillionA(
+            dig,
+            "20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67"
+        )
+        reportSuccess("SHA-224")
+    }
+
+    /**
      * Test SHA-256 implementation.
      */
     @Test
@@ -187,6 +277,53 @@ class MD5Test {
             "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
         )
         reportSuccess("SHA-256")
+    }
+
+    /**
+     * Test SHA-384 implementation.
+     */
+    @Test
+    fun testSHA384() {
+        val dig: Digest = SHA384()
+        testKat(
+            dig, "abc", "cb00753f45a35e8bb5a03d699ac65007272c32ab0eded163"
+                    + "1a8b605a43ff5bed8086072ba1e7cc2358baeca134c825a7"
+        )
+        testKat(
+            dig, "abcdefghbcdefghicdefghijdefghijkefghijklfghij"
+                    + "klmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnop"
+                    + "qrsmnopqrstnopqrstu", "09330c33f71147e83d192fc782cd1b4753111b173b3b05d2"
+                    + "2fa08086e3b0f712fcc7c71a557e2db966c3e9fa91746039"
+        )
+        testKatMillionA(
+            dig, "9d0e1809716474cb086e834e310a4a1ced149e9c00f24852"
+                    + "7972cec5704c2a5b07b8b3dc38ecc4ebae97ddd87f3d8985"
+        )
+        reportSuccess("SHA-384")
+    }
+
+    /**
+     * Test SHA-512 implementation.
+     */
+    @Test
+    fun testSHA512() {
+        val dig: Digest = SHA512()
+        testKat(
+            dig, "abc", "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a"
+                    + "2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f"
+        )
+        testKat(
+            dig, "abcdefghbcdefghicdefghijdefghijkefghijklfghij"
+                    + "klmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnop"
+                    + "qrsmnopqrstnopqrstu", "8e959b75dae313da8cf4f72814fc143f8f7779c6eb9f7fa17299aeadb6889018"
+                    + "501d289e4900f7e4331b99dec4b5433ac7d329eeb6dd26545e96e55b874be909"
+        )
+        testKatMillionA(
+            dig, (
+                    "e718483d0ce769644e2e42c7bc15b4638e1f98b13b2044285632a803afa973eb"
+                            + "de0ff244877ea60a4cb0432ce577c31beb009c5c2c49aa2e4eadb217ad8cc09b")
+        )
+        reportSuccess("SHA-512")
     }
 
     private fun reportSuccess(name: String) {
