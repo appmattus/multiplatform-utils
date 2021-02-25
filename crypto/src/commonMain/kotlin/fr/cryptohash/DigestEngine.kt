@@ -57,7 +57,7 @@ abstract class DigestEngine : Digest {
      *
      * @param data   the data block
      */
-    protected abstract fun processBlock(data: ByteArray?)
+    protected abstract fun processBlock(data: ByteArray)
 
     /**
      * Perform the final padding and store the result in the
@@ -68,7 +68,7 @@ abstract class DigestEngine : Digest {
      * @param buf   the output buffer
      * @param off   the output offset
      */
-    protected abstract fun doPadding(buf: ByteArray?, off: Int)
+    protected abstract fun doPadding(buf: ByteArray, off: Int)
 
     /**
      * This function is called at object creation time; the
@@ -127,7 +127,7 @@ abstract class DigestEngine : Digest {
     /** @see Digest
      */
     override fun digest(input: ByteArray): ByteArray {
-        update(input, 0, input!!.size)
+        update(input, 0, input.size)
         return digest()
     }
 

@@ -71,7 +71,7 @@ class MD5 : MDHelper(true, 8) {
 
     /** @see DigestEngine
      */
-    override fun doPadding(output: ByteArray?, outputOffset: Int) {
+    override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         for (i in 0..3) encodeLEInt(
             currentVal[i],
@@ -89,7 +89,7 @@ class MD5 : MDHelper(true, 8) {
 
     /** @see DigestEngine
      */
-    override fun processBlock(data: ByteArray?) {
+    override fun processBlock(data: ByteArray) {
         var A = currentVal[0]
         var B = currentVal[1]
         var C = currentVal[2]

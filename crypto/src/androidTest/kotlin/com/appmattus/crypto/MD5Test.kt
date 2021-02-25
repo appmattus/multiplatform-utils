@@ -1,6 +1,8 @@
 package com.appmattus.crypto
 
 import fr.cryptohash.Digest
+import fr.cryptohash.MD2
+import fr.cryptohash.MD4
 import fr.cryptohash.MD5
 import java.security.MessageDigest
 import kotlin.test.Test
@@ -21,6 +23,86 @@ class MD5Test {
 
         val emptyDigest = MessageDigest.getInstance("MD5").digest()
         println("msg digest: " + emptyDigest.asString())
+    }
+
+    /**
+     * Test MD2 implementation.
+     */
+    @Test
+    fun testMD2() {
+        val dig: Digest = MD2()
+        testKat(dig, "", "8350e5a3e24c153df2275c9f80692773")
+        testKat(dig, "a", "32ec01ec4a6dac72c0ab96fb34c0b5d1")
+        testKat(dig, "abc", "da853b0d3f88d99b30283a69e6ded6bb")
+        testKat(
+            dig, "message digest",
+            "ab4f496bfb2a530b219ff33031fe06b0"
+        )
+        testKat(
+            dig, "abcdefghijklmnopqrstuvwxyz",
+            "4e8ddff3650292ab5a4108c3aa47940b"
+        )
+        testKat(
+            dig, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstu"
+                    + "vwxyz0123456789",
+            "da33def2a42df13975352846c30338cd"
+        )
+        testKat(
+            dig, "1234567890123456789012345678901234567890123456789"
+                    + "0123456789012345678901234567890",
+            "d5976f79d83d3a0dc9806c3c66f3efd8"
+        )
+        testKatMillionA(dig, "8c0a09ff1216ecaf95c8130953c62efd")
+        reportSuccess("MD2")
+    }
+
+    /**
+     * Test MD4 implementation.
+     */
+    @Test
+    fun testMD4() {
+        val dig: Digest = MD4()
+        testKat(dig, "", "31d6cfe0d16ae931b73c59d7e0c089c0")
+        testKat(dig, "a", "bde52cb31de33e46245e05fbdbd6fb24")
+        testKat(dig, "abc", "a448017aaf21d8525fc10ae87aa6729d")
+        testKat(
+            dig, "message digest",
+            "d9130a8164549fe818874806e1c7014b"
+        )
+        testKat(
+            dig, "abcdefghijklmnopqrstuvwxyz",
+            "d79e1c308aa5bbcdeea8ed63df412da9"
+        )
+        testKat(
+            dig, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstu"
+                    + "vwxyz0123456789",
+            "043f8582f241db351ce627e153e7f0e4"
+        )
+        testKat(
+            dig, "1234567890123456789012345678901234567890123456789"
+                    + "0123456789012345678901234567890",
+            "e33b4ddc9c38f2199c3e7b164fcc0536"
+        )
+        testKatMillionA(dig, "bbce80cc6bb65e5c6745e30d4eeca9a4")
+        testCollision(
+            dig,
+            "839c7a4d7a92cb5678a5d5b9eea5a7573c8a74deb366c3dc20"
+                    + "a083b69f5d2a3bb3719dc69891e9f95e809fd7e8b23ba631"
+                    + "8edd45e51fe39708bf9427e9c3e8b9",
+            ("839c7a4d7a92cbd678a5d529eea5a7573c8a74deb366c3dc20"
+                    + "a083b69f5d2a3bb3719dc69891e9f95e809fd7e8b23ba631"
+                    + "8edc45e51fe39708bf9427e9c3e8b9")
+        )
+        testCollision(
+            dig,
+            ("839c7a4d7a92cb5678a5d5b9eea5a7573c8a74deb366c3dc20"
+                    + "a083b69f5d2a3bb3719dc69891e9f95e809fd7e8b23ba631"
+                    + "8edd45e51fe39740c213f769cfb8a7"),
+            ("839c7a4d7a92cbd678a5d529eea5a7573c8a74deb366c3dc20"
+                    + "a083b69f5d2a3bb3719dc69891e9f95e809fd7e8b23ba631"
+                    + "8edc45e51fe39740c213f769cfb8a7")
+        )
+        reportSuccess("MD4")
     }
 
     /**
