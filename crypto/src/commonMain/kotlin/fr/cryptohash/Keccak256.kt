@@ -1,14 +1,4 @@
-// $Id: Keccak256.java 189 2010-05-14 21:21:46Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the Keccak-256 digest algorithm under the
- * [Digest] API.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,14 +19,19 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the Keccak-256 digest algorithm under the
+ * [Digest] API.
  *
  * @version   $Revision: 189 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Keccak256  : KeccakCore() {
+class Keccak256 : KeccakCore() {
 
     override fun copy(): Digest {
         return copyState(Keccak256())

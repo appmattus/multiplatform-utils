@@ -1,17 +1,4 @@
-// $Id: HMAC.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the HMAC message authentication algorithm,
- * under the [Digest] API, using the [DigestEngine] class.
- * HMAC is defined in RFC 2104 (also FIPS 198a). This implementation
- * uses an underlying digest algorithm, provided as parameter to the
- * constructor.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -32,14 +19,23 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the HMAC message authentication algorithm,
+ * under the [Digest] API, using the [DigestEngine] class.
+ * HMAC is defined in RFC 2104 (also FIPS 198a). This implementation
+ * uses an underlying digest algorithm, provided as parameter to the
+ * constructor.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 class HMAC : DigestEngine {
+
     /**
      * Build the object. The provided digest algorithm will be used
      * internally; it MUST NOT be directly accessed afterwards. The
@@ -49,25 +45,26 @@ class HMAC : DigestEngine {
      * @param dig   the underlying hash function
      * @param key   the MAC key
      */
+    @Suppress("NAME_SHADOWING")
     constructor(dig: Digest, key: ByteArray) {
         var key = key
         dig.reset()
         this.dig = dig
-        var B = dig.blockLength
-        if (B < 0) {
+        var b = dig.blockLength
+        if (b < 0) {
             /*
 			 * Virtual block length: inferred from the key
 			 * length, with rounding (used for Fugue-xxx).
 			 */
-            val n = -B
-            B = n * ((key.size + (n - 1)) / n)
+            val n = -b
+            b = n * ((key.size + (n - 1)) / n)
         }
-        val keyB = ByteArray(B)
+        val keyB = ByteArray(b)
         var len = key.size
-        if (len > B) {
+        if (len > b) {
             key = dig.digest(key)
             len = key.size
-            if (len > B) len = B
+            if (len > b) len = b
         }
         key.copyInto(keyB, 0, 0, len)
         /*
@@ -119,10 +116,10 @@ class HMAC : DigestEngine {
     private var outputLength: Int
     private var tmpOut: ByteArray
     private fun processKey(keyB: ByteArray) {
-        val B = keyB.size
-        kipad = ByteArray(B)
-        kopad = ByteArray(B)
-        for (i in 0 until B) {
+        val b = keyB.size
+        kipad = ByteArray(b)
+        kopad = ByteArray(b)
+        for (i in 0 until b) {
             val x = keyB[i].toInt()
             kipad[i] = (x xor 0x36).toByte()
             kopad[i] = (x xor 0x5C).toByte()

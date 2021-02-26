@@ -1,13 +1,4 @@
-// $Id: CubeHashCore.java 232 2010-06-17 14:19:24Z tp $
-package fr.cryptohash
-
-/**
- * This class implements the core operations for the CubeHash digest
- * algorithm.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,9 +19,13 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements the core operations for the CubeHash digest
+ * algorithm.
  *
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -79,6 +74,7 @@ abstract class CubeHashCore : DigestEngine() {
         x7 = x7 xor decodeLEInt(data, 28)
     }
 
+    @Suppress("ReplaceWithOperatorAssignment")
     private fun sixteenRounds() {
         for (i in 0..7) {
             xg = x0 + xg

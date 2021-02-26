@@ -1,13 +1,4 @@
-// $Id: HAVALCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements the HAVAL digest algorithm, which accepts 15
- * variants based on the number of passes and digest output.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,9 +19,13 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements the HAVAL digest algorithm, which accepts 15
+ * variants based on the number of passes and digest output.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -42,16 +37,11 @@ package fr.cryptohash
  * @param outputLength   output length (in bits)
  * @param passes         number of passes (3, 4 or 5)
  */
-abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
+abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEngine() {
     /**
      * Output length, in 32-bit words (4, 5, 6, 7, or 8).
      */
-    private var olen: Int
-
-    /**
-     * Number of passes (3, 4 or 5).
-     */
-    private var passes: Int
+    private val olen: Int = outputLength shr 5
 
     /**
      * Padding buffer.
@@ -76,8 +66,6 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
     private lateinit var inw: IntArray
 
     protected fun copyState(dst: HAVALCore): Digest {
-        dst.olen = olen
-        dst.passes = passes
         dst.s0 = s0
         dst.s1 = s1
         dst.s2 = s2
@@ -181,21 +169,21 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F1(x1, x0, x3, x5, x6, x2, x4), 25)
+            x7 = (circularLeft(f1(x1, x0, x3, x5, x6, x2, x4), 25)
                     + circularLeft(x7, 21) + inw[i + 0])
-            x6 = (circularLeft(F1(x0, x7, x2, x4, x5, x1, x3), 25)
+            x6 = (circularLeft(f1(x0, x7, x2, x4, x5, x1, x3), 25)
                     + circularLeft(x6, 21) + inw[i + 1])
-            x5 = (circularLeft(F1(x7, x6, x1, x3, x4, x0, x2), 25)
+            x5 = (circularLeft(f1(x7, x6, x1, x3, x4, x0, x2), 25)
                     + circularLeft(x5, 21) + inw[i + 2])
-            x4 = (circularLeft(F1(x6, x5, x0, x2, x3, x7, x1), 25)
+            x4 = (circularLeft(f1(x6, x5, x0, x2, x3, x7, x1), 25)
                     + circularLeft(x4, 21) + inw[i + 3])
-            x3 = (circularLeft(F1(x5, x4, x7, x1, x2, x6, x0), 25)
+            x3 = (circularLeft(f1(x5, x4, x7, x1, x2, x6, x0), 25)
                     + circularLeft(x3, 21) + inw[i + 4])
-            x2 = (circularLeft(F1(x4, x3, x6, x0, x1, x5, x7), 25)
+            x2 = (circularLeft(f1(x4, x3, x6, x0, x1, x5, x7), 25)
                     + circularLeft(x2, 21) + inw[i + 5])
-            x1 = (circularLeft(F1(x3, x2, x5, x7, x0, x4, x6), 25)
+            x1 = (circularLeft(f1(x3, x2, x5, x7, x0, x4, x6), 25)
                     + circularLeft(x1, 21) + inw[i + 6])
-            x0 = (circularLeft(F1(x2, x1, x4, x6, x7, x3, x5), 25)
+            x0 = (circularLeft(f1(x2, x1, x4, x6, x7, x3, x5), 25)
                     + circularLeft(x0, 21) + inw[i + 7])
             i += 8
         }
@@ -220,28 +208,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F2(x4, x2, x1, x0, x5, x3, x6), 25)
+            x7 = (circularLeft(f2(x4, x2, x1, x0, x5, x3, x6), 25)
                     + circularLeft(x7, 21)
                     + inw[wp2[i + 0]] + K2[i + 0])
-            x6 = (circularLeft(F2(x3, x1, x0, x7, x4, x2, x5), 25)
+            x6 = (circularLeft(f2(x3, x1, x0, x7, x4, x2, x5), 25)
                     + circularLeft(x6, 21)
                     + inw[wp2[i + 1]] + K2[i + 1])
-            x5 = (circularLeft(F2(x2, x0, x7, x6, x3, x1, x4), 25)
+            x5 = (circularLeft(f2(x2, x0, x7, x6, x3, x1, x4), 25)
                     + circularLeft(x5, 21)
                     + inw[wp2[i + 2]] + K2[i + 2])
-            x4 = (circularLeft(F2(x1, x7, x6, x5, x2, x0, x3), 25)
+            x4 = (circularLeft(f2(x1, x7, x6, x5, x2, x0, x3), 25)
                     + circularLeft(x4, 21)
                     + inw[wp2[i + 3]] + K2[i + 3])
-            x3 = (circularLeft(F2(x0, x6, x5, x4, x1, x7, x2), 25)
+            x3 = (circularLeft(f2(x0, x6, x5, x4, x1, x7, x2), 25)
                     + circularLeft(x3, 21)
                     + inw[wp2[i + 4]] + K2[i + 4])
-            x2 = (circularLeft(F2(x7, x5, x4, x3, x0, x6, x1), 25)
+            x2 = (circularLeft(f2(x7, x5, x4, x3, x0, x6, x1), 25)
                     + circularLeft(x2, 21)
                     + inw[wp2[i + 5]] + K2[i + 5])
-            x1 = (circularLeft(F2(x6, x4, x3, x2, x7, x5, x0), 25)
+            x1 = (circularLeft(f2(x6, x4, x3, x2, x7, x5, x0), 25)
                     + circularLeft(x1, 21)
                     + inw[wp2[i + 6]] + K2[i + 6])
-            x0 = (circularLeft(F2(x5, x3, x2, x1, x6, x4, x7), 25)
+            x0 = (circularLeft(f2(x5, x3, x2, x1, x6, x4, x7), 25)
                     + circularLeft(x0, 21)
                     + inw[wp2[i + 7]] + K2[i + 7])
             i += 8
@@ -267,28 +255,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F3(x6, x1, x2, x3, x4, x5, x0), 25)
+            x7 = (circularLeft(f3(x6, x1, x2, x3, x4, x5, x0), 25)
                     + circularLeft(x7, 21)
                     + inw[wp3[i + 0]] + K3[i + 0])
-            x6 = (circularLeft(F3(x5, x0, x1, x2, x3, x4, x7), 25)
+            x6 = (circularLeft(f3(x5, x0, x1, x2, x3, x4, x7), 25)
                     + circularLeft(x6, 21)
                     + inw[wp3[i + 1]] + K3[i + 1])
-            x5 = (circularLeft(F3(x4, x7, x0, x1, x2, x3, x6), 25)
+            x5 = (circularLeft(f3(x4, x7, x0, x1, x2, x3, x6), 25)
                     + circularLeft(x5, 21)
                     + inw[wp3[i + 2]] + K3[i + 2])
-            x4 = (circularLeft(F3(x3, x6, x7, x0, x1, x2, x5), 25)
+            x4 = (circularLeft(f3(x3, x6, x7, x0, x1, x2, x5), 25)
                     + circularLeft(x4, 21)
                     + inw[wp3[i + 3]] + K3[i + 3])
-            x3 = (circularLeft(F3(x2, x5, x6, x7, x0, x1, x4), 25)
+            x3 = (circularLeft(f3(x2, x5, x6, x7, x0, x1, x4), 25)
                     + circularLeft(x3, 21)
                     + inw[wp3[i + 4]] + K3[i + 4])
-            x2 = (circularLeft(F3(x1, x4, x5, x6, x7, x0, x3), 25)
+            x2 = (circularLeft(f3(x1, x4, x5, x6, x7, x0, x3), 25)
                     + circularLeft(x2, 21)
                     + inw[wp3[i + 5]] + K3[i + 5])
-            x1 = (circularLeft(F3(x0, x3, x4, x5, x6, x7, x2), 25)
+            x1 = (circularLeft(f3(x0, x3, x4, x5, x6, x7, x2), 25)
                     + circularLeft(x1, 21)
                     + inw[wp3[i + 6]] + K3[i + 6])
-            x0 = (circularLeft(F3(x7, x2, x3, x4, x5, x6, x1), 25)
+            x0 = (circularLeft(f3(x7, x2, x3, x4, x5, x6, x1), 25)
                     + circularLeft(x0, 21)
                     + inw[wp3[i + 7]] + K3[i + 7])
             i += 8
@@ -314,21 +302,21 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F1(x2, x6, x1, x4, x5, x3, x0), 25)
+            x7 = (circularLeft(f1(x2, x6, x1, x4, x5, x3, x0), 25)
                     + circularLeft(x7, 21) + inw[i + 0])
-            x6 = (circularLeft(F1(x1, x5, x0, x3, x4, x2, x7), 25)
+            x6 = (circularLeft(f1(x1, x5, x0, x3, x4, x2, x7), 25)
                     + circularLeft(x6, 21) + inw[i + 1])
-            x5 = (circularLeft(F1(x0, x4, x7, x2, x3, x1, x6), 25)
+            x5 = (circularLeft(f1(x0, x4, x7, x2, x3, x1, x6), 25)
                     + circularLeft(x5, 21) + inw[i + 2])
-            x4 = (circularLeft(F1(x7, x3, x6, x1, x2, x0, x5), 25)
+            x4 = (circularLeft(f1(x7, x3, x6, x1, x2, x0, x5), 25)
                     + circularLeft(x4, 21) + inw[i + 3])
-            x3 = (circularLeft(F1(x6, x2, x5, x0, x1, x7, x4), 25)
+            x3 = (circularLeft(f1(x6, x2, x5, x0, x1, x7, x4), 25)
                     + circularLeft(x3, 21) + inw[i + 4])
-            x2 = (circularLeft(F1(x5, x1, x4, x7, x0, x6, x3), 25)
+            x2 = (circularLeft(f1(x5, x1, x4, x7, x0, x6, x3), 25)
                     + circularLeft(x2, 21) + inw[i + 5])
-            x1 = (circularLeft(F1(x4, x0, x3, x6, x7, x5, x2), 25)
+            x1 = (circularLeft(f1(x4, x0, x3, x6, x7, x5, x2), 25)
                     + circularLeft(x1, 21) + inw[i + 6])
-            x0 = (circularLeft(F1(x3, x7, x2, x5, x6, x4, x1), 25)
+            x0 = (circularLeft(f1(x3, x7, x2, x5, x6, x4, x1), 25)
                     + circularLeft(x0, 21) + inw[i + 7])
             i += 8
         }
@@ -353,28 +341,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F2(x3, x5, x2, x0, x1, x6, x4), 25)
+            x7 = (circularLeft(f2(x3, x5, x2, x0, x1, x6, x4), 25)
                     + circularLeft(x7, 21)
                     + inw[wp2[i + 0]] + K2[i + 0])
-            x6 = (circularLeft(F2(x2, x4, x1, x7, x0, x5, x3), 25)
+            x6 = (circularLeft(f2(x2, x4, x1, x7, x0, x5, x3), 25)
                     + circularLeft(x6, 21)
                     + inw[wp2[i + 1]] + K2[i + 1])
-            x5 = (circularLeft(F2(x1, x3, x0, x6, x7, x4, x2), 25)
+            x5 = (circularLeft(f2(x1, x3, x0, x6, x7, x4, x2), 25)
                     + circularLeft(x5, 21)
                     + inw[wp2[i + 2]] + K2[i + 2])
-            x4 = (circularLeft(F2(x0, x2, x7, x5, x6, x3, x1), 25)
+            x4 = (circularLeft(f2(x0, x2, x7, x5, x6, x3, x1), 25)
                     + circularLeft(x4, 21)
                     + inw[wp2[i + 3]] + K2[i + 3])
-            x3 = (circularLeft(F2(x7, x1, x6, x4, x5, x2, x0), 25)
+            x3 = (circularLeft(f2(x7, x1, x6, x4, x5, x2, x0), 25)
                     + circularLeft(x3, 21)
                     + inw[wp2[i + 4]] + K2[i + 4])
-            x2 = (circularLeft(F2(x6, x0, x5, x3, x4, x1, x7), 25)
+            x2 = (circularLeft(f2(x6, x0, x5, x3, x4, x1, x7), 25)
                     + circularLeft(x2, 21)
                     + inw[wp2[i + 5]] + K2[i + 5])
-            x1 = (circularLeft(F2(x5, x7, x4, x2, x3, x0, x6), 25)
+            x1 = (circularLeft(f2(x5, x7, x4, x2, x3, x0, x6), 25)
                     + circularLeft(x1, 21)
                     + inw[wp2[i + 6]] + K2[i + 6])
-            x0 = (circularLeft(F2(x4, x6, x3, x1, x2, x7, x5), 25)
+            x0 = (circularLeft(f2(x4, x6, x3, x1, x2, x7, x5), 25)
                     + circularLeft(x0, 21)
                     + inw[wp2[i + 7]] + K2[i + 7])
             i += 8
@@ -400,28 +388,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F3(x1, x4, x3, x6, x0, x2, x5), 25)
+            x7 = (circularLeft(f3(x1, x4, x3, x6, x0, x2, x5), 25)
                     + circularLeft(x7, 21)
                     + inw[wp3[i + 0]] + K3[i + 0])
-            x6 = (circularLeft(F3(x0, x3, x2, x5, x7, x1, x4), 25)
+            x6 = (circularLeft(f3(x0, x3, x2, x5, x7, x1, x4), 25)
                     + circularLeft(x6, 21)
                     + inw[wp3[i + 1]] + K3[i + 1])
-            x5 = (circularLeft(F3(x7, x2, x1, x4, x6, x0, x3), 25)
+            x5 = (circularLeft(f3(x7, x2, x1, x4, x6, x0, x3), 25)
                     + circularLeft(x5, 21)
                     + inw[wp3[i + 2]] + K3[i + 2])
-            x4 = (circularLeft(F3(x6, x1, x0, x3, x5, x7, x2), 25)
+            x4 = (circularLeft(f3(x6, x1, x0, x3, x5, x7, x2), 25)
                     + circularLeft(x4, 21)
                     + inw[wp3[i + 3]] + K3[i + 3])
-            x3 = (circularLeft(F3(x5, x0, x7, x2, x4, x6, x1), 25)
+            x3 = (circularLeft(f3(x5, x0, x7, x2, x4, x6, x1), 25)
                     + circularLeft(x3, 21)
                     + inw[wp3[i + 4]] + K3[i + 4])
-            x2 = (circularLeft(F3(x4, x7, x6, x1, x3, x5, x0), 25)
+            x2 = (circularLeft(f3(x4, x7, x6, x1, x3, x5, x0), 25)
                     + circularLeft(x2, 21)
                     + inw[wp3[i + 5]] + K3[i + 5])
-            x1 = (circularLeft(F3(x3, x6, x5, x0, x2, x4, x7), 25)
+            x1 = (circularLeft(f3(x3, x6, x5, x0, x2, x4, x7), 25)
                     + circularLeft(x1, 21)
                     + inw[wp3[i + 6]] + K3[i + 6])
-            x0 = (circularLeft(F3(x2, x5, x4, x7, x1, x3, x6), 25)
+            x0 = (circularLeft(f3(x2, x5, x4, x7, x1, x3, x6), 25)
                     + circularLeft(x0, 21)
                     + inw[wp3[i + 7]] + K3[i + 7])
             i += 8
@@ -447,28 +435,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F4(x6, x4, x0, x5, x2, x1, x3), 25)
+            x7 = (circularLeft(f4(x6, x4, x0, x5, x2, x1, x3), 25)
                     + circularLeft(x7, 21)
                     + inw[wp4[i + 0]] + K4[i + 0])
-            x6 = (circularLeft(F4(x5, x3, x7, x4, x1, x0, x2), 25)
+            x6 = (circularLeft(f4(x5, x3, x7, x4, x1, x0, x2), 25)
                     + circularLeft(x6, 21)
                     + inw[wp4[i + 1]] + K4[i + 1])
-            x5 = (circularLeft(F4(x4, x2, x6, x3, x0, x7, x1), 25)
+            x5 = (circularLeft(f4(x4, x2, x6, x3, x0, x7, x1), 25)
                     + circularLeft(x5, 21)
                     + inw[wp4[i + 2]] + K4[i + 2])
-            x4 = (circularLeft(F4(x3, x1, x5, x2, x7, x6, x0), 25)
+            x4 = (circularLeft(f4(x3, x1, x5, x2, x7, x6, x0), 25)
                     + circularLeft(x4, 21)
                     + inw[wp4[i + 3]] + K4[i + 3])
-            x3 = (circularLeft(F4(x2, x0, x4, x1, x6, x5, x7), 25)
+            x3 = (circularLeft(f4(x2, x0, x4, x1, x6, x5, x7), 25)
                     + circularLeft(x3, 21)
                     + inw[wp4[i + 4]] + K4[i + 4])
-            x2 = (circularLeft(F4(x1, x7, x3, x0, x5, x4, x6), 25)
+            x2 = (circularLeft(f4(x1, x7, x3, x0, x5, x4, x6), 25)
                     + circularLeft(x2, 21)
                     + inw[wp4[i + 5]] + K4[i + 5])
-            x1 = (circularLeft(F4(x0, x6, x2, x7, x4, x3, x5), 25)
+            x1 = (circularLeft(f4(x0, x6, x2, x7, x4, x3, x5), 25)
                     + circularLeft(x1, 21)
                     + inw[wp4[i + 6]] + K4[i + 6])
-            x0 = (circularLeft(F4(x7, x5, x1, x6, x3, x2, x4), 25)
+            x0 = (circularLeft(f4(x7, x5, x1, x6, x3, x2, x4), 25)
                     + circularLeft(x0, 21)
                     + inw[wp4[i + 7]] + K4[i + 7])
             i += 8
@@ -494,21 +482,21 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F1(x3, x4, x1, x0, x5, x2, x6), 25)
+            x7 = (circularLeft(f1(x3, x4, x1, x0, x5, x2, x6), 25)
                     + circularLeft(x7, 21) + inw[i + 0])
-            x6 = (circularLeft(F1(x2, x3, x0, x7, x4, x1, x5), 25)
+            x6 = (circularLeft(f1(x2, x3, x0, x7, x4, x1, x5), 25)
                     + circularLeft(x6, 21) + inw[i + 1])
-            x5 = (circularLeft(F1(x1, x2, x7, x6, x3, x0, x4), 25)
+            x5 = (circularLeft(f1(x1, x2, x7, x6, x3, x0, x4), 25)
                     + circularLeft(x5, 21) + inw[i + 2])
-            x4 = (circularLeft(F1(x0, x1, x6, x5, x2, x7, x3), 25)
+            x4 = (circularLeft(f1(x0, x1, x6, x5, x2, x7, x3), 25)
                     + circularLeft(x4, 21) + inw[i + 3])
-            x3 = (circularLeft(F1(x7, x0, x5, x4, x1, x6, x2), 25)
+            x3 = (circularLeft(f1(x7, x0, x5, x4, x1, x6, x2), 25)
                     + circularLeft(x3, 21) + inw[i + 4])
-            x2 = (circularLeft(F1(x6, x7, x4, x3, x0, x5, x1), 25)
+            x2 = (circularLeft(f1(x6, x7, x4, x3, x0, x5, x1), 25)
                     + circularLeft(x2, 21) + inw[i + 5])
-            x1 = (circularLeft(F1(x5, x6, x3, x2, x7, x4, x0), 25)
+            x1 = (circularLeft(f1(x5, x6, x3, x2, x7, x4, x0), 25)
                     + circularLeft(x1, 21) + inw[i + 6])
-            x0 = (circularLeft(F1(x4, x5, x2, x1, x6, x3, x7), 25)
+            x0 = (circularLeft(f1(x4, x5, x2, x1, x6, x3, x7), 25)
                     + circularLeft(x0, 21) + inw[i + 7])
             i += 8
         }
@@ -533,28 +521,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F2(x6, x2, x1, x0, x3, x4, x5), 25)
+            x7 = (circularLeft(f2(x6, x2, x1, x0, x3, x4, x5), 25)
                     + circularLeft(x7, 21)
                     + inw[wp2[i + 0]] + K2[i + 0])
-            x6 = (circularLeft(F2(x5, x1, x0, x7, x2, x3, x4), 25)
+            x6 = (circularLeft(f2(x5, x1, x0, x7, x2, x3, x4), 25)
                     + circularLeft(x6, 21)
                     + inw[wp2[i + 1]] + K2[i + 1])
-            x5 = (circularLeft(F2(x4, x0, x7, x6, x1, x2, x3), 25)
+            x5 = (circularLeft(f2(x4, x0, x7, x6, x1, x2, x3), 25)
                     + circularLeft(x5, 21)
                     + inw[wp2[i + 2]] + K2[i + 2])
-            x4 = (circularLeft(F2(x3, x7, x6, x5, x0, x1, x2), 25)
+            x4 = (circularLeft(f2(x3, x7, x6, x5, x0, x1, x2), 25)
                     + circularLeft(x4, 21)
                     + inw[wp2[i + 3]] + K2[i + 3])
-            x3 = (circularLeft(F2(x2, x6, x5, x4, x7, x0, x1), 25)
+            x3 = (circularLeft(f2(x2, x6, x5, x4, x7, x0, x1), 25)
                     + circularLeft(x3, 21)
                     + inw[wp2[i + 4]] + K2[i + 4])
-            x2 = (circularLeft(F2(x1, x5, x4, x3, x6, x7, x0), 25)
+            x2 = (circularLeft(f2(x1, x5, x4, x3, x6, x7, x0), 25)
                     + circularLeft(x2, 21)
                     + inw[wp2[i + 5]] + K2[i + 5])
-            x1 = (circularLeft(F2(x0, x4, x3, x2, x5, x6, x7), 25)
+            x1 = (circularLeft(f2(x0, x4, x3, x2, x5, x6, x7), 25)
                     + circularLeft(x1, 21)
                     + inw[wp2[i + 6]] + K2[i + 6])
-            x0 = (circularLeft(F2(x7, x3, x2, x1, x4, x5, x6), 25)
+            x0 = (circularLeft(f2(x7, x3, x2, x1, x4, x5, x6), 25)
                     + circularLeft(x0, 21)
                     + inw[wp2[i + 7]] + K2[i + 7])
             i += 8
@@ -580,28 +568,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F3(x2, x6, x0, x4, x3, x1, x5), 25)
+            x7 = (circularLeft(f3(x2, x6, x0, x4, x3, x1, x5), 25)
                     + circularLeft(x7, 21)
                     + inw[wp3[i + 0]] + K3[i + 0])
-            x6 = (circularLeft(F3(x1, x5, x7, x3, x2, x0, x4), 25)
+            x6 = (circularLeft(f3(x1, x5, x7, x3, x2, x0, x4), 25)
                     + circularLeft(x6, 21)
                     + inw[wp3[i + 1]] + K3[i + 1])
-            x5 = (circularLeft(F3(x0, x4, x6, x2, x1, x7, x3), 25)
+            x5 = (circularLeft(f3(x0, x4, x6, x2, x1, x7, x3), 25)
                     + circularLeft(x5, 21)
                     + inw[wp3[i + 2]] + K3[i + 2])
-            x4 = (circularLeft(F3(x7, x3, x5, x1, x0, x6, x2), 25)
+            x4 = (circularLeft(f3(x7, x3, x5, x1, x0, x6, x2), 25)
                     + circularLeft(x4, 21)
                     + inw[wp3[i + 3]] + K3[i + 3])
-            x3 = (circularLeft(F3(x6, x2, x4, x0, x7, x5, x1), 25)
+            x3 = (circularLeft(f3(x6, x2, x4, x0, x7, x5, x1), 25)
                     + circularLeft(x3, 21)
                     + inw[wp3[i + 4]] + K3[i + 4])
-            x2 = (circularLeft(F3(x5, x1, x3, x7, x6, x4, x0), 25)
+            x2 = (circularLeft(f3(x5, x1, x3, x7, x6, x4, x0), 25)
                     + circularLeft(x2, 21)
                     + inw[wp3[i + 5]] + K3[i + 5])
-            x1 = (circularLeft(F3(x4, x0, x2, x6, x5, x3, x7), 25)
+            x1 = (circularLeft(f3(x4, x0, x2, x6, x5, x3, x7), 25)
                     + circularLeft(x1, 21)
                     + inw[wp3[i + 6]] + K3[i + 6])
-            x0 = (circularLeft(F3(x3, x7, x1, x5, x4, x2, x6), 25)
+            x0 = (circularLeft(f3(x3, x7, x1, x5, x4, x2, x6), 25)
                     + circularLeft(x0, 21)
                     + inw[wp3[i + 7]] + K3[i + 7])
             i += 8
@@ -627,28 +615,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F4(x1, x5, x3, x2, x0, x4, x6), 25)
+            x7 = (circularLeft(f4(x1, x5, x3, x2, x0, x4, x6), 25)
                     + circularLeft(x7, 21)
                     + inw[wp4[i + 0]] + K4[i + 0])
-            x6 = (circularLeft(F4(x0, x4, x2, x1, x7, x3, x5), 25)
+            x6 = (circularLeft(f4(x0, x4, x2, x1, x7, x3, x5), 25)
                     + circularLeft(x6, 21)
                     + inw[wp4[i + 1]] + K4[i + 1])
-            x5 = (circularLeft(F4(x7, x3, x1, x0, x6, x2, x4), 25)
+            x5 = (circularLeft(f4(x7, x3, x1, x0, x6, x2, x4), 25)
                     + circularLeft(x5, 21)
                     + inw[wp4[i + 2]] + K4[i + 2])
-            x4 = (circularLeft(F4(x6, x2, x0, x7, x5, x1, x3), 25)
+            x4 = (circularLeft(f4(x6, x2, x0, x7, x5, x1, x3), 25)
                     + circularLeft(x4, 21)
                     + inw[wp4[i + 3]] + K4[i + 3])
-            x3 = (circularLeft(F4(x5, x1, x7, x6, x4, x0, x2), 25)
+            x3 = (circularLeft(f4(x5, x1, x7, x6, x4, x0, x2), 25)
                     + circularLeft(x3, 21)
                     + inw[wp4[i + 4]] + K4[i + 4])
-            x2 = (circularLeft(F4(x4, x0, x6, x5, x3, x7, x1), 25)
+            x2 = (circularLeft(f4(x4, x0, x6, x5, x3, x7, x1), 25)
                     + circularLeft(x2, 21)
                     + inw[wp4[i + 5]] + K4[i + 5])
-            x1 = (circularLeft(F4(x3, x7, x5, x4, x2, x6, x0), 25)
+            x1 = (circularLeft(f4(x3, x7, x5, x4, x2, x6, x0), 25)
                     + circularLeft(x1, 21)
                     + inw[wp4[i + 6]] + K4[i + 6])
-            x0 = (circularLeft(F4(x2, x6, x4, x3, x1, x5, x7), 25)
+            x0 = (circularLeft(f4(x2, x6, x4, x3, x1, x5, x7), 25)
                     + circularLeft(x0, 21)
                     + inw[wp4[i + 7]] + K4[i + 7])
             i += 8
@@ -674,28 +662,28 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeft(F5(x2, x5, x0, x6, x4, x3, x1), 25)
+            x7 = (circularLeft(f5(x2, x5, x0, x6, x4, x3, x1), 25)
                     + circularLeft(x7, 21)
                     + inw[wp5[i + 0]] + K5[i + 0])
-            x6 = (circularLeft(F5(x1, x4, x7, x5, x3, x2, x0), 25)
+            x6 = (circularLeft(f5(x1, x4, x7, x5, x3, x2, x0), 25)
                     + circularLeft(x6, 21)
                     + inw[wp5[i + 1]] + K5[i + 1])
-            x5 = (circularLeft(F5(x0, x3, x6, x4, x2, x1, x7), 25)
+            x5 = (circularLeft(f5(x0, x3, x6, x4, x2, x1, x7), 25)
                     + circularLeft(x5, 21)
                     + inw[wp5[i + 2]] + K5[i + 2])
-            x4 = (circularLeft(F5(x7, x2, x5, x3, x1, x0, x6), 25)
+            x4 = (circularLeft(f5(x7, x2, x5, x3, x1, x0, x6), 25)
                     + circularLeft(x4, 21)
                     + inw[wp5[i + 3]] + K5[i + 3])
-            x3 = (circularLeft(F5(x6, x1, x4, x2, x0, x7, x5), 25)
+            x3 = (circularLeft(f5(x6, x1, x4, x2, x0, x7, x5), 25)
                     + circularLeft(x3, 21)
                     + inw[wp5[i + 4]] + K5[i + 4])
-            x2 = (circularLeft(F5(x5, x0, x3, x1, x7, x6, x4), 25)
+            x2 = (circularLeft(f5(x5, x0, x3, x1, x7, x6, x4), 25)
                     + circularLeft(x2, 21)
                     + inw[wp5[i + 5]] + K5[i + 5])
-            x1 = (circularLeft(F5(x4, x7, x2, x0, x6, x5, x3), 25)
+            x1 = (circularLeft(f5(x4, x7, x2, x0, x6, x5, x3), 25)
                     + circularLeft(x1, 21)
                     + inw[wp5[i + 6]] + K5[i + 6])
-            x0 = (circularLeft(F5(x3, x6, x1, x7, x5, x4, x2), 25)
+            x0 = (circularLeft(f5(x3, x6, x1, x7, x5, x4, x2), 25)
                     + circularLeft(x0, 21)
                     + inw[wp5[i + 7]] + K5[i + 7])
             i += 8
@@ -870,14 +858,14 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
             return x shl n or (x ushr 32 - n)
         }
 
-        private fun F1(
+        private fun f1(
             x6: Int, x5: Int, x4: Int,
             x3: Int, x2: Int, x1: Int, x0: Int
         ): Int {
             return x1 and x4 xor (x2 and x5) xor (x3 and x6) xor (x0 and x1) xor x0
         }
 
-        private fun F2(
+        private fun f2(
             x6: Int, x5: Int, x4: Int,
             x3: Int, x2: Int, x1: Int, x0: Int
         ): Int {
@@ -885,7 +873,7 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
                     xor (x4 and (x1 xor x5)) xor (x3 and x5 xor x0))
         }
 
-        private fun F3(
+        private fun f3(
             x6: Int, x5: Int, x4: Int,
             x3: Int, x2: Int, x1: Int, x0: Int
         ): Int {
@@ -893,7 +881,7 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
                     xor (x1 and x4) xor (x2 and x5) xor x0)
         }
 
-        private fun F4(
+        private fun f4(
             x6: Int, x5: Int, x4: Int,
             x3: Int, x2: Int, x1: Int, x0: Int
         ): Int {
@@ -901,7 +889,7 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
                     xor (x4 and (x2.inv() and x5 xor x1 xor x6 xor x0)) xor (x2 and x6) xor x0)
         }
 
-        private fun F5(
+        private fun f5(
             x6: Int, x5: Int, x4: Int,
             x3: Int, x2: Int, x1: Int, x0: Int
         ): Int {
@@ -973,10 +961,5 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         private fun mix192_5(x6: Int, x7: Int): Int {
             return x6 and 0x03E00000 or (x7 and -0x4000000) ushr 21
         }
-    }
-
-    init {
-        olen = outputLength shr 5
-        this.passes = passes
     }
 }

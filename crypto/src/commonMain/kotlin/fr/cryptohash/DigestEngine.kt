@@ -1,24 +1,4 @@
-// $Id: DigestEngine.java 229 2010-06-16 20:22:27Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class is a template which can be used to implement hash
- * functions. It takes care of some of the API, and also provides an
- * internal data buffer whose length is equal to the hash function
- * internal block length.
- *
- *
- * Classes which use this template MUST provide a working [ ][.getBlockLength] method even before initialization (alternatively,
- * they may define a custom [.getInternalBlockLength] which does
- * not call [.getBlockLength]. The [.getDigestLength] should
- * also be operational from the beginning, but it is acceptable that it
- * returns 0 while the [.doInit] method has not been called
- * yet.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -39,9 +19,22 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
+ * This class is a template which can be used to implement hash
+ * functions. It takes care of some of the API, and also provides an
+ * internal data buffer whose length is equal to the hash function
+ * internal block length.
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * Classes which use this template MUST provide a working [ ][.getBlockLength] method even before initialization (alternatively,
+ * they may define a custom [.getInternalBlockLength] which does
+ * not call [.getBlockLength]. The [.getDigestLength] should
+ * also be operational from the beginning, but it is acceptable that it
+ * returns 0 while the [.doInit] method has not been called
+ * yet.
  *
  * @version   $Revision: 229 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -78,6 +71,7 @@ abstract class DigestEngine : Digest {
      * [.getDigestLength].
      */
     protected abstract fun doInit()
+
     private var digestLen: Int
     private val blockLen: Int
     private var inputLen: Int
@@ -95,6 +89,7 @@ abstract class DigestEngine : Digest {
      * @return  a block-sized internal buffer
      */
     protected val blockBuffer: ByteArray
+
     private var outputBuf: ByteArray
 
     /**

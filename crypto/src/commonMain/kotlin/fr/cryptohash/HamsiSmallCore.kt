@@ -1,12 +1,4 @@
-// $Id: HamsiSmallCore.java 239 2010-06-21 14:58:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements Hamsi-224 and Hamsi-256.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,18 +19,25 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements Hamsi-224 and Hamsi-256.
  *
  * @version   $Revision: 239 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class HamsiSmallCore : Digest {
-    private val h: IntArray
+    private val h: IntArray = IntArray(8)
     private var bitCount: Long = 0
     private var partial = 0
     private var partialLen = 0
+
+    init {
+        reset()
+    }
 
     override fun update(`in`: Byte) {
         bitCount += 8
@@ -57,6 +56,7 @@ abstract class HamsiSmallCore : Digest {
         update(inbuf, 0, inbuf.size)
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -101,6 +101,7 @@ abstract class HamsiSmallCore : Digest {
         return digest()
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         val bitCount = bitCount
@@ -175,6 +176,8 @@ abstract class HamsiSmallCore : Digest {
      * @return  the duplicate
      */
     abstract fun dup(): HamsiSmallCore
+
+    @Suppress("JoinDeclarationAndAssignment")
     private fun process(b0: Int, b1: Int, b2: Int, b3: Int) {
         var rp = T256_0[b0]
         var m0 = rp[0]
@@ -923,17 +926,17 @@ abstract class HamsiSmallCore : Digest {
         )
 
         private fun makeT(x: Int): Array<IntArray> {
-            val T = Array(256) { IntArray(8) }
+            val t = Array(256) { IntArray(8) }
             for (y in 0..255) {
                 for (z in 0..7) {
                     var a = 0
                     for (k in 0..7) {
                         if (y and (1 shl 7 - k) != 0) a = a xor Tsrc[x + k][z]
                     }
-                    T[y][z] = a
+                    t[y][z] = a
                 }
             }
-            return T
+            return t
         }
 
         private val T256_0 = makeT(0)
@@ -960,10 +963,5 @@ abstract class HamsiSmallCore : Digest {
             -0x63f3507, 0x639c0ff0, -0x63f9c64, 0x0ff0caf9,
             -0x3506f010, -0x63f9c64, -0x35060640, 0x0ff0639c
         )
-    }
-
-    init {
-        h = IntArray(8)
-        reset()
     }
 }

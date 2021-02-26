@@ -1,15 +1,4 @@
-// $Id: BLAKESmallCore.java 252 2011-06-07 17:55:14Z tp $
-package fr.cryptohash
-
-import kotlin.experimental.or
-
-/**
- * This class implements BLAKE-224 and BLAKE-256, which differ only by
- * the IV, output length, and one bit in the padding.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,14 +19,21 @@ import kotlin.experimental.or
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+import kotlin.experimental.or
+
+/**
+ * This class implements BLAKE-224 and BLAKE-256, which differ only by
+ * the IV, output length, and one bit in the padding.
  *
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class BLAKESmallCore : DigestEngine() {
+
     private var h0 = 0
     private var h1 = 0
     private var h2 = 0

@@ -1,12 +1,4 @@
-// $Id: ECHOBigCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements ECHO-384 and ECHO-512.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,61 +19,64 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements ECHO-384 and ECHO-512.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class ECHOBigCore : DigestEngine() {
-    private lateinit var V: IntArray
-    private var C0 = 0
-    private var C1 = 0
-    private var C2 = 0
-    private var C3 = 0
-    private lateinit var W: IntArray
-    private var K0 = 0
-    private var K1 = 0
-    private var K2 = 0
-    private var K3 = 0
+    private lateinit var v: IntArray
+    private var c0 = 0
+    private var c1 = 0
+    private var c2 = 0
+    private var c3 = 0
+    private lateinit var w: IntArray
+    private var k0 = 0
+    private var k1 = 0
+    private var k2 = 0
+    private var k3 = 0
 
     override val blockLength: Int
         get() = 128
 
     protected fun copyState(dst: ECHOBigCore): Digest {
-        V.copyInto(dst.V, 0, 0, 32)
-        dst.C0 = C0
-        dst.C1 = C1
-        dst.C2 = C2
-        dst.C3 = C3
+        v.copyInto(dst.v, 0, 0, 32)
+        dst.c0 = c0
+        dst.c1 = c1
+        dst.c2 = c2
+        dst.c3 = c3
         return super.copyState(dst)
     }
 
     override fun engineReset() {
         val outSize = digestLength shl 3
-        V[12] = outSize
-        V[8] = V[12]
-        V[4] = V[8]
-        V[0] = V[4]
-        V[28] = outSize
-        V[24] = V[28]
-        V[20] = V[24]
-        V[16] = V[20]
+        v[12] = outSize
+        v[8] = v[12]
+        v[4] = v[8]
+        v[0] = v[4]
+        v[28] = outSize
+        v[24] = v[28]
+        v[20] = v[24]
+        v[16] = v[20]
         for (i in 0..2) {
-            V[i + 13] = 0
-            V[i + 9] = V[i + 13]
-            V[i + 5] = V[i + 9]
-            V[i + 1] = V[i + 5]
-            V[i + 29] = 0
-            V[i + 25] = V[i + 29]
-            V[i + 21] = V[i + 25]
-            V[i + 17] = V[i + 21]
+            v[i + 13] = 0
+            v[i + 9] = v[i + 13]
+            v[i + 5] = v[i + 9]
+            v[i + 1] = v[i + 5]
+            v[i + 29] = 0
+            v[i + 25] = v[i + 29]
+            v[i + 21] = v[i + 25]
+            v[i + 17] = v[i + 21]
         }
-        C3 = 0
-        C2 = C3
-        C1 = C2
-        C0 = C1
+        c3 = 0
+        c2 = c3
+        c1 = c2
+        c0 = c1
     }
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
@@ -89,24 +84,24 @@ abstract class ECHOBigCore : DigestEngine() {
         val elen = ptr shl 3
         incrCounter(elen)
         val buf = blockBuffer
-        val sC0 = C0
-        val sC1 = C1
-        val sC2 = C2
-        val sC3 = C3
+        val sC0 = c0
+        val sC1 = c1
+        val sC2 = c2
+        val sC3 = c3
         if (elen == 0) {
-            C3 = 0
-            C2 = C3
-            C1 = C2
-            C0 = C1
+            c3 = 0
+            c2 = c3
+            c1 = c2
+            c0 = c1
         }
         buf[ptr++] = 0x80.toByte()
         if (ptr > 110) {
             for (i in ptr..127) buf[i] = 0x00
             compress(buf)
-            C3 = 0
-            C2 = C3
-            C1 = C2
-            C0 = C1
+            c3 = 0
+            c2 = c3
+            c1 = c2
+            c0 = c1
             for (i in 0..109) buf[i] = 0x00
         } else {
             for (i in ptr..109) buf[i] = 0x00
@@ -120,21 +115,22 @@ abstract class ECHOBigCore : DigestEngine() {
         encodeLEInt(sC3, buf, 124)
         compress(buf)
         outLen = outLen ushr 5
-        for (i in 0 until outLen) encodeLEInt(V[i], output, outputOffset + (i shl 2))
+        for (i in 0 until outLen) encodeLEInt(v[i], output, outputOffset + (i shl 2))
     }
 
     override fun doInit() {
-        V = IntArray(32)
-        W = IntArray(64)
+        v = IntArray(32)
+        w = IntArray(64)
         engineReset()
     }
 
     private fun incrCounter(`val`: Int) {
-        C0 += `val`
-        if (C0 >= 0 && C0 < `val`) {
-            if (++C1 == 0) {
-                if (++C2 == 0) {
-                    C3++
+        c0 += `val`
+        @Suppress("ConvertTwoComparisonsToRangeCheck")
+        if (c0 >= 0 && c0 < `val`) {
+            if (++c1 == 0) {
+                if (++c2 == 0) {
+                    c3++
                 }
             }
         }
@@ -145,45 +141,45 @@ abstract class ECHOBigCore : DigestEngine() {
         compress(data)
     }
 
-    private fun AES2RoundsAll() {
+    private fun aes2RoundsAll() {
         for (n in 0..15) {
             val j = n shl 2
-            val Y0 = (AES0[W[j + 0] and 0xFF]
-                    xor AES1[W[j + 1] ushr 8 and 0xFF]
-                    xor AES2[W[j + 2] ushr 16 and 0xFF]
-                    xor AES3[W[j + 3] ushr 24 and 0xFF] xor K0)
-            val Y1 = (AES0[W[j + 1] and 0xFF]
-                    xor AES1[W[j + 2] ushr 8 and 0xFF]
-                    xor AES2[W[j + 3] ushr 16 and 0xFF]
-                    xor AES3[W[j + 0] ushr 24 and 0xFF] xor K1)
-            val Y2 = (AES0[W[j + 2] and 0xFF]
-                    xor AES1[W[j + 3] ushr 8 and 0xFF]
-                    xor AES2[W[j + 0] ushr 16 and 0xFF]
-                    xor AES3[W[j + 1] ushr 24 and 0xFF] xor K2)
-            val Y3 = (AES0[W[j + 3] and 0xFF]
-                    xor AES1[W[j + 0] ushr 8 and 0xFF]
-                    xor AES2[W[j + 1] ushr 16 and 0xFF]
-                    xor AES3[W[j + 2] ushr 24 and 0xFF] xor K3)
-            W[j + 0] = (AES0[Y0 and 0xFF]
-                    xor AES1[Y1 ushr 8 and 0xFF]
-                    xor AES2[Y2 ushr 16 and 0xFF]
-                    xor AES3[Y3 ushr 24 and 0xFF])
-            W[j + 1] = (AES0[Y1 and 0xFF]
-                    xor AES1[Y2 ushr 8 and 0xFF]
-                    xor AES2[Y3 ushr 16 and 0xFF]
-                    xor AES3[Y0 ushr 24 and 0xFF])
-            W[j + 2] = (AES0[Y2 and 0xFF]
-                    xor AES1[Y3 ushr 8 and 0xFF]
-                    xor AES2[Y0 ushr 16 and 0xFF]
-                    xor AES3[Y1 ushr 24 and 0xFF])
-            W[j + 3] = (AES0[Y3 and 0xFF]
-                    xor AES1[Y0 ushr 8 and 0xFF]
-                    xor AES2[Y1 ushr 16 and 0xFF]
-                    xor AES3[Y2 ushr 24 and 0xFF])
-            if (++K0 == 0) {
-                if (++K1 == 0) {
-                    if (++K2 == 0) {
-                        K3++
+            val y0 = (AES0[w[j + 0] and 0xFF]
+                    xor AES1[w[j + 1] ushr 8 and 0xFF]
+                    xor AES2[w[j + 2] ushr 16 and 0xFF]
+                    xor AES3[w[j + 3] ushr 24 and 0xFF] xor k0)
+            val y1 = (AES0[w[j + 1] and 0xFF]
+                    xor AES1[w[j + 2] ushr 8 and 0xFF]
+                    xor AES2[w[j + 3] ushr 16 and 0xFF]
+                    xor AES3[w[j + 0] ushr 24 and 0xFF] xor k1)
+            val y2 = (AES0[w[j + 2] and 0xFF]
+                    xor AES1[w[j + 3] ushr 8 and 0xFF]
+                    xor AES2[w[j + 0] ushr 16 and 0xFF]
+                    xor AES3[w[j + 1] ushr 24 and 0xFF] xor k2)
+            val y3 = (AES0[w[j + 3] and 0xFF]
+                    xor AES1[w[j + 0] ushr 8 and 0xFF]
+                    xor AES2[w[j + 1] ushr 16 and 0xFF]
+                    xor AES3[w[j + 2] ushr 24 and 0xFF] xor k3)
+            w[j + 0] = (AES0[y0 and 0xFF]
+                    xor AES1[y1 ushr 8 and 0xFF]
+                    xor AES2[y2 ushr 16 and 0xFF]
+                    xor AES3[y3 ushr 24 and 0xFF])
+            w[j + 1] = (AES0[y1 and 0xFF]
+                    xor AES1[y2 ushr 8 and 0xFF]
+                    xor AES2[y3 ushr 16 and 0xFF]
+                    xor AES3[y0 ushr 24 and 0xFF])
+            w[j + 2] = (AES0[y2 and 0xFF]
+                    xor AES1[y3 ushr 8 and 0xFF]
+                    xor AES2[y0 ushr 16 and 0xFF]
+                    xor AES3[y1 ushr 24 and 0xFF])
+            w[j + 3] = (AES0[y3 and 0xFF]
+                    xor AES1[y0 ushr 8 and 0xFF]
+                    xor AES2[y1 ushr 16 and 0xFF]
+                    xor AES3[y2 ushr 24 and 0xFF])
+            if (++k0 == 0) {
+                if (++k1 == 0) {
+                    if (++k2 == 0) {
+                        k3++
                     }
                 }
             }
@@ -192,10 +188,10 @@ abstract class ECHOBigCore : DigestEngine() {
 
     private fun mixColumn(ia: Int, ib: Int, ic: Int, id: Int) {
         for (n in 0..3) {
-            val a = W[(ia shl 2) + n]
-            val b = W[(ib shl 2) + n]
-            val c = W[(ic shl 2) + n]
-            val d = W[(id shl 2) + n]
+            val a = w[(ia shl 2) + n]
+            val b = w[(ib shl 2) + n]
+            val c = w[(ic shl 2) + n]
+            val d = w[(id shl 2) + n]
             val ab = a xor b
             val bc = b xor c
             val cd = c xor d
@@ -205,94 +201,94 @@ abstract class ECHOBigCore : DigestEngine() {
                     xor (bc and 0x7F7F7F7F shl 1))
             val cdx = ((cd and -0x7f7f7f80 ushr 7) * 27
                     xor (cd and 0x7F7F7F7F shl 1))
-            W[(ia shl 2) + n] = abx xor bc xor d
-            W[(ib shl 2) + n] = bcx xor a xor cd
-            W[(ic shl 2) + n] = cdx xor ab xor d
-            W[(id shl 2) + n] = abx xor bcx xor cdx xor ab xor c
+            w[(ia shl 2) + n] = abx xor bc xor d
+            w[(ib shl 2) + n] = bcx xor a xor cd
+            w[(ic shl 2) + n] = cdx xor ab xor d
+            w[(id shl 2) + n] = abx xor bcx xor cdx xor ab xor c
         }
     }
 
     private fun compress(data: ByteArray) {
         var tmp: Int
-        K0 = C0
-        K1 = C1
-        K2 = C2
-        K3 = C3
-        V.copyInto(W, 0, 0, 32)
-        for (u in 0..31) W[u + 32] = decodeLEInt(data, u shl 2)
+        k0 = c0
+        k1 = c1
+        k2 = c2
+        k3 = c3
+        v.copyInto(w, 0, 0, 32)
+        for (u in 0..31) w[u + 32] = decodeLEInt(data, u shl 2)
         for (u in 0..9) {
-            AES2RoundsAll()
-            tmp = W[(1 shl 2) + 0]
-            W[(1 shl 2) + 0] = W[(5 shl 2) + 0]
-            W[(5 shl 2) + 0] = W[(9 shl 2) + 0]
-            W[(9 shl 2) + 0] = W[(13 shl 2) + 0]
-            W[(13 shl 2) + 0] = tmp
-            tmp = W[(1 shl 2) + 1]
-            W[(1 shl 2) + 1] = W[(5 shl 2) + 1]
-            W[(5 shl 2) + 1] = W[(9 shl 2) + 1]
-            W[(9 shl 2) + 1] = W[(13 shl 2) + 1]
-            W[(13 shl 2) + 1] = tmp
-            tmp = W[(1 shl 2) + 2]
-            W[(1 shl 2) + 2] = W[(5 shl 2) + 2]
-            W[(5 shl 2) + 2] = W[(9 shl 2) + 2]
-            W[(9 shl 2) + 2] = W[(13 shl 2) + 2]
-            W[(13 shl 2) + 2] = tmp
-            tmp = W[(1 shl 2) + 3]
-            W[(1 shl 2) + 3] = W[(5 shl 2) + 3]
-            W[(5 shl 2) + 3] = W[(9 shl 2) + 3]
-            W[(9 shl 2) + 3] = W[(13 shl 2) + 3]
-            W[(13 shl 2) + 3] = tmp
-            tmp = W[(2 shl 2) + 0]
-            W[(2 shl 2) + 0] = W[(10 shl 2) + 0]
-            W[(10 shl 2) + 0] = tmp
-            tmp = W[(6 shl 2) + 0]
-            W[(6 shl 2) + 0] = W[(14 shl 2) + 0]
-            W[(14 shl 2) + 0] = tmp
-            tmp = W[(2 shl 2) + 1]
-            W[(2 shl 2) + 1] = W[(10 shl 2) + 1]
-            W[(10 shl 2) + 1] = tmp
-            tmp = W[(6 shl 2) + 1]
-            W[(6 shl 2) + 1] = W[(14 shl 2) + 1]
-            W[(14 shl 2) + 1] = tmp
-            tmp = W[(2 shl 2) + 2]
-            W[(2 shl 2) + 2] = W[(10 shl 2) + 2]
-            W[(10 shl 2) + 2] = tmp
-            tmp = W[(6 shl 2) + 2]
-            W[(6 shl 2) + 2] = W[(14 shl 2) + 2]
-            W[(14 shl 2) + 2] = tmp
-            tmp = W[(2 shl 2) + 3]
-            W[(2 shl 2) + 3] = W[(10 shl 2) + 3]
-            W[(10 shl 2) + 3] = tmp
-            tmp = W[(6 shl 2) + 3]
-            W[(6 shl 2) + 3] = W[(14 shl 2) + 3]
-            W[(14 shl 2) + 3] = tmp
-            tmp = W[(15 shl 2) + 0]
-            W[(15 shl 2) + 0] = W[(11 shl 2) + 0]
-            W[(11 shl 2) + 0] = W[(7 shl 2) + 0]
-            W[(7 shl 2) + 0] = W[(3 shl 2) + 0]
-            W[(3 shl 2) + 0] = tmp
-            tmp = W[(15 shl 2) + 1]
-            W[(15 shl 2) + 1] = W[(11 shl 2) + 1]
-            W[(11 shl 2) + 1] = W[(7 shl 2) + 1]
-            W[(7 shl 2) + 1] = W[(3 shl 2) + 1]
-            W[(3 shl 2) + 1] = tmp
-            tmp = W[(15 shl 2) + 2]
-            W[(15 shl 2) + 2] = W[(11 shl 2) + 2]
-            W[(11 shl 2) + 2] = W[(7 shl 2) + 2]
-            W[(7 shl 2) + 2] = W[(3 shl 2) + 2]
-            W[(3 shl 2) + 2] = tmp
-            tmp = W[(15 shl 2) + 3]
-            W[(15 shl 2) + 3] = W[(11 shl 2) + 3]
-            W[(11 shl 2) + 3] = W[(7 shl 2) + 3]
-            W[(7 shl 2) + 3] = W[(3 shl 2) + 3]
-            W[(3 shl 2) + 3] = tmp
+            aes2RoundsAll()
+            tmp = w[(1 shl 2) + 0]
+            w[(1 shl 2) + 0] = w[(5 shl 2) + 0]
+            w[(5 shl 2) + 0] = w[(9 shl 2) + 0]
+            w[(9 shl 2) + 0] = w[(13 shl 2) + 0]
+            w[(13 shl 2) + 0] = tmp
+            tmp = w[(1 shl 2) + 1]
+            w[(1 shl 2) + 1] = w[(5 shl 2) + 1]
+            w[(5 shl 2) + 1] = w[(9 shl 2) + 1]
+            w[(9 shl 2) + 1] = w[(13 shl 2) + 1]
+            w[(13 shl 2) + 1] = tmp
+            tmp = w[(1 shl 2) + 2]
+            w[(1 shl 2) + 2] = w[(5 shl 2) + 2]
+            w[(5 shl 2) + 2] = w[(9 shl 2) + 2]
+            w[(9 shl 2) + 2] = w[(13 shl 2) + 2]
+            w[(13 shl 2) + 2] = tmp
+            tmp = w[(1 shl 2) + 3]
+            w[(1 shl 2) + 3] = w[(5 shl 2) + 3]
+            w[(5 shl 2) + 3] = w[(9 shl 2) + 3]
+            w[(9 shl 2) + 3] = w[(13 shl 2) + 3]
+            w[(13 shl 2) + 3] = tmp
+            tmp = w[(2 shl 2) + 0]
+            w[(2 shl 2) + 0] = w[(10 shl 2) + 0]
+            w[(10 shl 2) + 0] = tmp
+            tmp = w[(6 shl 2) + 0]
+            w[(6 shl 2) + 0] = w[(14 shl 2) + 0]
+            w[(14 shl 2) + 0] = tmp
+            tmp = w[(2 shl 2) + 1]
+            w[(2 shl 2) + 1] = w[(10 shl 2) + 1]
+            w[(10 shl 2) + 1] = tmp
+            tmp = w[(6 shl 2) + 1]
+            w[(6 shl 2) + 1] = w[(14 shl 2) + 1]
+            w[(14 shl 2) + 1] = tmp
+            tmp = w[(2 shl 2) + 2]
+            w[(2 shl 2) + 2] = w[(10 shl 2) + 2]
+            w[(10 shl 2) + 2] = tmp
+            tmp = w[(6 shl 2) + 2]
+            w[(6 shl 2) + 2] = w[(14 shl 2) + 2]
+            w[(14 shl 2) + 2] = tmp
+            tmp = w[(2 shl 2) + 3]
+            w[(2 shl 2) + 3] = w[(10 shl 2) + 3]
+            w[(10 shl 2) + 3] = tmp
+            tmp = w[(6 shl 2) + 3]
+            w[(6 shl 2) + 3] = w[(14 shl 2) + 3]
+            w[(14 shl 2) + 3] = tmp
+            tmp = w[(15 shl 2) + 0]
+            w[(15 shl 2) + 0] = w[(11 shl 2) + 0]
+            w[(11 shl 2) + 0] = w[(7 shl 2) + 0]
+            w[(7 shl 2) + 0] = w[(3 shl 2) + 0]
+            w[(3 shl 2) + 0] = tmp
+            tmp = w[(15 shl 2) + 1]
+            w[(15 shl 2) + 1] = w[(11 shl 2) + 1]
+            w[(11 shl 2) + 1] = w[(7 shl 2) + 1]
+            w[(7 shl 2) + 1] = w[(3 shl 2) + 1]
+            w[(3 shl 2) + 1] = tmp
+            tmp = w[(15 shl 2) + 2]
+            w[(15 shl 2) + 2] = w[(11 shl 2) + 2]
+            w[(11 shl 2) + 2] = w[(7 shl 2) + 2]
+            w[(7 shl 2) + 2] = w[(3 shl 2) + 2]
+            w[(3 shl 2) + 2] = tmp
+            tmp = w[(15 shl 2) + 3]
+            w[(15 shl 2) + 3] = w[(11 shl 2) + 3]
+            w[(11 shl 2) + 3] = w[(7 shl 2) + 3]
+            w[(7 shl 2) + 3] = w[(3 shl 2) + 3]
+            w[(3 shl 2) + 3] = tmp
             mixColumn(0, 1, 2, 3)
             mixColumn(4, 5, 6, 7)
             mixColumn(8, 9, 10, 11)
             mixColumn(12, 13, 14, 15)
         }
         for (u in 0..31) {
-            V[u] = V[u] xor (decodeLEInt(data, u * 4) xor W[u] xor W[u + 32])
+            v[u] = v[u] xor (decodeLEInt(data, u * 4) xor w[u] xor w[u + 32])
         }
     }
 

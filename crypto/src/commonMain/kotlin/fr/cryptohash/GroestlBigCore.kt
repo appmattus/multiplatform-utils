@@ -1,12 +1,4 @@
-// $Id: GroestlBigCore.java 256 2011-07-15 19:07:16Z tp $
-package fr.cryptohash
-
-/**
- * This class implements Groestl-384 and Groestl-512.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,17 +19,20 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements Groestl-384 and Groestl-512.
  *
  * @version   $Revision: 256 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class GroestlBigCore : DigestEngine() {
-    private lateinit var H: LongArray
-    private lateinit var G: LongArray
-    private lateinit var M: LongArray
+    private lateinit var h: LongArray
+    private lateinit var g: LongArray
+    private lateinit var m: LongArray
 
     companion object {
         private val T0 = longArrayOf(
@@ -269,13 +264,13 @@ abstract class GroestlBigCore : DigestEngine() {
         get() = 128
 
     protected fun copyState(dst: GroestlBigCore): Digest {
-        H.copyInto(dst.H, 0, 0, H.size)
+        h.copyInto(dst.h, 0, 0, h.size)
         return super.copyState(dst)
     }
 
     override fun engineReset() {
-        for (i in 0..14) H[i] = 0L
-        H[15] = (digestLength shl 3).toLong()
+        for (i in 0..14) h[i] = 0L
+        h[15] = (digestLength shl 3).toLong()
     }
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
@@ -294,17 +289,17 @@ abstract class GroestlBigCore : DigestEngine() {
         }
         encodeBELong(count, buf, 120)
         processBlock(buf)
-        H.copyInto(G, 0, 0, H.size)
-        doPermP(G)
-        for (i in 0..7) encodeBELong(H[i + 8] xor G[i + 8], buf, 8 * i)
+        h.copyInto(g, 0, 0, h.size)
+        doPermP(g)
+        for (i in 0..7) encodeBELong(h[i + 8] xor g[i + 8], buf, 8 * i)
         val outLen = digestLength
         buf.copyInto(output, outputOffset, 64 - outLen, 64)
     }
 
     override fun doInit() {
-        H = LongArray(16)
-        G = LongArray(16)
-        M = LongArray(16)
+        h = LongArray(16)
+        g = LongArray(16)
+        m = LongArray(16)
         engineReset()
     }
 
@@ -640,12 +635,12 @@ abstract class GroestlBigCore : DigestEngine() {
 
     override fun processBlock(data: ByteArray) {
         for (i in 0..15) {
-            M[i] = decodeBELong(data, i * 8)
-            G[i] = M[i] xor H[i]
+            m[i] = decodeBELong(data, i * 8)
+            g[i] = m[i] xor h[i]
         }
-        doPermP(G)
-        doPermQ(M)
-        for (i in 0..15) H[i] = H[i] xor (G[i] xor M[i])
+        doPermP(g)
+        doPermQ(m)
+        for (i in 0..15) h[i] = h[i] xor (g[i] xor m[i])
     }
 
     override fun toString(): String {

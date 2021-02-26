@@ -1,13 +1,4 @@
-// $Id: JHCore.java 255 2011-06-07 19:50:20Z tp $
-package fr.cryptohash
-
-/**
- * This class implements the core operations for the JH digest
- * algorithm.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,9 +19,13 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements the core operations for the JH digest
+ * algorithm.
  *
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -43,6 +38,7 @@ abstract class JHCore : DigestEngine() {
         doReset()
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun doS(r: Int) {
         var x0: Long
         var x1: Long
@@ -132,6 +128,7 @@ abstract class JHCore : DigestEngine() {
         h[15] = x3
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun doL() {
         var x0: Long
         var x1: Long
@@ -202,6 +199,7 @@ abstract class JHCore : DigestEngine() {
         h[15] = h[15] and c shl n or (h[15] ushr n and c)
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun doW6() {
         var t: Long
         t = h[2]

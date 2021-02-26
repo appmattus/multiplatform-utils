@@ -1,13 +1,4 @@
-// $Id: FugueCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class is the base class for Fugue implementation. It does not
- * use [DigestEngine] since Fugue is not nominally block-based.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,9 +19,13 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class is the base class for Fugue implementation. It does not
+ * use [DigestEngine] since Fugue is not nominally block-based.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -39,10 +34,14 @@ abstract class FugueCore : Digest {
     private var bitCount: Long = 0
     private var partial = 0
     private var partialLen = 0
-    private val out: ByteArray
+    private val out: ByteArray = ByteArray(digestLength)
     var rshift = 0
-    var S: IntArray
-    var tmpS: IntArray
+    var s: IntArray = IntArray(36)
+    private val tmpS: IntArray = IntArray(36)
+
+    init {
+        doReset()
+    }
 
     override fun update(`in`: Byte) {
         bitCount += 8
@@ -58,6 +57,7 @@ abstract class FugueCore : Digest {
         update(inbuf, 0, inbuf.size)
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -114,6 +114,7 @@ abstract class FugueCore : Digest {
         return digest()
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         if (partialLen != 0) {
@@ -130,33 +131,31 @@ abstract class FugueCore : Digest {
     }
 
     fun ror(rc: Int, len: Int) {
-        S.copyInto(tmpS, 0, len - rc, len)
-        S.copyInto(S, rc, 0, len - rc)
-        tmpS.copyInto(S, 0, 0, rc)
+        s.copyInto(tmpS, 0, len - rc, len)
+        s.copyInto(s, rc, 0, len - rc)
+        tmpS.copyInto(s, 0, 0, rc)
     }
 
     fun cmix30() {
-        val S = S
-        S[0] = S[0] xor S[4]
-        S[1] = S[1] xor S[5]
-        S[2] = S[2] xor S[6]
-        S[15] = S[15] xor S[4]
-        S[16] = S[16] xor S[5]
-        S[17] = S[17] xor S[6]
+        s[0] = s[0] xor s[4]
+        s[1] = s[1] xor s[5]
+        s[2] = s[2] xor s[6]
+        s[15] = s[15] xor s[4]
+        s[16] = s[16] xor s[5]
+        s[17] = s[17] xor s[6]
     }
 
     fun cmix36() {
-        val S = S
-        S[0] = S[0] xor S[4]
-        S[1] = S[1] xor S[5]
-        S[2] = S[2] xor S[6]
-        S[18] = S[18] xor S[4]
-        S[19] = S[19] xor S[5]
-        S[20] = S[20] xor S[6]
+        s[0] = s[0] xor s[4]
+        s[1] = s[1] xor s[5]
+        s[2] = s[2] xor s[6]
+        s[18] = s[18] xor s[4]
+        s[19] = s[19] xor s[5]
+        s[20] = s[20] xor s[6]
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     fun smix(i0: Int, i1: Int, i2: Int, i3: Int) {
-        val S = S
         var c0 = 0
         var c1 = 0
         var c2 = 0
@@ -167,7 +166,7 @@ abstract class FugueCore : Digest {
         var r3 = 0
         var tmp: Int
         var xt: Int
-        xt = S[i0]
+        xt = s[i0]
         tmp = mixtab0[xt ushr 24 and 0xFF]
         c0 = c0 xor tmp
         tmp = mixtab1[xt ushr 16 and 0xFF]
@@ -179,7 +178,7 @@ abstract class FugueCore : Digest {
         tmp = mixtab3[xt ushr 0 and 0xFF]
         c0 = c0 xor tmp
         r3 = r3 xor tmp
-        xt = S[i1]
+        xt = s[i1]
         tmp = mixtab0[xt ushr 24 and 0xFF]
         c1 = c1 xor tmp
         r0 = r0 xor tmp
@@ -191,7 +190,7 @@ abstract class FugueCore : Digest {
         tmp = mixtab3[xt ushr 0 and 0xFF]
         c1 = c1 xor tmp
         r3 = r3 xor tmp
-        xt = S[i2]
+        xt = s[i2]
         tmp = mixtab0[xt ushr 24 and 0xFF]
         c2 = c2 xor tmp
         r0 = r0 xor tmp
@@ -203,7 +202,7 @@ abstract class FugueCore : Digest {
         tmp = mixtab3[xt ushr 0 and 0xFF]
         c2 = c2 xor tmp
         r3 = r3 xor tmp
-        xt = S[i3]
+        xt = s[i3]
         tmp = mixtab0[xt ushr 24 and 0xFF]
         c3 = c3 xor tmp
         r0 = r0 xor tmp
@@ -215,19 +214,19 @@ abstract class FugueCore : Digest {
         r2 = r2 xor tmp
         tmp = mixtab3[xt ushr 0 and 0xFF]
         c3 = c3 xor tmp
-        S[i0] = (c0 xor (r0 shl 0) and -0x1000000
+        s[i0] = (c0 xor (r0 shl 0) and -0x1000000
                 or (c1 xor (r1 shl 0) and 0x00FF0000)
                 or (c2 xor (r2 shl 0) and 0x0000FF00)
                 or (c3 xor (r3 shl 0) and 0x000000FF))
-        S[i1] = (c1 xor (r0 shl 8) and -0x1000000
+        s[i1] = (c1 xor (r0 shl 8) and -0x1000000
                 or (c2 xor (r1 shl 8) and 0x00FF0000)
                 or (c3 xor (r2 shl 8) and 0x0000FF00)
                 or (c0 xor (r3 ushr 24) and 0x000000FF))
-        S[i2] = (c2 xor (r0 shl 16) and -0x1000000
+        s[i2] = (c2 xor (r0 shl 16) and -0x1000000
                 or (c3 xor (r1 shl 16) and 0x00FF0000)
                 or (c0 xor (r2 ushr 16) and 0x0000FF00)
                 or (c1 xor (r3 ushr 16) and 0x000000FF))
-        S[i3] = (c3 xor (r0 shl 24) and -0x1000000
+        s[i3] = (c3 xor (r0 shl 24) and -0x1000000
                 or (c0 xor (r1 ushr 8) and 0x00FF0000)
                 or (c1 xor (r2 ushr 8) and 0x0000FF00)
                 or (c2 xor (r3 ushr 8) and 0x000000FF))
@@ -238,15 +237,13 @@ abstract class FugueCore : Digest {
     }
 
     private fun doReset() {
-        val iv = iV
-        val zlen: Int
-        zlen = if (digestLength <= 32) {
-            30 - iv.size
+        val zlen = if (digestLength <= 32) {
+            30 - iV.size
         } else {
-            36 - iv.size
+            36 - iV.size
         }
-        for (i in 0 until zlen) S[i] = 0
-        iv.copyInto(S, zlen, 0, iv.size)
+        for (i in 0 until zlen) s[i] = 0
+        iV.copyInto(s, zlen, 0, iV.size)
         bitCount = 0
         partial = 0
         partialLen = 0
@@ -261,7 +258,7 @@ abstract class FugueCore : Digest {
         fc.partial = partial
         fc.partialLen = partialLen
         fc.rshift = rshift
-        S.copyInto(fc.S, 0, 0, S.size)
+        s.copyInto(fc.s, 0, 0, s.size)
         return fc
     }
 
@@ -559,12 +556,5 @@ abstract class FugueCore : Digest {
             buf[off + 2] = (`val` ushr 8).toByte()
             buf[off + 3] = `val`.toByte()
         }
-    }
-
-    init {
-        out = ByteArray(digestLength)
-        S = IntArray(36)
-        tmpS = IntArray(36)
-        doReset()
     }
 }
