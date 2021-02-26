@@ -128,14 +128,15 @@ abstract class SkeinBigCore : Digest {
         return dst
     }
 
-    abstract fun dup(): SkeinBigCore
+    protected abstract fun dup(): SkeinBigCore
 
     /**
      * Get the initial value for this algorithm.
      *
      * @return  the initial value
      */
-    abstract val initVal: LongArray
+    protected abstract val initVal: LongArray
+
     private fun ubi(etype: Int, extra: Int) {
         val m0 = decodeLELong(buf, 0)
         val m1 = decodeLELong(buf, 8)

@@ -39,7 +39,7 @@ abstract class SIMDSmallCore : DigestEngine() {
     override val blockLength: Int
         get() = 64
 
-    fun copyState(dst: SIMDSmallCore): Digest {
+    protected fun copyState(dst: SIMDSmallCore): Digest {
         state.copyInto(dst.state, 0, 0, 16)
         return super.copyState(dst)
     }
@@ -53,7 +53,7 @@ abstract class SIMDSmallCore : DigestEngine() {
      *
      * @return  the initial value (eight 32-bit words)
      */
-    abstract val initVal: IntArray
+    protected abstract val initVal: IntArray
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()

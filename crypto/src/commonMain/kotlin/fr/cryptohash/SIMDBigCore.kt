@@ -54,7 +54,7 @@ abstract class SIMDBigCore : DigestEngine() {
      *
      * @return  the initial value
      */
-    abstract val initVal: IntArray
+    protected abstract val initVal: IntArray
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()

@@ -50,7 +50,7 @@ abstract class SHAviteBigCore : DigestEngine() {
      *
      * @return  the initial value
      */
-    abstract val initVal: IntArray
+    protected abstract val initVal: IntArray
 
     @Suppress("CascadeIf")
     override fun doPadding(output: ByteArray, outputOffset: Int) {

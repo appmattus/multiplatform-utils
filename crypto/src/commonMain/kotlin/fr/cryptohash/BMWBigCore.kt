@@ -50,7 +50,7 @@ abstract class BMWBigCore : DigestEngine() {
         iv.copyInto(h, 0, 0, iv.size)
     }
 
-    abstract val initVal: LongArray
+    protected abstract val initVal: LongArray
 
     private fun compress(m: LongArray) {
         val h = h

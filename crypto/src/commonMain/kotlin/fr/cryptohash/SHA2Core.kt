@@ -51,7 +51,7 @@ abstract class SHA2Core : MDHelper(false, 8) {
      *
      * @return  the initial value (eight 32-bit words)
      */
-    abstract val initVal: IntArray
+    protected abstract val initVal: IntArray
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()

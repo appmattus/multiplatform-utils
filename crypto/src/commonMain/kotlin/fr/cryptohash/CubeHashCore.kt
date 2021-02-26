@@ -321,7 +321,7 @@ abstract class CubeHashCore : DigestEngine() {
      *
      * @return  the IV
      */
-    abstract val iV: IntArray
+    protected abstract val iV: IntArray
 
     /*
      * From the CubeHash specification:

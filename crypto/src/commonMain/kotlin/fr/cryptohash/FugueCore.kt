@@ -35,8 +35,8 @@ abstract class FugueCore : Digest {
     private var partial = 0
     private var partialLen = 0
     private val out: ByteArray = ByteArray(digestLength)
-    var rshift = 0
-    var s: IntArray = IntArray(36)
+    protected var rshift = 0
+    protected var s: IntArray = IntArray(36)
     private val tmpS: IntArray = IntArray(36)
 
     init {
@@ -93,14 +93,14 @@ abstract class FugueCore : Digest {
      * there are `num` other words to be found in `buf`,
      * starting at offset `off`
      */
-    abstract fun process(w: Int, buf: ByteArray?, off: Int, num: Int)
+    protected abstract fun process(w: Int, buf: ByteArray?, off: Int, num: Int)
 
     /**
      * Perform the final round.
      *
      * @param out   the (temporary) output buffer
      */
-    abstract fun processFinal(out: ByteArray?)
+    protected abstract fun processFinal(out: ByteArray?)
 
     override fun digest(): ByteArray {
         val n = digestLength
@@ -130,13 +130,13 @@ abstract class FugueCore : Digest {
         return len
     }
 
-    fun ror(rc: Int, len: Int) {
+    protected fun ror(rc: Int, len: Int) {
         s.copyInto(tmpS, 0, len - rc, len)
         s.copyInto(s, rc, 0, len - rc)
         tmpS.copyInto(s, 0, 0, rc)
     }
 
-    fun cmix30() {
+    protected fun cmix30() {
         s[0] = s[0] xor s[4]
         s[1] = s[1] xor s[5]
         s[2] = s[2] xor s[6]
@@ -145,7 +145,7 @@ abstract class FugueCore : Digest {
         s[17] = s[17] xor s[6]
     }
 
-    fun cmix36() {
+    protected fun cmix36() {
         s[0] = s[0] xor s[4]
         s[1] = s[1] xor s[5]
         s[2] = s[2] xor s[6]
@@ -155,7 +155,7 @@ abstract class FugueCore : Digest {
     }
 
     @Suppress("JoinDeclarationAndAssignment")
-    fun smix(i0: Int, i1: Int, i2: Int, i3: Int) {
+    protected fun smix(i0: Int, i1: Int, i2: Int, i3: Int) {
         var c0 = 0
         var c1 = 0
         var c2 = 0
@@ -250,7 +250,7 @@ abstract class FugueCore : Digest {
         rshift = 0
     }
 
-    abstract val iV: IntArray
+    protected abstract val iV: IntArray
 
     override fun copy(): Digest {
         val fc = dup()
@@ -262,23 +262,17 @@ abstract class FugueCore : Digest {
         return fc
     }
 
-    abstract fun dup(): FugueCore/*
-		 * Private communication from Charanjit Jutla (one of
-		 * the Fugue designers):
-		 *
-		 * << we always set the parameter B (which is the number of
-		 *    bytes in ipad, opad) as B = 4*ceil(#-bits-in-key /32). >>
-		 */
+    protected abstract fun dup(): FugueCore
 
+    /*
+     * Private communication from Charanjit Jutla (one of
+     * the Fugue designers):
+     *
+     * << we always set the parameter B (which is the number of
+     *    bytes in ipad, opad) as B = 4*ceil(#-bits-in-key /32). >>
+     */
     override val blockLength: Int
-        get() =/*
-		 * Private communication from Charanjit Jutla (one of
-		 * the Fugue designers):
-		 *
-		 * << we always set the parameter B (which is the number of
-		 *    bytes in ipad, opad) as B = 4*ceil(#-bits-in-key /32). >>
-		 */
-            -4
+        get() = -4
 
     override fun toString(): String {
         return "Fugue-" + (digestLength shl 3)

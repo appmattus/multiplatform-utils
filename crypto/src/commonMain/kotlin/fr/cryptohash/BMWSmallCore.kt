@@ -30,29 +30,30 @@ package fr.cryptohash
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class BMWSmallCore : DigestEngine() {
-    private lateinit var M: IntArray
-    private lateinit var H: IntArray
-    private lateinit var H2: IntArray
-    private lateinit var Q: IntArray
+    private lateinit var m: IntArray
+    private lateinit var h: IntArray
+    private lateinit var h2: IntArray
+    private lateinit var q: IntArray
 
     override val blockLength: Int
         get() = 64
 
     protected fun copyState(dst: BMWSmallCore): Digest {
-        H.copyInto(dst.H, 0, 0, H.size)
+        h.copyInto(dst.h, 0, 0, h.size)
         return super.copyState(dst)
     }
 
     override fun engineReset() {
         val iv = initVal
-        iv.copyInto(H, 0, 0, iv.size)
+        iv.copyInto(h, 0, 0, iv.size)
     }
 
-    abstract val initVal: IntArray
+    protected abstract val initVal: IntArray
 
+    @Suppress("INTEGER_OVERFLOW")
     private fun compress(m: IntArray) {
-        val h = H
-        val q = Q
+        val h = h
+        val q = q
         q[0] = ((((m[5] xor h[5]) - (m[7] xor h[7]) + (m[10] xor h[10])
                 + (m[13] xor h[13]) + (m[14] xor h[14])) ushr 1
                 xor (((m[5] xor h[5]) - (m[7] xor h[7]) + (m[10] xor h[10])
@@ -517,32 +518,32 @@ abstract class BMWSmallCore : DigestEngine() {
         encodeLEInt(bitLen.toInt(), buf, 56)
         encodeLEInt((bitLen ushr 32).toInt(), buf, 60)
         processBlock(buf)
-        val tmp = H
-        H = H2
-        H2 = tmp
-        FINAL.copyInto(H, 0, 0, 16)
-        compress(H2)
+        val tmp = h
+        h = h2
+        h2 = tmp
+        FINAL.copyInto(h, 0, 0, 16)
+        compress(h2)
         val outLen = digestLength ushr 2
         var i = 0
         var j = 16 - outLen
         while (i < outLen) {
-            encodeLEInt(H[j], output, outputOffset + 4 * i)
+            encodeLEInt(h[j], output, outputOffset + 4 * i)
             i++
             j++
         }
     }
 
     override fun doInit() {
-        M = IntArray(16)
-        H = IntArray(16)
-        H2 = IntArray(16)
-        Q = IntArray(32)
+        m = IntArray(16)
+        h = IntArray(16)
+        h2 = IntArray(16)
+        q = IntArray(32)
         engineReset()
     }
 
     override fun processBlock(data: ByteArray) {
-        for (i in 0..15) M[i] = decodeLEInt(data, i * 4)
-        compress(M)
+        for (i in 0..15) m[i] = decodeLEInt(data, i * 4)
+        compress(m)
     }
 
     override fun toString(): String {

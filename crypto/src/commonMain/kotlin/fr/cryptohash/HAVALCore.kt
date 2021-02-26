@@ -109,7 +109,8 @@ abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEng
 		if (flush() != 0)
 			throw new Error("panic: buffering went astray");
 		 *
-		 */writeOutput(output, outputOffset)
+		 */
+        writeOutput(output, outputOffset)
     }
 
     override fun doInit() {
@@ -906,6 +907,7 @@ abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEng
             return tmp
         }
 
+        @Suppress("FunctionName")
         private fun mix160_0(x5: Int, x6: Int, x7: Int): Int {
             return circularLeft(
                 x5 and 0x01F80000
@@ -913,6 +915,7 @@ abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEng
             )
         }
 
+        @Suppress("FunctionName")
         private fun mix160_1(x5: Int, x6: Int, x7: Int): Int {
             return circularLeft(
                 x5 and -0x2000000
@@ -920,44 +923,53 @@ abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEng
             )
         }
 
+        @Suppress("FunctionName")
         private fun mix160_2(x5: Int, x6: Int, x7: Int): Int {
             return (x5 and 0x0000003F
                     or (x6 and 0x00000FC0)
                     or (x7 and 0x0007F000))
         }
 
+        @Suppress("FunctionName")
         private fun mix160_3(x5: Int, x6: Int, x7: Int): Int {
             return (x5 and 0x00000FC0
                     or (x6 and 0x0007F000)
                     or (x7 and 0x01F80000)) ushr 6
         }
 
+        @Suppress("FunctionName")
         private fun mix160_4(x5: Int, x6: Int, x7: Int): Int {
             return (x5 and 0x0007F000
                     or (x6 and 0x01F80000)
                     or (x7 and -0x2000000)) ushr 12
         }
 
+        @Suppress("FunctionName")
         private fun mix192_0(x6: Int, x7: Int): Int {
             return circularLeft(x6 and -0x4000000 or (x7 and 0x0000001F), 6)
         }
 
+        @Suppress("FunctionName")
         private fun mix192_1(x6: Int, x7: Int): Int {
             return x6 and 0x0000001F or (x7 and 0x000003E0)
         }
 
+        @Suppress("FunctionName")
         private fun mix192_2(x6: Int, x7: Int): Int {
             return x6 and 0x000003E0 or (x7 and 0x0000FC00) ushr 5
         }
 
+        @Suppress("FunctionName")
         private fun mix192_3(x6: Int, x7: Int): Int {
             return x6 and 0x0000FC00 or (x7 and 0x001F0000) ushr 10
         }
 
+        @Suppress("FunctionName")
         private fun mix192_4(x6: Int, x7: Int): Int {
             return x6 and 0x001F0000 or (x7 and 0x03E00000) ushr 16
         }
 
+        @Suppress("FunctionName")
         private fun mix192_5(x6: Int, x7: Int): Int {
             return x6 and 0x03E00000 or (x7 and -0x4000000) ushr 21
         }

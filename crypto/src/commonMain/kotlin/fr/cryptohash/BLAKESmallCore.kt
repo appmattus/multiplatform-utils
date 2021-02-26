@@ -95,7 +95,7 @@ abstract class BLAKESmallCore : DigestEngine() {
      *
      * @return  the initial value (eight 32-bit words)
      */
-    abstract val initVal: IntArray
+    protected abstract val initVal: IntArray
 
     @Suppress("CascadeIf")
     override fun doPadding(output: ByteArray, outputOffset: Int) {

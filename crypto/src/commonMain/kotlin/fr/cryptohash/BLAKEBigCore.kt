@@ -94,7 +94,7 @@ abstract class BLAKEBigCore : DigestEngine() {
      *
      * @return  the initial value (eight 64-bit words)
      */
-    abstract val initVal: LongArray
+    protected abstract val initVal: LongArray
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()

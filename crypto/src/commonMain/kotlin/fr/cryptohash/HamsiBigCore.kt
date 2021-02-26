@@ -178,14 +178,15 @@ abstract class HamsiBigCore : Digest {
      *
      * @return  the IV (initial values for the state words)
      */
-    abstract val iV: IntArray
+    protected abstract val iV: IntArray
 
     /**
      * Create a new instance of the same runtime class than this object.
      *
      * @return  the duplicate
      */
-    abstract fun dup(): HamsiBigCore
+    protected abstract fun dup(): HamsiBigCore
+
     private fun process(
         b0: Int, b1: Int, b2: Int, b3: Int,
         b4: Int, b5: Int, b6: Int, b7: Int

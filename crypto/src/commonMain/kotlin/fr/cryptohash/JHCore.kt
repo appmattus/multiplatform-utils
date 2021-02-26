@@ -293,7 +293,7 @@ abstract class JHCore : DigestEngine() {
      *
      * @return  the IV
      */
-    abstract val iV: LongArray
+    protected abstract val iV: LongArray
 
     override val blockLength: Int
         get() = 64

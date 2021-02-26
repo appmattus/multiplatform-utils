@@ -52,7 +52,7 @@ abstract class SHA2BigCore : MDHelper(false, 16) {
      *
      * @return  the initial value (eight 64-bit words)
      */
-    abstract val initVal: LongArray
+    protected abstract val initVal: LongArray
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
