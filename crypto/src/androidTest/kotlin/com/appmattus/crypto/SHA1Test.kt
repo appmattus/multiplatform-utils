@@ -11,7 +11,7 @@ class SHA1Test {
      */
     @Test
     fun testSHA1() {
-        val dig: Digest = SHA1()
+        val dig = SHA1()
         testKat(dig, "abc", "a9993e364706816aba3e25717850c26c9cd0d89d")
         testKat(
             dig, ("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"

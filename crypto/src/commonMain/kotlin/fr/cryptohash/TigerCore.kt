@@ -32,17 +32,17 @@ package fr.cryptohash
  *
  * @param fbyte   the first padding byte
  */
-abstract class TigerCore(fbyte: Byte) : MDHelper(true, 8, fbyte) {
+abstract class TigerCore<D : TigerCore<D>>(fbyte: Byte) : MDHelper<D>(true, 8, fbyte) {
 
     private var currentA: Long = 0
     private var currentB: Long = 0
     private var currentC: Long = 0
 
-    protected fun copyState(dst: TigerCore): Digest {
-        dst.currentA = currentA
-        dst.currentB = currentB
-        dst.currentC = currentC
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        dest.currentA = currentA
+        dest.currentB = currentB
+        dest.currentC = currentC
+        return super.copyState(dest)
     }
 
     override val digestLength: Int

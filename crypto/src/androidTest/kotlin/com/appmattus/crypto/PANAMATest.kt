@@ -11,7 +11,7 @@ class PANAMATest {
      */
     @Test
     fun testPANAMA() {
-        val dig: Digest = PANAMA()
+        val dig = PANAMA()
         testKat(
             dig, "",
             "aa0cc954d757d7ac7779ca3342334ca471abd47d5952ac91ed837ecd5b16922b"

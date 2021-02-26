@@ -1,6 +1,5 @@
 package com.appmattus.crypto
 
-import fr.cryptohash.Digest
 import fr.cryptohash.SHA224
 import fr.cryptohash.SHA256
 import kotlin.test.Test
@@ -12,7 +11,7 @@ class SHA2CoreTest {
      */
     @Test
     fun testSHA224() {
-        val dig: Digest = SHA224()
+        val dig = SHA224()
         testKat(
             dig, "abc",
             "23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7"
@@ -33,7 +32,7 @@ class SHA2CoreTest {
      */
     @Test
     fun testSHA256() {
-        val dig: Digest = SHA256()
+        val dig = SHA256()
         testKat(
             dig, "abc",
             "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"

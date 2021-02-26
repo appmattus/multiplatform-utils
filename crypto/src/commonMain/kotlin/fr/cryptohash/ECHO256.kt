@@ -31,12 +31,12 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class ECHO256 : ECHOSmallCore() {
+class ECHO256 : ECHOSmallCore<ECHO256>() {
 
     override val digestLength: Int
         get() = 32
 
-    override fun copy(): Digest {
+    override fun copy(): ECHO256 {
         return copyState(ECHO256())
     }
 }

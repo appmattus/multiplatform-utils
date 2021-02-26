@@ -30,13 +30,13 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHA2Core : MDHelper(false, 8) {
+abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
     private lateinit var currentVal: IntArray
     private lateinit var w: IntArray
 
-    protected fun copyState(dst: SHA2Core): Digest {
-        currentVal.copyInto(dst.currentVal, 0, 0, currentVal.size)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        currentVal.copyInto(dest.currentVal, 0, 0, currentVal.size)
+        return super.copyState(dest)
     }
 
     override val blockLength: Int

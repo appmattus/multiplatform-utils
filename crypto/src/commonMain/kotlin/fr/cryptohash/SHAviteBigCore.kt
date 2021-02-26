@@ -29,16 +29,16 @@ package fr.cryptohash
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHAviteBigCore : DigestEngine() {
+abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>() {
     private lateinit var h: IntArray
     private lateinit var rk: IntArray
 
     override val blockLength: Int
         get() = 128
 
-    protected fun copyState(dst: SHAviteBigCore): Digest {
-        h.copyInto(dst.h, 0, 0, h.size)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        h.copyInto(dest.h, 0, 0, h.size)
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

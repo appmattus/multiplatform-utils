@@ -32,9 +32,9 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Whirlpool : WhirlpoolCore(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
+class Whirlpool : WhirlpoolCore<Whirlpool>(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
 
-    override fun copy(): Digest {
+    override fun copy(): Whirlpool {
         return copyState(Whirlpool())
     }
 

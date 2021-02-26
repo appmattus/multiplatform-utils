@@ -12,7 +12,7 @@ class SHA2BigCoreTest {
      */
     @Test
     fun testSHA384() {
-        val dig: Digest = SHA384()
+        val dig = SHA384()
         testKat(
             dig, "abc", "cb00753f45a35e8bb5a03d699ac65007272c32ab0eded163"
                     + "1a8b605a43ff5bed8086072ba1e7cc2358baeca134c825a7"
@@ -34,7 +34,7 @@ class SHA2BigCoreTest {
      */
     @Test
     fun testSHA512() {
-        val dig: Digest = SHA512()
+        val dig = SHA512()
         testKat(
             dig, "abc", "ddaf35a193617abacc417349ae20413112e6fa4e89a97ea20a9eeee64b55d39a"
                     + "2192992a274fc1a836ba3c23a3feebbd454d4423643ce80e2a9ac94fa54ca49f"

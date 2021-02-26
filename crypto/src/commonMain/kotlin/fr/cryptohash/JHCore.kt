@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class JHCore : DigestEngine() {
+abstract class JHCore<D : JHCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var tmpBuf: ByteArray
 
@@ -302,9 +302,9 @@ abstract class JHCore : DigestEngine() {
         iV.copyInto(h, 0, 0, 16)
     }
 
-    protected fun copyState(dst: JHCore): Digest {
-        h.copyInto(dst.h, 0, 0, 16)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        h.copyInto(dest.h, 0, 0, 16)
+        return super.copyState(dest)
     }
 
     override fun toString(): String {

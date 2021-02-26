@@ -32,12 +32,12 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class MD5 : MDHelper(true, 8) {
+class MD5 : MDHelper<MD5>(true, 8) {
 
     private lateinit var currentVal: IntArray
     private lateinit var x: IntArray
 
-    override fun copy(): Digest {
+    override fun copy(): MD5 {
         val d = MD5()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)

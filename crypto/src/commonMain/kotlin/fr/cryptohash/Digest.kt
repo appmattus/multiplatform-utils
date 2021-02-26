@@ -50,7 +50,8 @@ package fr.cryptohash
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-interface Digest {
+interface Digest<D : Digest<D>> {
+
     /**
      * Insert one more input data byte.
      *
@@ -122,12 +123,12 @@ interface Digest {
     fun reset()
 
     /**
-     * Clone the current state. The returned object evolves independantly
+     * Clone the current state. The returned object evolves independently
      * of this object.
      *
      * @return  the clone
      */
-    fun copy(): Digest
+    fun copy(): D
 
     /**
      * Return the "block length" for the hash function. This

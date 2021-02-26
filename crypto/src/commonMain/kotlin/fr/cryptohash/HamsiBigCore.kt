@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 239 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class HamsiBigCore : Digest {
+abstract class HamsiBigCore<D : HamsiBigCore<D>> : Digest<D> {
     private val h: IntArray = IntArray(16)
     private var bitCount: Long = 0
     private var partial: Long = 0
@@ -155,7 +155,7 @@ abstract class HamsiBigCore : Digest {
         partialLen = 0
     }
 
-    override fun copy(): Digest {
+    override fun copy(): D {
         val d = dup()
         h.copyInto(d.h, 0, 0, h.size)
         d.bitCount = bitCount
@@ -185,7 +185,7 @@ abstract class HamsiBigCore : Digest {
      *
      * @return  the duplicate
      */
-    protected abstract fun dup(): HamsiBigCore
+    protected abstract fun dup(): D
 
     private fun process(
         b0: Int, b1: Int, b2: Int, b3: Int,

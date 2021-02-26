@@ -32,7 +32,7 @@ package fr.cryptohash
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHAvite512 : SHAviteBigCore() {
+class SHAvite512 : SHAviteBigCore<SHAvite512>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
@@ -40,7 +40,7 @@ class SHAvite512 : SHAviteBigCore() {
     override val digestLength: Int
         get() = 64
 
-    override fun copy(): Digest {
+    override fun copy(): SHAvite512 {
         return copyState(SHAvite512())
     }
 

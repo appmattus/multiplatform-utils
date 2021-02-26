@@ -31,9 +31,9 @@ package fr.cryptohash
  * @version   $Revision: 213 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Shabal224 : ShabalGeneric(224) {
+class Shabal224 : ShabalGeneric<Shabal224>(224) {
 
-    override fun dup(): ShabalGeneric {
+    override fun dup(): Shabal224 {
         return Shabal224()
     }
 }

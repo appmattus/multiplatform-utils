@@ -11,7 +11,7 @@ class MD5Test {
      */
     @Test
     fun testMD5() {
-        val dig: Digest = MD5()
+        val dig = MD5()
         testKat(dig, "", "d41d8cd98f00b204e9800998ecf8427e")
         testKat(dig, "a", "0cc175b9c0f1b6a831c399e269772661")
         testKat(dig, "abc", "900150983cd24fb0d6963f7d28e17f72")

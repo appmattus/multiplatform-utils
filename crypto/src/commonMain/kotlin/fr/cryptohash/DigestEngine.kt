@@ -39,7 +39,7 @@ package fr.cryptohash
  * @version   $Revision: 229 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class DigestEngine : Digest {
+abstract class DigestEngine<D : DigestEngine<D>> : Digest<D> {
     /**
      * Reset the hash algorithm state.
      */
@@ -195,7 +195,7 @@ abstract class DigestEngine : Digest {
      * @param dest   the copy
      * @return  the value `dest`
      */
-    protected fun copyState(dest: DigestEngine): Digest {
+    protected open fun copyState(dest: D): D {
         dest.inputLen = inputLen
         dest.blockCount = blockCount
         blockBuffer.copyInto(dest.blockBuffer, 0, 0, blockBuffer.size)

@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA256 : SHA2Core() {
+class SHA256 : SHA2Core<SHA256>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
@@ -39,7 +39,7 @@ class SHA256 : SHA2Core() {
     override val digestLength: Int
         get() = 32
 
-    override fun copy(): Digest {
+    override fun copy(): SHA256 {
         return copyState(SHA256())
     }
 

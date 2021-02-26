@@ -32,11 +32,11 @@ package fr.cryptohash
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class MD4 : MDHelper(true, 8) {
+class MD4 : MDHelper<MD4>(true, 8) {
 
     private lateinit var currentVal: IntArray
 
-    override fun copy(): Digest {
+    override fun copy(): MD4 {
         val d = MD4()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)

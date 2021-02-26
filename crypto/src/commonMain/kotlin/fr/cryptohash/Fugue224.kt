@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 159 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Fugue224 : Fugue2Core() {
+class Fugue224 : Fugue2Core<Fugue224>() {
 
     override val digestLength: Int
         get() = 28
@@ -39,7 +39,7 @@ class Fugue224 : Fugue2Core() {
     override val iV: IntArray
         get() = Companion.iV
 
-    override fun dup(): FugueCore {
+    override fun dup(): Fugue224 {
         return Fugue224()
     }
 

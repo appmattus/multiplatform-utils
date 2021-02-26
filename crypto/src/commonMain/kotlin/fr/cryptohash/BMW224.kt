@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 166 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BMW224 : BMWSmallCore() {
+class BMW224 : BMWSmallCore<BMW224>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
@@ -39,7 +39,7 @@ class BMW224 : BMWSmallCore() {
     override val digestLength: Int
         get() = 28
 
-    override fun copy(): Digest {
+    override fun copy(): BMW224 {
         return copyState(BMW224())
     }
 

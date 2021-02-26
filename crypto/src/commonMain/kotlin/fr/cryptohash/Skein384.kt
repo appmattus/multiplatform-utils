@@ -32,7 +32,7 @@ package fr.cryptohash
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Skein384 : SkeinBigCore() {
+class Skein384 : SkeinBigCore<Skein384>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -40,7 +40,7 @@ class Skein384 : SkeinBigCore() {
     override val digestLength: Int
         get() = 48
 
-    override fun dup(): SkeinBigCore {
+    override fun dup(): Skein384 {
         return Skein384()
     }
 

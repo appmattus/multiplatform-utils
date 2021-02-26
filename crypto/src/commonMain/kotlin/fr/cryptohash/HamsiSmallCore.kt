@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 239 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class HamsiSmallCore : Digest {
+abstract class HamsiSmallCore<D : HamsiSmallCore<D>> : Digest<D> {
     private val h: IntArray = IntArray(8)
     private var bitCount: Long = 0
     private var partial = 0
@@ -140,28 +140,23 @@ abstract class HamsiSmallCore : Digest {
         partialLen = 0
     }
 
-    override fun copy(): Digest {
+    override fun copy(): D {
         val d = dup()
         h.copyInto(d.h, 0, 0, h.size)
         d.bitCount = bitCount
         d.partial = partial
         d.partialLen = partialLen
         return d
-    }/*
-		 * Private communication from Hamsi designer Ozgul Kucuk:
-		 *
-		 * << For HMAC you can calculate B = 256*ceil(k / 256)
-		 *    (same as CubeHash). >>
-		 */
+    }
 
+    /*
+     * Private communication from Hamsi designer Ozgul Kucuk:
+     *
+     * << For HMAC you can calculate B = 256*ceil(k / 256)
+     *    (same as CubeHash). >>
+     */
     override val blockLength: Int
-        get() =/*
-		 * Private communication from Hamsi designer Ozgul Kucuk:
-		 *
-		 * << For HMAC you can calculate B = 256*ceil(k / 256)
-		 *    (same as CubeHash). >>
-		 */
-            -32
+        get() = -32
 
     /**
      * Get the IV.
@@ -175,7 +170,7 @@ abstract class HamsiSmallCore : Digest {
      *
      * @return  the duplicate
      */
-    protected abstract fun dup(): HamsiSmallCore
+    protected abstract fun dup(): D
 
     @Suppress("JoinDeclarationAndAssignment")
     private fun process(b0: Int, b1: Int, b2: Int, b3: Int) {

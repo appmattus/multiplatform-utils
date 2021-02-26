@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 159 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class Fugue2Core : FugueCore() {
+abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
 
     @Suppress("NAME_SHADOWING")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {

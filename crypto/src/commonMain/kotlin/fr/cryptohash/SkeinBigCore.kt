@@ -32,7 +32,7 @@ package fr.cryptohash
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SkeinBigCore : Digest {
+abstract class SkeinBigCore<D : SkeinBigCore<D>> : Digest<D> {
     private val buf: ByteArray
     private val tmpOut: ByteArray
     private var ptr = 0
@@ -119,7 +119,7 @@ abstract class SkeinBigCore : Digest {
         bcount = 0L
     }
 
-    override fun copy(): Digest {
+    override fun copy(): D {
         val dst = dup()
         buf.copyInto(dst.buf, 0, 0, ptr)
         dst.ptr = ptr
@@ -128,7 +128,7 @@ abstract class SkeinBigCore : Digest {
         return dst
     }
 
-    protected abstract fun dup(): SkeinBigCore
+    protected abstract fun dup(): D
 
     /**
      * Get the initial value for this algorithm.

@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class ECHOSmallCore : DigestEngine() {
+abstract class ECHOSmallCore<D : ECHOSmallCore<D>> : DigestEngine<D>() {
     private lateinit var v: IntArray
     private var c0 = 0
     private var c1 = 0
@@ -44,13 +44,13 @@ abstract class ECHOSmallCore : DigestEngine() {
     override val blockLength: Int
         get() = 192
 
-    protected fun copyState(dst: ECHOSmallCore): Digest {
-        v.copyInto(dst.v, 0, 0, 16)
-        dst.c0 = c0
-        dst.c1 = c1
-        dst.c2 = c2
-        dst.c3 = c3
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        v.copyInto(dest.v, 0, 0, 16)
+        dest.c0 = c0
+        dest.c1 = c1
+        dest.c2 = c2
+        dest.c3 = c3
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

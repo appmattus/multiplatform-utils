@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class CubeHashCore : DigestEngine() {
+abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
     private var x0 = 0
     private var x1 = 0
     private var x2 = 0
@@ -371,40 +371,40 @@ abstract class CubeHashCore : DigestEngine() {
         xv = iv[31]
     }
 
-    protected fun copyState(dst: CubeHashCore): Digest {
-        dst.x0 = x0
-        dst.x1 = x1
-        dst.x2 = x2
-        dst.x3 = x3
-        dst.x4 = x4
-        dst.x5 = x5
-        dst.x6 = x6
-        dst.x7 = x7
-        dst.x8 = x8
-        dst.x9 = x9
-        dst.xa = xa
-        dst.xb = xb
-        dst.xc = xc
-        dst.xd = xd
-        dst.xe = xe
-        dst.xf = xf
-        dst.xg = xg
-        dst.xh = xh
-        dst.xi = xi
-        dst.xj = xj
-        dst.xk = xk
-        dst.xl = xl
-        dst.xm = xm
-        dst.xn = xn
-        dst.xo = xo
-        dst.xp = xp
-        dst.xq = xq
-        dst.xr = xr
-        dst.xs = xs
-        dst.xt = xt
-        dst.xu = xu
-        dst.xv = xv
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        dest.x0 = x0
+        dest.x1 = x1
+        dest.x2 = x2
+        dest.x3 = x3
+        dest.x4 = x4
+        dest.x5 = x5
+        dest.x6 = x6
+        dest.x7 = x7
+        dest.x8 = x8
+        dest.x9 = x9
+        dest.xa = xa
+        dest.xb = xb
+        dest.xc = xc
+        dest.xd = xd
+        dest.xe = xe
+        dest.xf = xf
+        dest.xg = xg
+        dest.xh = xh
+        dest.xi = xi
+        dest.xj = xj
+        dest.xk = xk
+        dest.xl = xl
+        dest.xm = xm
+        dest.xn = xn
+        dest.xo = xo
+        dest.xp = xp
+        dest.xq = xq
+        dest.xr = xr
+        dest.xs = xs
+        dest.xt = xt
+        dest.xu = xu
+        dest.xv = xv
+        return super.copyState(dest)
     }
 
     override fun toString(): String {

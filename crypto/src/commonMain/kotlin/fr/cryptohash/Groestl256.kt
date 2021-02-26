@@ -31,12 +31,12 @@ package fr.cryptohash
  * @version   $Revision: 198 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Groestl256 : GroestlSmallCore() {
+class Groestl256 : GroestlSmallCore<Groestl256>() {
 
     override val digestLength: Int
         get() = 32
 
-    override fun copy(): Digest {
+    override fun copy(): Groestl256 {
         return copyState(Groestl256())
     }
 }

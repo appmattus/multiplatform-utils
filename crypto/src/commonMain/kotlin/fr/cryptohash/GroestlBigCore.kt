@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 256 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class GroestlBigCore : DigestEngine() {
+abstract class GroestlBigCore<D : GroestlBigCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var g: LongArray
     private lateinit var m: LongArray
@@ -263,9 +263,9 @@ abstract class GroestlBigCore : DigestEngine() {
     override val blockLength: Int
         get() = 128
 
-    protected fun copyState(dst: GroestlBigCore): Digest {
-        h.copyInto(dst.h, 0, 0, h.size)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        h.copyInto(dest.h, 0, 0, h.size)
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

@@ -31,11 +31,11 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RIPEMD160 : MDHelper(true, 8) {
+class RIPEMD160 : MDHelper<RIPEMD160>(true, 8) {
     private lateinit var currentVal: IntArray
     private lateinit var x: IntArray
 
-    override fun copy(): Digest {
+    override fun copy(): RIPEMD160 {
         val d = RIPEMD160()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)

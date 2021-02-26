@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA384 : SHA2BigCore() {
+class SHA384 : SHA2BigCore<SHA384>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -39,7 +39,7 @@ class SHA384 : SHA2BigCore() {
     override val digestLength: Int
         get() = 48
 
-    override fun copy(): Digest {
+    override fun copy(): SHA384 {
         return copyState(SHA384())
     }
 

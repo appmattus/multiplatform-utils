@@ -31,11 +31,11 @@ package fr.cryptohash
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RadioGatun32 : DigestEngine() {
+class RadioGatun32 : DigestEngine<RadioGatun32>() {
     private lateinit var a: IntArray
     private lateinit var b: IntArray
 
-    override fun copy(): Digest {
+    override fun copy(): RadioGatun32 {
         val d = RadioGatun32()
         a.copyInto(d.a, 0, 0, a.size)
         b.copyInto(d.b, 0, 0, b.size)

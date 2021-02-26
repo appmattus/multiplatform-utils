@@ -11,7 +11,7 @@ class RIPEMD128 {
      */
     @Test
     fun testRIPEMD128() {
-        val dig: Digest = RIPEMD128()
+        val dig = RIPEMD128()
         testKat(
             dig, "",
             "cdf26213a150dc3ecb610f18f6b38b46"

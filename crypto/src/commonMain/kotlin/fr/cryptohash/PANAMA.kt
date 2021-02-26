@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class PANAMA : DigestEngine() {
+class PANAMA : DigestEngine<PANAMA>() {
     private lateinit var buffer: IntArray
     private var bufferPtr = 0
     private var state0 = 0
@@ -59,7 +59,7 @@ class PANAMA : DigestEngine() {
     private var inData6 = 0
     private var inData7 = 0
 
-    override fun copy(): Digest {
+    override fun copy(): PANAMA {
         val d = PANAMA()
         buffer.copyInto(d.buffer, 0, 0, buffer.size)
         d.bufferPtr = bufferPtr

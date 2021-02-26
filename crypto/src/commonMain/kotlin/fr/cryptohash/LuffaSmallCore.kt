@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 240 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class LuffaSmallCore : DigestEngine() {
+abstract class LuffaSmallCore<D : LuffaSmallCore<D>> : DigestEngine<D>() {
     private var v00 = 0
     private var v01 = 0
     private var v02 = 0
@@ -65,32 +65,32 @@ abstract class LuffaSmallCore : DigestEngine() {
     override val blockLength: Int
         get() = 32
 
-    protected fun copyState(dst: LuffaSmallCore): Digest {
-        dst.v00 = v00
-        dst.v01 = v01
-        dst.v02 = v02
-        dst.v03 = v03
-        dst.v04 = v04
-        dst.v05 = v05
-        dst.v06 = v06
-        dst.v07 = v07
-        dst.v10 = v10
-        dst.v11 = v11
-        dst.v12 = v12
-        dst.v13 = v13
-        dst.v14 = v14
-        dst.v15 = v15
-        dst.v16 = v16
-        dst.v17 = v17
-        dst.v20 = v20
-        dst.v21 = v21
-        dst.v22 = v22
-        dst.v23 = v23
-        dst.v24 = v24
-        dst.v25 = v25
-        dst.v26 = v26
-        dst.v27 = v27
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        dest.v00 = v00
+        dest.v01 = v01
+        dest.v02 = v02
+        dest.v03 = v03
+        dest.v04 = v04
+        dest.v05 = v05
+        dest.v06 = v06
+        dest.v07 = v07
+        dest.v10 = v10
+        dest.v11 = v11
+        dest.v12 = v12
+        dest.v13 = v13
+        dest.v14 = v14
+        dest.v15 = v15
+        dest.v16 = v16
+        dest.v17 = v17
+        dest.v20 = v20
+        dest.v21 = v21
+        dest.v22 = v22
+        dest.v23 = v23
+        dest.v24 = v24
+        dest.v25 = v25
+        dest.v26 = v26
+        dest.v27 = v27
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

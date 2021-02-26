@@ -31,9 +31,9 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Tiger : TigerCore(0x01.toByte()) {
+class Tiger : TigerCore<Tiger>(0x01.toByte()) {
 
-    override fun copy(): Digest {
+    override fun copy(): Tiger {
         return copyState(Tiger())
     }
 

@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 166 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BMW512 : BMWBigCore() {
+class BMW512 : BMWBigCore<BMW512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -39,7 +39,7 @@ class BMW512 : BMWBigCore() {
     override val digestLength: Int
         get() = 64
 
-    override fun copy(): Digest {
+    override fun copy(): BMW512 {
         return copyState(BMW512())
     }
 

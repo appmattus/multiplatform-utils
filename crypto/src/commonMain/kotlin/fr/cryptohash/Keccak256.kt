@@ -31,9 +31,9 @@ package fr.cryptohash
  * @version   $Revision: 189 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Keccak256 : KeccakCore() {
+class Keccak256 : KeccakCore<Keccak256>() {
 
-    override fun copy(): Digest {
+    override fun copy(): Keccak256 {
         return copyState(Keccak256())
     }
 

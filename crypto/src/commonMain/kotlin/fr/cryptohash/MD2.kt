@@ -31,14 +31,14 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class MD2 : DigestEngine() {
+class MD2 : DigestEngine<MD2>() {
 
     private lateinit var x: IntArray
     private lateinit var c: IntArray
     private lateinit var d: ByteArray
     private var l = 0
 
-    override fun copy(): Digest {
+    override fun copy(): MD2 {
         val d = MD2()
         x.copyInto(d.x, 0, 0, x.size)
         c.copyInto(d.c, 0, 0, c.size)

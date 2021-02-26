@@ -32,7 +32,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKESmallCore : DigestEngine() {
+abstract class BLAKESmallCore<D : BLAKESmallCore<D>> : DigestEngine<D>() {
 
     private var h0 = 0
     private var h1 = 0
@@ -54,22 +54,22 @@ abstract class BLAKESmallCore : DigestEngine() {
     override val blockLength: Int
         get() = 64
 
-    protected fun copyState(dst: BLAKESmallCore): Digest {
-        dst.h0 = h0
-        dst.h1 = h1
-        dst.h2 = h2
-        dst.h3 = h3
-        dst.h4 = h4
-        dst.h5 = h5
-        dst.h6 = h6
-        dst.h7 = h7
-        dst.s0 = s0
-        dst.s1 = s1
-        dst.s2 = s2
-        dst.s3 = s3
-        dst.t0 = t0
-        dst.t1 = t1
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        dest.h0 = h0
+        dest.h1 = h1
+        dest.h2 = h2
+        dest.h3 = h3
+        dest.h4 = h4
+        dest.h5 = h5
+        dest.h6 = h6
+        dest.h7 = h7
+        dest.s0 = s0
+        dest.s1 = s1
+        dest.s2 = s2
+        dest.s3 = s3
+        dest.t0 = t0
+        dest.t1 = t1
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

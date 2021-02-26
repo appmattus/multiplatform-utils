@@ -12,7 +12,7 @@ class WhirlpoolCoreTest {
      */
     @Test
     fun testWhirlpool() {
-        val dig: Digest = Whirlpool()
+        val dig = Whirlpool()
         testKat(
             dig, "", "19FA61D75522A4669B44E39C1D2E1726C530232130D407F89AFEE0964997F7A7"
                     + "3E83BE698B288FEBCF88E3E03C4F0757EA8964E59B63D93708B138CC42A66EB3"
@@ -61,7 +61,7 @@ class WhirlpoolCoreTest {
      */
     @Test
     fun testWhirlpool0() {
-        val dig0: Digest = Whirlpool0()
+        val dig0 = Whirlpool0()
         testKat(
             dig0, "", (
                     "B3E1AB6EAF640A34F784593F2074416ACCD3B8E62C620175FCA0997B1BA23473"
@@ -84,7 +84,7 @@ class WhirlpoolCoreTest {
      */
     @Test
     fun testWhirlpool1() {
-        val dig1: Digest = Whirlpool1()
+        val dig1 = Whirlpool1()
         testKat(
             dig1, "", (
                     "470F0409ABAA446E49667D4EBE12A14387CEDBD10DD17B8243CAD550A089DC0F"

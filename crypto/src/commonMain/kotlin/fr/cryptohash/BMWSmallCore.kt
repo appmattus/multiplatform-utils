@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BMWSmallCore : DigestEngine() {
+abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
     private lateinit var m: IntArray
     private lateinit var h: IntArray
     private lateinit var h2: IntArray
@@ -38,9 +38,9 @@ abstract class BMWSmallCore : DigestEngine() {
     override val blockLength: Int
         get() = 64
 
-    protected fun copyState(dst: BMWSmallCore): Digest {
-        h.copyInto(dst.h, 0, 0, h.size)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        h.copyInto(dest.h, 0, 0, h.size)
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

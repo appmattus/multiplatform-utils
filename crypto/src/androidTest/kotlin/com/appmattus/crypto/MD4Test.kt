@@ -11,7 +11,7 @@ class MD4Test {
      */
     @Test
     fun testMD4() {
-        val dig: Digest = MD4()
+        val dig = MD4()
         testKat(dig, "", "31d6cfe0d16ae931b73c59d7e0c089c0")
         testKat(dig, "a", "bde52cb31de33e46245e05fbdbd6fb24")
         testKat(dig, "abc", "a448017aaf21d8525fc10ae87aa6729d")

@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class FugueCore : Digest {
+abstract class FugueCore<D : FugueCore<D>> : Digest<D> {
     private var bitCount: Long = 0
     private var partial = 0
     private var partialLen = 0
@@ -252,7 +252,7 @@ abstract class FugueCore : Digest {
 
     protected abstract val iV: IntArray
 
-    override fun copy(): Digest {
+    override fun copy(): D {
         val fc = dup()
         fc.bitCount = bitCount
         fc.partial = partial
@@ -262,7 +262,7 @@ abstract class FugueCore : Digest {
         return fc
     }
 
-    protected abstract fun dup(): FugueCore
+    protected abstract fun dup(): D
 
     /*
      * Private communication from Charanjit Jutla (one of

@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SIMD384 : SIMDBigCore() {
+class SIMD384 : SIMDBigCore<SIMD384>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
@@ -39,7 +39,7 @@ class SIMD384 : SIMDBigCore() {
     override val digestLength: Int
         get() = 48
 
-    override fun copy(): Digest {
+    override fun copy(): SIMD384 {
         return copyState(SIMD384())
     }
 

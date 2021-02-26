@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 258 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class KeccakCore : DigestEngine() {
+abstract class KeccakCore<D : KeccakCore<D>> : DigestEngine<D>() {
     private lateinit var a: LongArray
     private lateinit var tmpOut: ByteArray
 
@@ -496,9 +496,9 @@ abstract class KeccakCore : DigestEngine() {
         a[20] = -0x1L
     }
 
-    protected fun copyState(dst: KeccakCore): Digest {
-        a.copyInto(dst.a, 0, 0, 25)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        a.copyInto(dest.a, 0, 0, 25)
+        return super.copyState(dest)
     }
 
     override fun toString(): String {

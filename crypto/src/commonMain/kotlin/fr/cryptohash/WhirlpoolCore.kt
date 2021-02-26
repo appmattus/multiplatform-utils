@@ -32,7 +32,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class WhirlpoolCore(
+abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
     private val T0: LongArray,
     private val T1: LongArray,
     private val T2: LongArray,
@@ -42,7 +42,7 @@ abstract class WhirlpoolCore(
     private val T6: LongArray,
     private val T7: LongArray,
     private val RC: LongArray
-) : MDHelper(false, 32) {
+) : MDHelper<D>(false, 32) {
 
     private var state0: Long = 0
     private var state1: Long = 0
@@ -53,16 +53,16 @@ abstract class WhirlpoolCore(
     private var state6: Long = 0
     private var state7: Long = 0
 
-    protected fun copyState(d: WhirlpoolCore): Digest {
-        d.state0 = state0
-        d.state1 = state1
-        d.state2 = state2
-        d.state3 = state3
-        d.state4 = state4
-        d.state5 = state5
-        d.state6 = state6
-        d.state7 = state7
-        return super.copyState(d)
+    override fun copyState(dest: D): D {
+        dest.state0 = state0
+        dest.state1 = state1
+        dest.state2 = state2
+        dest.state3 = state3
+        dest.state4 = state4
+        dest.state5 = state5
+        dest.state6 = state6
+        dest.state7 = state7
+        return super.copyState(dest)
     }
 
     override val digestLength: Int

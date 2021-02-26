@@ -1,10 +1,11 @@
+@file:Suppress("JoinDeclarationAndAssignment")
+
 package com.appmattus.crypto
 
 import fr.cryptohash.BMW224
 import fr.cryptohash.BMW256
 import fr.cryptohash.BMW384
 import fr.cryptohash.BMW512
-import fr.cryptohash.Digest
 import fr.cryptohash.HMAC
 import fr.cryptohash.MD5
 import fr.cryptohash.SHA1
@@ -17,7 +18,7 @@ class HMACTest {
      */
     @Test
     fun testHMACMD5() {
-        var hmac: Digest
+        var hmac: HMAC
 
         /*
 		 * From RFC 2104.
@@ -55,7 +56,7 @@ class HMACTest {
      */
     @Test
     fun testHMACSHA1() {
-        var hmac: Digest
+        var hmac: HMAC
 
         /*
 		 * From FIPS 198a.
@@ -113,7 +114,7 @@ class HMACTest {
      */
     @Test
     fun testHMACBMW224() {
-        var hmac: Digest
+        var hmac: HMAC
 
         /*
 		 * From Blue Midnight Wish specification.
@@ -152,7 +153,7 @@ class HMACTest {
      */
     @Test
     fun testHMACBMW256() {
-        var hmac: Digest
+        var hmac: HMAC
 
         hmac = HMAC(
             BMW256(),
@@ -189,7 +190,7 @@ class HMACTest {
      */
     @Test
     fun testHMACBMW384() {
-        var hmac: Digest
+        var hmac: HMAC
 
         hmac = HMAC(
             BMW384(),
@@ -234,7 +235,7 @@ class HMACTest {
      */
     @Test
     fun testHMACBMW512() {
-        var hmac: Digest
+        var hmac: HMAC
 
         hmac = HMAC(
             BMW512(),

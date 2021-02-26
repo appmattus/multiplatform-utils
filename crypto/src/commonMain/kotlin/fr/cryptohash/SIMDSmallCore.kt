@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SIMDSmallCore : DigestEngine() {
+abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() {
     private lateinit var state: IntArray
     private lateinit var q: IntArray
     private lateinit var w: IntArray
@@ -39,9 +39,9 @@ abstract class SIMDSmallCore : DigestEngine() {
     override val blockLength: Int
         get() = 64
 
-    protected fun copyState(dst: SIMDSmallCore): Digest {
-        state.copyInto(dst.state, 0, 0, 16)
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        state.copyInto(dest.state, 0, 0, 16)
+        return super.copyState(dest)
     }
 
     override fun engineReset() {

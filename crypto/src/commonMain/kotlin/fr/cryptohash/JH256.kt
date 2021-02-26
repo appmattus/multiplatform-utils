@@ -31,9 +31,9 @@ package fr.cryptohash
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class JH256 : JHCore() {
+class JH256 : JHCore<JH256>() {
 
-    override fun copy(): Digest {
+    override fun copy(): JH256 {
         return copyState(JH256())
     }
 

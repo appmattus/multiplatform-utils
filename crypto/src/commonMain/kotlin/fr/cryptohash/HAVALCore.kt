@@ -37,7 +37,7 @@ package fr.cryptohash
  * @param outputLength   output length (in bits)
  * @param passes         number of passes (3, 4 or 5)
  */
-abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEngine() {
+abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private val passes: Int) : DigestEngine<D>() {
     /**
      * Output length, in 32-bit words (4, 5, 6, 7, or 8).
      */
@@ -65,16 +65,16 @@ abstract class HAVALCore(outputLength: Int, private val passes: Int) : DigestEng
      */
     private lateinit var inw: IntArray
 
-    protected fun copyState(dst: HAVALCore): Digest {
-        dst.s0 = s0
-        dst.s1 = s1
-        dst.s2 = s2
-        dst.s3 = s3
-        dst.s4 = s4
-        dst.s5 = s5
-        dst.s6 = s6
-        dst.s7 = s7
-        return super.copyState(dst)
+    override fun copyState(dest: D): D {
+        dest.s0 = s0
+        dest.s1 = s1
+        dest.s2 = s2
+        dest.s3 = s3
+        dest.s4 = s4
+        dest.s5 = s5
+        dest.s6 = s6
+        dest.s7 = s7
+        return super.copyState(dest)
     }
 
     override val blockLength: Int

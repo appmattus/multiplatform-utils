@@ -1,6 +1,5 @@
 package com.appmattus.crypto
 
-import fr.cryptohash.Digest
 import fr.cryptohash.HAVAL128_3
 import fr.cryptohash.HAVAL128_4
 import fr.cryptohash.HAVAL128_5
@@ -25,7 +24,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL128_3() {
-        val dig128_3: Digest = HAVAL128_3()
+        val dig128_3 = HAVAL128_3()
         testKat(
             dig128_3, "",
             "C68F39913F901F3DDF44C707357A7D70"
@@ -88,7 +87,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL160_3() {
-        val dig160_3: Digest = HAVAL160_3()
+        val dig160_3 = HAVAL160_3()
         testKat(
             dig160_3, "",
             "D353C3AE22A25401D257643836D7231A9A95F953"
@@ -121,7 +120,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL192_3() {
-        val dig192_3: Digest = HAVAL192_3()
+        val dig192_3 = HAVAL192_3()
         testKat(
             dig192_3, "",
             "E9C48D7903EAF2A91C5B350151EFCB175C0FC82DE2289A4E"
@@ -154,7 +153,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL224_3() {
-        val dig224_3: Digest = HAVAL224_3()
+        val dig224_3 = HAVAL224_3()
         testKat(
             dig224_3, "",
             "C5AAE9D47BFFCAAF84A8C6E7CCACD60A0DD1932BE7B1A192B9214B6D"
@@ -187,7 +186,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL256_3() {
-        val dig256_3: Digest = HAVAL256_3()
+        val dig256_3 = HAVAL256_3()
         testKat(
             dig256_3, "",
             "4F6938531F0BC8991F62DA7BBD6F7DE3FAD44562B8C6F4EBF146D5B4E46F7C17"
@@ -220,7 +219,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL128_4() {
-        val dig128_4: Digest = HAVAL128_4()
+        val dig128_4 = HAVAL128_4()
         testKat(
             dig128_4, "",
             "EE6BBF4D6A46A679B3A856C88538BB98"
@@ -253,7 +252,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL160_4() {
-        val dig160_4: Digest = HAVAL160_4()
+        val dig160_4 = HAVAL160_4()
         testKat(
             dig160_4, "",
             "1D33AAE1BE4146DBAACA0B6E70D7A11F10801525"
@@ -286,7 +285,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL192_4() {
-        val dig192_4: Digest = HAVAL192_4()
+        val dig192_4 = HAVAL192_4()
         testKat(
             dig192_4, "",
             "4A8372945AFA55C7DEAD800311272523CA19D42EA47B72DA"
@@ -319,7 +318,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL224_4() {
-        val dig224_4: Digest = HAVAL224_4()
+        val dig224_4 = HAVAL224_4()
         testKat(
             dig224_4, "",
             "3E56243275B3B81561750550E36FCD676AD2F5DD9E15F2E89E6ED78E"
@@ -352,7 +351,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL256_4() {
-        val dig256_4: Digest = HAVAL256_4()
+        val dig256_4 = HAVAL256_4()
         testKat(
             dig256_4, "",
             "C92B2E23091E80E375DADCE26982482D197B1A2521BE82DA819F8CA2C579B99B"
@@ -385,7 +384,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL128_5() {
-        val dig128_5: Digest = HAVAL128_5()
+        val dig128_5 = HAVAL128_5()
         testKat(
             dig128_5, "",
             "184B8482A0C050DCA54B59C7F05BF5DD"
@@ -418,7 +417,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL160_5() {
-        val dig160_5: Digest = HAVAL160_5()
+        val dig160_5 = HAVAL160_5()
         testKat(
             dig160_5, "",
             "255158CFC1EED1A7BE7C55DDD64D9790415B933B"
@@ -451,7 +450,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL192_5() {
-        val dig192_5: Digest = HAVAL192_5()
+        val dig192_5 = HAVAL192_5()
         testKat(
             dig192_5, "",
             "4839D0626F95935E17EE2FC4509387BBE2CC46CB382FFE85"
@@ -484,7 +483,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL224_5() {
-        val dig224_5: Digest = HAVAL224_5()
+        val dig224_5 = HAVAL224_5()
         testKat(
             dig224_5, "",
             "4A0513C032754F5582A758D35917AC9ADF3854219B39E3AC77D1837E"
@@ -517,7 +516,7 @@ class HAVALCoreTest {
      */
     @Test
     fun testHAVAL256_5() {
-        val dig256_5: Digest = HAVAL256_5()
+        val dig256_5 = HAVAL256_5()
         testKat(
             dig256_5, "",
             "BE417BB4DD5CFB76C7126F4F8EEB1553A449039307B1A3CD451DBFDC0FBBE330"

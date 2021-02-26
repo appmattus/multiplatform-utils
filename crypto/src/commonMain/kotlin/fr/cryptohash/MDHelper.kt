@@ -46,11 +46,11 @@ package fr.cryptohash
  * be at least 8)
  * @param fbyte          the first padding byte
  */
-abstract class MDHelper(
+abstract class MDHelper<D : MDHelper<D>>(
     private val littleEndian: Boolean,
     lenlen: Int,
     private val fbyte: Byte = 0x80.toByte()
-) : DigestEngine() {
+) : DigestEngine<D>() {
 
     private val countBuf: ByteArray = ByteArray(lenlen)
 

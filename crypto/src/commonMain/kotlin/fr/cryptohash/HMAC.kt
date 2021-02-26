@@ -34,7 +34,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class HMAC : DigestEngine {
+class HMAC : DigestEngine<HMAC> {
 
     /**
      * Build the object. The provided digest algorithm will be used
@@ -46,7 +46,7 @@ class HMAC : DigestEngine {
      * @param key   the MAC key
      */
     @Suppress("NAME_SHADOWING")
-    constructor(dig: Digest, key: ByteArray) {
+    constructor(dig: Digest<*>, key: ByteArray) {
         var key = key
         dig.reset()
         this.dig = dig
@@ -89,7 +89,7 @@ class HMAC : DigestEngine {
      * @param key            the MAC key
      * @param outputLength   the HMAC output length (in bytes)
      */
-    constructor(dig: Digest, key: ByteArray, outputLength: Int) : this(dig, key) {
+    constructor(dig: Digest<*>, key: ByteArray, outputLength: Int) : this(dig, key) {
         if (outputLength < dig.digestLength) this.outputLength = outputLength
     }
 
@@ -102,7 +102,7 @@ class HMAC : DigestEngine {
      * @param kopad          the (internal) opad key
      * @param outputLength   the output length, or -1
      */
-    private constructor(dig: Digest, kipad: ByteArray, kopad: ByteArray, outputLength: Int) {
+    private constructor(dig: Digest<*>, kipad: ByteArray, kopad: ByteArray, outputLength: Int) {
         this.dig = dig
         this.kipad = kipad
         this.kopad = kopad
@@ -110,7 +110,7 @@ class HMAC : DigestEngine {
         tmpOut = ByteArray(dig.digestLength)
     }
 
-    private var dig: Digest
+    private var dig: Digest<*>
     private lateinit var kipad: ByteArray
     private lateinit var kopad: ByteArray
     private var outputLength: Int
@@ -126,7 +126,7 @@ class HMAC : DigestEngine {
         }
     }
 
-    override fun copy(): Digest {
+    override fun copy(): HMAC {
         val h = HMAC(dig.copy(), kipad, kopad, outputLength)
         return copyState(h)
     }
@@ -138,13 +138,7 @@ class HMAC : DigestEngine {
      * set.
      */
     override val digestLength: Int
-        get() =/*
-		 * At construction time, outputLength is first set to 0,
-		 * which means that this method will return 0, which is
-		 * appropriate since at that time "dig" has not yet been
-		 * set.
-		 */
-            if (outputLength < 0) dig.digestLength else outputLength
+        get() = if (outputLength < 0) dig.digestLength else outputLength
 
     /*
 	 * Internal block length is not defined for HMAC, which

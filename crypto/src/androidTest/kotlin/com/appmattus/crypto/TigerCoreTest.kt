@@ -12,7 +12,7 @@ class TigerCoreTest {
      */
     @Test
     fun testTiger() {
-        val dig: Digest = Tiger()
+        val dig = Tiger()
         testKat(
             dig, "",
             "3293AC630C13F0245F92BBB1766E16167A4E58492DDE73F3"
@@ -59,7 +59,7 @@ class TigerCoreTest {
      */
     @Test
     fun testTiger2() {
-        val dig: Digest = Tiger2()
+        val dig = Tiger2()
         testKat(
             dig, "",
             "4441BE75F6018773C206C22745374B924AA8313FEF919F41"

@@ -3,7 +3,7 @@ package com.appmattus.crypto
 import fr.cryptohash.Digest
 import kotlin.test.fail
 
-fun testKat(dig: Digest, buf: ByteArray, exp: ByteArray) {
+fun testKat(dig: Digest<*>, buf: ByteArray, exp: ByteArray) {
     /*
      * First test the hashing itself.
      */
@@ -27,22 +27,22 @@ fun testKat(dig: Digest, buf: ByteArray, exp: ByteArray) {
     assertEquals(dig2.digest(), exp)
 }
 
-fun testKat(dig: Digest, data: String, ref: String) {
+fun testKat(dig: Digest<*>, data: String, ref: String) {
     testKat(dig, encodeLatin1(data), strtobin(ref))
 }
 
-fun testKatHex(dig: Digest, data: String, ref: String) {
+fun testKatHex(dig: Digest<*>, data: String, ref: String) {
     testKat(dig, strtobin(data), strtobin(ref))
 }
 
-fun testKatMillionA(dig: Digest, ref: String) {
+fun testKatMillionA(dig: Digest<*>, ref: String) {
     val buf = ByteArray(1000)
     for (i in 0..999) buf[i] = 'a'.toByte()
     for (i in 0..999) dig.update(buf)
     assertEquals(dig.digest(), strtobin(ref))
 }
 
-fun testCollision(dig: Digest, s1: String, s2: String) {
+fun testCollision(dig: Digest<*>, s1: String, s2: String) {
     val msg1 = strtobin(s1)
     val msg2 = strtobin(s2)
     assertNotEquals(msg1, msg2)

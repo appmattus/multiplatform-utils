@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 236 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Hamsi224 : HamsiSmallCore() {
+class Hamsi224 : HamsiSmallCore<Hamsi224>() {
 
     override val digestLength: Int
         get() = 28
@@ -39,7 +39,7 @@ class Hamsi224 : HamsiSmallCore() {
     override val iV: IntArray
         get() = Companion.iV
 
-    override fun dup(): HamsiSmallCore {
+    override fun dup(): Hamsi224 {
         return Hamsi224()
     }
 

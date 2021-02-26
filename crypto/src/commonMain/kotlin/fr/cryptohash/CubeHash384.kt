@@ -31,9 +31,9 @@ package fr.cryptohash
  * @version   $Revision: 183 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class CubeHash384 : CubeHashCore() {
+class CubeHash384 : CubeHashCore<CubeHash384>() {
 
-    override fun copy(): Digest {
+    override fun copy(): CubeHash384 {
         return copyState(CubeHash384())
     }
 

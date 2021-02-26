@@ -31,7 +31,7 @@ package fr.cryptohash
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BLAKE512 : BLAKEBigCore() {
+class BLAKE512 : BLAKEBigCore<BLAKE512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -39,7 +39,7 @@ class BLAKE512 : BLAKEBigCore() {
     override val digestLength: Int
         get() = 64
 
-    override fun copy(): Digest {
+    override fun copy(): BLAKE512 {
         return copyState(BLAKE512())
     }
 

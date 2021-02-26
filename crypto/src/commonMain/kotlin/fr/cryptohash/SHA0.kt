@@ -31,10 +31,10 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA0 : MDHelper(false, 8) {
+class SHA0 : MDHelper<SHA0>(false, 8) {
     private lateinit var currentVal: IntArray
 
-    override fun copy(): Digest {
+    override fun copy(): SHA0 {
         val d = SHA0()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)

@@ -31,12 +31,12 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Luffa224 : LuffaSmallCore() {
+class Luffa224 : LuffaSmallCore<Luffa224>() {
 
     override val digestLength: Int
         get() = 28
 
-    override fun copy(): Digest {
+    override fun copy(): Luffa224 {
         return copyState(Luffa224())
     }
 }

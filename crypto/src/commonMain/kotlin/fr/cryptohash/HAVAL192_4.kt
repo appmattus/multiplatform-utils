@@ -29,12 +29,12 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class HAVAL192_4 : HAVALCore(192, 4) {
+class HAVAL192_4 : HAVALCore<HAVAL192_4>(192, 4) {
 
     override val digestLength: Int
         get() = 24
 
-    override fun copy(): Digest {
+    override fun copy(): HAVAL192_4 {
         return copyState(HAVAL192_4())
     }
 }

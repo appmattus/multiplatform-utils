@@ -30,12 +30,12 @@ package fr.cryptohash
  * @version   $Revision: 159 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Fugue512 : FugueCore() {
+class Fugue512 : FugueCore<Fugue512>() {
 
     override val digestLength: Int
         get() = 64
 
-    override fun dup(): FugueCore {
+    override fun dup(): Fugue512 {
         return Fugue512()
     }
 
