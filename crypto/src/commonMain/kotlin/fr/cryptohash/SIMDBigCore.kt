@@ -1,12 +1,4 @@
-// $Id: SIMDBigCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements SIMD-384 and SIMD-512.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,9 +19,12 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements SIMD-384 and SIMD-512.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -90,6 +85,7 @@ abstract class SIMDBigCore : DigestEngine() {
         compress(data, false)
     }
 
+    @Suppress("LocalVariableName")
     private fun fft64(x: ByteArray, xb: Int, xs: Int, qoff: Int) {
         val xd = xs shl 1
         run {
@@ -537,6 +533,7 @@ abstract class SIMDBigCore : DigestEngine() {
         }
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun oneRound(isp: Int, p0: Int, p1: Int, p2: Int, p3: Int) {
         var tmp: Int
         tA[0] = circularLeft(state[0], p0)

@@ -1,14 +1,4 @@
-// $Id: RIPEMD160.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the RIPEMD-160 digest algorithm under the
- * [Digest] API.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,16 +19,21 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the RIPEMD-160 digest algorithm under the
+ * [Digest] API.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 class RIPEMD160 : MDHelper(true, 8) {
     private lateinit var currentVal: IntArray
-    private lateinit var X: IntArray
+    private lateinit var x: IntArray
 
     override fun copy(): Digest {
         val d = RIPEMD160()
@@ -70,156 +65,156 @@ class RIPEMD160 : MDHelper(true, 8) {
 
     override fun doInit() {
         currentVal = IntArray(5)
-        X = IntArray(16)
+        x = IntArray(16)
         engineReset()
     }
 
     override fun processBlock(data: ByteArray) {
-        val H0: Int
-        val H1: Int
-        val H2: Int
-        val H3: Int
-        val H4: Int
-        var A1: Int
-        var B1: Int
-        var C1: Int
-        var D1: Int
-        var E1: Int
-        var A2: Int
-        var B2: Int
-        var C2: Int
-        var D2: Int
-        var E2: Int
-        A2 = currentVal[0]
-        A1 = A2
-        H0 = A1
-        B2 = currentVal[1]
-        B1 = B2
-        H1 = B1
-        C2 = currentVal[2]
-        C1 = C2
-        H2 = C1
-        D2 = currentVal[3]
-        D1 = D2
-        H3 = D1
-        E2 = currentVal[4]
-        E1 = E2
-        H4 = E1
+        val h0: Int
+        val h1: Int
+        val h2: Int
+        val h3: Int
+        val h4: Int
+        var a1: Int
+        var b1: Int
+        var c1: Int
+        var d1: Int
+        var e1: Int
+        var a2: Int
+        var b2: Int
+        var c2: Int
+        var d2: Int
+        var e2: Int
+        a2 = currentVal[0]
+        a1 = a2
+        h0 = a1
+        b2 = currentVal[1]
+        b1 = b2
+        h1 = b1
+        c2 = currentVal[2]
+        c1 = c2
+        h2 = c1
+        d2 = currentVal[3]
+        d1 = d2
+        h3 = d1
+        e2 = currentVal[4]
+        e1 = e2
+        h4 = e1
         run {
             var i = 0
             var j = 0
             while (i < 16) {
-                X[i] = decodeLEInt(data, j)
+                x[i] = decodeLEInt(data, j)
                 i++
                 j += 4
             }
         }
         for (i in 0..15) {
-            var T1 = (A1 + (B1 xor C1 xor D1)
-                    + X[i])
-            T1 = (T1 shl s1[i] or (T1 ushr 32 - s1[i])) + E1
-            A1 = E1
-            E1 = D1
-            D1 = C1 shl 10 or (C1 ushr 22)
-            C1 = B1
-            B1 = T1
+            var t1 = (a1 + (b1 xor c1 xor d1)
+                    + x[i])
+            t1 = (t1 shl s1[i] or (t1 ushr 32 - s1[i])) + e1
+            a1 = e1
+            e1 = d1
+            d1 = c1 shl 10 or (c1 ushr 22)
+            c1 = b1
+            b1 = t1
         }
         for (i in 16..31) {
-            var T1 = (A1 + (C1 xor D1 and B1 xor D1)
-                    + X[r1[i]] + 0x5A827999)
-            T1 = (T1 shl s1[i] or (T1 ushr 32 - s1[i])) + E1
-            A1 = E1
-            E1 = D1
-            D1 = C1 shl 10 or (C1 ushr 22)
-            C1 = B1
-            B1 = T1
+            var t1 = (a1 + (c1 xor d1 and b1 xor d1)
+                    + x[r1[i]] + 0x5A827999)
+            t1 = (t1 shl s1[i] or (t1 ushr 32 - s1[i])) + e1
+            a1 = e1
+            e1 = d1
+            d1 = c1 shl 10 or (c1 ushr 22)
+            c1 = b1
+            b1 = t1
         }
         for (i in 32..47) {
-            var T1 = (A1 + (B1 or C1.inv() xor D1)
-                    + X[r1[i]] + 0x6ED9EBA1)
-            T1 = (T1 shl s1[i] or (T1 ushr 32 - s1[i])) + E1
-            A1 = E1
-            E1 = D1
-            D1 = C1 shl 10 or (C1 ushr 22)
-            C1 = B1
-            B1 = T1
+            var t1 = (a1 + (b1 or c1.inv() xor d1)
+                    + x[r1[i]] + 0x6ED9EBA1)
+            t1 = (t1 shl s1[i] or (t1 ushr 32 - s1[i])) + e1
+            a1 = e1
+            e1 = d1
+            d1 = c1 shl 10 or (c1 ushr 22)
+            c1 = b1
+            b1 = t1
         }
         for (i in 48..63) {
-            var T1 = (A1 + (B1 xor C1 and D1 xor C1)
-                    + X[r1[i]] + -0x70e44324)
-            T1 = (T1 shl s1[i] or (T1 ushr 32 - s1[i])) + E1
-            A1 = E1
-            E1 = D1
-            D1 = C1 shl 10 or (C1 ushr 22)
-            C1 = B1
-            B1 = T1
+            var t1 = (a1 + (b1 xor c1 and d1 xor c1)
+                    + x[r1[i]] + -0x70e44324)
+            t1 = (t1 shl s1[i] or (t1 ushr 32 - s1[i])) + e1
+            a1 = e1
+            e1 = d1
+            d1 = c1 shl 10 or (c1 ushr 22)
+            c1 = b1
+            b1 = t1
         }
         for (i in 64..79) {
-            var T1 = (A1 + (B1 xor (C1 or D1.inv()))
-                    + X[r1[i]] + -0x56ac02b2)
-            T1 = (T1 shl s1[i] or (T1 ushr 32 - s1[i])) + E1
-            A1 = E1
-            E1 = D1
-            D1 = C1 shl 10 or (C1 ushr 22)
-            C1 = B1
-            B1 = T1
+            var t1 = (a1 + (b1 xor (c1 or d1.inv()))
+                    + x[r1[i]] + -0x56ac02b2)
+            t1 = (t1 shl s1[i] or (t1 ushr 32 - s1[i])) + e1
+            a1 = e1
+            e1 = d1
+            d1 = c1 shl 10 or (c1 ushr 22)
+            c1 = b1
+            b1 = t1
         }
         for (i in 0..15) {
-            var T2 = (A2 + (B2 xor (C2 or D2.inv()))
-                    + X[r2[i]] + 0x50A28BE6)
-            T2 = (T2 shl s2[i] or (T2 ushr 32 - s2[i])) + E2
-            A2 = E2
-            E2 = D2
-            D2 = C2 shl 10 or (C2 ushr 22)
-            C2 = B2
-            B2 = T2
+            var t2 = (a2 + (b2 xor (c2 or d2.inv()))
+                    + x[r2[i]] + 0x50A28BE6)
+            t2 = (t2 shl s2[i] or (t2 ushr 32 - s2[i])) + e2
+            a2 = e2
+            e2 = d2
+            d2 = c2 shl 10 or (c2 ushr 22)
+            c2 = b2
+            b2 = t2
         }
         for (i in 16..31) {
-            var T2 = (A2 + (B2 xor C2 and D2 xor C2)
-                    + X[r2[i]] + 0x5C4DD124)
-            T2 = (T2 shl s2[i] or (T2 ushr 32 - s2[i])) + E2
-            A2 = E2
-            E2 = D2
-            D2 = C2 shl 10 or (C2 ushr 22)
-            C2 = B2
-            B2 = T2
+            var t2 = (a2 + (b2 xor c2 and d2 xor c2)
+                    + x[r2[i]] + 0x5C4DD124)
+            t2 = (t2 shl s2[i] or (t2 ushr 32 - s2[i])) + e2
+            a2 = e2
+            e2 = d2
+            d2 = c2 shl 10 or (c2 ushr 22)
+            c2 = b2
+            b2 = t2
         }
         for (i in 32..47) {
-            var T2 = (A2 + (B2 or C2.inv() xor D2)
-                    + X[r2[i]] + 0x6D703EF3)
-            T2 = (T2 shl s2[i] or (T2 ushr 32 - s2[i])) + E2
-            A2 = E2
-            E2 = D2
-            D2 = C2 shl 10 or (C2 ushr 22)
-            C2 = B2
-            B2 = T2
+            var t2 = (a2 + (b2 or c2.inv() xor d2)
+                    + x[r2[i]] + 0x6D703EF3)
+            t2 = (t2 shl s2[i] or (t2 ushr 32 - s2[i])) + e2
+            a2 = e2
+            e2 = d2
+            d2 = c2 shl 10 or (c2 ushr 22)
+            c2 = b2
+            b2 = t2
         }
         for (i in 48..63) {
-            var T2 = (A2 + (C2 xor D2 and B2 xor D2)
-                    + X[r2[i]] + 0x7A6D76E9)
-            T2 = (T2 shl s2[i] or (T2 ushr 32 - s2[i])) + E2
-            A2 = E2
-            E2 = D2
-            D2 = C2 shl 10 or (C2 ushr 22)
-            C2 = B2
-            B2 = T2
+            var t2 = (a2 + (c2 xor d2 and b2 xor d2)
+                    + x[r2[i]] + 0x7A6D76E9)
+            t2 = (t2 shl s2[i] or (t2 ushr 32 - s2[i])) + e2
+            a2 = e2
+            e2 = d2
+            d2 = c2 shl 10 or (c2 ushr 22)
+            c2 = b2
+            b2 = t2
         }
         for (i in 64..79) {
-            var T2 = (A2 + (B2 xor C2 xor D2)
-                    + X[r2[i]])
-            T2 = (T2 shl s2[i] or (T2 ushr 32 - s2[i])) + E2
-            A2 = E2
-            E2 = D2
-            D2 = C2 shl 10 or (C2 ushr 22)
-            C2 = B2
-            B2 = T2
+            var t2 = (a2 + (b2 xor c2 xor d2)
+                    + x[r2[i]])
+            t2 = (t2 shl s2[i] or (t2 ushr 32 - s2[i])) + e2
+            a2 = e2
+            e2 = d2
+            d2 = c2 shl 10 or (c2 ushr 22)
+            c2 = b2
+            b2 = t2
         }
-        val T = H1 + C1 + D2
-        currentVal[1] = H2 + D1 + E2
-        currentVal[2] = H3 + E1 + A2
-        currentVal[3] = H4 + A1 + B2
-        currentVal[4] = H0 + B1 + C2
-        currentVal[0] = T
+        val t = h1 + c1 + d2
+        currentVal[1] = h2 + d1 + e2
+        currentVal[2] = h3 + e1 + a2
+        currentVal[3] = h4 + a1 + b2
+        currentVal[4] = h0 + b1 + c2
+        currentVal[0] = t
     }
 
     override fun toString(): String {
@@ -256,19 +251,6 @@ class RIPEMD160 : MDHelper(true, 8) {
                     or (buf[off + 1].toInt() and 0xFF shl 8)
                     or (buf[off + 2].toInt() and 0xFF shl 16)
                     or (buf[off + 3].toInt() and 0xFF shl 24))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 32-bit word `x`. The `n` parameter
-         * must lie between 1 and 31 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 31)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Int, n: Int): Int {
-            return x shl n or (x ushr 32 - n)
         }
 
         private val r1 = intArrayOf(

@@ -1,13 +1,4 @@
-// $Id: TigerCore.java 156 2010-04-26 17:55:11Z tp $
-package fr.cryptohash
-
-/**
- * This class implements Tiger and Tiger2, which differ only by the
- * padding.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,20 +19,21 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements Tiger and Tiger2, which differ only by the
+ * padding.
  *
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
- */
-abstract class TigerCore
-/**
- * Create the object.
  *
  * @param fbyte   the first padding byte
  */
-    (fbyte: Byte) : MDHelper(true, 8, fbyte) {
+abstract class TigerCore(fbyte: Byte) : MDHelper(true, 8, fbyte) {
+
     private var currentA: Long = 0
     private var currentB: Long = 0
     private var currentC: Long = 0
@@ -98,148 +90,148 @@ abstract class TigerCore
 		 * We believe that such inlining increases the footprint and
 		 * may exceed cache on some architectures.
 		 */
-        var A = currentA
-        var B = currentB
-        var C = currentC
-        var X0 = decodeLELong(data, 0)
-        var X1 = decodeLELong(data, 8)
-        var X2 = decodeLELong(data, 16)
-        var X3 = decodeLELong(data, 24)
-        var X4 = decodeLELong(data, 32)
-        var X5 = decodeLELong(data, 40)
-        var X6 = decodeLELong(data, 48)
-        var X7 = decodeLELong(data, 56)
-        C = C xor X0
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 5L
-        A = A xor X1
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 5L
-        B = B xor X2
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 5L
-        C = C xor X3
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 5L
-        A = A xor X4
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 5L
-        B = B xor X5
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 5L
-        C = C xor X6
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 5L
-        A = A xor X7
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 5L
-        X0 -= X7 xor -0x5a5a5a5a5a5a5a5bL
-        X1 = X1 xor X0
-        X2 += X1
-        X3 -= X2 xor (X1.inv() shl 19)
-        X4 = X4 xor X3
-        X5 += X4
-        X6 -= X5 xor (X4.inv() ushr 23)
-        X7 = X7 xor X6
-        X0 += X7
-        X1 -= X0 xor (X7.inv() shl 19)
-        X2 = X2 xor X1
-        X3 += X2
-        X4 -= X3 xor (X2.inv() ushr 23)
-        X5 = X5 xor X4
-        X6 += X5
-        X7 -= X6 xor 0x0123456789ABCDEFL
-        B = B xor X0
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 7L
-        C = C xor X1
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 7L
-        A = A xor X2
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 7L
-        B = B xor X3
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 7L
-        C = C xor X4
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 7L
-        A = A xor X5
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 7L
-        B = B xor X6
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 7L
-        C = C xor X7
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 7L
-        X0 -= X7 xor -0x5a5a5a5a5a5a5a5bL
-        X1 = X1 xor X0
-        X2 += X1
-        X3 -= X2 xor (X1.inv() shl 19)
-        X4 = X4 xor X3
-        X5 += X4
-        X6 -= X5 xor (X4.inv() ushr 23)
-        X7 = X7 xor X6
-        X0 += X7
-        X1 -= X0 xor (X7.inv() shl 19)
-        X2 = X2 xor X1
-        X3 += X2
-        X4 -= X3 xor (X2.inv() ushr 23)
-        X5 = X5 xor X4
-        X6 += X5
-        X7 -= X6 xor 0x0123456789ABCDEFL
-        A = A xor X0
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 9L
-        B = B xor X1
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 9L
-        C = C xor X2
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 9L
-        A = A xor X3
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 9L
-        B = B xor X4
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 9L
-        C = C xor X5
-        A -= lookupLow(C)
-        B += lookupHigh(C)
-        B *= 9L
-        A = A xor X6
-        B -= lookupLow(A)
-        C += lookupHigh(A)
-        C *= 9L
-        B = B xor X7
-        C -= lookupLow(B)
-        A += lookupHigh(B)
-        A *= 9L
-        currentA = currentA xor A
-        currentB = B - currentB
-        currentC += C
+        var a = currentA
+        var b = currentB
+        var c = currentC
+        var x0 = decodeLELong(data, 0)
+        var x1 = decodeLELong(data, 8)
+        var x2 = decodeLELong(data, 16)
+        var x3 = decodeLELong(data, 24)
+        var x4 = decodeLELong(data, 32)
+        var x5 = decodeLELong(data, 40)
+        var x6 = decodeLELong(data, 48)
+        var x7 = decodeLELong(data, 56)
+        c = c xor x0
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 5L
+        a = a xor x1
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 5L
+        b = b xor x2
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 5L
+        c = c xor x3
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 5L
+        a = a xor x4
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 5L
+        b = b xor x5
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 5L
+        c = c xor x6
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 5L
+        a = a xor x7
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 5L
+        x0 -= x7 xor -0x5a5a5a5a5a5a5a5bL
+        x1 = x1 xor x0
+        x2 += x1
+        x3 -= x2 xor (x1.inv() shl 19)
+        x4 = x4 xor x3
+        x5 += x4
+        x6 -= x5 xor (x4.inv() ushr 23)
+        x7 = x7 xor x6
+        x0 += x7
+        x1 -= x0 xor (x7.inv() shl 19)
+        x2 = x2 xor x1
+        x3 += x2
+        x4 -= x3 xor (x2.inv() ushr 23)
+        x5 = x5 xor x4
+        x6 += x5
+        x7 -= x6 xor 0x0123456789ABCDEFL
+        b = b xor x0
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 7L
+        c = c xor x1
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 7L
+        a = a xor x2
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 7L
+        b = b xor x3
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 7L
+        c = c xor x4
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 7L
+        a = a xor x5
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 7L
+        b = b xor x6
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 7L
+        c = c xor x7
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 7L
+        x0 -= x7 xor -0x5a5a5a5a5a5a5a5bL
+        x1 = x1 xor x0
+        x2 += x1
+        x3 -= x2 xor (x1.inv() shl 19)
+        x4 = x4 xor x3
+        x5 += x4
+        x6 -= x5 xor (x4.inv() ushr 23)
+        x7 = x7 xor x6
+        x0 += x7
+        x1 -= x0 xor (x7.inv() shl 19)
+        x2 = x2 xor x1
+        x3 += x2
+        x4 -= x3 xor (x2.inv() ushr 23)
+        x5 = x5 xor x4
+        x6 += x5
+        x7 -= x6 xor 0x0123456789ABCDEFL
+        a = a xor x0
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 9L
+        b = b xor x1
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 9L
+        c = c xor x2
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 9L
+        a = a xor x3
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 9L
+        b = b xor x4
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 9L
+        c = c xor x5
+        a -= lookupLow(c)
+        b += lookupHigh(c)
+        b *= 9L
+        a = a xor x6
+        b -= lookupLow(a)
+        c += lookupHigh(a)
+        c *= 9L
+        b = b xor x7
+        c -= lookupLow(b)
+        a += lookupHigh(b)
+        a *= 9L
+        currentA = currentA xor a
+        currentB = b - currentB
+        currentC += c
     }
 
     companion object {

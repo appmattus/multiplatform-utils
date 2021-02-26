@@ -1,14 +1,4 @@
-// $Id: SHA0.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the SHA-0 digest algorithm under the [ ] API. SHA-0 was defined by FIPS 180 (the original standard,
- * now obsolete).
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,9 +19,14 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the SHA-0 digest algorithm under the [ ] API. SHA-0 was defined by FIPS 180 (the original standard,
+ * now obsolete).
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -73,336 +68,336 @@ class SHA0 : MDHelper(false, 8) {
     }
 
     override fun processBlock(data: ByteArray) {
-        var A = currentVal[0]
-        var B = currentVal[1]
-        var C = currentVal[2]
-        var D = currentVal[3]
-        var E = currentVal[4]
-        var W0 = decodeBEInt(data, 0)
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B.inv() and D))
-                + E + W0 + 0x5A827999)
-        B = B shl 30 or (B ushr 2)
-        var W1 = decodeBEInt(data, 4)
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A.inv() and C))
-                + D + W1 + 0x5A827999)
-        A = A shl 30 or (A ushr 2)
-        var W2 = decodeBEInt(data, 8)
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E.inv() and B))
-                + C + W2 + 0x5A827999)
-        E = E shl 30 or (E ushr 2)
-        var W3 = decodeBEInt(data, 12)
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D.inv() and A))
-                + B + W3 + 0x5A827999)
-        D = D shl 30 or (D ushr 2)
-        var W4 = decodeBEInt(data, 16)
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C.inv() and E))
-                + A + W4 + 0x5A827999)
-        C = C shl 30 or (C ushr 2)
-        var W5 = decodeBEInt(data, 20)
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B.inv() and D))
-                + E + W5 + 0x5A827999)
-        B = B shl 30 or (B ushr 2)
-        var W6 = decodeBEInt(data, 24)
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A.inv() and C))
-                + D + W6 + 0x5A827999)
-        A = A shl 30 or (A ushr 2)
-        var W7 = decodeBEInt(data, 28)
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E.inv() and B))
-                + C + W7 + 0x5A827999)
-        E = E shl 30 or (E ushr 2)
-        var W8 = decodeBEInt(data, 32)
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D.inv() and A))
-                + B + W8 + 0x5A827999)
-        D = D shl 30 or (D ushr 2)
-        var W9 = decodeBEInt(data, 36)
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C.inv() and E))
-                + A + W9 + 0x5A827999)
-        C = C shl 30 or (C ushr 2)
-        var Wa = decodeBEInt(data, 40)
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B.inv() and D))
-                + E + Wa + 0x5A827999)
-        B = B shl 30 or (B ushr 2)
-        var Wb = decodeBEInt(data, 44)
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A.inv() and C))
-                + D + Wb + 0x5A827999)
-        A = A shl 30 or (A ushr 2)
-        var Wc = decodeBEInt(data, 48)
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E.inv() and B))
-                + C + Wc + 0x5A827999)
-        E = E shl 30 or (E ushr 2)
-        var Wd = decodeBEInt(data, 52)
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D.inv() and A))
-                + B + Wd + 0x5A827999)
-        D = D shl 30 or (D ushr 2)
-        var We = decodeBEInt(data, 56)
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C.inv() and E))
-                + A + We + 0x5A827999)
-        C = C shl 30 or (C ushr 2)
-        var Wf = decodeBEInt(data, 60)
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B.inv() and D))
-                + E + Wf + 0x5A827999)
-        B = B shl 30 or (B ushr 2)
-        W0 = Wd xor W8 xor W2 xor W0
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A.inv() and C))
-                + D + W0 + 0x5A827999)
-        A = A shl 30 or (A ushr 2)
-        W1 = We xor W9 xor W3 xor W1
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E.inv() and B))
-                + C + W1 + 0x5A827999)
-        E = E shl 30 or (E ushr 2)
-        W2 = Wf xor Wa xor W4 xor W2
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D.inv() and A))
-                + B + W2 + 0x5A827999)
-        D = D shl 30 or (D ushr 2)
-        W3 = W0 xor Wb xor W5 xor W3
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C.inv() and E))
-                + A + W3 + 0x5A827999)
-        C = C shl 30 or (C ushr 2)
-        W4 = W1 xor Wc xor W6 xor W4
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + W4 + 0x6ED9EBA1)
-        B = B shl 30 or (B ushr 2)
-        W5 = W2 xor Wd xor W7 xor W5
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + W5 + 0x6ED9EBA1)
-        A = A shl 30 or (A ushr 2)
-        W6 = W3 xor We xor W8 xor W6
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + W6 + 0x6ED9EBA1)
-        E = E shl 30 or (E ushr 2)
-        W7 = W4 xor Wf xor W9 xor W7
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + W7 + 0x6ED9EBA1)
-        D = D shl 30 or (D ushr 2)
-        W8 = W5 xor W0 xor Wa xor W8
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + W8 + 0x6ED9EBA1)
-        C = C shl 30 or (C ushr 2)
-        W9 = W6 xor W1 xor Wb xor W9
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + W9 + 0x6ED9EBA1)
-        B = B shl 30 or (B ushr 2)
-        Wa = W7 xor W2 xor Wc xor Wa
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + Wa + 0x6ED9EBA1)
-        A = A shl 30 or (A ushr 2)
-        Wb = W8 xor W3 xor Wd xor Wb
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + Wb + 0x6ED9EBA1)
-        E = E shl 30 or (E ushr 2)
-        Wc = W9 xor W4 xor We xor Wc
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + Wc + 0x6ED9EBA1)
-        D = D shl 30 or (D ushr 2)
-        Wd = Wa xor W5 xor Wf xor Wd
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + Wd + 0x6ED9EBA1)
-        C = C shl 30 or (C ushr 2)
-        We = Wb xor W6 xor W0 xor We
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + We + 0x6ED9EBA1)
-        B = B shl 30 or (B ushr 2)
-        Wf = Wc xor W7 xor W1 xor Wf
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + Wf + 0x6ED9EBA1)
-        A = A shl 30 or (A ushr 2)
-        W0 = Wd xor W8 xor W2 xor W0
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + W0 + 0x6ED9EBA1)
-        E = E shl 30 or (E ushr 2)
-        W1 = We xor W9 xor W3 xor W1
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + W1 + 0x6ED9EBA1)
-        D = D shl 30 or (D ushr 2)
-        W2 = Wf xor Wa xor W4 xor W2
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + W2 + 0x6ED9EBA1)
-        C = C shl 30 or (C ushr 2)
-        W3 = W0 xor Wb xor W5 xor W3
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + W3 + 0x6ED9EBA1)
-        B = B shl 30 or (B ushr 2)
-        W4 = W1 xor Wc xor W6 xor W4
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + W4 + 0x6ED9EBA1)
-        A = A shl 30 or (A ushr 2)
-        W5 = W2 xor Wd xor W7 xor W5
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + W5 + 0x6ED9EBA1)
-        E = E shl 30 or (E ushr 2)
-        W6 = W3 xor We xor W8 xor W6
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + W6 + 0x6ED9EBA1)
-        D = D shl 30 or (D ushr 2)
-        W7 = W4 xor Wf xor W9 xor W7
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + W7 + 0x6ED9EBA1)
-        C = C shl 30 or (C ushr 2)
-        W8 = W5 xor W0 xor Wa xor W8
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B and D) or (C and D))
-                + E + W8 + -0x70e44324)
-        B = B shl 30 or (B ushr 2)
-        W9 = W6 xor W1 xor Wb xor W9
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A and C) or (B and C))
-                + D + W9 + -0x70e44324)
-        A = A shl 30 or (A ushr 2)
-        Wa = W7 xor W2 xor Wc xor Wa
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E and B) or (A and B))
-                + C + Wa + -0x70e44324)
-        E = E shl 30 or (E ushr 2)
-        Wb = W8 xor W3 xor Wd xor Wb
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D and A) or (E and A))
-                + B + Wb + -0x70e44324)
-        D = D shl 30 or (D ushr 2)
-        Wc = W9 xor W4 xor We xor Wc
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C and E) or (D and E))
-                + A + Wc + -0x70e44324)
-        C = C shl 30 or (C ushr 2)
-        Wd = Wa xor W5 xor Wf xor Wd
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B and D) or (C and D))
-                + E + Wd + -0x70e44324)
-        B = B shl 30 or (B ushr 2)
-        We = Wb xor W6 xor W0 xor We
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A and C) or (B and C))
-                + D + We + -0x70e44324)
-        A = A shl 30 or (A ushr 2)
-        Wf = Wc xor W7 xor W1 xor Wf
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E and B) or (A and B))
-                + C + Wf + -0x70e44324)
-        E = E shl 30 or (E ushr 2)
-        W0 = Wd xor W8 xor W2 xor W0
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D and A) or (E and A))
-                + B + W0 + -0x70e44324)
-        D = D shl 30 or (D ushr 2)
-        W1 = We xor W9 xor W3 xor W1
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C and E) or (D and E))
-                + A + W1 + -0x70e44324)
-        C = C shl 30 or (C ushr 2)
-        W2 = Wf xor Wa xor W4 xor W2
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B and D) or (C and D))
-                + E + W2 + -0x70e44324)
-        B = B shl 30 or (B ushr 2)
-        W3 = W0 xor Wb xor W5 xor W3
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A and C) or (B and C))
-                + D + W3 + -0x70e44324)
-        A = A shl 30 or (A ushr 2)
-        W4 = W1 xor Wc xor W6 xor W4
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E and B) or (A and B))
-                + C + W4 + -0x70e44324)
-        E = E shl 30 or (E ushr 2)
-        W5 = W2 xor Wd xor W7 xor W5
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D and A) or (E and A))
-                + B + W5 + -0x70e44324)
-        D = D shl 30 or (D ushr 2)
-        W6 = W3 xor We xor W8 xor W6
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C and E) or (D and E))
-                + A + W6 + -0x70e44324)
-        C = C shl 30 or (C ushr 2)
-        W7 = W4 xor Wf xor W9 xor W7
-        E = ((A shl 5 or (A ushr 27)) + (B and C or (B and D) or (C and D))
-                + E + W7 + -0x70e44324)
-        B = B shl 30 or (B ushr 2)
-        W8 = W5 xor W0 xor Wa xor W8
-        D = ((E shl 5 or (E ushr 27)) + (A and B or (A and C) or (B and C))
-                + D + W8 + -0x70e44324)
-        A = A shl 30 or (A ushr 2)
-        W9 = W6 xor W1 xor Wb xor W9
-        C = ((D shl 5 or (D ushr 27)) + (E and A or (E and B) or (A and B))
-                + C + W9 + -0x70e44324)
-        E = E shl 30 or (E ushr 2)
-        Wa = W7 xor W2 xor Wc xor Wa
-        B = ((C shl 5 or (C ushr 27)) + (D and E or (D and A) or (E and A))
-                + B + Wa + -0x70e44324)
-        D = D shl 30 or (D ushr 2)
-        Wb = W8 xor W3 xor Wd xor Wb
-        A = ((B shl 5 or (B ushr 27)) + (C and D or (C and E) or (D and E))
-                + A + Wb + -0x70e44324)
-        C = C shl 30 or (C ushr 2)
-        Wc = W9 xor W4 xor We xor Wc
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + Wc + -0x359d3e2a)
-        B = B shl 30 or (B ushr 2)
-        Wd = Wa xor W5 xor Wf xor Wd
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + Wd + -0x359d3e2a)
-        A = A shl 30 or (A ushr 2)
-        We = Wb xor W6 xor W0 xor We
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + We + -0x359d3e2a)
-        E = E shl 30 or (E ushr 2)
-        Wf = Wc xor W7 xor W1 xor Wf
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + Wf + -0x359d3e2a)
-        D = D shl 30 or (D ushr 2)
-        W0 = Wd xor W8 xor W2 xor W0
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + W0 + -0x359d3e2a)
-        C = C shl 30 or (C ushr 2)
-        W1 = We xor W9 xor W3 xor W1
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + W1 + -0x359d3e2a)
-        B = B shl 30 or (B ushr 2)
-        W2 = Wf xor Wa xor W4 xor W2
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + W2 + -0x359d3e2a)
-        A = A shl 30 or (A ushr 2)
-        W3 = W0 xor Wb xor W5 xor W3
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + W3 + -0x359d3e2a)
-        E = E shl 30 or (E ushr 2)
-        W4 = W1 xor Wc xor W6 xor W4
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + W4 + -0x359d3e2a)
-        D = D shl 30 or (D ushr 2)
-        W5 = W2 xor Wd xor W7 xor W5
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + W5 + -0x359d3e2a)
-        C = C shl 30 or (C ushr 2)
-        W6 = W3 xor We xor W8 xor W6
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + W6 + -0x359d3e2a)
-        B = B shl 30 or (B ushr 2)
-        W7 = W4 xor Wf xor W9 xor W7
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + W7 + -0x359d3e2a)
-        A = A shl 30 or (A ushr 2)
-        W8 = W5 xor W0 xor Wa xor W8
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + W8 + -0x359d3e2a)
-        E = E shl 30 or (E ushr 2)
-        W9 = W6 xor W1 xor Wb xor W9
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + W9 + -0x359d3e2a)
-        D = D shl 30 or (D ushr 2)
-        Wa = W7 xor W2 xor Wc xor Wa
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + Wa + -0x359d3e2a)
-        C = C shl 30 or (C ushr 2)
-        Wb = W8 xor W3 xor Wd xor Wb
-        E = ((A shl 5 or (A ushr 27)) + (B xor C xor D)
-                + E + Wb + -0x359d3e2a)
-        B = B shl 30 or (B ushr 2)
-        Wc = W9 xor W4 xor We xor Wc
-        D = ((E shl 5 or (E ushr 27)) + (A xor B xor C)
-                + D + Wc + -0x359d3e2a)
-        A = A shl 30 or (A ushr 2)
-        Wd = Wa xor W5 xor Wf xor Wd
-        C = ((D shl 5 or (D ushr 27)) + (E xor A xor B)
-                + C + Wd + -0x359d3e2a)
-        E = E shl 30 or (E ushr 2)
-        We = Wb xor W6 xor W0 xor We
-        B = ((C shl 5 or (C ushr 27)) + (D xor E xor A)
-                + B + We + -0x359d3e2a)
-        D = D shl 30 or (D ushr 2)
-        Wf = Wc xor W7 xor W1 xor Wf
-        A = ((B shl 5 or (B ushr 27)) + (C xor D xor E)
-                + A + Wf + -0x359d3e2a)
-        C = C shl 30 or (C ushr 2)
-        currentVal[0] += A
-        currentVal[1] += B
-        currentVal[2] += C
-        currentVal[3] += D
-        currentVal[4] += E
+        var a = currentVal[0]
+        var b = currentVal[1]
+        var c = currentVal[2]
+        var d = currentVal[3]
+        var e = currentVal[4]
+        var w0 = decodeBEInt(data, 0)
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b.inv() and d))
+                + e + w0 + 0x5A827999)
+        b = b shl 30 or (b ushr 2)
+        var w1 = decodeBEInt(data, 4)
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a.inv() and c))
+                + d + w1 + 0x5A827999)
+        a = a shl 30 or (a ushr 2)
+        var w2 = decodeBEInt(data, 8)
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e.inv() and b))
+                + c + w2 + 0x5A827999)
+        e = e shl 30 or (e ushr 2)
+        var w3 = decodeBEInt(data, 12)
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d.inv() and a))
+                + b + w3 + 0x5A827999)
+        d = d shl 30 or (d ushr 2)
+        var w4 = decodeBEInt(data, 16)
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c.inv() and e))
+                + a + w4 + 0x5A827999)
+        c = c shl 30 or (c ushr 2)
+        var w5 = decodeBEInt(data, 20)
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b.inv() and d))
+                + e + w5 + 0x5A827999)
+        b = b shl 30 or (b ushr 2)
+        var w6 = decodeBEInt(data, 24)
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a.inv() and c))
+                + d + w6 + 0x5A827999)
+        a = a shl 30 or (a ushr 2)
+        var w7 = decodeBEInt(data, 28)
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e.inv() and b))
+                + c + w7 + 0x5A827999)
+        e = e shl 30 or (e ushr 2)
+        var w8 = decodeBEInt(data, 32)
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d.inv() and a))
+                + b + w8 + 0x5A827999)
+        d = d shl 30 or (d ushr 2)
+        var w9 = decodeBEInt(data, 36)
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c.inv() and e))
+                + a + w9 + 0x5A827999)
+        c = c shl 30 or (c ushr 2)
+        var wa = decodeBEInt(data, 40)
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b.inv() and d))
+                + e + wa + 0x5A827999)
+        b = b shl 30 or (b ushr 2)
+        var wb = decodeBEInt(data, 44)
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a.inv() and c))
+                + d + wb + 0x5A827999)
+        a = a shl 30 or (a ushr 2)
+        var wc = decodeBEInt(data, 48)
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e.inv() and b))
+                + c + wc + 0x5A827999)
+        e = e shl 30 or (e ushr 2)
+        var wd = decodeBEInt(data, 52)
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d.inv() and a))
+                + b + wd + 0x5A827999)
+        d = d shl 30 or (d ushr 2)
+        var we = decodeBEInt(data, 56)
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c.inv() and e))
+                + a + we + 0x5A827999)
+        c = c shl 30 or (c ushr 2)
+        var wf = decodeBEInt(data, 60)
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b.inv() and d))
+                + e + wf + 0x5A827999)
+        b = b shl 30 or (b ushr 2)
+        w0 = wd xor w8 xor w2 xor w0
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a.inv() and c))
+                + d + w0 + 0x5A827999)
+        a = a shl 30 or (a ushr 2)
+        w1 = we xor w9 xor w3 xor w1
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e.inv() and b))
+                + c + w1 + 0x5A827999)
+        e = e shl 30 or (e ushr 2)
+        w2 = wf xor wa xor w4 xor w2
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d.inv() and a))
+                + b + w2 + 0x5A827999)
+        d = d shl 30 or (d ushr 2)
+        w3 = w0 xor wb xor w5 xor w3
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c.inv() and e))
+                + a + w3 + 0x5A827999)
+        c = c shl 30 or (c ushr 2)
+        w4 = w1 xor wc xor w6 xor w4
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + w4 + 0x6ED9EBA1)
+        b = b shl 30 or (b ushr 2)
+        w5 = w2 xor wd xor w7 xor w5
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + w5 + 0x6ED9EBA1)
+        a = a shl 30 or (a ushr 2)
+        w6 = w3 xor we xor w8 xor w6
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + w6 + 0x6ED9EBA1)
+        e = e shl 30 or (e ushr 2)
+        w7 = w4 xor wf xor w9 xor w7
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + w7 + 0x6ED9EBA1)
+        d = d shl 30 or (d ushr 2)
+        w8 = w5 xor w0 xor wa xor w8
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + w8 + 0x6ED9EBA1)
+        c = c shl 30 or (c ushr 2)
+        w9 = w6 xor w1 xor wb xor w9
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + w9 + 0x6ED9EBA1)
+        b = b shl 30 or (b ushr 2)
+        wa = w7 xor w2 xor wc xor wa
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + wa + 0x6ED9EBA1)
+        a = a shl 30 or (a ushr 2)
+        wb = w8 xor w3 xor wd xor wb
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + wb + 0x6ED9EBA1)
+        e = e shl 30 or (e ushr 2)
+        wc = w9 xor w4 xor we xor wc
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + wc + 0x6ED9EBA1)
+        d = d shl 30 or (d ushr 2)
+        wd = wa xor w5 xor wf xor wd
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + wd + 0x6ED9EBA1)
+        c = c shl 30 or (c ushr 2)
+        we = wb xor w6 xor w0 xor we
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + we + 0x6ED9EBA1)
+        b = b shl 30 or (b ushr 2)
+        wf = wc xor w7 xor w1 xor wf
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + wf + 0x6ED9EBA1)
+        a = a shl 30 or (a ushr 2)
+        w0 = wd xor w8 xor w2 xor w0
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + w0 + 0x6ED9EBA1)
+        e = e shl 30 or (e ushr 2)
+        w1 = we xor w9 xor w3 xor w1
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + w1 + 0x6ED9EBA1)
+        d = d shl 30 or (d ushr 2)
+        w2 = wf xor wa xor w4 xor w2
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + w2 + 0x6ED9EBA1)
+        c = c shl 30 or (c ushr 2)
+        w3 = w0 xor wb xor w5 xor w3
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + w3 + 0x6ED9EBA1)
+        b = b shl 30 or (b ushr 2)
+        w4 = w1 xor wc xor w6 xor w4
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + w4 + 0x6ED9EBA1)
+        a = a shl 30 or (a ushr 2)
+        w5 = w2 xor wd xor w7 xor w5
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + w5 + 0x6ED9EBA1)
+        e = e shl 30 or (e ushr 2)
+        w6 = w3 xor we xor w8 xor w6
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + w6 + 0x6ED9EBA1)
+        d = d shl 30 or (d ushr 2)
+        w7 = w4 xor wf xor w9 xor w7
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + w7 + 0x6ED9EBA1)
+        c = c shl 30 or (c ushr 2)
+        w8 = w5 xor w0 xor wa xor w8
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b and d) or (c and d))
+                + e + w8 + -0x70e44324)
+        b = b shl 30 or (b ushr 2)
+        w9 = w6 xor w1 xor wb xor w9
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a and c) or (b and c))
+                + d + w9 + -0x70e44324)
+        a = a shl 30 or (a ushr 2)
+        wa = w7 xor w2 xor wc xor wa
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e and b) or (a and b))
+                + c + wa + -0x70e44324)
+        e = e shl 30 or (e ushr 2)
+        wb = w8 xor w3 xor wd xor wb
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d and a) or (e and a))
+                + b + wb + -0x70e44324)
+        d = d shl 30 or (d ushr 2)
+        wc = w9 xor w4 xor we xor wc
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c and e) or (d and e))
+                + a + wc + -0x70e44324)
+        c = c shl 30 or (c ushr 2)
+        wd = wa xor w5 xor wf xor wd
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b and d) or (c and d))
+                + e + wd + -0x70e44324)
+        b = b shl 30 or (b ushr 2)
+        we = wb xor w6 xor w0 xor we
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a and c) or (b and c))
+                + d + we + -0x70e44324)
+        a = a shl 30 or (a ushr 2)
+        wf = wc xor w7 xor w1 xor wf
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e and b) or (a and b))
+                + c + wf + -0x70e44324)
+        e = e shl 30 or (e ushr 2)
+        w0 = wd xor w8 xor w2 xor w0
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d and a) or (e and a))
+                + b + w0 + -0x70e44324)
+        d = d shl 30 or (d ushr 2)
+        w1 = we xor w9 xor w3 xor w1
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c and e) or (d and e))
+                + a + w1 + -0x70e44324)
+        c = c shl 30 or (c ushr 2)
+        w2 = wf xor wa xor w4 xor w2
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b and d) or (c and d))
+                + e + w2 + -0x70e44324)
+        b = b shl 30 or (b ushr 2)
+        w3 = w0 xor wb xor w5 xor w3
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a and c) or (b and c))
+                + d + w3 + -0x70e44324)
+        a = a shl 30 or (a ushr 2)
+        w4 = w1 xor wc xor w6 xor w4
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e and b) or (a and b))
+                + c + w4 + -0x70e44324)
+        e = e shl 30 or (e ushr 2)
+        w5 = w2 xor wd xor w7 xor w5
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d and a) or (e and a))
+                + b + w5 + -0x70e44324)
+        d = d shl 30 or (d ushr 2)
+        w6 = w3 xor we xor w8 xor w6
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c and e) or (d and e))
+                + a + w6 + -0x70e44324)
+        c = c shl 30 or (c ushr 2)
+        w7 = w4 xor wf xor w9 xor w7
+        e = ((a shl 5 or (a ushr 27)) + (b and c or (b and d) or (c and d))
+                + e + w7 + -0x70e44324)
+        b = b shl 30 or (b ushr 2)
+        w8 = w5 xor w0 xor wa xor w8
+        d = ((e shl 5 or (e ushr 27)) + (a and b or (a and c) or (b and c))
+                + d + w8 + -0x70e44324)
+        a = a shl 30 or (a ushr 2)
+        w9 = w6 xor w1 xor wb xor w9
+        c = ((d shl 5 or (d ushr 27)) + (e and a or (e and b) or (a and b))
+                + c + w9 + -0x70e44324)
+        e = e shl 30 or (e ushr 2)
+        wa = w7 xor w2 xor wc xor wa
+        b = ((c shl 5 or (c ushr 27)) + (d and e or (d and a) or (e and a))
+                + b + wa + -0x70e44324)
+        d = d shl 30 or (d ushr 2)
+        wb = w8 xor w3 xor wd xor wb
+        a = ((b shl 5 or (b ushr 27)) + (c and d or (c and e) or (d and e))
+                + a + wb + -0x70e44324)
+        c = c shl 30 or (c ushr 2)
+        wc = w9 xor w4 xor we xor wc
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + wc + -0x359d3e2a)
+        b = b shl 30 or (b ushr 2)
+        wd = wa xor w5 xor wf xor wd
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + wd + -0x359d3e2a)
+        a = a shl 30 or (a ushr 2)
+        we = wb xor w6 xor w0 xor we
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + we + -0x359d3e2a)
+        e = e shl 30 or (e ushr 2)
+        wf = wc xor w7 xor w1 xor wf
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + wf + -0x359d3e2a)
+        d = d shl 30 or (d ushr 2)
+        w0 = wd xor w8 xor w2 xor w0
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + w0 + -0x359d3e2a)
+        c = c shl 30 or (c ushr 2)
+        w1 = we xor w9 xor w3 xor w1
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + w1 + -0x359d3e2a)
+        b = b shl 30 or (b ushr 2)
+        w2 = wf xor wa xor w4 xor w2
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + w2 + -0x359d3e2a)
+        a = a shl 30 or (a ushr 2)
+        w3 = w0 xor wb xor w5 xor w3
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + w3 + -0x359d3e2a)
+        e = e shl 30 or (e ushr 2)
+        w4 = w1 xor wc xor w6 xor w4
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + w4 + -0x359d3e2a)
+        d = d shl 30 or (d ushr 2)
+        w5 = w2 xor wd xor w7 xor w5
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + w5 + -0x359d3e2a)
+        c = c shl 30 or (c ushr 2)
+        w6 = w3 xor we xor w8 xor w6
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + w6 + -0x359d3e2a)
+        b = b shl 30 or (b ushr 2)
+        w7 = w4 xor wf xor w9 xor w7
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + w7 + -0x359d3e2a)
+        a = a shl 30 or (a ushr 2)
+        w8 = w5 xor w0 xor wa xor w8
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + w8 + -0x359d3e2a)
+        e = e shl 30 or (e ushr 2)
+        w9 = w6 xor w1 xor wb xor w9
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + w9 + -0x359d3e2a)
+        d = d shl 30 or (d ushr 2)
+        wa = w7 xor w2 xor wc xor wa
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + wa + -0x359d3e2a)
+        c = c shl 30 or (c ushr 2)
+        wb = w8 xor w3 xor wd xor wb
+        e = ((a shl 5 or (a ushr 27)) + (b xor c xor d)
+                + e + wb + -0x359d3e2a)
+        b = b shl 30 or (b ushr 2)
+        wc = w9 xor w4 xor we xor wc
+        d = ((e shl 5 or (e ushr 27)) + (a xor b xor c)
+                + d + wc + -0x359d3e2a)
+        a = a shl 30 or (a ushr 2)
+        wd = wa xor w5 xor wf xor wd
+        c = ((d shl 5 or (d ushr 27)) + (e xor a xor b)
+                + c + wd + -0x359d3e2a)
+        e = e shl 30 or (e ushr 2)
+        we = wb xor w6 xor w0 xor we
+        b = ((c shl 5 or (c ushr 27)) + (d xor e xor a)
+                + b + we + -0x359d3e2a)
+        d = d shl 30 or (d ushr 2)
+        wf = wc xor w7 xor w1 xor wf
+        a = ((b shl 5 or (b ushr 27)) + (c xor d xor e)
+                + a + wf + -0x359d3e2a)
+        c = c shl 30 or (c ushr 2)
+        currentVal[0] += a
+        currentVal[1] += b
+        currentVal[2] += c
+        currentVal[3] += d
+        currentVal[4] += e
     }
 
     override fun toString(): String {

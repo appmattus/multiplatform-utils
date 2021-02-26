@@ -1,14 +1,4 @@
-// $Id: RadioGatun32.java 232 2010-06-17 14:19:24Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the RadioGatun[32] digest algorithm under the
- * [Digest] API.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,9 +19,14 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the RadioGatun[32] digest algorithm under the
+ * [Digest] API.
  *
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -250,6 +245,7 @@ class RadioGatun32 : DigestEngine() {
      * @param out   the output buffer
      * @param off   the output offset
      */
+    @Suppress("NAME_SHADOWING")
     private fun blank(num: Int, out: ByteArray, off: Int) {
         var num = num
         var off = off

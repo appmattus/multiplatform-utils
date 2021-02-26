@@ -1,13 +1,4 @@
-// $Id: SHA2Core.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements SHA-224 and SHA-256, which differ only by the IV
- * and the output length.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,16 +19,20 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements SHA-224 and SHA-256, which differ only by the IV
+ * and the output length.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class SHA2Core : MDHelper(false, 8) {
     private lateinit var currentVal: IntArray
-    private lateinit var W: IntArray
+    private lateinit var w: IntArray
 
     protected fun copyState(dst: SHA2Core): Digest {
         currentVal.copyInto(dst.currentVal, 0, 0, currentVal.size)
@@ -72,54 +67,54 @@ abstract class SHA2Core : MDHelper(false, 8) {
 
     override fun doInit() {
         currentVal = IntArray(8)
-        W = IntArray(64)
+        w = IntArray(64)
         engineReset()
     }
 
     override fun processBlock(data: ByteArray) {
-        var A = currentVal[0]
-        var B = currentVal[1]
-        var C = currentVal[2]
-        var D = currentVal[3]
-        var E = currentVal[4]
-        var F = currentVal[5]
-        var G = currentVal[6]
-        var H = currentVal[7]
-        for (i in 0..15) W[i] = decodeBEInt(data, 4 * i)
+        var a = currentVal[0]
+        var b = currentVal[1]
+        var c = currentVal[2]
+        var d = currentVal[3]
+        var e = currentVal[4]
+        var f = currentVal[5]
+        var g = currentVal[6]
+        var h = currentVal[7]
+        for (i in 0..15) w[i] = decodeBEInt(data, 4 * i)
         for (i in 16..63) {
-            W[i] = ((circularLeft(W[i - 2], 15)
-                    xor circularLeft(W[i - 2], 13)
-                    xor (W[i - 2] ushr 10))
-                    + W[i - 7]
-                    + (circularLeft(W[i - 15], 25)
-                    xor circularLeft(W[i - 15], 14)
-                    xor (W[i - 15] ushr 3))
-                    + W[i - 16])
+            w[i] = ((circularLeft(w[i - 2], 15)
+                    xor circularLeft(w[i - 2], 13)
+                    xor (w[i - 2] ushr 10))
+                    + w[i - 7]
+                    + (circularLeft(w[i - 15], 25)
+                    xor circularLeft(w[i - 15], 14)
+                    xor (w[i - 15] ushr 3))
+                    + w[i - 16])
         }
         for (i in 0..63) {
-            val T1 = (H + (circularLeft(E, 26) xor circularLeft(E, 21)
-                    xor circularLeft(E, 7)) + (F and E xor (G and E.inv()))
-                    + K[i] + W[i])
-            val T2 = ((circularLeft(A, 30) xor circularLeft(A, 19)
-                    xor circularLeft(A, 10))
-                    + (A and B xor (A and C) xor (B and C)))
-            H = G
-            G = F
-            F = E
-            E = D + T1
-            D = C
-            C = B
-            B = A
-            A = T1 + T2
+            val t1 = (h + (circularLeft(e, 26) xor circularLeft(e, 21)
+                    xor circularLeft(e, 7)) + (f and e xor (g and e.inv()))
+                    + K[i] + w[i])
+            val t2 = ((circularLeft(a, 30) xor circularLeft(a, 19)
+                    xor circularLeft(a, 10))
+                    + (a and b xor (a and c) xor (b and c)))
+            h = g
+            g = f
+            f = e
+            e = d + t1
+            d = c
+            c = b
+            b = a
+            a = t1 + t2
         }
-        currentVal[0] += A
-        currentVal[1] += B
-        currentVal[2] += C
-        currentVal[3] += D
-        currentVal[4] += E
-        currentVal[5] += F
-        currentVal[6] += G
-        currentVal[7] += H
+        currentVal[0] += a
+        currentVal[1] += b
+        currentVal[2] += c
+        currentVal[3] += d
+        currentVal[4] += e
+        currentVal[5] += f
+        currentVal[6] += g
+        currentVal[7] += h
 
         /*
 		 * The version below unrolls 16 rounds and inlines

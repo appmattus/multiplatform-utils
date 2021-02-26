@@ -1,15 +1,4 @@
-// $Id: SkeinBigCore.java 253 2011-06-07 18:33:10Z tp $
-package fr.cryptohash
-
-/**
- * This class implements the Skein core with a 512-bit internal state
- * ("Skein-512" in the Skein specification terminology). This is used
- * for Skein-224, Skein-256, Skein-384 and Skein-512 (the SHA-3
- * candidates).
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,9 +19,15 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements the Skein core with a 512-bit internal state
+ * ("Skein-512" in the Skein specification terminology). This is used
+ * for Skein-224, Skein-256, Skein-384 and Skein-512 (the SHA-3
+ * candidates).
  *
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -60,6 +55,7 @@ abstract class SkeinBigCore : Digest {
         update(inbuf, 0, inbuf.size)
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -100,6 +96,7 @@ abstract class SkeinBigCore : Digest {
         return digest()
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         for (i in ptr until blockLength) buf[i] = 0x00

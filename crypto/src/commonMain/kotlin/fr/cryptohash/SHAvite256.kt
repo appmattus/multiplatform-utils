@@ -1,15 +1,4 @@
-// $Id: SHAvite256.java 222 2010-06-09 10:47:13Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the SHAvite-256 digest algorithm under the
- * [Digest] API (in the SHAvite-3 specification, this function
- * is known as "SHAvite-3 with a 256-bit output").
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,9 +19,15 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the SHAvite-256 digest algorithm under the
+ * [Digest] API (in the SHAvite-3 specification, this function
+ * is known as "SHAvite-3 with a 256-bit output").
  *
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;

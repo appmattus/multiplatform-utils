@@ -1,15 +1,4 @@
-// $Id: WhirlpoolCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the core operations for the Whirlpool digest
- * algorithm family. The three variants differ only in the tables of
- * constants which are provided to this implementation in the constructor.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,17 +19,31 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the core operations for the Whirlpool digest
+ * algorithm family. The three variants differ only in the tables of
+ * constants which are provided to this implementation in the constructor.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class WhirlpoolCore(
-    private val T0: LongArray, private val T1: LongArray, private val T2: LongArray, private val T3: LongArray,
-    private val T4: LongArray, private val T5: LongArray, private val T6: LongArray, private val T7: LongArray, private val RC: LongArray
+    private val T0: LongArray,
+    private val T1: LongArray,
+    private val T2: LongArray,
+    private val T3: LongArray,
+    private val T4: LongArray,
+    private val T5: LongArray,
+    private val T6: LongArray,
+    private val T7: LongArray,
+    private val RC: LongArray
 ) : MDHelper(false, 32) {
+
     private var state0: Long = 0
     private var state1: Long = 0
     private var state2: Long = 0
@@ -95,6 +98,7 @@ abstract class WhirlpoolCore(
         engineReset()
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     override fun processBlock(data: ByteArray) {
         var n0 = decodeLELong(data, 0)
         val sn0 = n0

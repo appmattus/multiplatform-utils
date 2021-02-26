@@ -1,14 +1,4 @@
-// $Id: RIPEMD128.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the RIPEMD-128 digest algorithm under the
- * [Digest] API.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,16 +19,22 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the RIPEMD-128 digest algorithm under the
+ * [Digest] API.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 class RIPEMD128 : MDHelper(true, 8) {
+
     private lateinit var currentVal: IntArray
-    private lateinit var X: IntArray
+    private lateinit var x: IntArray
 
     override fun copy(): Digest {
         val d = RIPEMD128()
@@ -69,40 +65,40 @@ class RIPEMD128 : MDHelper(true, 8) {
 
     override fun doInit() {
         currentVal = IntArray(4)
-        X = IntArray(16)
+        x = IntArray(16)
         engineReset()
     }
 
     override fun processBlock(data: ByteArray) {
-        val H0: Int
-        val H1: Int
-        val H2: Int
-        val H3: Int
-        var A1: Int
-        var B1: Int
-        var C1: Int
-        var D1: Int
-        var A2: Int
-        var B2: Int
-        var C2: Int
-        var D2: Int
-        A2 = currentVal[0]
-        A1 = A2
-        H0 = A1
-        B2 = currentVal[1]
-        B1 = B2
-        H1 = B1
-        C2 = currentVal[2]
-        C1 = C2
-        H2 = C1
-        D2 = currentVal[3]
-        D1 = D2
-        H3 = D1
+        val h0: Int
+        val h1: Int
+        val h2: Int
+        val h3: Int
+        var a1: Int
+        var b1: Int
+        var c1: Int
+        var d1: Int
+        var a2: Int
+        var b2: Int
+        var c2: Int
+        var d2: Int
+        a2 = currentVal[0]
+        a1 = a2
+        h0 = a1
+        b2 = currentVal[1]
+        b1 = b2
+        h1 = b1
+        c2 = currentVal[2]
+        c1 = c2
+        h2 = c1
+        d2 = currentVal[3]
+        d1 = d2
+        h3 = d1
         run {
             var i = 0
             var j = 0
             while (i < 16) {
-                X[i] = decodeLEInt(data, j)
+                x[i] = decodeLEInt(data, j)
                 i++
                 j += 4
             }
@@ -110,150 +106,150 @@ class RIPEMD128 : MDHelper(true, 8) {
         run {
             var i = 0
             while (i < 16) {
-                var T1 = (A1 + (B1 xor C1 xor D1)
-                        + X[i + 0])
-                A1 = T1 shl s1[i + 0] or (T1 ushr 32 - s1[i + 0])
-                T1 = (D1 + (A1 xor B1 xor C1)
-                        + X[i + 1])
-                D1 = T1 shl s1[i + 1] or (T1 ushr 32 - s1[i + 1])
-                T1 = (C1 + (D1 xor A1 xor B1)
-                        + X[i + 2])
-                C1 = T1 shl s1[i + 2] or (T1 ushr 32 - s1[i + 2])
-                T1 = (B1 + (C1 xor D1 xor A1)
-                        + X[i + 3])
-                B1 = T1 shl s1[i + 3] or (T1 ushr 32 - s1[i + 3])
+                var t1 = (a1 + (b1 xor c1 xor d1)
+                        + x[i + 0])
+                a1 = t1 shl s1[i + 0] or (t1 ushr 32 - s1[i + 0])
+                t1 = (d1 + (a1 xor b1 xor c1)
+                        + x[i + 1])
+                d1 = t1 shl s1[i + 1] or (t1 ushr 32 - s1[i + 1])
+                t1 = (c1 + (d1 xor a1 xor b1)
+                        + x[i + 2])
+                c1 = t1 shl s1[i + 2] or (t1 ushr 32 - s1[i + 2])
+                t1 = (b1 + (c1 xor d1 xor a1)
+                        + x[i + 3])
+                b1 = t1 shl s1[i + 3] or (t1 ushr 32 - s1[i + 3])
                 i += 4
             }
         }
         run {
             var i = 16
             while (i < 32) {
-                var T1 = (A1 + (C1 xor D1 and B1 xor D1)
-                        + X[r1[i + 0]] + 0x5A827999)
-                A1 = T1 shl s1[i + 0] or (T1 ushr 32 - s1[i + 0])
-                T1 = (D1 + (B1 xor C1 and A1 xor C1)
-                        + X[r1[i + 1]] + 0x5A827999)
-                D1 = T1 shl s1[i + 1] or (T1 ushr 32 - s1[i + 1])
-                T1 = (C1 + (A1 xor B1 and D1 xor B1)
-                        + X[r1[i + 2]] + 0x5A827999)
-                C1 = T1 shl s1[i + 2] or (T1 ushr 32 - s1[i + 2])
-                T1 = (B1 + (D1 xor A1 and C1 xor A1)
-                        + X[r1[i + 3]] + 0x5A827999)
-                B1 = T1 shl s1[i + 3] or (T1 ushr 32 - s1[i + 3])
+                var t1 = (a1 + (c1 xor d1 and b1 xor d1)
+                        + x[r1[i + 0]] + 0x5A827999)
+                a1 = t1 shl s1[i + 0] or (t1 ushr 32 - s1[i + 0])
+                t1 = (d1 + (b1 xor c1 and a1 xor c1)
+                        + x[r1[i + 1]] + 0x5A827999)
+                d1 = t1 shl s1[i + 1] or (t1 ushr 32 - s1[i + 1])
+                t1 = (c1 + (a1 xor b1 and d1 xor b1)
+                        + x[r1[i + 2]] + 0x5A827999)
+                c1 = t1 shl s1[i + 2] or (t1 ushr 32 - s1[i + 2])
+                t1 = (b1 + (d1 xor a1 and c1 xor a1)
+                        + x[r1[i + 3]] + 0x5A827999)
+                b1 = t1 shl s1[i + 3] or (t1 ushr 32 - s1[i + 3])
                 i += 4
             }
         }
         run {
             var i = 32
             while (i < 48) {
-                var T1 = (A1 + (B1 or C1.inv() xor D1)
-                        + X[r1[i + 0]] + 0x6ED9EBA1)
-                A1 = T1 shl s1[i + 0] or (T1 ushr 32 - s1[i + 0])
-                T1 = (D1 + (A1 or B1.inv() xor C1)
-                        + X[r1[i + 1]] + 0x6ED9EBA1)
-                D1 = T1 shl s1[i + 1] or (T1 ushr 32 - s1[i + 1])
-                T1 = (C1 + (D1 or A1.inv() xor B1)
-                        + X[r1[i + 2]] + 0x6ED9EBA1)
-                C1 = T1 shl s1[i + 2] or (T1 ushr 32 - s1[i + 2])
-                T1 = (B1 + (C1 or D1.inv() xor A1)
-                        + X[r1[i + 3]] + 0x6ED9EBA1)
-                B1 = T1 shl s1[i + 3] or (T1 ushr 32 - s1[i + 3])
+                var t1 = (a1 + (b1 or c1.inv() xor d1)
+                        + x[r1[i + 0]] + 0x6ED9EBA1)
+                a1 = t1 shl s1[i + 0] or (t1 ushr 32 - s1[i + 0])
+                t1 = (d1 + (a1 or b1.inv() xor c1)
+                        + x[r1[i + 1]] + 0x6ED9EBA1)
+                d1 = t1 shl s1[i + 1] or (t1 ushr 32 - s1[i + 1])
+                t1 = (c1 + (d1 or a1.inv() xor b1)
+                        + x[r1[i + 2]] + 0x6ED9EBA1)
+                c1 = t1 shl s1[i + 2] or (t1 ushr 32 - s1[i + 2])
+                t1 = (b1 + (c1 or d1.inv() xor a1)
+                        + x[r1[i + 3]] + 0x6ED9EBA1)
+                b1 = t1 shl s1[i + 3] or (t1 ushr 32 - s1[i + 3])
                 i += 4
             }
         }
         run {
             var i = 48
             while (i < 64) {
-                var T1 = (A1 + (B1 xor C1 and D1 xor C1)
-                        + X[r1[i + 0]] + -0x70e44324)
-                A1 = T1 shl s1[i + 0] or (T1 ushr 32 - s1[i + 0])
-                T1 = (D1 + (A1 xor B1 and C1 xor B1)
-                        + X[r1[i + 1]] + -0x70e44324)
-                D1 = T1 shl s1[i + 1] or (T1 ushr 32 - s1[i + 1])
-                T1 = (C1 + (D1 xor A1 and B1 xor A1)
-                        + X[r1[i + 2]] + -0x70e44324)
-                C1 = T1 shl s1[i + 2] or (T1 ushr 32 - s1[i + 2])
-                T1 = (B1 + (C1 xor D1 and A1 xor D1)
-                        + X[r1[i + 3]] + -0x70e44324)
-                B1 = T1 shl s1[i + 3] or (T1 ushr 32 - s1[i + 3])
+                var t1 = (a1 + (b1 xor c1 and d1 xor c1)
+                        + x[r1[i + 0]] + -0x70e44324)
+                a1 = t1 shl s1[i + 0] or (t1 ushr 32 - s1[i + 0])
+                t1 = (d1 + (a1 xor b1 and c1 xor b1)
+                        + x[r1[i + 1]] + -0x70e44324)
+                d1 = t1 shl s1[i + 1] or (t1 ushr 32 - s1[i + 1])
+                t1 = (c1 + (d1 xor a1 and b1 xor a1)
+                        + x[r1[i + 2]] + -0x70e44324)
+                c1 = t1 shl s1[i + 2] or (t1 ushr 32 - s1[i + 2])
+                t1 = (b1 + (c1 xor d1 and a1 xor d1)
+                        + x[r1[i + 3]] + -0x70e44324)
+                b1 = t1 shl s1[i + 3] or (t1 ushr 32 - s1[i + 3])
                 i += 4
             }
         }
         run {
             var i = 0
             while (i < 16) {
-                var T2 = (A2 + (B2 xor C2 and D2 xor C2)
-                        + X[r2[i + 0]] + 0x50A28BE6)
-                A2 = T2 shl s2[i + 0] or (T2 ushr 32 - s2[i + 0])
-                T2 = (D2 + (A2 xor B2 and C2 xor B2)
-                        + X[r2[i + 1]] + 0x50A28BE6)
-                D2 = T2 shl s2[i + 1] or (T2 ushr 32 - s2[i + 1])
-                T2 = (C2 + (D2 xor A2 and B2 xor A2)
-                        + X[r2[i + 2]] + 0x50A28BE6)
-                C2 = T2 shl s2[i + 2] or (T2 ushr 32 - s2[i + 2])
-                T2 = (B2 + (C2 xor D2 and A2 xor D2)
-                        + X[r2[i + 3]] + 0x50A28BE6)
-                B2 = T2 shl s2[i + 3] or (T2 ushr 32 - s2[i + 3])
+                var t2 = (a2 + (b2 xor c2 and d2 xor c2)
+                        + x[r2[i + 0]] + 0x50A28BE6)
+                a2 = t2 shl s2[i + 0] or (t2 ushr 32 - s2[i + 0])
+                t2 = (d2 + (a2 xor b2 and c2 xor b2)
+                        + x[r2[i + 1]] + 0x50A28BE6)
+                d2 = t2 shl s2[i + 1] or (t2 ushr 32 - s2[i + 1])
+                t2 = (c2 + (d2 xor a2 and b2 xor a2)
+                        + x[r2[i + 2]] + 0x50A28BE6)
+                c2 = t2 shl s2[i + 2] or (t2 ushr 32 - s2[i + 2])
+                t2 = (b2 + (c2 xor d2 and a2 xor d2)
+                        + x[r2[i + 3]] + 0x50A28BE6)
+                b2 = t2 shl s2[i + 3] or (t2 ushr 32 - s2[i + 3])
                 i += 4
             }
         }
         run {
             var i = 16
             while (i < 32) {
-                var T2 = (A2 + (B2 or C2.inv() xor D2)
-                        + X[r2[i + 0]] + 0x5C4DD124)
-                A2 = T2 shl s2[i + 0] or (T2 ushr 32 - s2[i + 0])
-                T2 = (D2 + (A2 or B2.inv() xor C2)
-                        + X[r2[i + 1]] + 0x5C4DD124)
-                D2 = T2 shl s2[i + 1] or (T2 ushr 32 - s2[i + 1])
-                T2 = (C2 + (D2 or A2.inv() xor B2)
-                        + X[r2[i + 2]] + 0x5C4DD124)
-                C2 = T2 shl s2[i + 2] or (T2 ushr 32 - s2[i + 2])
-                T2 = (B2 + (C2 or D2.inv() xor A2)
-                        + X[r2[i + 3]] + 0x5C4DD124)
-                B2 = T2 shl s2[i + 3] or (T2 ushr 32 - s2[i + 3])
+                var t2 = (a2 + (b2 or c2.inv() xor d2)
+                        + x[r2[i + 0]] + 0x5C4DD124)
+                a2 = t2 shl s2[i + 0] or (t2 ushr 32 - s2[i + 0])
+                t2 = (d2 + (a2 or b2.inv() xor c2)
+                        + x[r2[i + 1]] + 0x5C4DD124)
+                d2 = t2 shl s2[i + 1] or (t2 ushr 32 - s2[i + 1])
+                t2 = (c2 + (d2 or a2.inv() xor b2)
+                        + x[r2[i + 2]] + 0x5C4DD124)
+                c2 = t2 shl s2[i + 2] or (t2 ushr 32 - s2[i + 2])
+                t2 = (b2 + (c2 or d2.inv() xor a2)
+                        + x[r2[i + 3]] + 0x5C4DD124)
+                b2 = t2 shl s2[i + 3] or (t2 ushr 32 - s2[i + 3])
                 i += 4
             }
         }
         run {
             var i = 32
             while (i < 48) {
-                var T2 = (A2 + (C2 xor D2 and B2 xor D2)
-                        + X[r2[i + 0]] + 0x6D703EF3)
-                A2 = T2 shl s2[i + 0] or (T2 ushr 32 - s2[i + 0])
-                T2 = (D2 + (B2 xor C2 and A2 xor C2)
-                        + X[r2[i + 1]] + 0x6D703EF3)
-                D2 = T2 shl s2[i + 1] or (T2 ushr 32 - s2[i + 1])
-                T2 = (C2 + (A2 xor B2 and D2 xor B2)
-                        + X[r2[i + 2]] + 0x6D703EF3)
-                C2 = T2 shl s2[i + 2] or (T2 ushr 32 - s2[i + 2])
-                T2 = (B2 + (D2 xor A2 and C2 xor A2)
-                        + X[r2[i + 3]] + 0x6D703EF3)
-                B2 = T2 shl s2[i + 3] or (T2 ushr 32 - s2[i + 3])
+                var t2 = (a2 + (c2 xor d2 and b2 xor d2)
+                        + x[r2[i + 0]] + 0x6D703EF3)
+                a2 = t2 shl s2[i + 0] or (t2 ushr 32 - s2[i + 0])
+                t2 = (d2 + (b2 xor c2 and a2 xor c2)
+                        + x[r2[i + 1]] + 0x6D703EF3)
+                d2 = t2 shl s2[i + 1] or (t2 ushr 32 - s2[i + 1])
+                t2 = (c2 + (a2 xor b2 and d2 xor b2)
+                        + x[r2[i + 2]] + 0x6D703EF3)
+                c2 = t2 shl s2[i + 2] or (t2 ushr 32 - s2[i + 2])
+                t2 = (b2 + (d2 xor a2 and c2 xor a2)
+                        + x[r2[i + 3]] + 0x6D703EF3)
+                b2 = t2 shl s2[i + 3] or (t2 ushr 32 - s2[i + 3])
                 i += 4
             }
         }
         var i = 48
         while (i < 64) {
-            var T2 = (A2 + (B2 xor C2 xor D2)
-                    + X[r2[i + 0]])
-            A2 = T2 shl s2[i + 0] or (T2 ushr 32 - s2[i + 0])
-            T2 = (D2 + (A2 xor B2 xor C2)
-                    + X[r2[i + 1]])
-            D2 = T2 shl s2[i + 1] or (T2 ushr 32 - s2[i + 1])
-            T2 = (C2 + (D2 xor A2 xor B2)
-                    + X[r2[i + 2]])
-            C2 = T2 shl s2[i + 2] or (T2 ushr 32 - s2[i + 2])
-            T2 = (B2 + (C2 xor D2 xor A2)
-                    + X[r2[i + 3]])
-            B2 = T2 shl s2[i + 3] or (T2 ushr 32 - s2[i + 3])
+            var t2 = (a2 + (b2 xor c2 xor d2)
+                    + x[r2[i + 0]])
+            a2 = t2 shl s2[i + 0] or (t2 ushr 32 - s2[i + 0])
+            t2 = (d2 + (a2 xor b2 xor c2)
+                    + x[r2[i + 1]])
+            d2 = t2 shl s2[i + 1] or (t2 ushr 32 - s2[i + 1])
+            t2 = (c2 + (d2 xor a2 xor b2)
+                    + x[r2[i + 2]])
+            c2 = t2 shl s2[i + 2] or (t2 ushr 32 - s2[i + 2])
+            t2 = (b2 + (c2 xor d2 xor a2)
+                    + x[r2[i + 3]])
+            b2 = t2 shl s2[i + 3] or (t2 ushr 32 - s2[i + 3])
             i += 4
         }
-        val T = H1 + C1 + D2
-        currentVal[1] = H2 + D1 + A2
-        currentVal[2] = H3 + A1 + B2
-        currentVal[3] = H0 + B1 + C2
-        currentVal[0] = T
+        val t = h1 + c1 + d2
+        currentVal[1] = h2 + d1 + a2
+        currentVal[2] = h3 + a1 + b2
+        currentVal[3] = h0 + b1 + c2
+        currentVal[0] = t
     }
 
     override fun toString(): String {
@@ -290,19 +286,6 @@ class RIPEMD128 : MDHelper(true, 8) {
                     or (buf[off + 1].toInt() and 0xFF shl 8)
                     or (buf[off + 2].toInt() and 0xFF shl 16)
                     or (buf[off + 3].toInt() and 0xFF shl 24))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 32-bit word `x`. The `n` parameter
-         * must lie between 1 and 31 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 31)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Int, n: Int): Int {
-            return x shl n or (x ushr 32 - n)
         }
 
         private val r1 = intArrayOf(

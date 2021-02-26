@@ -1,14 +1,4 @@
-// $Id: MD2.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the MD2 digest algorithm under the [ ] API, using the [DigestEngine] class. MD4 is described
- * in RFC 1319.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,26 +19,31 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the MD2 digest algorithm under the [ ] API, using the [DigestEngine] class. MD4 is described
+ * in RFC 1319.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 class MD2 : DigestEngine() {
 
-    private lateinit var X: IntArray
-    private lateinit var C: IntArray
-    private lateinit var D: ByteArray
-    private var L = 0
+    private lateinit var x: IntArray
+    private lateinit var c: IntArray
+    private lateinit var d: ByteArray
+    private var l = 0
 
     override fun copy(): Digest {
         val d = MD2()
-        X.copyInto(d.X, 0, 0, X.size)
-        C.copyInto(d.C, 0, 0, C.size)
+        x.copyInto(d.x, 0, 0, x.size)
+        c.copyInto(d.c, 0, 0, c.size)
 
-        d.L = L
+        d.l = l
         return copyState(d)
     }
 
@@ -60,49 +55,49 @@ class MD2 : DigestEngine() {
 
     override fun engineReset() {
         for (i in 0..15) {
-            X[i] = 0
-            C[i] = 0
+            x[i] = 0
+            c[i] = 0
         }
-        L = 0
+        l = 0
     }
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val pending = flush()
         for (i in 0 until 16 - pending) update((16 - pending).toByte())
         flush()
-        for (i in 0..15) D[i] = C[i].toByte()
-        processBlock(D)
-        for (i in 0..15) output!![outputOffset + i] = X[i].toByte()
+        for (i in 0..15) d[i] = c[i].toByte()
+        processBlock(d)
+        for (i in 0..15) output[outputOffset + i] = x[i].toByte()
     }
 
     override fun doInit() {
-        X = IntArray(48)
-        C = IntArray(16)
-        D = ByteArray(16)
+        x = IntArray(48)
+        c = IntArray(16)
+        d = ByteArray(16)
         engineReset()
     }
 
     override fun processBlock(data: ByteArray) {
-        var tL = L
+        var tL = l
         for (i in 0..15) {
-            val u: Int = data!![i].toInt() and 0xFF
-            X[16 + i] = u
-            X[32 + i] = X[i] xor u
-            tL = S[u xor tL].let { C[i] = C[i] xor it; C[i] }
+            val u: Int = data[i].toInt() and 0xFF
+            x[16 + i] = u
+            x[32 + i] = x[i] xor u
+            tL = S[u xor tL].let { c[i] = c[i] xor it; c[i] }
         }
-        L = tL
+        l = tL
         var t = 0
         for (j in 0..17) {
             var k = 0
             while (k < 48) {
-                t = S[t].let { X[k + 0] = X[k + 0] xor it; X[k + 0] }
-                t = S[t].let { X[k + 1] = X[k + 1] xor it; X[k + 1] }
-                t = S[t].let { X[k + 2] = X[k + 2] xor it; X[k + 2] }
-                t = S[t].let { X[k + 3] = X[k + 3] xor it; X[k + 3] }
-                t = S[t].let { X[k + 4] = X[k + 4] xor it; X[k + 4] }
-                t = S[t].let { X[k + 5] = X[k + 5] xor it; X[k + 5] }
-                t = S[t].let { X[k + 6] = X[k + 6] xor it; X[k + 6] }
-                t = S[t].let { X[k + 7] = X[k + 7] xor it; X[k + 7] }
+                t = S[t].let { x[k + 0] = x[k + 0] xor it; x[k + 0] }
+                t = S[t].let { x[k + 1] = x[k + 1] xor it; x[k + 1] }
+                t = S[t].let { x[k + 2] = x[k + 2] xor it; x[k + 2] }
+                t = S[t].let { x[k + 3] = x[k + 3] xor it; x[k + 3] }
+                t = S[t].let { x[k + 4] = x[k + 4] xor it; x[k + 4] }
+                t = S[t].let { x[k + 5] = x[k + 5] xor it; x[k + 5] }
+                t = S[t].let { x[k + 6] = x[k + 6] xor it; x[k + 6] }
+                t = S[t].let { x[k + 7] = x[k + 7] xor it; x[k + 7] }
                 k += 8
             }
             t = t + j and 0xFF

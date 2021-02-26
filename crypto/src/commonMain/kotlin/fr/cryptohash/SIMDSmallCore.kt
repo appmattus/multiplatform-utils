@@ -1,12 +1,4 @@
-// $Id: SIMDSmallCore.java 241 2010-06-21 15:04:01Z tp $
-package fr.cryptohash
-
-/**
- * This class implements SIMD-224 and SIMD-256.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,9 +19,12 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements SIMD-224 and SIMD-256.
  *
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -89,6 +84,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         compress(data, false)
     }
 
+    @Suppress("LocalVariableName")
     private fun fft32(x: ByteArray, xb: Int, xs: Int, qoff: Int) {
         val xd = xs shl 1
         run {
@@ -266,27 +262,27 @@ abstract class SIMDSmallCore : DigestEngine() {
             if (u != 0) {
                 m = q[qoff + u + 0]
                 n = q[qoff + u + 0 + 16]
-                t = ((n * alphaTab.get(v + 0 * 8) and 0xFFFF)
-                        + (n * alphaTab.get(v + 0 * 8) shr 16))
+                t = ((n * alphaTab[v + 0 * 8] and 0xFFFF)
+                        + (n * alphaTab[v + 0 * 8] shr 16))
                 q[qoff + u + 0] = m + t
                 q[qoff + u + 0 + 16] = m - t
             }
             m = q[qoff + u + 1]
             n = q[qoff + u + 1 + 16]
-            t = ((n * alphaTab.get(v + 1 * 8) and 0xFFFF)
-                    + (n * alphaTab.get(v + 1 * 8) shr 16))
+            t = ((n * alphaTab[v + 1 * 8] and 0xFFFF)
+                    + (n * alphaTab[v + 1 * 8] shr 16))
             q[qoff + u + 1] = m + t
             q[qoff + u + 1 + 16] = m - t
             m = q[qoff + u + 2]
             n = q[qoff + u + 2 + 16]
-            t = ((n * alphaTab.get(v + 2 * 8) and 0xFFFF)
-                    + (n * alphaTab.get(v + 2 * 8) shr 16))
+            t = ((n * alphaTab[v + 2 * 8] and 0xFFFF)
+                    + (n * alphaTab[v + 2 * 8] shr 16))
             q[qoff + u + 2] = m + t
             q[qoff + u + 2 + 16] = m - t
             m = q[qoff + u + 3]
             n = q[qoff + u + 3 + 16]
-            t = ((n * alphaTab.get(v + 3 * 8) and 0xFFFF)
-                    + (n * alphaTab.get(v + 3 * 8) shr 16))
+            t = ((n * alphaTab[v + 3 * 8] and 0xFFFF)
+                    + (n * alphaTab[v + 3 * 8] shr 16))
             q[qoff + u + 3] = m + t
             q[qoff + u + 3 + 16] = m - t
             u += 4
@@ -294,6 +290,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         }
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun oneRound(isp: Int, p0: Int, p1: Int, p2: Int, p3: Int) {
         var tmp: Int
         tA[0] = circularLeft(state[0], p0)
@@ -303,28 +300,28 @@ abstract class SIMDSmallCore : DigestEngine() {
         tmp = (state[12] + w[0]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 0) xor 0]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[1]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 0) xor 1]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[2]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 0) xor 2]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[3]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 0) xor 3]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -335,28 +332,28 @@ abstract class SIMDSmallCore : DigestEngine() {
         tmp = (state[12] + w[4]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 1) xor 0]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[5]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 1) xor 1]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[6]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 1) xor 2]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[7]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 1) xor 3]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -367,28 +364,28 @@ abstract class SIMDSmallCore : DigestEngine() {
         tmp = (state[12] + w[8]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 2) xor 0]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[9]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 2) xor 1]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[10]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 2) xor 2]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[11]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 2) xor 3]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -399,28 +396,28 @@ abstract class SIMDSmallCore : DigestEngine() {
         tmp = (state[12] + w[12]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 3) xor 0]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[13]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 3) xor 1]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[14]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 3) xor 2]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[15]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 3) xor 3]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -432,7 +429,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 4) xor 0]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -440,7 +437,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 4) xor 1]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -448,7 +445,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 4) xor 2]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -456,7 +453,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p1) + tA[pp4k.get(isp + 4) xor 3]
+            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -468,7 +465,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 5) xor 0]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -476,7 +473,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 5) xor 1]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -484,7 +481,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 5) xor 2]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -492,7 +489,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p2) + tA[pp4k.get(isp + 5) xor 3]
+            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -504,7 +501,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 6) xor 0]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -512,7 +509,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 6) xor 1]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -520,7 +517,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 6) xor 2]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -528,7 +525,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p3) + tA[pp4k.get(isp + 6) xor 3]
+            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -540,7 +537,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 7) xor 0]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -548,7 +545,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 7) xor 1]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -556,7 +553,7 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 7) xor 2]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -564,12 +561,13 @@ abstract class SIMDSmallCore : DigestEngine() {
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p0) + tA[pp4k.get(isp + 7) xor 3]
+            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun compress(x: ByteArray, last: Boolean) {
         fft32(x, 0 + 1 * 0, 1 shl 2, 0 + 0)
         fft32(x, 0 + 1 * 2, 1 shl 2, 0 + 32)
@@ -585,27 +583,27 @@ abstract class SIMDSmallCore : DigestEngine() {
                 if (u != 0) {
                     m = q[0 + u + 0]
                     n = q[0 + u + 0 + 32]
-                    t = ((n * alphaTab.get(v + 0 * 4) and 0xFFFF)
-                            + (n * alphaTab.get(v + 0 * 4) shr 16))
+                    t = ((n * alphaTab[v + 0 * 4] and 0xFFFF)
+                            + (n * alphaTab[v + 0 * 4] shr 16))
                     q[0 + u + 0] = m + t
                     q[0 + u + 0 + 32] = m - t
                 }
                 m = q[0 + u + 1]
                 n = q[0 + u + 1 + 32]
-                t = ((n * alphaTab.get(v + 1 * 4) and 0xFFFF)
-                        + (n * alphaTab.get(v + 1 * 4) shr 16))
+                t = ((n * alphaTab[v + 1 * 4] and 0xFFFF)
+                        + (n * alphaTab[v + 1 * 4] shr 16))
                 q[0 + u + 1] = m + t
                 q[0 + u + 1 + 32] = m - t
                 m = q[0 + u + 2]
                 n = q[0 + u + 2 + 32]
-                t = ((n * alphaTab.get(v + 2 * 4) and 0xFFFF)
-                        + (n * alphaTab.get(v + 2 * 4) shr 16))
+                t = ((n * alphaTab[v + 2 * 4] and 0xFFFF)
+                        + (n * alphaTab[v + 2 * 4] shr 16))
                 q[0 + u + 2] = m + t
                 q[0 + u + 2 + 32] = m - t
                 m = q[0 + u + 3]
                 n = q[0 + u + 3 + 32]
-                t = ((n * alphaTab.get(v + 3 * 4) and 0xFFFF)
-                        + (n * alphaTab.get(v + 3 * 4) shr 16))
+                t = ((n * alphaTab[v + 3 * 4] and 0xFFFF)
+                        + (n * alphaTab[v + 3 * 4] shr 16))
                 q[0 + u + 3] = m + t
                 q[0 + u + 3 + 32] = m - t
                 u += 4
@@ -626,27 +624,27 @@ abstract class SIMDSmallCore : DigestEngine() {
                 if (u != 0) {
                     m = q[0 + 64 + u + 0]
                     n = q[0 + 64 + u + 0 + 32]
-                    t = ((n * alphaTab.get(v + 0 * 4) and 0xFFFF)
-                            + (n * alphaTab.get(v + 0 * 4) shr 16))
+                    t = ((n * alphaTab[v + 0 * 4] and 0xFFFF)
+                            + (n * alphaTab[v + 0 * 4] shr 16))
                     q[0 + 64 + u + 0] = m + t
                     q[0 + 64 + u + 0 + 32] = m - t
                 }
                 m = q[0 + 64 + u + 1]
                 n = q[0 + 64 + u + 1 + 32]
-                t = ((n * alphaTab.get(v + 1 * 4) and 0xFFFF)
-                        + (n * alphaTab.get(v + 1 * 4) shr 16))
+                t = ((n * alphaTab[v + 1 * 4] and 0xFFFF)
+                        + (n * alphaTab[v + 1 * 4] shr 16))
                 q[0 + 64 + u + 1] = m + t
                 q[0 + 64 + u + 1 + 32] = m - t
                 m = q[0 + 64 + u + 2]
                 n = q[0 + 64 + u + 2 + 32]
-                t = ((n * alphaTab.get(v + 2 * 4) and 0xFFFF)
-                        + (n * alphaTab.get(v + 2 * 4) shr 16))
+                t = ((n * alphaTab[v + 2 * 4] and 0xFFFF)
+                        + (n * alphaTab[v + 2 * 4] shr 16))
                 q[0 + 64 + u + 2] = m + t
                 q[0 + 64 + u + 2 + 32] = m - t
                 m = q[0 + 64 + u + 3]
                 n = q[0 + 64 + u + 3 + 32]
-                t = ((n * alphaTab.get(v + 3 * 4) and 0xFFFF)
-                        + (n * alphaTab.get(v + 3 * 4) shr 16))
+                t = ((n * alphaTab[v + 3 * 4] and 0xFFFF)
+                        + (n * alphaTab[v + 3 * 4] shr 16))
                 q[0 + 64 + u + 3] = m + t
                 q[0 + 64 + u + 3 + 32] = m - t
                 u += 4
@@ -665,27 +663,27 @@ abstract class SIMDSmallCore : DigestEngine() {
                 if (u != 0) {
                     m = q[0 + u + 0]
                     n = q[0 + u + 0 + 64]
-                    t = ((n * alphaTab.get(v + 0 * 2) and 0xFFFF)
-                            + (n * alphaTab.get(v + 0 * 2) shr 16))
+                    t = ((n * alphaTab[v + 0 * 2] and 0xFFFF)
+                            + (n * alphaTab[v + 0 * 2] shr 16))
                     q[0 + u + 0] = m + t
                     q[0 + u + 0 + 64] = m - t
                 }
                 m = q[0 + u + 1]
                 n = q[0 + u + 1 + 64]
-                t = ((n * alphaTab.get(v + 1 * 2) and 0xFFFF)
-                        + (n * alphaTab.get(v + 1 * 2) shr 16))
+                t = ((n * alphaTab[v + 1 * 2] and 0xFFFF)
+                        + (n * alphaTab[v + 1 * 2] shr 16))
                 q[0 + u + 1] = m + t
                 q[0 + u + 1 + 64] = m - t
                 m = q[0 + u + 2]
                 n = q[0 + u + 2 + 64]
-                t = ((n * alphaTab.get(v + 2 * 2) and 0xFFFF)
-                        + (n * alphaTab.get(v + 2 * 2) shr 16))
+                t = ((n * alphaTab[v + 2 * 2] and 0xFFFF)
+                        + (n * alphaTab[v + 2 * 2] shr 16))
                 q[0 + u + 2] = m + t
                 q[0 + u + 2 + 64] = m - t
                 m = q[0 + u + 3]
                 n = q[0 + u + 3 + 64]
-                t = ((n * alphaTab.get(v + 3 * 2) and 0xFFFF)
-                        + (n * alphaTab.get(v + 3 * 2) shr 16))
+                t = ((n * alphaTab[v + 3 * 2] and 0xFFFF)
+                        + (n * alphaTab[v + 3 * 2] shr 16))
                 q[0 + u + 3] = m + t
                 q[0 + u + 3 + 64] = m - t
                 u += 4
@@ -695,7 +693,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         if (last) {
             for (i in 0..127) {
                 var tq: Int
-                tq = q[i] + yoffF.get(i)
+                tq = q[i] + yoffF[i]
                 tq = (tq and 0xFFFF) + (tq shr 16)
                 tq = (tq and 0xFF) - (tq shr 8)
                 tq = (tq and 0xFF) - (tq shr 8)
@@ -704,7 +702,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         } else {
             for (i in 0..127) {
                 var tq: Int
-                tq = q[i] + yoffN.get(i)
+                tq = q[i] + yoffN[i]
                 tq = (tq and 0xFFFF) + (tq shr 16)
                 tq = (tq and 0xFF) - (tq shr 8)
                 tq = (tq and 0xFF) - (tq shr 8)
@@ -723,7 +721,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         run {
             var u = 0
             while (u < 32) {
-                val v: Int = wsp.get((u shr 2) + 0)
+                val v: Int = wsp[(u shr 2) + 0]
                 w[u + 0] = ((q[v + 2 * 0 + 0] * 185 and 0xFFFF)
                         + (q[v + 2 * 0 + 1] * 185 shl 16))
                 w[u + 1] = ((q[v + 2 * 1 + 0] * 185 and 0xFFFF)
@@ -739,7 +737,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         run {
             var u = 0
             while (u < 32) {
-                val v: Int = wsp.get((u shr 2) + 8)
+                val v: Int = wsp[(u shr 2) + 8]
                 w[u + 0] = ((q[v + 2 * 0 + 0] * 185 and 0xFFFF)
                         + (q[v + 2 * 0 + 1] * 185 shl 16))
                 w[u + 1] = ((q[v + 2 * 1 + 0] * 185 and 0xFFFF)
@@ -755,7 +753,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         run {
             var u = 0
             while (u < 32) {
-                val v: Int = wsp.get((u shr 2) + 16)
+                val v: Int = wsp[(u shr 2) + 16]
                 w[u + 0] = ((q[v + 2 * 0 + -128] * 233 and 0xFFFF)
                         + (q[v + 2 * 0 + -64] * 233 shl 16))
                 w[u + 1] = ((q[v + 2 * 1 + -128] * 233 and 0xFFFF)
@@ -770,7 +768,7 @@ abstract class SIMDSmallCore : DigestEngine() {
         oneRound(1, 29, 9, 15, 5)
         var u = 0
         while (u < 32) {
-            val v: Int = wsp.get((u shr 2) + 24)
+            val v: Int = wsp[(u shr 2) + 24]
             w[u + 0] = ((q[v + 2 * 0 + -191] * 233 and 0xFFFF)
                     + (q[v + 2 * 0 + -127] * 233 shl 16))
             w[u + 1] = ((q[v + 2 * 1 + -191] * 233 and 0xFFFF)

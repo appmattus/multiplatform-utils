@@ -1,14 +1,4 @@
-// $Id: SHA384.java 156 2010-04-26 17:55:11Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the SHA-384 digest algorithm under the
- * [Digest] API. SHA-384 is specified by FIPS 180-2.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,9 +19,14 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the SHA-384 digest algorithm under the
+ * [Digest] API. SHA-384 is specified by FIPS 180-2.
  *
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;

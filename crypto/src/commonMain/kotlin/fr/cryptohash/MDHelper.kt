@@ -1,15 +1,4 @@
-// $Id: MDHelper.java 157 2010-04-26 19:03:44Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the padding common to MD4, MD5, the SHA family,
- * and RIPEMD-160. This code works as long as the internal block length
- * is a power of 2, which is the case for all these algorithms.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,21 +19,40 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the padding common to MD4, MD5, the SHA family,
+ * and RIPEMD-160. This code works as long as the internal block length
+ * is a power of 2, which is the case for all these algorithms.
  *
  * @version   $Revision: 157 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ *
+ * Little-endian padding is for MD4, MD5 and
+ * RIPEMD-160; the SHA family uses big-endian padding. The
+ * MD padding includes an encoding of the input message bit length,
+ * which is over 64 bits for some algorithms, 128-bit for others
+ * (namely SHA-384 and SHA-512). Note that this implementation
+ * handles only message lengths which fit on 64 bits. The first
+ * additional byte value is specified; this is normally 0x80,
+ * except for Tiger (not Tiger2) which uses 0x01.
+ *
+ * @param littleEndian   `true` for little-endian padding
+ * @param lenlen         the length encoding length, in bytes (must
+ * be at least 8)
+ * @param fbyte          the first padding byte
  */
 abstract class MDHelper(
     private val littleEndian: Boolean,
     lenlen: Int,
-    fbyte: Byte = 0x80.toByte()
+    private val fbyte: Byte = 0x80.toByte()
 ) : DigestEngine() {
 
-    private val countBuf: ByteArray
-    private val fbyte: Byte
+    private val countBuf: ByteArray = ByteArray(lenlen)
 
     /**
      * Compute the padding. The padding data is input into the engine,
@@ -115,36 +123,5 @@ abstract class MDHelper(
             buf[off + 2] = (`val` ushr 8).toByte()
             buf[off + 3] = `val`.toByte()
         }
-    }
-    /**
-     * Create the object. Little-endian padding is for MD4, MD5 and
-     * RIPEMD-160; the SHA family uses big-endian padding. The
-     * MD padding includes an encoding of the input message bit length,
-     * which is over 64 bits for some algorithms, 128-bit for others
-     * (namely SHA-384 and SHA-512). Note that this implementation
-     * handles only message lengths which fit on 64 bits. The first
-     * additional byte value is specified; this is normally 0x80,
-     * except for Tiger (not Tiger2) which uses 0x01.
-     *
-     * @param littleEndian   `true` for little-endian padding
-     * @param lenlen         the length encoding length, in bytes (must
-     * be at least 8)
-     * @param fbyte          the first padding byte
-     */
-    /**
-     * Create the object. Little-endian padding is for MD4, MD5 and
-     * RIPEMD-160; the SHA family uses big-endian padding. The
-     * MD padding includes an encoding of the input message bit length,
-     * which is over 64 bits for some algorithms, 128-bit for others
-     * (namely SHA-384 and SHA-512). Note that this implementation
-     * handles only message lengths which fit on 64 bits.
-     *
-     * @param littleEndian   `true` for little-endian padding
-     * @param lenlen         the length encoding length, in bytes (must
-     * be at least 8)
-     */
-    init {
-        countBuf = ByteArray(lenlen)
-        this.fbyte = fbyte
     }
 }

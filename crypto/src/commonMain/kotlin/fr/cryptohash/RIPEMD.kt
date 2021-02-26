@@ -1,15 +1,4 @@
-// $Id: RIPEMD.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the RIPEMD digest algorithm under the [ ] API. This is the original RIPEMD, **not** the
- * strengthened variants RIPEMD-128 or RIPEMD-160. A collision for this
- * RIPEMD has been published in 2004.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,20 +19,23 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the RIPEMD digest algorithm under the [ ] API. This is the original RIPEMD, **not** the
+ * strengthened variants RIPEMD-128 or RIPEMD-160. A collision for this
+ * RIPEMD has been published in 2004.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-/*
- * TODO: merge some of this code with that of RIPEMD128.
- */
 class RIPEMD : MDHelper(true, 8) {
 
     private lateinit var currentVal: IntArray
-    private lateinit var X: IntArray
+    private lateinit var x: IntArray
 
     override fun copy(): Digest {
         val d = RIPEMD()
@@ -74,240 +66,241 @@ class RIPEMD : MDHelper(true, 8) {
 
     override fun doInit() {
         currentVal = IntArray(4)
-        X = IntArray(16)
+        x = IntArray(16)
         engineReset()
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     override fun processBlock(data: ByteArray) {
-        val H0: Int
-        val H1: Int
-        val H2: Int
-        val H3: Int
-        var A1: Int
-        var B1: Int
-        var C1: Int
-        var D1: Int
-        var A2: Int
-        var B2: Int
-        var C2: Int
-        var D2: Int
+        val h0: Int
+        val h1: Int
+        val h2: Int
+        val h3: Int
+        var a1: Int
+        var b1: Int
+        var c1: Int
+        var d1: Int
+        var a2: Int
+        var b2: Int
+        var c2: Int
+        var d2: Int
         var tmp: Int
-        A2 = currentVal[0]
-        A1 = A2
-        H0 = A1
-        B2 = currentVal[1]
-        B1 = B2
-        H1 = B1
-        C2 = currentVal[2]
-        C1 = C2
-        H2 = C1
-        D2 = currentVal[3]
-        D1 = D2
-        H3 = D1
+        a2 = currentVal[0]
+        a1 = a2
+        h0 = a1
+        b2 = currentVal[1]
+        b1 = b2
+        h1 = b1
+        c2 = currentVal[2]
+        c1 = c2
+        h2 = c1
+        d2 = currentVal[3]
+        d1 = d2
+        h3 = d1
         var i = 0
         var j = 0
         while (i < 16) {
-            X[i] = decodeLEInt(data, j)
+            x[i] = decodeLEInt(data, j)
             i++
             j += 4
         }
-        tmp = A1 + (C1 xor D1 and B1 xor D1) + X[0]
-        A1 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D1 + (B1 xor C1 and A1 xor C1) + X[1]
-        D1 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = C1 + (A1 xor B1 and D1 xor B1) + X[2]
-        C1 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = B1 + (D1 xor A1 and C1 xor A1) + X[3]
-        B1 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = A1 + (C1 xor D1 and B1 xor D1) + X[4]
-        A1 = tmp shl 5 or (tmp ushr 32 - 5)
-        tmp = D1 + (B1 xor C1 and A1 xor C1) + X[5]
-        D1 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = C1 + (A1 xor B1 and D1 xor B1) + X[6]
-        C1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = B1 + (D1 xor A1 and C1 xor A1) + X[7]
-        B1 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = A1 + (C1 xor D1 and B1 xor D1) + X[8]
-        A1 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D1 + (B1 xor C1 and A1 xor C1) + X[9]
-        D1 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = C1 + (A1 xor B1 and D1 xor B1) + X[10]
-        C1 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = B1 + (D1 xor A1 and C1 xor A1) + X[11]
-        B1 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = A1 + (C1 xor D1 and B1 xor D1) + X[12]
-        A1 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = D1 + (B1 xor C1 and A1 xor C1) + X[13]
-        D1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = C1 + (A1 xor B1 and D1 xor B1) + X[14]
-        C1 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = B1 + (D1 xor A1 and C1 xor A1) + X[15]
-        B1 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = A1 + (B1 and C1 or (B1 or C1 and D1)) + X[7] + 0x5A827999
-        A1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = D1 + (A1 and B1 or (A1 or B1 and C1)) + X[4] + 0x5A827999
-        D1 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = C1 + (D1 and A1 or (D1 or A1 and B1)) + X[13] + 0x5A827999
-        C1 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = B1 + (C1 and D1 or (C1 or D1 and A1)) + X[1] + 0x5A827999
-        B1 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = A1 + (B1 and C1 or (B1 or C1 and D1)) + X[10] + 0x5A827999
-        A1 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D1 + (A1 and B1 or (A1 or B1 and C1)) + X[6] + 0x5A827999
-        D1 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = C1 + (D1 and A1 or (D1 or A1 and B1)) + X[15] + 0x5A827999
-        C1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = B1 + (C1 and D1 or (C1 or D1 and A1)) + X[3] + 0x5A827999
-        B1 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = A1 + (B1 and C1 or (B1 or C1 and D1)) + X[12] + 0x5A827999
-        A1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = D1 + (A1 and B1 or (A1 or B1 and C1)) + X[0] + 0x5A827999
-        D1 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = C1 + (D1 and A1 or (D1 or A1 and B1)) + X[9] + 0x5A827999
-        C1 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = B1 + (C1 and D1 or (C1 or D1 and A1)) + X[5] + 0x5A827999
-        B1 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = A1 + (B1 and C1 or (B1 or C1 and D1)) + X[14] + 0x5A827999
-        A1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = D1 + (A1 and B1 or (A1 or B1 and C1)) + X[2] + 0x5A827999
-        D1 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = C1 + (D1 and A1 or (D1 or A1 and B1)) + X[11] + 0x5A827999
-        C1 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = B1 + (C1 and D1 or (C1 or D1 and A1)) + X[8] + 0x5A827999
-        B1 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = A1 + (B1 xor C1 xor D1) + X[3] + 0x6ED9EBA1
-        A1 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D1 + (A1 xor B1 xor C1) + X[10] + 0x6ED9EBA1
-        D1 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = C1 + (D1 xor A1 xor B1) + X[2] + 0x6ED9EBA1
-        C1 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = B1 + (C1 xor D1 xor A1) + X[4] + 0x6ED9EBA1
-        B1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = A1 + (B1 xor C1 xor D1) + X[9] + 0x6ED9EBA1
-        A1 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = D1 + (A1 xor B1 xor C1) + X[15] + 0x6ED9EBA1
-        D1 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = C1 + (D1 xor A1 xor B1) + X[8] + 0x6ED9EBA1
-        C1 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = B1 + (C1 xor D1 xor A1) + X[1] + 0x6ED9EBA1
-        B1 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = A1 + (B1 xor C1 xor D1) + X[14] + 0x6ED9EBA1
-        A1 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = D1 + (A1 xor B1 xor C1) + X[7] + 0x6ED9EBA1
-        D1 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = C1 + (D1 xor A1 xor B1) + X[0] + 0x6ED9EBA1
-        C1 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = B1 + (C1 xor D1 xor A1) + X[6] + 0x6ED9EBA1
-        B1 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = A1 + (B1 xor C1 xor D1) + X[11] + 0x6ED9EBA1
-        A1 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = D1 + (A1 xor B1 xor C1) + X[13] + 0x6ED9EBA1
-        D1 = tmp shl 5 or (tmp ushr 32 - 5)
-        tmp = C1 + (D1 xor A1 xor B1) + X[5] + 0x6ED9EBA1
-        C1 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = B1 + (C1 xor D1 xor A1) + X[12] + 0x6ED9EBA1
-        B1 = tmp shl 5 or (tmp ushr 32 - 5)
-        tmp = A2 + (C2 xor D2 and B2 xor D2) + X[0] + 0x50A28BE6
-        A2 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D2 + (B2 xor C2 and A2 xor C2) + X[1] + 0x50A28BE6
-        D2 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = C2 + (A2 xor B2 and D2 xor B2) + X[2] + 0x50A28BE6
-        C2 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = B2 + (D2 xor A2 and C2 xor A2) + X[3] + 0x50A28BE6
-        B2 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = A2 + (C2 xor D2 and B2 xor D2) + X[4] + 0x50A28BE6
-        A2 = tmp shl 5 or (tmp ushr 32 - 5)
-        tmp = D2 + (B2 xor C2 and A2 xor C2) + X[5] + 0x50A28BE6
-        D2 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = C2 + (A2 xor B2 and D2 xor B2) + X[6] + 0x50A28BE6
-        C2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = B2 + (D2 xor A2 and C2 xor A2) + X[7] + 0x50A28BE6
-        B2 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = A2 + (C2 xor D2 and B2 xor D2) + X[8] + 0x50A28BE6
-        A2 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D2 + (B2 xor C2 and A2 xor C2) + X[9] + 0x50A28BE6
-        D2 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = C2 + (A2 xor B2 and D2 xor B2) + X[10] + 0x50A28BE6
-        C2 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = B2 + (D2 xor A2 and C2 xor A2) + X[11] + 0x50A28BE6
-        B2 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = A2 + (C2 xor D2 and B2 xor D2) + X[12] + 0x50A28BE6
-        A2 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = D2 + (B2 xor C2 and A2 xor C2) + X[13] + 0x50A28BE6
-        D2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = C2 + (A2 xor B2 and D2 xor B2) + X[14] + 0x50A28BE6
-        C2 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = B2 + (D2 xor A2 and C2 xor A2) + X[15] + 0x50A28BE6
-        B2 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = A2 + (B2 and C2 or (B2 or C2 and D2)) + X[7]
-        A2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = D2 + (A2 and B2 or (A2 or B2 and C2)) + X[4]
-        D2 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = C2 + (D2 and A2 or (D2 or A2 and B2)) + X[13]
-        C2 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = B2 + (C2 and D2 or (C2 or D2 and A2)) + X[1]
-        B2 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = A2 + (B2 and C2 or (B2 or C2 and D2)) + X[10]
-        A2 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D2 + (A2 and B2 or (A2 or B2 and C2)) + X[6]
-        D2 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = C2 + (D2 and A2 or (D2 or A2 and B2)) + X[15]
-        C2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = B2 + (C2 and D2 or (C2 or D2 and A2)) + X[3]
-        B2 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = A2 + (B2 and C2 or (B2 or C2 and D2)) + X[12]
-        A2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = D2 + (A2 and B2 or (A2 or B2 and C2)) + X[0]
-        D2 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = C2 + (D2 and A2 or (D2 or A2 and B2)) + X[9]
-        C2 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = B2 + (C2 and D2 or (C2 or D2 and A2)) + X[5]
-        B2 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = A2 + (B2 and C2 or (B2 or C2 and D2)) + X[14]
-        A2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = D2 + (A2 and B2 or (A2 or B2 and C2)) + X[2]
-        D2 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = C2 + (D2 and A2 or (D2 or A2 and B2)) + X[11]
-        C2 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = B2 + (C2 and D2 or (C2 or D2 and A2)) + X[8]
-        B2 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = A2 + (B2 xor C2 xor D2) + X[3] + 0x5C4DD124
-        A2 = tmp shl 11 or (tmp ushr 32 - 11)
-        tmp = D2 + (A2 xor B2 xor C2) + X[10] + 0x5C4DD124
-        D2 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = C2 + (D2 xor A2 xor B2) + X[2] + 0x5C4DD124
-        C2 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = B2 + (C2 xor D2 xor A2) + X[4] + 0x5C4DD124
-        B2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = A2 + (B2 xor C2 xor D2) + X[9] + 0x5C4DD124
-        A2 = tmp shl 14 or (tmp ushr 32 - 14)
-        tmp = D2 + (A2 xor B2 xor C2) + X[15] + 0x5C4DD124
-        D2 = tmp shl 9 or (tmp ushr 32 - 9)
-        tmp = C2 + (D2 xor A2 xor B2) + X[8] + 0x5C4DD124
-        C2 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = B2 + (C2 xor D2 xor A2) + X[1] + 0x5C4DD124
-        B2 = tmp shl 15 or (tmp ushr 32 - 15)
-        tmp = A2 + (B2 xor C2 xor D2) + X[14] + 0x5C4DD124
-        A2 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = D2 + (A2 xor B2 xor C2) + X[7] + 0x5C4DD124
-        D2 = tmp shl 8 or (tmp ushr 32 - 8)
-        tmp = C2 + (D2 xor A2 xor B2) + X[0] + 0x5C4DD124
-        C2 = tmp shl 13 or (tmp ushr 32 - 13)
-        tmp = B2 + (C2 xor D2 xor A2) + X[6] + 0x5C4DD124
-        B2 = tmp shl 6 or (tmp ushr 32 - 6)
-        tmp = A2 + (B2 xor C2 xor D2) + X[11] + 0x5C4DD124
-        A2 = tmp shl 12 or (tmp ushr 32 - 12)
-        tmp = D2 + (A2 xor B2 xor C2) + X[13] + 0x5C4DD124
-        D2 = tmp shl 5 or (tmp ushr 32 - 5)
-        tmp = C2 + (D2 xor A2 xor B2) + X[5] + 0x5C4DD124
-        C2 = tmp shl 7 or (tmp ushr 32 - 7)
-        tmp = B2 + (C2 xor D2 xor A2) + X[12] + 0x5C4DD124
-        B2 = tmp shl 5 or (tmp ushr 32 - 5)
-        val T = H1 + C1 + D2
-        currentVal[1] = H2 + D1 + A2
-        currentVal[2] = H3 + A1 + B2
-        currentVal[3] = H0 + B1 + C2
-        currentVal[0] = T
+        tmp = a1 + (c1 xor d1 and b1 xor d1) + x[0]
+        a1 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d1 + (b1 xor c1 and a1 xor c1) + x[1]
+        d1 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = c1 + (a1 xor b1 and d1 xor b1) + x[2]
+        c1 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = b1 + (d1 xor a1 and c1 xor a1) + x[3]
+        b1 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = a1 + (c1 xor d1 and b1 xor d1) + x[4]
+        a1 = tmp shl 5 or (tmp ushr 32 - 5)
+        tmp = d1 + (b1 xor c1 and a1 xor c1) + x[5]
+        d1 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = c1 + (a1 xor b1 and d1 xor b1) + x[6]
+        c1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = b1 + (d1 xor a1 and c1 xor a1) + x[7]
+        b1 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = a1 + (c1 xor d1 and b1 xor d1) + x[8]
+        a1 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d1 + (b1 xor c1 and a1 xor c1) + x[9]
+        d1 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = c1 + (a1 xor b1 and d1 xor b1) + x[10]
+        c1 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = b1 + (d1 xor a1 and c1 xor a1) + x[11]
+        b1 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = a1 + (c1 xor d1 and b1 xor d1) + x[12]
+        a1 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = d1 + (b1 xor c1 and a1 xor c1) + x[13]
+        d1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = c1 + (a1 xor b1 and d1 xor b1) + x[14]
+        c1 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = b1 + (d1 xor a1 and c1 xor a1) + x[15]
+        b1 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = a1 + (b1 and c1 or (b1 or c1 and d1)) + x[7] + 0x5A827999
+        a1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = d1 + (a1 and b1 or (a1 or b1 and c1)) + x[4] + 0x5A827999
+        d1 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = c1 + (d1 and a1 or (d1 or a1 and b1)) + x[13] + 0x5A827999
+        c1 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = b1 + (c1 and d1 or (c1 or d1 and a1)) + x[1] + 0x5A827999
+        b1 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = a1 + (b1 and c1 or (b1 or c1 and d1)) + x[10] + 0x5A827999
+        a1 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d1 + (a1 and b1 or (a1 or b1 and c1)) + x[6] + 0x5A827999
+        d1 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = c1 + (d1 and a1 or (d1 or a1 and b1)) + x[15] + 0x5A827999
+        c1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = b1 + (c1 and d1 or (c1 or d1 and a1)) + x[3] + 0x5A827999
+        b1 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = a1 + (b1 and c1 or (b1 or c1 and d1)) + x[12] + 0x5A827999
+        a1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = d1 + (a1 and b1 or (a1 or b1 and c1)) + x[0] + 0x5A827999
+        d1 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = c1 + (d1 and a1 or (d1 or a1 and b1)) + x[9] + 0x5A827999
+        c1 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = b1 + (c1 and d1 or (c1 or d1 and a1)) + x[5] + 0x5A827999
+        b1 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = a1 + (b1 and c1 or (b1 or c1 and d1)) + x[14] + 0x5A827999
+        a1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = d1 + (a1 and b1 or (a1 or b1 and c1)) + x[2] + 0x5A827999
+        d1 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = c1 + (d1 and a1 or (d1 or a1 and b1)) + x[11] + 0x5A827999
+        c1 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = b1 + (c1 and d1 or (c1 or d1 and a1)) + x[8] + 0x5A827999
+        b1 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = a1 + (b1 xor c1 xor d1) + x[3] + 0x6ED9EBA1
+        a1 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d1 + (a1 xor b1 xor c1) + x[10] + 0x6ED9EBA1
+        d1 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = c1 + (d1 xor a1 xor b1) + x[2] + 0x6ED9EBA1
+        c1 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = b1 + (c1 xor d1 xor a1) + x[4] + 0x6ED9EBA1
+        b1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = a1 + (b1 xor c1 xor d1) + x[9] + 0x6ED9EBA1
+        a1 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = d1 + (a1 xor b1 xor c1) + x[15] + 0x6ED9EBA1
+        d1 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = c1 + (d1 xor a1 xor b1) + x[8] + 0x6ED9EBA1
+        c1 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = b1 + (c1 xor d1 xor a1) + x[1] + 0x6ED9EBA1
+        b1 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = a1 + (b1 xor c1 xor d1) + x[14] + 0x6ED9EBA1
+        a1 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = d1 + (a1 xor b1 xor c1) + x[7] + 0x6ED9EBA1
+        d1 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = c1 + (d1 xor a1 xor b1) + x[0] + 0x6ED9EBA1
+        c1 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = b1 + (c1 xor d1 xor a1) + x[6] + 0x6ED9EBA1
+        b1 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = a1 + (b1 xor c1 xor d1) + x[11] + 0x6ED9EBA1
+        a1 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = d1 + (a1 xor b1 xor c1) + x[13] + 0x6ED9EBA1
+        d1 = tmp shl 5 or (tmp ushr 32 - 5)
+        tmp = c1 + (d1 xor a1 xor b1) + x[5] + 0x6ED9EBA1
+        c1 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = b1 + (c1 xor d1 xor a1) + x[12] + 0x6ED9EBA1
+        b1 = tmp shl 5 or (tmp ushr 32 - 5)
+        tmp = a2 + (c2 xor d2 and b2 xor d2) + x[0] + 0x50A28BE6
+        a2 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d2 + (b2 xor c2 and a2 xor c2) + x[1] + 0x50A28BE6
+        d2 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = c2 + (a2 xor b2 and d2 xor b2) + x[2] + 0x50A28BE6
+        c2 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = b2 + (d2 xor a2 and c2 xor a2) + x[3] + 0x50A28BE6
+        b2 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = a2 + (c2 xor d2 and b2 xor d2) + x[4] + 0x50A28BE6
+        a2 = tmp shl 5 or (tmp ushr 32 - 5)
+        tmp = d2 + (b2 xor c2 and a2 xor c2) + x[5] + 0x50A28BE6
+        d2 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = c2 + (a2 xor b2 and d2 xor b2) + x[6] + 0x50A28BE6
+        c2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = b2 + (d2 xor a2 and c2 xor a2) + x[7] + 0x50A28BE6
+        b2 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = a2 + (c2 xor d2 and b2 xor d2) + x[8] + 0x50A28BE6
+        a2 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d2 + (b2 xor c2 and a2 xor c2) + x[9] + 0x50A28BE6
+        d2 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = c2 + (a2 xor b2 and d2 xor b2) + x[10] + 0x50A28BE6
+        c2 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = b2 + (d2 xor a2 and c2 xor a2) + x[11] + 0x50A28BE6
+        b2 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = a2 + (c2 xor d2 and b2 xor d2) + x[12] + 0x50A28BE6
+        a2 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = d2 + (b2 xor c2 and a2 xor c2) + x[13] + 0x50A28BE6
+        d2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = c2 + (a2 xor b2 and d2 xor b2) + x[14] + 0x50A28BE6
+        c2 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = b2 + (d2 xor a2 and c2 xor a2) + x[15] + 0x50A28BE6
+        b2 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = a2 + (b2 and c2 or (b2 or c2 and d2)) + x[7]
+        a2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = d2 + (a2 and b2 or (a2 or b2 and c2)) + x[4]
+        d2 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = c2 + (d2 and a2 or (d2 or a2 and b2)) + x[13]
+        c2 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = b2 + (c2 and d2 or (c2 or d2 and a2)) + x[1]
+        b2 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = a2 + (b2 and c2 or (b2 or c2 and d2)) + x[10]
+        a2 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d2 + (a2 and b2 or (a2 or b2 and c2)) + x[6]
+        d2 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = c2 + (d2 and a2 or (d2 or a2 and b2)) + x[15]
+        c2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = b2 + (c2 and d2 or (c2 or d2 and a2)) + x[3]
+        b2 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = a2 + (b2 and c2 or (b2 or c2 and d2)) + x[12]
+        a2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = d2 + (a2 and b2 or (a2 or b2 and c2)) + x[0]
+        d2 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = c2 + (d2 and a2 or (d2 or a2 and b2)) + x[9]
+        c2 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = b2 + (c2 and d2 or (c2 or d2 and a2)) + x[5]
+        b2 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = a2 + (b2 and c2 or (b2 or c2 and d2)) + x[14]
+        a2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = d2 + (a2 and b2 or (a2 or b2 and c2)) + x[2]
+        d2 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = c2 + (d2 and a2 or (d2 or a2 and b2)) + x[11]
+        c2 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = b2 + (c2 and d2 or (c2 or d2 and a2)) + x[8]
+        b2 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = a2 + (b2 xor c2 xor d2) + x[3] + 0x5C4DD124
+        a2 = tmp shl 11 or (tmp ushr 32 - 11)
+        tmp = d2 + (a2 xor b2 xor c2) + x[10] + 0x5C4DD124
+        d2 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = c2 + (d2 xor a2 xor b2) + x[2] + 0x5C4DD124
+        c2 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = b2 + (c2 xor d2 xor a2) + x[4] + 0x5C4DD124
+        b2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = a2 + (b2 xor c2 xor d2) + x[9] + 0x5C4DD124
+        a2 = tmp shl 14 or (tmp ushr 32 - 14)
+        tmp = d2 + (a2 xor b2 xor c2) + x[15] + 0x5C4DD124
+        d2 = tmp shl 9 or (tmp ushr 32 - 9)
+        tmp = c2 + (d2 xor a2 xor b2) + x[8] + 0x5C4DD124
+        c2 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = b2 + (c2 xor d2 xor a2) + x[1] + 0x5C4DD124
+        b2 = tmp shl 15 or (tmp ushr 32 - 15)
+        tmp = a2 + (b2 xor c2 xor d2) + x[14] + 0x5C4DD124
+        a2 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = d2 + (a2 xor b2 xor c2) + x[7] + 0x5C4DD124
+        d2 = tmp shl 8 or (tmp ushr 32 - 8)
+        tmp = c2 + (d2 xor a2 xor b2) + x[0] + 0x5C4DD124
+        c2 = tmp shl 13 or (tmp ushr 32 - 13)
+        tmp = b2 + (c2 xor d2 xor a2) + x[6] + 0x5C4DD124
+        b2 = tmp shl 6 or (tmp ushr 32 - 6)
+        tmp = a2 + (b2 xor c2 xor d2) + x[11] + 0x5C4DD124
+        a2 = tmp shl 12 or (tmp ushr 32 - 12)
+        tmp = d2 + (a2 xor b2 xor c2) + x[13] + 0x5C4DD124
+        d2 = tmp shl 5 or (tmp ushr 32 - 5)
+        tmp = c2 + (d2 xor a2 xor b2) + x[5] + 0x5C4DD124
+        c2 = tmp shl 7 or (tmp ushr 32 - 7)
+        tmp = b2 + (c2 xor d2 xor a2) + x[12] + 0x5C4DD124
+        b2 = tmp shl 5 or (tmp ushr 32 - 5)
+        val t = h1 + c1 + d2
+        currentVal[1] = h2 + d1 + a2
+        currentVal[2] = h3 + a1 + b2
+        currentVal[3] = h0 + b1 + c2
+        currentVal[0] = t
     }
 
     override fun toString(): String {

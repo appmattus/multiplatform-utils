@@ -1,13 +1,4 @@
-// $Id: SHA2BigCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements SHA-384 and SHA-512, which differ only by the IV
- * and the output length.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -28,9 +19,13 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements SHA-384 and SHA-512, which differ only by the IV
+ * and the output length.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -38,7 +33,7 @@ package fr.cryptohash
 abstract class SHA2BigCore : MDHelper(false, 16) {
 
     private lateinit var currentVal: LongArray
-    private lateinit var W: LongArray
+    private lateinit var w: LongArray
 
     protected fun copyState(dst: SHA2BigCore): Digest {
         currentVal.copyInto(dst.currentVal, 0, 0, currentVal.size)
@@ -73,29 +68,29 @@ abstract class SHA2BigCore : MDHelper(false, 16) {
 
     override fun doInit() {
         currentVal = LongArray(8)
-        W = LongArray(80)
+        w = LongArray(80)
         engineReset()
     }
 
     override fun processBlock(data: ByteArray) {
-        var A = currentVal[0]
-        var B = currentVal[1]
-        var C = currentVal[2]
-        var D = currentVal[3]
-        var E = currentVal[4]
-        var F = currentVal[5]
-        var G = currentVal[6]
-        var H = currentVal[7]
-        for (i in 0..15) W[i] = decodeBELong(data, 8 * i)
+        var a = currentVal[0]
+        var b = currentVal[1]
+        var c = currentVal[2]
+        var d = currentVal[3]
+        var e = currentVal[4]
+        var f = currentVal[5]
+        var g = currentVal[6]
+        var h = currentVal[7]
+        for (i in 0..15) w[i] = decodeBELong(data, 8 * i)
         for (i in 16..79) {
-            W[i] = ((circularLeft(W[i - 2], 45)
-                    xor circularLeft(W[i - 2], 3)
-                    xor (W[i - 2] ushr 6))
-                    + W[i - 7]
-                    + (circularLeft(W[i - 15], 63)
-                    xor circularLeft(W[i - 15], 56)
-                    xor (W[i - 15] ushr 7))
-                    + W[i - 16])
+            w[i] = ((circularLeft(w[i - 2], 45)
+                    xor circularLeft(w[i - 2], 3)
+                    xor (w[i - 2] ushr 6))
+                    + w[i - 7]
+                    + (circularLeft(w[i - 15], 63)
+                    xor circularLeft(w[i - 15], 56)
+                    xor (w[i - 15] ushr 7))
+                    + w[i - 16])
         }
         for (i in 0..79) {
             /*
@@ -105,34 +100,34 @@ abstract class SHA2BigCore : MDHelper(false, 16) {
 			 * simpler elementary expressions. Such a split
 			 * should not harm recent JDK optimizers.
 			 */
-            var T1 = circularLeft(E, 50)
-            T1 = T1 xor circularLeft(E, 46)
-            T1 = T1 xor circularLeft(E, 23)
-            T1 += H
-            T1 += F and E xor (G and E.inv())
-            T1 += K[i]
-            T1 += W[i]
-            var T2 = circularLeft(A, 36)
-            T2 = T2 xor circularLeft(A, 30)
-            T2 = T2 xor circularLeft(A, 25)
-            T2 += A and B xor (A and C) xor (B and C)
-            H = G
-            G = F
-            F = E
-            E = D + T1
-            D = C
-            C = B
-            B = A
-            A = T1 + T2
+            var t1 = circularLeft(e, 50)
+            t1 = t1 xor circularLeft(e, 46)
+            t1 = t1 xor circularLeft(e, 23)
+            t1 += h
+            t1 += f and e xor (g and e.inv())
+            t1 += K[i]
+            t1 += w[i]
+            var t2 = circularLeft(a, 36)
+            t2 = t2 xor circularLeft(a, 30)
+            t2 = t2 xor circularLeft(a, 25)
+            t2 += a and b xor (a and c) xor (b and c)
+            h = g
+            g = f
+            f = e
+            e = d + t1
+            d = c
+            c = b
+            b = a
+            a = t1 + t2
         }
-        currentVal[0] += A
-        currentVal[1] += B
-        currentVal[2] += C
-        currentVal[3] += D
-        currentVal[4] += E
-        currentVal[5] += F
-        currentVal[6] += G
-        currentVal[7] += H
+        currentVal[0] += a
+        currentVal[1] += b
+        currentVal[2] += c
+        currentVal[3] += d
+        currentVal[4] += e
+        currentVal[5] += f
+        currentVal[6] += g
+        currentVal[7] += h
     }
 
     override fun toString(): String {

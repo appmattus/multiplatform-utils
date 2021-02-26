@@ -1,12 +1,4 @@
-// $Id: SHAviteSmallCore.java 222 2010-06-09 10:47:13Z tp $
-package fr.cryptohash
-
-/**
- * This class implements SHAvite-224 and SHAvite-256.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,9 +19,12 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements SHAvite-224 and SHAvite-256.
  *
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -57,6 +52,7 @@ abstract class SHAviteSmallCore : DigestEngine() {
      */
     abstract val initVal: IntArray
 
+    @Suppress("CascadeIf")
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val bc = blockCount
@@ -104,6 +100,7 @@ abstract class SHAviteSmallCore : DigestEngine() {
         process(data, bitLen.toInt(), (bitLen ushr 32).toInt())
     }
 
+    @Suppress("JoinDeclarationAndAssignment")
     private fun process(data: ByteArray, cnt0: Int, cnt1: Int) {
         var p0: Int
         var p1: Int

@@ -1,17 +1,4 @@
-// $Id: ShabalGeneric.java 231 2010-06-16 21:46:06Z tp $
-package fr.cryptohash
-
-/**
- * This class implements Shabal for all output sizes from 32 to 512 bits
- * (inclusive, only multiples of 32 are supported). The output size must
- * be provided as parameter to the constructor. Alternatively, you may
- * use the [Shabal192], [Shabal224], [Shabal256],
- * [Shabal384] or [Shabal512] classes for size-specific
- * variants which offer a nullary constructor.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -32,19 +19,27 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements Shabal for all output sizes from 32 to 512 bits
+ * (inclusive, only multiples of 32 are supported). The output size must
+ * be provided as parameter to the constructor. Alternatively, you may
+ * use the [Shabal192], [Shabal224], [Shabal256],
+ * [Shabal384] or [Shabal512] classes for size-specific
+ * variants which offer a nullary constructor.
  *
  * @version   $Revision: 231 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 open class ShabalGeneric private constructor() : Digest {
     private var outSizeW32 = 0
-    private val buf: ByteArray
+    private val buf: ByteArray = ByteArray(64)
     private var ptr = 0
-    private val state: IntArray
-    private var W: Long = 0
+    private val state: IntArray = IntArray(44)
+    private var w: Long = 0
 
     /**
      * Create the object. The output size must be a multiple of 32,
@@ -72,6 +67,7 @@ open class ShabalGeneric private constructor() : Digest {
         update(inbuf, 0, inbuf.size)
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -113,6 +109,7 @@ open class ShabalGeneric private constructor() : Digest {
         return digest()
     }
 
+    @Suppress("NAME_SHADOWING")
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         val dlen = digestLength
@@ -121,7 +118,7 @@ open class ShabalGeneric private constructor() : Digest {
         for (i in ptr..63) buf[i] = 0
         for (i in 0..3) {
             core(buf, 0, 1)
-            W--
+            w--
         }
         var j = 44 - (dlen ushr 2)
         var w = 0
@@ -136,7 +133,7 @@ open class ShabalGeneric private constructor() : Digest {
 
     final override fun reset() {
         getIV(outSizeW32).copyInto(state, 0, 0, 44)
-        W = 1
+        w = 1
         ptr = 0
     }
 
@@ -146,7 +143,7 @@ open class ShabalGeneric private constructor() : Digest {
         buf.copyInto(d.buf, 0, 0, ptr)
         d.ptr = ptr
         state.copyInto(d.state, 0, 0, 44)
-        d.W = W
+        d.w = w
         return d
     }
 
@@ -163,356 +160,357 @@ open class ShabalGeneric private constructor() : Digest {
     override val blockLength: Int
         get() = 64
 
+    @Suppress("NAME_SHADOWING", "JoinDeclarationAndAssignment")
     private fun core(data: ByteArray, off: Int, num: Int) {
         var off = off
         var num = num
-        var A0 = state[0]
-        var A1 = state[1]
-        var A2 = state[2]
-        var A3 = state[3]
-        var A4 = state[4]
-        var A5 = state[5]
-        var A6 = state[6]
-        var A7 = state[7]
-        var A8 = state[8]
-        var A9 = state[9]
-        var AA = state[10]
-        var AB = state[11]
-        var B0 = state[12]
-        var B1 = state[13]
-        var B2 = state[14]
-        var B3 = state[15]
-        var B4 = state[16]
-        var B5 = state[17]
-        var B6 = state[18]
-        var B7 = state[19]
-        var B8 = state[20]
-        var B9 = state[21]
-        var BA = state[22]
-        var BB = state[23]
-        var BC = state[24]
-        var BD = state[25]
-        var BE = state[26]
-        var BF = state[27]
-        var C0 = state[28]
-        var C1 = state[29]
-        var C2 = state[30]
-        var C3 = state[31]
-        var C4 = state[32]
-        var C5 = state[33]
-        var C6 = state[34]
-        var C7 = state[35]
-        var C8 = state[36]
-        var C9 = state[37]
-        var CA = state[38]
-        var CB = state[39]
-        var CC = state[40]
-        var CD = state[41]
-        var CE = state[42]
-        var CF = state[43]
+        var a0 = state[0]
+        var a1 = state[1]
+        var a2 = state[2]
+        var a3 = state[3]
+        var a4 = state[4]
+        var a5 = state[5]
+        var a6 = state[6]
+        var a7 = state[7]
+        var a8 = state[8]
+        var a9 = state[9]
+        var aa = state[10]
+        var ab = state[11]
+        var b0 = state[12]
+        var b1 = state[13]
+        var b2 = state[14]
+        var b3 = state[15]
+        var b4 = state[16]
+        var b5 = state[17]
+        var b6 = state[18]
+        var b7 = state[19]
+        var b8 = state[20]
+        var b9 = state[21]
+        var ba = state[22]
+        var bb = state[23]
+        var bc = state[24]
+        var bd = state[25]
+        var be = state[26]
+        var bf = state[27]
+        var c0 = state[28]
+        var c1 = state[29]
+        var c2 = state[30]
+        var c3 = state[31]
+        var c4 = state[32]
+        var c5 = state[33]
+        var c6 = state[34]
+        var c7 = state[35]
+        var c8 = state[36]
+        var c9 = state[37]
+        var ca = state[38]
+        var cb = state[39]
+        var cc = state[40]
+        var cd = state[41]
+        var ce = state[42]
+        var cf = state[43]
         while (num-- > 0) {
-            val M0 = decodeLEInt(data, off + 0)
-            B0 += M0
-            B0 = B0 shl 17 or (B0 ushr 15)
-            val M1 = decodeLEInt(data, off + 4)
-            B1 += M1
-            B1 = B1 shl 17 or (B1 ushr 15)
-            val M2 = decodeLEInt(data, off + 8)
-            B2 += M2
-            B2 = B2 shl 17 or (B2 ushr 15)
-            val M3 = decodeLEInt(data, off + 12)
-            B3 += M3
-            B3 = B3 shl 17 or (B3 ushr 15)
-            val M4 = decodeLEInt(data, off + 16)
-            B4 += M4
-            B4 = B4 shl 17 or (B4 ushr 15)
-            val M5 = decodeLEInt(data, off + 20)
-            B5 += M5
-            B5 = B5 shl 17 or (B5 ushr 15)
-            val M6 = decodeLEInt(data, off + 24)
-            B6 += M6
-            B6 = B6 shl 17 or (B6 ushr 15)
-            val M7 = decodeLEInt(data, off + 28)
-            B7 += M7
-            B7 = B7 shl 17 or (B7 ushr 15)
-            val M8 = decodeLEInt(data, off + 32)
-            B8 += M8
-            B8 = B8 shl 17 or (B8 ushr 15)
-            val M9 = decodeLEInt(data, off + 36)
-            B9 += M9
-            B9 = B9 shl 17 or (B9 ushr 15)
-            val MA = decodeLEInt(data, off + 40)
-            BA += MA
-            BA = BA shl 17 or (BA ushr 15)
-            val MB = decodeLEInt(data, off + 44)
-            BB += MB
-            BB = BB shl 17 or (BB ushr 15)
-            val MC = decodeLEInt(data, off + 48)
-            BC += MC
-            BC = BC shl 17 or (BC ushr 15)
-            val MD = decodeLEInt(data, off + 52)
-            BD += MD
-            BD = BD shl 17 or (BD ushr 15)
-            val ME = decodeLEInt(data, off + 56)
-            BE += ME
-            BE = BE shl 17 or (BE ushr 15)
-            val MF = decodeLEInt(data, off + 60)
-            BF += MF
-            BF = BF shl 17 or (BF ushr 15)
+            val m0 = decodeLEInt(data, off + 0)
+            b0 += m0
+            b0 = b0 shl 17 or (b0 ushr 15)
+            val m1 = decodeLEInt(data, off + 4)
+            b1 += m1
+            b1 = b1 shl 17 or (b1 ushr 15)
+            val m2 = decodeLEInt(data, off + 8)
+            b2 += m2
+            b2 = b2 shl 17 or (b2 ushr 15)
+            val m3 = decodeLEInt(data, off + 12)
+            b3 += m3
+            b3 = b3 shl 17 or (b3 ushr 15)
+            val m4 = decodeLEInt(data, off + 16)
+            b4 += m4
+            b4 = b4 shl 17 or (b4 ushr 15)
+            val m5 = decodeLEInt(data, off + 20)
+            b5 += m5
+            b5 = b5 shl 17 or (b5 ushr 15)
+            val m6 = decodeLEInt(data, off + 24)
+            b6 += m6
+            b6 = b6 shl 17 or (b6 ushr 15)
+            val m7 = decodeLEInt(data, off + 28)
+            b7 += m7
+            b7 = b7 shl 17 or (b7 ushr 15)
+            val m8 = decodeLEInt(data, off + 32)
+            b8 += m8
+            b8 = b8 shl 17 or (b8 ushr 15)
+            val m9 = decodeLEInt(data, off + 36)
+            b9 += m9
+            b9 = b9 shl 17 or (b9 ushr 15)
+            val ma = decodeLEInt(data, off + 40)
+            ba += ma
+            ba = ba shl 17 or (ba ushr 15)
+            val mb = decodeLEInt(data, off + 44)
+            bb += mb
+            bb = bb shl 17 or (bb ushr 15)
+            val mc = decodeLEInt(data, off + 48)
+            bc += mc
+            bc = bc shl 17 or (bc ushr 15)
+            val md = decodeLEInt(data, off + 52)
+            bd += md
+            bd = bd shl 17 or (bd ushr 15)
+            val me = decodeLEInt(data, off + 56)
+            be += me
+            be = be shl 17 or (be ushr 15)
+            val mf = decodeLEInt(data, off + 60)
+            bf += mf
+            bf = bf shl 17 or (bf ushr 15)
             off += 64
-            A0 = A0 xor W.toInt()
-            A1 = A1 xor (W ushr 32).toInt()
-            W++
-            A0 = ((A0 xor (AB shl 15 or (AB ushr 17)) * 5 xor C8) * 3
-                    xor BD xor (B9 and B6.inv()) xor M0)
-            B0 = (B0 shl 1 or (B0 ushr 31)).inv() xor A0
-            A1 = ((A1 xor (A0 shl 15 or (A0 ushr 17)) * 5 xor C7) * 3
-                    xor BE xor (BA and B7.inv()) xor M1)
-            B1 = (B1 shl 1 or (B1 ushr 31)).inv() xor A1
-            A2 = ((A2 xor (A1 shl 15 or (A1 ushr 17)) * 5 xor C6) * 3
-                    xor BF xor (BB and B8.inv()) xor M2)
-            B2 = (B2 shl 1 or (B2 ushr 31)).inv() xor A2
-            A3 = ((A3 xor (A2 shl 15 or (A2 ushr 17)) * 5 xor C5) * 3
-                    xor B0 xor (BC and B9.inv()) xor M3)
-            B3 = (B3 shl 1 or (B3 ushr 31)).inv() xor A3
-            A4 = ((A4 xor (A3 shl 15 or (A3 ushr 17)) * 5 xor C4) * 3
-                    xor B1 xor (BD and BA.inv()) xor M4)
-            B4 = (B4 shl 1 or (B4 ushr 31)).inv() xor A4
-            A5 = ((A5 xor (A4 shl 15 or (A4 ushr 17)) * 5 xor C3) * 3
-                    xor B2 xor (BE and BB.inv()) xor M5)
-            B5 = (B5 shl 1 or (B5 ushr 31)).inv() xor A5
-            A6 = ((A6 xor (A5 shl 15 or (A5 ushr 17)) * 5 xor C2) * 3
-                    xor B3 xor (BF and BC.inv()) xor M6)
-            B6 = (B6 shl 1 or (B6 ushr 31)).inv() xor A6
-            A7 = ((A7 xor (A6 shl 15 or (A6 ushr 17)) * 5 xor C1) * 3
-                    xor B4 xor (B0 and BD.inv()) xor M7)
-            B7 = (B7 shl 1 or (B7 ushr 31)).inv() xor A7
-            A8 = ((A8 xor (A7 shl 15 or (A7 ushr 17)) * 5 xor C0) * 3
-                    xor B5 xor (B1 and BE.inv()) xor M8)
-            B8 = (B8 shl 1 or (B8 ushr 31)).inv() xor A8
-            A9 = ((A9 xor (A8 shl 15 or (A8 ushr 17)) * 5 xor CF) * 3
-                    xor B6 xor (B2 and BF.inv()) xor M9)
-            B9 = (B9 shl 1 or (B9 ushr 31)).inv() xor A9
-            AA = ((AA xor (A9 shl 15 or (A9 ushr 17)) * 5 xor CE) * 3
-                    xor B7 xor (B3 and B0.inv()) xor MA)
-            BA = (BA shl 1 or (BA ushr 31)).inv() xor AA
-            AB = ((AB xor (AA shl 15 or (AA ushr 17)) * 5 xor CD) * 3
-                    xor B8 xor (B4 and B1.inv()) xor MB)
-            BB = (BB shl 1 or (BB ushr 31)).inv() xor AB
-            A0 = ((A0 xor (AB shl 15 or (AB ushr 17)) * 5 xor CC) * 3
-                    xor B9 xor (B5 and B2.inv()) xor MC)
-            BC = (BC shl 1 or (BC ushr 31)).inv() xor A0
-            A1 = ((A1 xor (A0 shl 15 or (A0 ushr 17)) * 5 xor CB) * 3
-                    xor BA xor (B6 and B3.inv()) xor MD)
-            BD = (BD shl 1 or (BD ushr 31)).inv() xor A1
-            A2 = ((A2 xor (A1 shl 15 or (A1 ushr 17)) * 5 xor CA) * 3
-                    xor BB xor (B7 and B4.inv()) xor ME)
-            BE = (BE shl 1 or (BE ushr 31)).inv() xor A2
-            A3 = ((A3 xor (A2 shl 15 or (A2 ushr 17)) * 5 xor C9) * 3
-                    xor BC xor (B8 and B5.inv()) xor MF)
-            BF = (BF shl 1 or (BF ushr 31)).inv() xor A3
-            A4 = ((A4 xor (A3 shl 15 or (A3 ushr 17)) * 5 xor C8) * 3
-                    xor BD xor (B9 and B6.inv()) xor M0)
-            B0 = (B0 shl 1 or (B0 ushr 31)).inv() xor A4
-            A5 = ((A5 xor (A4 shl 15 or (A4 ushr 17)) * 5 xor C7) * 3
-                    xor BE xor (BA and B7.inv()) xor M1)
-            B1 = (B1 shl 1 or (B1 ushr 31)).inv() xor A5
-            A6 = ((A6 xor (A5 shl 15 or (A5 ushr 17)) * 5 xor C6) * 3
-                    xor BF xor (BB and B8.inv()) xor M2)
-            B2 = (B2 shl 1 or (B2 ushr 31)).inv() xor A6
-            A7 = ((A7 xor (A6 shl 15 or (A6 ushr 17)) * 5 xor C5) * 3
-                    xor B0 xor (BC and B9.inv()) xor M3)
-            B3 = (B3 shl 1 or (B3 ushr 31)).inv() xor A7
-            A8 = ((A8 xor (A7 shl 15 or (A7 ushr 17)) * 5 xor C4) * 3
-                    xor B1 xor (BD and BA.inv()) xor M4)
-            B4 = (B4 shl 1 or (B4 ushr 31)).inv() xor A8
-            A9 = ((A9 xor (A8 shl 15 or (A8 ushr 17)) * 5 xor C3) * 3
-                    xor B2 xor (BE and BB.inv()) xor M5)
-            B5 = (B5 shl 1 or (B5 ushr 31)).inv() xor A9
-            AA = ((AA xor (A9 shl 15 or (A9 ushr 17)) * 5 xor C2) * 3
-                    xor B3 xor (BF and BC.inv()) xor M6)
-            B6 = (B6 shl 1 or (B6 ushr 31)).inv() xor AA
-            AB = ((AB xor (AA shl 15 or (AA ushr 17)) * 5 xor C1) * 3
-                    xor B4 xor (B0 and BD.inv()) xor M7)
-            B7 = (B7 shl 1 or (B7 ushr 31)).inv() xor AB
-            A0 = ((A0 xor (AB shl 15 or (AB ushr 17)) * 5 xor C0) * 3
-                    xor B5 xor (B1 and BE.inv()) xor M8)
-            B8 = (B8 shl 1 or (B8 ushr 31)).inv() xor A0
-            A1 = ((A1 xor (A0 shl 15 or (A0 ushr 17)) * 5 xor CF) * 3
-                    xor B6 xor (B2 and BF.inv()) xor M9)
-            B9 = (B9 shl 1 or (B9 ushr 31)).inv() xor A1
-            A2 = ((A2 xor (A1 shl 15 or (A1 ushr 17)) * 5 xor CE) * 3
-                    xor B7 xor (B3 and B0.inv()) xor MA)
-            BA = (BA shl 1 or (BA ushr 31)).inv() xor A2
-            A3 = ((A3 xor (A2 shl 15 or (A2 ushr 17)) * 5 xor CD) * 3
-                    xor B8 xor (B4 and B1.inv()) xor MB)
-            BB = (BB shl 1 or (BB ushr 31)).inv() xor A3
-            A4 = ((A4 xor (A3 shl 15 or (A3 ushr 17)) * 5 xor CC) * 3
-                    xor B9 xor (B5 and B2.inv()) xor MC)
-            BC = (BC shl 1 or (BC ushr 31)).inv() xor A4
-            A5 = ((A5 xor (A4 shl 15 or (A4 ushr 17)) * 5 xor CB) * 3
-                    xor BA xor (B6 and B3.inv()) xor MD)
-            BD = (BD shl 1 or (BD ushr 31)).inv() xor A5
-            A6 = ((A6 xor (A5 shl 15 or (A5 ushr 17)) * 5 xor CA) * 3
-                    xor BB xor (B7 and B4.inv()) xor ME)
-            BE = (BE shl 1 or (BE ushr 31)).inv() xor A6
-            A7 = ((A7 xor (A6 shl 15 or (A6 ushr 17)) * 5 xor C9) * 3
-                    xor BC xor (B8 and B5.inv()) xor MF)
-            BF = (BF shl 1 or (BF ushr 31)).inv() xor A7
-            A8 = ((A8 xor (A7 shl 15 or (A7 ushr 17)) * 5 xor C8) * 3
-                    xor BD xor (B9 and B6.inv()) xor M0)
-            B0 = (B0 shl 1 or (B0 ushr 31)).inv() xor A8
-            A9 = ((A9 xor (A8 shl 15 or (A8 ushr 17)) * 5 xor C7) * 3
-                    xor BE xor (BA and B7.inv()) xor M1)
-            B1 = (B1 shl 1 or (B1 ushr 31)).inv() xor A9
-            AA = ((AA xor (A9 shl 15 or (A9 ushr 17)) * 5 xor C6) * 3
-                    xor BF xor (BB and B8.inv()) xor M2)
-            B2 = (B2 shl 1 or (B2 ushr 31)).inv() xor AA
-            AB = ((AB xor (AA shl 15 or (AA ushr 17)) * 5 xor C5) * 3
-                    xor B0 xor (BC and B9.inv()) xor M3)
-            B3 = (B3 shl 1 or (B3 ushr 31)).inv() xor AB
-            A0 = ((A0 xor (AB shl 15 or (AB ushr 17)) * 5 xor C4) * 3
-                    xor B1 xor (BD and BA.inv()) xor M4)
-            B4 = (B4 shl 1 or (B4 ushr 31)).inv() xor A0
-            A1 = ((A1 xor (A0 shl 15 or (A0 ushr 17)) * 5 xor C3) * 3
-                    xor B2 xor (BE and BB.inv()) xor M5)
-            B5 = (B5 shl 1 or (B5 ushr 31)).inv() xor A1
-            A2 = ((A2 xor (A1 shl 15 or (A1 ushr 17)) * 5 xor C2) * 3
-                    xor B3 xor (BF and BC.inv()) xor M6)
-            B6 = (B6 shl 1 or (B6 ushr 31)).inv() xor A2
-            A3 = ((A3 xor (A2 shl 15 or (A2 ushr 17)) * 5 xor C1) * 3
-                    xor B4 xor (B0 and BD.inv()) xor M7)
-            B7 = (B7 shl 1 or (B7 ushr 31)).inv() xor A3
-            A4 = ((A4 xor (A3 shl 15 or (A3 ushr 17)) * 5 xor C0) * 3
-                    xor B5 xor (B1 and BE.inv()) xor M8)
-            B8 = (B8 shl 1 or (B8 ushr 31)).inv() xor A4
-            A5 = ((A5 xor (A4 shl 15 or (A4 ushr 17)) * 5 xor CF) * 3
-                    xor B6 xor (B2 and BF.inv()) xor M9)
-            B9 = (B9 shl 1 or (B9 ushr 31)).inv() xor A5
-            A6 = ((A6 xor (A5 shl 15 or (A5 ushr 17)) * 5 xor CE) * 3
-                    xor B7 xor (B3 and B0.inv()) xor MA)
-            BA = (BA shl 1 or (BA ushr 31)).inv() xor A6
-            A7 = ((A7 xor (A6 shl 15 or (A6 ushr 17)) * 5 xor CD) * 3
-                    xor B8 xor (B4 and B1.inv()) xor MB)
-            BB = (BB shl 1 or (BB ushr 31)).inv() xor A7
-            A8 = ((A8 xor (A7 shl 15 or (A7 ushr 17)) * 5 xor CC) * 3
-                    xor B9 xor (B5 and B2.inv()) xor MC)
-            BC = (BC shl 1 or (BC ushr 31)).inv() xor A8
-            A9 = ((A9 xor (A8 shl 15 or (A8 ushr 17)) * 5 xor CB) * 3
-                    xor BA xor (B6 and B3.inv()) xor MD)
-            BD = (BD shl 1 or (BD ushr 31)).inv() xor A9
-            AA = ((AA xor (A9 shl 15 or (A9 ushr 17)) * 5 xor CA) * 3
-                    xor BB xor (B7 and B4.inv()) xor ME)
-            BE = (BE shl 1 or (BE ushr 31)).inv() xor AA
-            AB = ((AB xor (AA shl 15 or (AA ushr 17)) * 5 xor C9) * 3
-                    xor BC xor (B8 and B5.inv()) xor MF)
-            BF = (BF shl 1 or (BF ushr 31)).inv() xor AB
-            AB += C6 + CA + CE
-            AA += C5 + C9 + CD
-            A9 += C4 + C8 + CC
-            A8 += C3 + C7 + CB
-            A7 += C2 + C6 + CA
-            A6 += C1 + C5 + C9
-            A5 += C0 + C4 + C8
-            A4 += CF + C3 + C7
-            A3 += CE + C2 + C6
-            A2 += CD + C1 + C5
-            A1 += CC + C0 + C4
-            A0 += CB + CF + C3
+            a0 = a0 xor w.toInt()
+            a1 = a1 xor (w ushr 32).toInt()
+            w++
+            a0 = ((a0 xor (ab shl 15 or (ab ushr 17)) * 5 xor c8) * 3
+                    xor bd xor (b9 and b6.inv()) xor m0)
+            b0 = (b0 shl 1 or (b0 ushr 31)).inv() xor a0
+            a1 = ((a1 xor (a0 shl 15 or (a0 ushr 17)) * 5 xor c7) * 3
+                    xor be xor (ba and b7.inv()) xor m1)
+            b1 = (b1 shl 1 or (b1 ushr 31)).inv() xor a1
+            a2 = ((a2 xor (a1 shl 15 or (a1 ushr 17)) * 5 xor c6) * 3
+                    xor bf xor (bb and b8.inv()) xor m2)
+            b2 = (b2 shl 1 or (b2 ushr 31)).inv() xor a2
+            a3 = ((a3 xor (a2 shl 15 or (a2 ushr 17)) * 5 xor c5) * 3
+                    xor b0 xor (bc and b9.inv()) xor m3)
+            b3 = (b3 shl 1 or (b3 ushr 31)).inv() xor a3
+            a4 = ((a4 xor (a3 shl 15 or (a3 ushr 17)) * 5 xor c4) * 3
+                    xor b1 xor (bd and ba.inv()) xor m4)
+            b4 = (b4 shl 1 or (b4 ushr 31)).inv() xor a4
+            a5 = ((a5 xor (a4 shl 15 or (a4 ushr 17)) * 5 xor c3) * 3
+                    xor b2 xor (be and bb.inv()) xor m5)
+            b5 = (b5 shl 1 or (b5 ushr 31)).inv() xor a5
+            a6 = ((a6 xor (a5 shl 15 or (a5 ushr 17)) * 5 xor c2) * 3
+                    xor b3 xor (bf and bc.inv()) xor m6)
+            b6 = (b6 shl 1 or (b6 ushr 31)).inv() xor a6
+            a7 = ((a7 xor (a6 shl 15 or (a6 ushr 17)) * 5 xor c1) * 3
+                    xor b4 xor (b0 and bd.inv()) xor m7)
+            b7 = (b7 shl 1 or (b7 ushr 31)).inv() xor a7
+            a8 = ((a8 xor (a7 shl 15 or (a7 ushr 17)) * 5 xor c0) * 3
+                    xor b5 xor (b1 and be.inv()) xor m8)
+            b8 = (b8 shl 1 or (b8 ushr 31)).inv() xor a8
+            a9 = ((a9 xor (a8 shl 15 or (a8 ushr 17)) * 5 xor cf) * 3
+                    xor b6 xor (b2 and bf.inv()) xor m9)
+            b9 = (b9 shl 1 or (b9 ushr 31)).inv() xor a9
+            aa = ((aa xor (a9 shl 15 or (a9 ushr 17)) * 5 xor ce) * 3
+                    xor b7 xor (b3 and b0.inv()) xor ma)
+            ba = (ba shl 1 or (ba ushr 31)).inv() xor aa
+            ab = ((ab xor (aa shl 15 or (aa ushr 17)) * 5 xor cd) * 3
+                    xor b8 xor (b4 and b1.inv()) xor mb)
+            bb = (bb shl 1 or (bb ushr 31)).inv() xor ab
+            a0 = ((a0 xor (ab shl 15 or (ab ushr 17)) * 5 xor cc) * 3
+                    xor b9 xor (b5 and b2.inv()) xor mc)
+            bc = (bc shl 1 or (bc ushr 31)).inv() xor a0
+            a1 = ((a1 xor (a0 shl 15 or (a0 ushr 17)) * 5 xor cb) * 3
+                    xor ba xor (b6 and b3.inv()) xor md)
+            bd = (bd shl 1 or (bd ushr 31)).inv() xor a1
+            a2 = ((a2 xor (a1 shl 15 or (a1 ushr 17)) * 5 xor ca) * 3
+                    xor bb xor (b7 and b4.inv()) xor me)
+            be = (be shl 1 or (be ushr 31)).inv() xor a2
+            a3 = ((a3 xor (a2 shl 15 or (a2 ushr 17)) * 5 xor c9) * 3
+                    xor bc xor (b8 and b5.inv()) xor mf)
+            bf = (bf shl 1 or (bf ushr 31)).inv() xor a3
+            a4 = ((a4 xor (a3 shl 15 or (a3 ushr 17)) * 5 xor c8) * 3
+                    xor bd xor (b9 and b6.inv()) xor m0)
+            b0 = (b0 shl 1 or (b0 ushr 31)).inv() xor a4
+            a5 = ((a5 xor (a4 shl 15 or (a4 ushr 17)) * 5 xor c7) * 3
+                    xor be xor (ba and b7.inv()) xor m1)
+            b1 = (b1 shl 1 or (b1 ushr 31)).inv() xor a5
+            a6 = ((a6 xor (a5 shl 15 or (a5 ushr 17)) * 5 xor c6) * 3
+                    xor bf xor (bb and b8.inv()) xor m2)
+            b2 = (b2 shl 1 or (b2 ushr 31)).inv() xor a6
+            a7 = ((a7 xor (a6 shl 15 or (a6 ushr 17)) * 5 xor c5) * 3
+                    xor b0 xor (bc and b9.inv()) xor m3)
+            b3 = (b3 shl 1 or (b3 ushr 31)).inv() xor a7
+            a8 = ((a8 xor (a7 shl 15 or (a7 ushr 17)) * 5 xor c4) * 3
+                    xor b1 xor (bd and ba.inv()) xor m4)
+            b4 = (b4 shl 1 or (b4 ushr 31)).inv() xor a8
+            a9 = ((a9 xor (a8 shl 15 or (a8 ushr 17)) * 5 xor c3) * 3
+                    xor b2 xor (be and bb.inv()) xor m5)
+            b5 = (b5 shl 1 or (b5 ushr 31)).inv() xor a9
+            aa = ((aa xor (a9 shl 15 or (a9 ushr 17)) * 5 xor c2) * 3
+                    xor b3 xor (bf and bc.inv()) xor m6)
+            b6 = (b6 shl 1 or (b6 ushr 31)).inv() xor aa
+            ab = ((ab xor (aa shl 15 or (aa ushr 17)) * 5 xor c1) * 3
+                    xor b4 xor (b0 and bd.inv()) xor m7)
+            b7 = (b7 shl 1 or (b7 ushr 31)).inv() xor ab
+            a0 = ((a0 xor (ab shl 15 or (ab ushr 17)) * 5 xor c0) * 3
+                    xor b5 xor (b1 and be.inv()) xor m8)
+            b8 = (b8 shl 1 or (b8 ushr 31)).inv() xor a0
+            a1 = ((a1 xor (a0 shl 15 or (a0 ushr 17)) * 5 xor cf) * 3
+                    xor b6 xor (b2 and bf.inv()) xor m9)
+            b9 = (b9 shl 1 or (b9 ushr 31)).inv() xor a1
+            a2 = ((a2 xor (a1 shl 15 or (a1 ushr 17)) * 5 xor ce) * 3
+                    xor b7 xor (b3 and b0.inv()) xor ma)
+            ba = (ba shl 1 or (ba ushr 31)).inv() xor a2
+            a3 = ((a3 xor (a2 shl 15 or (a2 ushr 17)) * 5 xor cd) * 3
+                    xor b8 xor (b4 and b1.inv()) xor mb)
+            bb = (bb shl 1 or (bb ushr 31)).inv() xor a3
+            a4 = ((a4 xor (a3 shl 15 or (a3 ushr 17)) * 5 xor cc) * 3
+                    xor b9 xor (b5 and b2.inv()) xor mc)
+            bc = (bc shl 1 or (bc ushr 31)).inv() xor a4
+            a5 = ((a5 xor (a4 shl 15 or (a4 ushr 17)) * 5 xor cb) * 3
+                    xor ba xor (b6 and b3.inv()) xor md)
+            bd = (bd shl 1 or (bd ushr 31)).inv() xor a5
+            a6 = ((a6 xor (a5 shl 15 or (a5 ushr 17)) * 5 xor ca) * 3
+                    xor bb xor (b7 and b4.inv()) xor me)
+            be = (be shl 1 or (be ushr 31)).inv() xor a6
+            a7 = ((a7 xor (a6 shl 15 or (a6 ushr 17)) * 5 xor c9) * 3
+                    xor bc xor (b8 and b5.inv()) xor mf)
+            bf = (bf shl 1 or (bf ushr 31)).inv() xor a7
+            a8 = ((a8 xor (a7 shl 15 or (a7 ushr 17)) * 5 xor c8) * 3
+                    xor bd xor (b9 and b6.inv()) xor m0)
+            b0 = (b0 shl 1 or (b0 ushr 31)).inv() xor a8
+            a9 = ((a9 xor (a8 shl 15 or (a8 ushr 17)) * 5 xor c7) * 3
+                    xor be xor (ba and b7.inv()) xor m1)
+            b1 = (b1 shl 1 or (b1 ushr 31)).inv() xor a9
+            aa = ((aa xor (a9 shl 15 or (a9 ushr 17)) * 5 xor c6) * 3
+                    xor bf xor (bb and b8.inv()) xor m2)
+            b2 = (b2 shl 1 or (b2 ushr 31)).inv() xor aa
+            ab = ((ab xor (aa shl 15 or (aa ushr 17)) * 5 xor c5) * 3
+                    xor b0 xor (bc and b9.inv()) xor m3)
+            b3 = (b3 shl 1 or (b3 ushr 31)).inv() xor ab
+            a0 = ((a0 xor (ab shl 15 or (ab ushr 17)) * 5 xor c4) * 3
+                    xor b1 xor (bd and ba.inv()) xor m4)
+            b4 = (b4 shl 1 or (b4 ushr 31)).inv() xor a0
+            a1 = ((a1 xor (a0 shl 15 or (a0 ushr 17)) * 5 xor c3) * 3
+                    xor b2 xor (be and bb.inv()) xor m5)
+            b5 = (b5 shl 1 or (b5 ushr 31)).inv() xor a1
+            a2 = ((a2 xor (a1 shl 15 or (a1 ushr 17)) * 5 xor c2) * 3
+                    xor b3 xor (bf and bc.inv()) xor m6)
+            b6 = (b6 shl 1 or (b6 ushr 31)).inv() xor a2
+            a3 = ((a3 xor (a2 shl 15 or (a2 ushr 17)) * 5 xor c1) * 3
+                    xor b4 xor (b0 and bd.inv()) xor m7)
+            b7 = (b7 shl 1 or (b7 ushr 31)).inv() xor a3
+            a4 = ((a4 xor (a3 shl 15 or (a3 ushr 17)) * 5 xor c0) * 3
+                    xor b5 xor (b1 and be.inv()) xor m8)
+            b8 = (b8 shl 1 or (b8 ushr 31)).inv() xor a4
+            a5 = ((a5 xor (a4 shl 15 or (a4 ushr 17)) * 5 xor cf) * 3
+                    xor b6 xor (b2 and bf.inv()) xor m9)
+            b9 = (b9 shl 1 or (b9 ushr 31)).inv() xor a5
+            a6 = ((a6 xor (a5 shl 15 or (a5 ushr 17)) * 5 xor ce) * 3
+                    xor b7 xor (b3 and b0.inv()) xor ma)
+            ba = (ba shl 1 or (ba ushr 31)).inv() xor a6
+            a7 = ((a7 xor (a6 shl 15 or (a6 ushr 17)) * 5 xor cd) * 3
+                    xor b8 xor (b4 and b1.inv()) xor mb)
+            bb = (bb shl 1 or (bb ushr 31)).inv() xor a7
+            a8 = ((a8 xor (a7 shl 15 or (a7 ushr 17)) * 5 xor cc) * 3
+                    xor b9 xor (b5 and b2.inv()) xor mc)
+            bc = (bc shl 1 or (bc ushr 31)).inv() xor a8
+            a9 = ((a9 xor (a8 shl 15 or (a8 ushr 17)) * 5 xor cb) * 3
+                    xor ba xor (b6 and b3.inv()) xor md)
+            bd = (bd shl 1 or (bd ushr 31)).inv() xor a9
+            aa = ((aa xor (a9 shl 15 or (a9 ushr 17)) * 5 xor ca) * 3
+                    xor bb xor (b7 and b4.inv()) xor me)
+            be = (be shl 1 or (be ushr 31)).inv() xor aa
+            ab = ((ab xor (aa shl 15 or (aa ushr 17)) * 5 xor c9) * 3
+                    xor bc xor (b8 and b5.inv()) xor mf)
+            bf = (bf shl 1 or (bf ushr 31)).inv() xor ab
+            ab += c6 + ca + ce
+            aa += c5 + c9 + cd
+            a9 += c4 + c8 + cc
+            a8 += c3 + c7 + cb
+            a7 += c2 + c6 + ca
+            a6 += c1 + c5 + c9
+            a5 += c0 + c4 + c8
+            a4 += cf + c3 + c7
+            a3 += ce + c2 + c6
+            a2 += cd + c1 + c5
+            a1 += cc + c0 + c4
+            a0 += cb + cf + c3
             var tmp: Int
-            tmp = B0
-            B0 = C0 - M0
-            C0 = tmp
-            tmp = B1
-            B1 = C1 - M1
-            C1 = tmp
-            tmp = B2
-            B2 = C2 - M2
-            C2 = tmp
-            tmp = B3
-            B3 = C3 - M3
-            C3 = tmp
-            tmp = B4
-            B4 = C4 - M4
-            C4 = tmp
-            tmp = B5
-            B5 = C5 - M5
-            C5 = tmp
-            tmp = B6
-            B6 = C6 - M6
-            C6 = tmp
-            tmp = B7
-            B7 = C7 - M7
-            C7 = tmp
-            tmp = B8
-            B8 = C8 - M8
-            C8 = tmp
-            tmp = B9
-            B9 = C9 - M9
-            C9 = tmp
-            tmp = BA
-            BA = CA - MA
-            CA = tmp
-            tmp = BB
-            BB = CB - MB
-            CB = tmp
-            tmp = BC
-            BC = CC - MC
-            CC = tmp
-            tmp = BD
-            BD = CD - MD
-            CD = tmp
-            tmp = BE
-            BE = CE - ME
-            CE = tmp
-            tmp = BF
-            BF = CF - MF
-            CF = tmp
+            tmp = b0
+            b0 = c0 - m0
+            c0 = tmp
+            tmp = b1
+            b1 = c1 - m1
+            c1 = tmp
+            tmp = b2
+            b2 = c2 - m2
+            c2 = tmp
+            tmp = b3
+            b3 = c3 - m3
+            c3 = tmp
+            tmp = b4
+            b4 = c4 - m4
+            c4 = tmp
+            tmp = b5
+            b5 = c5 - m5
+            c5 = tmp
+            tmp = b6
+            b6 = c6 - m6
+            c6 = tmp
+            tmp = b7
+            b7 = c7 - m7
+            c7 = tmp
+            tmp = b8
+            b8 = c8 - m8
+            c8 = tmp
+            tmp = b9
+            b9 = c9 - m9
+            c9 = tmp
+            tmp = ba
+            ba = ca - ma
+            ca = tmp
+            tmp = bb
+            bb = cb - mb
+            cb = tmp
+            tmp = bc
+            bc = cc - mc
+            cc = tmp
+            tmp = bd
+            bd = cd - md
+            cd = tmp
+            tmp = be
+            be = ce - me
+            ce = tmp
+            tmp = bf
+            bf = cf - mf
+            cf = tmp
         }
-        state[0] = A0
-        state[1] = A1
-        state[2] = A2
-        state[3] = A3
-        state[4] = A4
-        state[5] = A5
-        state[6] = A6
-        state[7] = A7
-        state[8] = A8
-        state[9] = A9
-        state[10] = AA
-        state[11] = AB
-        state[12] = B0
-        state[13] = B1
-        state[14] = B2
-        state[15] = B3
-        state[16] = B4
-        state[17] = B5
-        state[18] = B6
-        state[19] = B7
-        state[20] = B8
-        state[21] = B9
-        state[22] = BA
-        state[23] = BB
-        state[24] = BC
-        state[25] = BD
-        state[26] = BE
-        state[27] = BF
-        state[28] = C0
-        state[29] = C1
-        state[30] = C2
-        state[31] = C3
-        state[32] = C4
-        state[33] = C5
-        state[34] = C6
-        state[35] = C7
-        state[36] = C8
-        state[37] = C9
-        state[38] = CA
-        state[39] = CB
-        state[40] = CC
-        state[41] = CD
-        state[42] = CE
-        state[43] = CF
+        state[0] = a0
+        state[1] = a1
+        state[2] = a2
+        state[3] = a3
+        state[4] = a4
+        state[5] = a5
+        state[6] = a6
+        state[7] = a7
+        state[8] = a8
+        state[9] = a9
+        state[10] = aa
+        state[11] = ab
+        state[12] = b0
+        state[13] = b1
+        state[14] = b2
+        state[15] = b3
+        state[16] = b4
+        state[17] = b5
+        state[18] = b6
+        state[19] = b7
+        state[20] = b8
+        state[21] = b9
+        state[22] = ba
+        state[23] = bb
+        state[24] = bc
+        state[25] = bd
+        state[26] = be
+        state[27] = bf
+        state[28] = c0
+        state[29] = c1
+        state[30] = c2
+        state[31] = c3
+        state[32] = c4
+        state[33] = c5
+        state[34] = c6
+        state[35] = c7
+        state[36] = c8
+        state[37] = c9
+        state[38] = ca
+        state[39] = cb
+        state[40] = cc
+        state[41] = cd
+        state[42] = ce
+        state[43] = cf
     }
 
     override fun toString(): String {
@@ -527,7 +525,7 @@ open class ShabalGeneric private constructor() : Digest {
                 val outSize = outSizeW32 shl 5
                 val sg = ShabalGeneric()
                 for (i in 0..43) sg.state[i] = 0
-                sg.W = -1L
+                sg.w = -1L
                 for (i in 0..15) {
                     sg.buf[(i shl 2) + 0] = (outSize + i).toByte()
                     sg.buf[(i shl 2) + 1] = (outSize + i ushr 8).toByte()
@@ -550,10 +548,5 @@ open class ShabalGeneric private constructor() : Digest {
                     or (data[off + 2].toInt() and 0xFF shl 16)
                     or (data[off + 3].toInt() and 0xFF shl 24))
         }
-    }
-
-    init {
-        buf = ByteArray(64)
-        state = IntArray(44)
     }
 }
