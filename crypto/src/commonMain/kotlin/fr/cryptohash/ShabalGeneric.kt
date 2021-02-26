@@ -163,8 +163,8 @@ abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Diges
     }
 
     private fun getIV(outSizeW32: Int): IntArray {
-        var iv = IVs[outSizeW32 - 1]
-        if (iv == null) {
+        //var iv = IVs[outSizeW32 - 1]
+        //if (iv == null) {
             val outSize = outSizeW32 shl 5
 
             val state = IntArray(44)
@@ -182,10 +182,10 @@ abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Diges
                 buf[(i shl 2) + 1] = (outSize + i + 16 ushr 8).toByte()
             }
             core(state, w, buf, 0, 1)
-            IVs[outSizeW32 - 1] = state
-            iv = IVs[outSizeW32 - 1]
-        }
-        return iv!!
+            return state
+            //iv = IVs[outSizeW32 - 1]
+        //}
+        //return iv!!
     }
 
     companion object {
