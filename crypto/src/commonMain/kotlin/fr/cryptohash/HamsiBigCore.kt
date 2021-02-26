@@ -39,9 +39,9 @@ abstract class HamsiBigCore : Digest {
         reset()
     }
 
-    override fun update(`in`: Byte) {
+    override fun update(input: Byte) {
         bitCount += 8
-        partial = partial shl 8 or (`in`.toLong() and 0xFF)
+        partial = partial shl 8 or (input.toLong() and 0xFF)
         partialLen++
         if (partialLen == 8) {
             process(
@@ -58,19 +58,19 @@ abstract class HamsiBigCore : Digest {
         }
     }
 
-    override fun update(inbuf: ByteArray) {
-        update(inbuf, 0, inbuf.size)
+    override fun update(input: ByteArray) {
+        update(input, 0, input.size)
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun update(inbuf: ByteArray, off: Int, len: Int) {
-        var off = off
-        var len = len
+    override fun update(input: ByteArray, offset: Int, length: Int) {
+        var off = offset
+        var len = length
         bitCount += len.toLong() shl 3
         if (partialLen != 0) {
             while (partialLen < 8 && len > 0) {
                 partial = (partial shl 8
-                        or (inbuf[off++].toLong() and 0xFF))
+                        or (input[off++].toLong() and 0xFF))
                 partialLen++
                 len--
             }
@@ -89,20 +89,20 @@ abstract class HamsiBigCore : Digest {
         }
         while (len >= 8) {
             process(
-                inbuf[off + 0].toInt() and 0xFF,
-                inbuf[off + 1].toInt() and 0xFF,
-                inbuf[off + 2].toInt() and 0xFF,
-                inbuf[off + 3].toInt() and 0xFF,
-                inbuf[off + 4].toInt() and 0xFF,
-                inbuf[off + 5].toInt() and 0xFF,
-                inbuf[off + 6].toInt() and 0xFF,
-                inbuf[off + 7].toInt() and 0xFF
+                input[off + 0].toInt() and 0xFF,
+                input[off + 1].toInt() and 0xFF,
+                input[off + 2].toInt() and 0xFF,
+                input[off + 3].toInt() and 0xFF,
+                input[off + 4].toInt() and 0xFF,
+                input[off + 5].toInt() and 0xFF,
+                input[off + 6].toInt() and 0xFF,
+                input[off + 7].toInt() and 0xFF
             )
             off += 8
             len -= 8
         }
         partialLen = len
-        while (len-- > 0) partial = partial shl 8 or (inbuf[off++].toLong() and 0xFF)
+        while (len-- > 0) partial = partial shl 8 or (input[off++].toLong() and 0xFF)
     }
 
     override fun digest(): ByteArray {
@@ -112,14 +112,14 @@ abstract class HamsiBigCore : Digest {
         return out
     }
 
-    override fun digest(inbuf: ByteArray): ByteArray {
-        update(inbuf, 0, inbuf.size)
+    override fun digest(input: ByteArray): ByteArray {
+        update(input, 0, input.size)
         return digest()
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
-        var len = len
+    override fun digest(output: ByteArray, offset: Int, length: Int): Int {
+        var len = length
         val bitCount = bitCount
         update(0x80.toByte())
         while (partialLen != 0) update(0x00.toByte())
@@ -141,7 +141,7 @@ abstract class HamsiBigCore : Digest {
         var j = 0
         while (i < len) {
             if (i and 3 == 0) ch = h[hoff[j++]]
-            outbuf[off + i] = (ch ushr 24).toByte()
+            output[offset + i] = (ch ushr 24).toByte()
             ch = ch shl 8
             i++
         }

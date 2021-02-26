@@ -45,35 +45,35 @@ internal abstract class SkeinSmallCore : Digest {
     private var h3: Long = 0
     private var bcount: Long = 0
 
-    override fun update(`in`: Byte) {
+    override fun update(input: Byte) {
         if (ptr == blockLength) {
             val etype = if (bcount == 0L) 224 else 96
             bcount++
             ubi(etype, 0)
-            buf[0] = `in`
+            buf[0] = input
             ptr = 1
         } else {
-            buf[ptr++] = `in`
+            buf[ptr++] = input
         }
     }
 
-    override fun update(inbuf: ByteArray) {
-        update(inbuf, 0, inbuf.size)
+    override fun update(input: ByteArray) {
+        update(input, 0, input.size)
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun update(inbuf: ByteArray, off: Int, len: Int) {
-        var off = off
-        var len = len
+    override fun update(input: ByteArray, offset: Int, length: Int) {
+        var off = offset
+        var len = length
         if (len <= 0) return
         val clen = blockLength - ptr
         if (len <= clen) {
-            inbuf.copyInto(buf, ptr, off, off + len)
+            input.copyInto(buf, ptr, off, off + len)
             ptr += len
             return
         }
         if (clen != 0) {
-            inbuf.copyInto(buf, ptr, off, off + clen)
+            input.copyInto(buf, ptr, off, off + clen)
             off += clen
             len -= clen
         }
@@ -82,11 +82,11 @@ internal abstract class SkeinSmallCore : Digest {
             bcount++
             ubi(etype, 0)
             if (len <= blockLength) break
-            inbuf.copyInto(buf, 0, off, off + blockLength)
+            input.copyInto(buf, 0, off, off + blockLength)
             off += blockLength
             len -= blockLength
         }
-        inbuf.copyInto(buf, 0, off, off + len)
+        input.copyInto(buf, 0, off, off + len)
         ptr = len
     }
 
@@ -97,14 +97,14 @@ internal abstract class SkeinSmallCore : Digest {
         return out
     }
 
-    override fun digest(inbuf: ByteArray): ByteArray {
-        update(inbuf, 0, inbuf.size)
+    override fun digest(input: ByteArray): ByteArray {
+        update(input, 0, input.size)
         return digest()
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
-        var len = len
+    override fun digest(output: ByteArray, offset: Int, length: Int): Int {
+        var len = length
         for (i in ptr until blockLength) buf[i] = 0x00
         ubi(if (bcount == 0L) 480 else 352, ptr)
         for (i in 0 until blockLength) buf[i] = 0x00
@@ -116,7 +116,7 @@ internal abstract class SkeinSmallCore : Digest {
         encodeLELong(h3, tmpOut, 24)
         val dlen = digestLength
         if (len > dlen) len = dlen
-        tmpOut.copyInto(outbuf, off, 0, len)
+        tmpOut.copyInto(output, offset, 0, len)
         reset()
         return len
     }

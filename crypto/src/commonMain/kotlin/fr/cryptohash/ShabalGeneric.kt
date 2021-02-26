@@ -55,30 +55,30 @@ open class ShabalGeneric private constructor() : Digest {
         reset()
     }
 
-    override fun update(`in`: Byte) {
-        buf[ptr++] = `in`
+    override fun update(input: Byte) {
+        buf[ptr++] = input
         if (ptr == 64) {
             core(buf, 0, 1)
             ptr = 0
         }
     }
 
-    override fun update(inbuf: ByteArray) {
-        update(inbuf, 0, inbuf.size)
+    override fun update(input: ByteArray) {
+        update(input, 0, input.size)
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun update(inbuf: ByteArray, off: Int, len: Int) {
-        var off = off
-        var len = len
+    override fun update(input: ByteArray, offset: Int, length: Int) {
+        var off = offset
+        var len = length
         if (ptr != 0) {
             val rlen = 64 - ptr
             if (len < rlen) {
-                inbuf.copyInto(buf, ptr, off, off + len)
+                input.copyInto(buf, ptr, off, off + len)
                 ptr += len
                 return
             } else {
-                inbuf.copyInto(buf, ptr, off, off + rlen)
+                input.copyInto(buf, ptr, off, off + rlen)
                 off += rlen
                 len -= rlen
                 core(buf, 0, 1)
@@ -86,11 +86,11 @@ open class ShabalGeneric private constructor() : Digest {
         }
         val num = len ushr 6
         if (num > 0) {
-            core(inbuf, off, num)
+            core(input, off, num)
             off += num shl 6
             len = len and 63
         }
-        inbuf.copyInto(buf, 0, off, off + len)
+        input.copyInto(buf, 0, off, off + len)
         ptr = len
     }
 
@@ -104,14 +104,14 @@ open class ShabalGeneric private constructor() : Digest {
         return out
     }
 
-    override fun digest(inbuf: ByteArray): ByteArray {
-        update(inbuf, 0, inbuf.size)
+    override fun digest(input: ByteArray): ByteArray {
+        update(input, 0, input.size)
         return digest()
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
-        var len = len
+    override fun digest(output: ByteArray, offset: Int, length: Int): Int {
+        var len = length
         val dlen = digestLength
         if (len > dlen) len = dlen
         buf[ptr++] = 0x80.toByte()
@@ -124,7 +124,7 @@ open class ShabalGeneric private constructor() : Digest {
         var w = 0
         for (i in 0 until len) {
             if (i and 3 == 0) w = state[j++]
-            outbuf[i] = w.toByte()
+            output[i] = w.toByte()
             w = w ushr 8
         }
         reset()

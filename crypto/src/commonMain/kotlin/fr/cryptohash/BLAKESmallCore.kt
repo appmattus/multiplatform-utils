@@ -97,6 +97,7 @@ abstract class BLAKESmallCore : DigestEngine() {
      */
     abstract val initVal: IntArray
 
+    @Suppress("CascadeIf")
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         val bitLen = ptr shl 3

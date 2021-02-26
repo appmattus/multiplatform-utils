@@ -122,18 +122,17 @@ abstract class DigestEngine : Digest {
         return digest()
     }
 
-    override fun digest(buf: ByteArray, offset: Int, len: Int): Int {
+    override fun digest(output: ByteArray, offset: Int, length: Int): Int {
         adjustDigestLen()
-        return if (len >= digestLen) {
-            doPadding(buf, offset)
+        return if (length >= digestLen) {
+            doPadding(output, offset)
             reset()
             digestLen
         } else {
             doPadding(outputBuf, 0)
-            outputBuf.copyInto(buf, offset, 0, len)
-            //java.lang.System.arraycopy(outputBuf, 0, buf, offset, len)
+            outputBuf.copyInto(output, offset, 0, length)
             reset()
-            len
+            length
         }
     }
 
@@ -156,9 +155,10 @@ abstract class DigestEngine : Digest {
         update(input, 0, input.size)
     }
 
-    override fun update(input: ByteArray, offset: Int, len: Int) {
+    @Suppress("NAME_SHADOWING")
+    override fun update(input: ByteArray, offset: Int, length: Int) {
         var offset = offset
-        var len = len
+        var len = length
         while (len > 0) {
             var copyLen = blockLen - inputLen
             if (copyLen > len) copyLen = len

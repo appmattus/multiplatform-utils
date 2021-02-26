@@ -43,9 +43,9 @@ abstract class FugueCore : Digest {
         doReset()
     }
 
-    override fun update(`in`: Byte) {
+    override fun update(input: Byte) {
         bitCount += 8
-        partial = partial shl 8 or (`in`.toInt() and 0xFF)
+        partial = partial shl 8 or (input.toInt() and 0xFF)
         if (++partialLen == 4) {
             process(partial)
             partial = 0
@@ -53,29 +53,29 @@ abstract class FugueCore : Digest {
         }
     }
 
-    override fun update(inbuf: ByteArray) {
-        update(inbuf, 0, inbuf.size)
+    override fun update(input: ByteArray) {
+        update(input, 0, input.size)
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun update(inbuf: ByteArray, off: Int, len: Int) {
-        var off = off
-        var len = len
+    override fun update(input: ByteArray, offset: Int, length: Int) {
+        var off = offset
+        var len = length
         bitCount += len.toLong() shl 3
         while (partialLen < 4 && len > 0) {
-            partial = partial shl 8 or (inbuf[off++].toInt() and 0xFF)
+            partial = partial shl 8 or (input[off++].toInt() and 0xFF)
             partialLen++
             len--
         }
         if (partialLen == 4 || len > 0) {
             val zlen = len and 3.inv()
-            process(partial, inbuf, off, zlen ushr 2)
+            process(partial, input, off, zlen ushr 2)
             off += zlen
             len -= zlen
             partial = 0
             partialLen = len
             while (len-- > 0) partial = (partial shl 8
-                    or (inbuf[off++].toInt() and 0xFF))
+                    or (input[off++].toInt() and 0xFF))
         }
     }
 
@@ -109,14 +109,14 @@ abstract class FugueCore : Digest {
         return out
     }
 
-    override fun digest(inbuf: ByteArray): ByteArray {
-        update(inbuf, 0, inbuf.size)
+    override fun digest(input: ByteArray): ByteArray {
+        update(input, 0, input.size)
         return digest()
     }
 
     @Suppress("NAME_SHADOWING")
-    override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
-        var len = len
+    override fun digest(output: ByteArray, offset: Int, length: Int): Int {
+        var len = length
         if (partialLen != 0) {
             while (partialLen++ < 4) partial = partial shl 8
             process(partial)
@@ -125,7 +125,7 @@ abstract class FugueCore : Digest {
         process(bitCount.toInt())
         processFinal(out)
         if (len > out.size) len = out.size
-        out.copyInto(outbuf, off, 0, len)
+        out.copyInto(output, offset, 0, len)
         doReset()
         return len
     }

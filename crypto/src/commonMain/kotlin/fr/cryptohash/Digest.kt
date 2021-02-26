@@ -54,25 +54,25 @@ interface Digest {
     /**
      * Insert one more input data byte.
      *
-     * @param in   the input byte
+     * @param input   the input byte
      */
-    fun update(`in`: Byte)
+    fun update(input: Byte)
 
     /**
      * Insert some more bytes.
      *
-     * @param inbuf   the data bytes
+     * @param input   the data bytes
      */
-    fun update(inbuf: ByteArray)
+    fun update(input: ByteArray)
 
     /**
      * Insert some more bytes.
      *
-     * @param inbuf   the data buffer
-     * @param off     the data offset in `inbuf`
-     * @param len     the data length (in bytes)
+     * @param input   the data buffer
+     * @param offset     the data offset in [input]
+     * @param length     the data length (in bytes)
      */
-    fun update(inbuf: ByteArray, off: Int, len: Int)
+    fun update(input: ByteArray, offset: Int, length: Int)
 
     /**
      * Finalize the current hash computation and return the hash value
@@ -87,26 +87,26 @@ interface Digest {
      * and return the hash value in a newly-allocated array. The object
      * is resetted.
      *
-     * @param inbuf   the input data
+     * @param input   the input data
      * @return  the hash output
      */
-    fun digest(inbuf: ByteArray): ByteArray
+    fun digest(input: ByteArray): ByteArray
 
     /**
      * Finalize the current hash computation and store the hash value
-     * in the provided output buffer. The `len` parameter
+     * in the provided output buffer. The [length] parameter
      * contains the maximum number of bytes that should be written;
      * no more bytes than the natural hash function output length will
-     * be produced. If `len` is smaller than the natural
+     * be produced. If [length] is smaller than the natural
      * hash output length, the hash output is truncated to its first
-     * `len` bytes. The object is resetted.
+     * [length] bytes. The object is resetted.
      *
-     * @param outbuf   the output buffer
-     * @param off      the output offset within `outbuf`
-     * @param len      the requested hash output length (in bytes)
-     * @return  the number of bytes actually written in `outbuf`
+     * @param output   the output buffer
+     * @param offset      the output offset within [output]
+     * @param length      the requested hash output length (in bytes)
+     * @return  the number of bytes actually written in [output]
      */
-    fun digest(outbuf: ByteArray, off: Int, len: Int): Int
+    fun digest(output: ByteArray, offset: Int, length: Int): Int
 
     /**
      * Get the natural hash function output length (in bytes).
