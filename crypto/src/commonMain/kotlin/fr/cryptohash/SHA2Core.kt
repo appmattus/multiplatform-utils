@@ -35,28 +35,18 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHA2Core
-/**
- * Create the object.
- */
-    : MDHelper(false, 8) {
+abstract class SHA2Core : MDHelper(false, 8) {
     private lateinit var currentVal: IntArray
     private lateinit var W: IntArray
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: SHA2Core): Digest {
         currentVal.copyInto(dst.currentVal, 0, 0, currentVal.size)
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         initVal.copyInto(currentVal, 0, 0, 8)
     }
@@ -68,8 +58,6 @@ abstract class SHA2Core
      */
     abstract val initVal: IntArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         val olen = digestLength
@@ -82,16 +70,12 @@ abstract class SHA2Core
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         currentVal = IntArray(8)
         W = IntArray(64)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var A = currentVal[0]
         var B = currentVal[1]
@@ -557,8 +541,6 @@ abstract class SHA2Core
 		*/
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SHA-" + (digestLength shl 3)
     }

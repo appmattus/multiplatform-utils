@@ -36,13 +36,8 @@ package fr.cryptohash
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class JH384
-/**
- * Create the engine.
- */
-    : JHCore() {
-    /** @see Digest
-     */
+class JH384 : JHCore() {
+
     override fun copy(): Digest {
         return copyState(JH384())
     }
@@ -50,14 +45,10 @@ class JH384
     override val iV: LongArray
         get() = Companion.iV
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 48
 
     companion object {
-        /** @see JHCore
-         */
         val iV = longArrayOf(
             0x481e3bc6d813398aL, 0x6d3b5e894ade879bL,
             0x63faea68d480ad2eL, 0x332ccb21480f8267L,

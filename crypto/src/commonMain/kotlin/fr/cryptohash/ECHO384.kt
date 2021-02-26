@@ -36,18 +36,11 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class ECHO384
-/**
- * Create the engine.
- */
-    : ECHOBigCore() {
-    /** @see Digest
-     */
+class ECHO384 : ECHOBigCore() {
+
     override val digestLength: Int
         get() = 48
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(ECHO384())
     }

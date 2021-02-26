@@ -37,11 +37,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKESmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class BLAKESmallCore : DigestEngine() {
     private var h0 = 0
     private var h1 = 0
     private var h2 = 0
@@ -59,13 +55,9 @@ abstract class BLAKESmallCore
     private lateinit var tmpM: IntArray
     private lateinit var tmpBuf: ByteArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: BLAKESmallCore): Digest {
         dst.h0 = h0
         dst.h1 = h1
@@ -84,8 +76,6 @@ abstract class BLAKESmallCore
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         val iv = initVal
         h0 = iv[0]
@@ -111,8 +101,6 @@ abstract class BLAKESmallCore
      */
     abstract val initVal: IntArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         val bitLen = ptr shl 3
@@ -155,16 +143,12 @@ abstract class BLAKESmallCore
         if (digestLength == 32) encodeBEInt(h7, output, outputOffset + 28)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         tmpM = IntArray(16)
         tmpBuf = ByteArray(64)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         t0 += 512
         if (t0 and 0x1FF.inv() == 0) t1++
@@ -278,8 +262,6 @@ abstract class BLAKESmallCore
         h7 = h7 xor (s3 xor v7 xor vF)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "BLAKE-" + (digestLength shl 3)
     }

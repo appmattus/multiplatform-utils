@@ -26,7 +26,6 @@ class SHA2CoreTest {
             dig,
             "20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67"
         )
-        reportSuccess("SHA-224")
     }
 
     /**
@@ -48,6 +47,5 @@ class SHA2CoreTest {
             dig,
             "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
         )
-        reportSuccess("SHA-256")
     }
 }

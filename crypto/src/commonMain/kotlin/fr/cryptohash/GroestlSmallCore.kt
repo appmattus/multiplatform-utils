@@ -34,11 +34,7 @@ package fr.cryptohash
  * @version   $Revision: 256 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class GroestlSmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class GroestlSmallCore : DigestEngine() {
     private lateinit var H: LongArray
     private lateinit var G: LongArray
     private lateinit var M: LongArray
@@ -268,27 +264,20 @@ abstract class GroestlSmallCore
 		0x00000000000000F3L, 0x00000000000000F2L
 	};
 	*/
-    /** @see Digest
-     */
+
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: GroestlSmallCore): Digest {
         H.copyInto(dst.H, 0, 0, H.size)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         for (i in 0..6) H[i] = 0L
         H[7] = (digestLength shl 3).toLong()
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val buf = blockBuffer
         var ptr = flush()
@@ -312,8 +301,6 @@ abstract class GroestlSmallCore
         buf.copyInto(output, outputOffset, 32 - outLen, 32)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         H = LongArray(8)
         G = LongArray(8)
@@ -623,8 +610,6 @@ abstract class GroestlSmallCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         for (i in 0..7) {
             M[i] = decodeBELong(data, i * 8)
@@ -635,8 +620,6 @@ abstract class GroestlSmallCore
         for (i in 0..7) H[i] = H[i] xor (G[i] xor M[i])
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Groestl-" + (digestLength shl 3)
     }

@@ -36,18 +36,11 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Luffa224
-/**
- * Create the engine.
- */
-    : LuffaSmallCore() {
-    /** @see Digest
-     */
+class Luffa224 : LuffaSmallCore() {
+
     override val digestLength: Int
         get() = 28
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(Luffa224())
     }

@@ -34,6 +34,5 @@ class MD2Test {
             "d5976f79d83d3a0dc9806c3c66f3efd8"
         )
         testKatMillionA(dig, "8c0a09ff1216ecaf95c8130953c62efd")
-        reportSuccess("MD2")
     }
 }

@@ -1,12 +1,4 @@
-// $Id: BMWBigCore.java 214 2010-06-03 17:25:08Z tp $
-package fr.cryptohash
-
-/**
- * This class implements BMW-384 and BMW-512.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -27,48 +19,43 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+/**
+ * This class implements BMW-384 and BMW-512.
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BMWBigCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
-    private lateinit var M: LongArray
-    private lateinit var H: LongArray
-    private lateinit var H2: LongArray
-    private lateinit var Q: LongArray
-    private lateinit var W: LongArray
+abstract class BMWBigCore : DigestEngine() {
 
-    /** @see Digest
-     */
+    private lateinit var m: LongArray
+    private lateinit var h: LongArray
+    private lateinit var h2: LongArray
+    private lateinit var q: LongArray
+    private lateinit var w: LongArray
+
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: BMWBigCore): Digest {
-        H.copyInto(dst.H, 0, 0, H.size)
+        h.copyInto(dst.h, 0, 0, h.size)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         val iv = initVal
-        iv.copyInto(H, 0, 0, iv.size)
+        iv.copyInto(h, 0, 0, iv.size)
     }
 
     abstract val initVal: LongArray
+
     private fun compress(m: LongArray) {
-        val h = H
-        val q = Q
-        val w = W
+        val h = h
+        val q = q
+        val w = w
         w[0] = ((m[5] xor h[5]) - (m[7] xor h[7]) + (m[10] xor h[10]) + (m[13] xor h[13]) + (m[14] xor h[14]))
         w[1] = ((m[6] xor h[6]) - (m[8] xor h[8]) + (m[11] xor h[11]) + (m[14] xor h[14])) - (m[15] xor h[15])
         w[2] = (m[0] xor h[0]) + (m[7] xor h[7]) + (m[9] xor h[9]) - (m[12] xor h[12]) + (m[15] xor h[15])
@@ -225,8 +212,6 @@ abstract class BMWBigCore
                 + ((xl ushr 2) xor q[22] xor q[15]))
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val buf = blockBuffer
         var ptr = flush()
@@ -240,41 +225,35 @@ abstract class BMWBigCore
         for (i in ptr..119) buf[i] = 0
         encodeLELong(bitLen, buf, 120)
         processBlock(buf)
-        val tmp = H
-        H = H2
-        H2 = tmp
-        FINAL.copyInto(H, 0, 0, 16)
-        compress(H2)
+        val tmp = h
+        h = h2
+        h2 = tmp
+        FINAL.copyInto(h, 0, 0, 16)
+        compress(h2)
         val outLen = digestLength ushr 3
         var i = 0
         var j = 16 - outLen
         while (i < outLen) {
-            encodeLELong(H[j], output, outputOffset + 8 * i)
+            encodeLELong(h[j], output, outputOffset + 8 * i)
             i++
             j++
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
-        M = LongArray(16)
-        H = LongArray(16)
-        H2 = LongArray(16)
-        W = LongArray(16)
-        Q = LongArray(32)
+        m = LongArray(16)
+        h = LongArray(16)
+        h2 = LongArray(16)
+        w = LongArray(16)
+        q = LongArray(32)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
-        for (i in 0..15) M[i] = decodeLELong(data, i * 8)
-        compress(M)
+        for (i in 0..15) m[i] = decodeLELong(data, i * 8)
+        compress(m)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "BMW-" + (digestLength shl 3)
     }
@@ -290,6 +269,8 @@ abstract class BMWBigCore
             -0x5555555555555554L, -0x5555555555555553L,
             -0x5555555555555552L, -0x5555555555555551L
         )
+
+        @Suppress("INTEGER_OVERFLOW")
         private val K = longArrayOf(
             16L * 0x0555555555555555L, 17L * 0x0555555555555555L,
             18L * 0x0555555555555555L, 19L * 0x0555555555555555L,

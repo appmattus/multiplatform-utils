@@ -36,34 +36,26 @@ package fr.cryptohash
  * @version   $Revision: 236 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Hamsi224
-/**
- * Create the engine.
- */
-    : HamsiSmallCore() {
-    /** @see Digest
-     */
+class Hamsi224 : HamsiSmallCore() {
+
     override val digestLength: Int
         get() = 28
 
     override val iV: IntArray
         get() = Companion.iV
-    /*
-	 * Wrong IV, but compatible with test vectors submitted for
-	 * round 2 of the SHA-3 competition.
-	private static final int[] IV = {
-		0x3c967a67, 0x3cbc6c20, 0xb4c343c3, 0xa73cbc6b,
-		0x2c204b61, 0x74686f6c, 0x69656b65, 0x20556e69
-	};
-	 */
-    /** @see HamsiSmallCore
-     */
+
     override fun dup(): HamsiSmallCore {
         return Hamsi224()
     }
 
     companion object {
-        /** @see HamsiSmallCore
+        /*
+         * Wrong IV, but compatible with test vectors submitted for
+         * round 2 of the SHA-3 competition.
+            val iV = intArrayOf(
+                0x3c967a67, 0x3cbc6c20, 0xb4c343c3, 0xa73cbc6b,
+                0x2c204b61, 0x74686f6c, 0x69656b65, 0x20556e69
+            )
          */
         val iV = intArrayOf(
             -0x3c698599, -0x3c4393e0, 0x4bc3bcc3, -0x583c4395,

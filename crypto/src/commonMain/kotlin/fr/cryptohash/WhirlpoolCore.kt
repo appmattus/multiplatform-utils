@@ -37,10 +37,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class WhirlpoolCore
-/**
- * Create the object.
- */(
+abstract class WhirlpoolCore(
     private val T0: LongArray, private val T1: LongArray, private val T2: LongArray, private val T3: LongArray,
     private val T4: LongArray, private val T5: LongArray, private val T6: LongArray, private val T7: LongArray, private val RC: LongArray
 ) : MDHelper(false, 32) {
@@ -53,8 +50,6 @@ abstract class WhirlpoolCore
     private var state6: Long = 0
     private var state7: Long = 0
 
-    /** @see DigestEngine
-     */
     protected fun copyState(d: WhirlpoolCore): Digest {
         d.state0 = state0
         d.state1 = state1
@@ -67,18 +62,12 @@ abstract class WhirlpoolCore
         return super.copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 64
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         state0 = 0
         state1 = 0
@@ -90,8 +79,6 @@ abstract class WhirlpoolCore
         state7 = 0
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         encodeLELong(state0, output, outputOffset)
@@ -104,14 +91,10 @@ abstract class WhirlpoolCore
         encodeLELong(state7, output, outputOffset + 56)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var n0 = decodeLELong(data, 0)
         val sn0 = n0

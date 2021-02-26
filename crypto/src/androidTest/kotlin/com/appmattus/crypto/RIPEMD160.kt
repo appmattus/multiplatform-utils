@@ -51,6 +51,5 @@ class RIPEMD160 {
             dig,
             "52783243c1697bdbe16d37f97f68f08325dc1528"
         )
-        reportSuccess("RIPEMD-160")
     }
 }

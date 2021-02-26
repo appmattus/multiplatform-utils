@@ -34,31 +34,21 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SIMDBigCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class SIMDBigCore : DigestEngine() {
     private lateinit var state: IntArray
     private lateinit var q: IntArray
     private lateinit var w: IntArray
     private lateinit var tmpState: IntArray
     private lateinit var tA: IntArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: SIMDBigCore): Digest {
         state.copyInto(dst.state, 0, 0, 32)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         val iv = initVal
         iv.copyInto(state, 0, 0, 32)
@@ -71,8 +61,6 @@ abstract class SIMDBigCore
      */
     abstract val initVal: IntArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         val buf = blockBuffer
@@ -89,8 +77,6 @@ abstract class SIMDBigCore
         for (i in 0 until n) encodeLEInt(state[i], output, outputOffset + (i shl 2))
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         state = IntArray(32)
         q = IntArray(256)
@@ -100,8 +86,6 @@ abstract class SIMDBigCore
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         compress(data, false)
     }
@@ -1518,8 +1502,6 @@ abstract class SIMDBigCore
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SIMD-" + (digestLength shl 3)
     }

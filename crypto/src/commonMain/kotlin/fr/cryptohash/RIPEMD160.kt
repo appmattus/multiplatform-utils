@@ -36,34 +36,22 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RIPEMD160
-/**
- * Build the object.
- */
-    : MDHelper(true, 8) {
+class RIPEMD160 : MDHelper(true, 8) {
     private lateinit var currentVal: IntArray
     private lateinit var X: IntArray
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = RIPEMD160()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 20
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         currentVal[0] = 0x67452301
         currentVal[1] = -0x10325477
@@ -72,8 +60,6 @@ class RIPEMD160
         currentVal[4] = -0x3c2d1e10
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         for (i in 0..4) encodeLEInt(
@@ -82,16 +68,12 @@ class RIPEMD160
         )
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         currentVal = IntArray(5)
         X = IntArray(16)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         val H0: Int
         val H1: Int
@@ -240,8 +222,6 @@ class RIPEMD160
         currentVal[0] = T
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "RIPEMD-160"
     }

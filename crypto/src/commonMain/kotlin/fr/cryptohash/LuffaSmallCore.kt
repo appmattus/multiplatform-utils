@@ -34,11 +34,7 @@ package fr.cryptohash
  * @version   $Revision: 240 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class LuffaSmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class LuffaSmallCore : DigestEngine() {
     private var V00 = 0
     private var V01 = 0
     private var V02 = 0
@@ -65,19 +61,15 @@ abstract class LuffaSmallCore
     private var V27 = 0
     private lateinit var tmpBuf: ByteArray
 
-    /** @see Digest
+    /*
+     * Private communication from Luffa designer Watanabe Dai:
+     *
+     * << I think that there is no problem to use the same
+     *    setting as CubeHash, namely B = 256*ceil(k / 256). >>
      */
     override val blockLength: Int
-        get() =/*
-		 * Private communication from Luffa designer Watanabe Dai:
-		 *
-		 * << I think that there is no problem to use the same
-		 *    setting as CubeHash, namely B = 256*ceil(k / 256). >>
-		 */
-            32
+        get() = 32
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: LuffaSmallCore): Digest {
         dst.V00 = V00
         dst.V01 = V01
@@ -106,8 +98,6 @@ abstract class LuffaSmallCore
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         V00 = IV[0]
         V01 = IV[1]
@@ -135,8 +125,6 @@ abstract class LuffaSmallCore
         V27 = IV[23]
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         tmpBuf[ptr] = 0x80.toByte()
@@ -154,15 +142,11 @@ abstract class LuffaSmallCore
         if (digestLength == 32) encodeBEInt(V07 xor V17 xor V27, output, outputOffset + 28)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         tmpBuf = ByteArray(32)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var tmp: Int
         var a0: Int
@@ -456,8 +440,6 @@ abstract class LuffaSmallCore
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Luffa-" + (digestLength shl 3)
     }

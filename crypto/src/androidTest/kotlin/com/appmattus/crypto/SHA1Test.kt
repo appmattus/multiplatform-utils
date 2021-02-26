@@ -22,6 +22,5 @@ class SHA1Test {
             dig,
             "34aa973cd4c4daa4f61eeb2bdbad27316534016f"
         )
-        reportSuccess("SHA-1")
     }
 }

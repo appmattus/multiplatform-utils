@@ -36,23 +36,14 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SIMD384
-/**
- * Create the engine.
- */
-    : SIMDBigCore() {
-    /** @see SIMDSmallCore
-     */
+class SIMD384 : SIMDBigCore() {
+
     override val initVal: IntArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 48
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(SIMD384())
     }

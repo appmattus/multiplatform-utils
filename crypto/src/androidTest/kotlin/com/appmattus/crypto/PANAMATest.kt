@@ -28,6 +28,5 @@ class PANAMATest {
             dig,
             "af9c66fb6058e2232a5dfba063ee14b0f86f0e334e165812559435464dd9bb60"
         )
-        reportSuccess("PANAMA")
     }
 }

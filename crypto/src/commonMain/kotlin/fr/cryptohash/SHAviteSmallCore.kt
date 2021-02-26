@@ -34,28 +34,18 @@ package fr.cryptohash
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHAviteSmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class SHAviteSmallCore : DigestEngine() {
     private lateinit var h: IntArray
     private lateinit var rk: IntArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: SHAviteSmallCore): Digest {
         h.copyInto(dst.h, 0, 0, h.size)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         initVal.copyInto(h, 0, 0, h.size)
     }
@@ -67,8 +57,6 @@ abstract class SHAviteSmallCore
      */
     abstract val initVal: IntArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val bc = blockCount
@@ -105,16 +93,12 @@ abstract class SHAviteSmallCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         h = IntArray(8)
         rk = IntArray(144)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         val bitLen = blockCount + 1 shl 9
         process(data, bitLen.toInt(), (bitLen ushr 32).toInt())
@@ -378,8 +362,6 @@ abstract class SHAviteSmallCore
         h[0x7] = h[0x7] xor p7
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SHAvite-" + (digestLength shl 3)
     }

@@ -47,6 +47,5 @@ class SHA0Test {
                     + "438a59209b5db435563e0d8bdf572f77b53065cef31f30dc"
                     + "9dbae04146261c1994bd5c50758e3d")
         )
-        reportSuccess("SHA-0")
     }
 }

@@ -36,16 +36,10 @@ package fr.cryptohash
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RadioGatun64
-/**
- * Build the object.
- */
-    : DigestEngine() {
+class RadioGatun64 : DigestEngine() {
     private lateinit var a: LongArray
     private lateinit var b: LongArray
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = RadioGatun64()
         a.copyInto(d.a, 0, 0, a.size)
@@ -53,30 +47,17 @@ class RadioGatun64
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 32
 
-    /** @see DigestEngine
-     */
-    protected val internalBlockLength: Int
-        protected get() = 312
-
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 312//-24
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         for (i in a.indices) a[i] = 0
         for (i in b.indices) b[i] = 0
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val buf = blockBuffer
@@ -92,16 +73,12 @@ class RadioGatun64
         blank(num, output, outputOffset)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         a = LongArray(19)
         b = LongArray(39)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var a00 = a[0]
         var a01 = a[1]
@@ -424,8 +401,6 @@ class RadioGatun64
 		*/
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "RadioGatun[64]"
     }

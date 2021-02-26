@@ -36,19 +36,12 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Tiger
-/**
- * Create the engine.
- */
-    : TigerCore(0x01.toByte()) {
-    /** @see Digest
-     */
+class Tiger : TigerCore(0x01.toByte()) {
+
     override fun copy(): Digest {
         return copyState(Tiger())
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Tiger"
     }

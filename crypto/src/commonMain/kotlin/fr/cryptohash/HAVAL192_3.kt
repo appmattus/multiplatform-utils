@@ -34,18 +34,11 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class HAVAL192_3
-/**
- * Create the object.
- */
-    : HAVALCore(192, 3) {
-    /** @see Digest
-     */
+class HAVAL192_3 : HAVALCore(192, 3) {
+
     override val digestLength: Int
         get() = 24
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(HAVAL192_3())
     }

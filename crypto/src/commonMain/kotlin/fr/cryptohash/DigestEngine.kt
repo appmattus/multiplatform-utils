@@ -65,10 +65,10 @@ abstract class DigestEngine : Digest {
      * and then [.update] with the appropriate padding
      * data in order to get the full input data.
      *
-     * @param buf   the output buffer
-     * @param off   the output offset
+     * @param output   the output buffer
+     * @param outputOffset   the output offset
      */
-    protected abstract fun doPadding(buf: ByteArray, off: Int)
+    protected abstract fun doPadding(output: ByteArray, outputOffset: Int)
 
     /**
      * This function is called at object creation time; the
@@ -115,8 +115,6 @@ abstract class DigestEngine : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         adjustDigestLen()
         val result = ByteArray(digestLen)
@@ -124,15 +122,11 @@ abstract class DigestEngine : Digest {
         return result
     }
 
-    /** @see Digest
-     */
     override fun digest(input: ByteArray): ByteArray {
         update(input, 0, input.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(buf: ByteArray, offset: Int, len: Int): Int {
         adjustDigestLen()
         return if (len >= digestLen) {
@@ -148,16 +142,12 @@ abstract class DigestEngine : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun reset() {
         engineReset()
         inputLen = 0
         blockCount = 0
     }
 
-    /** @see Digest
-     */
     override fun update(input: Byte) {
         blockBuffer[inputLen++] = input
         if (inputLen == blockLen) {
@@ -167,14 +157,10 @@ abstract class DigestEngine : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(input: ByteArray) {
         update(input, 0, input.size)
     }
 
-    /** @see Digest
-     */
     override fun update(input: ByteArray, offset: Int, len: Int) {
         var offset = offset
         var len = len

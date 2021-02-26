@@ -36,13 +36,8 @@ package fr.cryptohash
  * @version   $Revision: 183 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class CubeHash512
-/**
- * Create the engine.
- */
-    : CubeHashCore() {
-    /** @see Digest
-     */
+class CubeHash512 : CubeHashCore() {
+
     override fun copy(): Digest {
         return copyState(CubeHash512())
     }
@@ -50,14 +45,10 @@ class CubeHash512
     override val iV: IntArray
         get() = Companion.iV
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 64
 
     companion object {
-        /** @see CubeHashCore
-         */
         val iV = intArrayOf(
             0x2AEA2A61, 0x50F494D4, 0x2D538B8B,
             0x4167D83E, 0x3FEE2313, -0x38fe3074,

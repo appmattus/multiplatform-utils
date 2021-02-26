@@ -44,8 +44,6 @@ abstract class FugueCore : Digest {
     var S: IntArray
     var tmpS: IntArray
 
-    /** @see Digest
-     */
     override fun update(`in`: Byte) {
         bitCount += 8
         partial = partial shl 8 or (`in`.toInt() and 0xFF)
@@ -56,14 +54,10 @@ abstract class FugueCore : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray) {
         update(inbuf, 0, inbuf.size)
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -108,8 +102,6 @@ abstract class FugueCore : Digest {
      */
     abstract fun processFinal(out: ByteArray?)
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         val n = digestLength
         val out = ByteArray(n)
@@ -117,15 +109,11 @@ abstract class FugueCore : Digest {
         return out
     }
 
-    /** @see Digest
-     */
     override fun digest(inbuf: ByteArray): ByteArray {
         update(inbuf, 0, inbuf.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         if (partialLen != 0) {
@@ -245,8 +233,6 @@ abstract class FugueCore : Digest {
                 or (c2 xor (r3 ushr 8) and 0x000000FF))
     }
 
-    /** @see Digest
-     */
     override fun reset() {
         doReset()
     }
@@ -269,8 +255,6 @@ abstract class FugueCore : Digest {
 
     abstract val iV: IntArray
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val fc = dup()
         fc.bitCount = bitCount
@@ -289,8 +273,6 @@ abstract class FugueCore : Digest {
 		 *    bytes in ipad, opad) as B = 4*ceil(#-bits-in-key /32). >>
 		 */
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() =/*
 		 * Private communication from Charanjit Jutla (one of
@@ -301,8 +283,6 @@ abstract class FugueCore : Digest {
 		 */
             -4
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Fugue-" + (digestLength shl 3)
     }

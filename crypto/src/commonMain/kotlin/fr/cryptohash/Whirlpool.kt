@@ -37,19 +37,12 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Whirlpool
-/**
- * Create the object.
- */
-    : WhirlpoolCore(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
-    /** @see Digest
-     */
+class Whirlpool : WhirlpoolCore(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
+
     override fun copy(): Digest {
         return copyState(Whirlpool())
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Whirlpool"
     }

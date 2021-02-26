@@ -36,11 +36,7 @@ package fr.cryptohash
  * @version   $Revision: 235 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Luffa512
-/**
- * Create the engine.
- */
-    : DigestEngine() {
+class Luffa512 : DigestEngine() {
     private var V00 = 0
     private var V01 = 0
     private var V02 = 0
@@ -83,8 +79,6 @@ class Luffa512
     private var V47 = 0
     private lateinit var tmpBuf: ByteArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() =/*
 		 * Private communication for Luffa designer Watanabe Dai:
@@ -94,19 +88,13 @@ class Luffa512
 		 */
             32
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 64
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(Luffa512())
     }
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: Luffa512): Digest {
         dst.V00 = V00
         dst.V01 = V01
@@ -151,8 +139,6 @@ class Luffa512
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         V00 = IV[0]
         V01 = IV[1]
@@ -196,43 +182,37 @@ class Luffa512
         V47 = IV[39]
     }
 
-    /** @see DigestEngine
-     */
-    override fun doPadding(out: ByteArray, off: Int) {
+    override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         tmpBuf[ptr] = 0x80.toByte()
         for (i in ptr + 1..31) tmpBuf[i] = 0x00
         update(tmpBuf, ptr, 32 - ptr)
         for (i in 0 until ptr + 1) tmpBuf[i] = 0x00
         update(tmpBuf, 0, 32)
-        encodeBEInt(V00 xor V10 xor V20 xor V30 xor V40, out, off + 0)
-        encodeBEInt(V01 xor V11 xor V21 xor V31 xor V41, out, off + 4)
-        encodeBEInt(V02 xor V12 xor V22 xor V32 xor V42, out, off + 8)
-        encodeBEInt(V03 xor V13 xor V23 xor V33 xor V43, out, off + 12)
-        encodeBEInt(V04 xor V14 xor V24 xor V34 xor V44, out, off + 16)
-        encodeBEInt(V05 xor V15 xor V25 xor V35 xor V45, out, off + 20)
-        encodeBEInt(V06 xor V16 xor V26 xor V36 xor V46, out, off + 24)
-        encodeBEInt(V07 xor V17 xor V27 xor V37 xor V47, out, off + 28)
+        encodeBEInt(V00 xor V10 xor V20 xor V30 xor V40, output, outputOffset + 0)
+        encodeBEInt(V01 xor V11 xor V21 xor V31 xor V41, output, outputOffset + 4)
+        encodeBEInt(V02 xor V12 xor V22 xor V32 xor V42, output, outputOffset + 8)
+        encodeBEInt(V03 xor V13 xor V23 xor V33 xor V43, output, outputOffset + 12)
+        encodeBEInt(V04 xor V14 xor V24 xor V34 xor V44, output, outputOffset + 16)
+        encodeBEInt(V05 xor V15 xor V25 xor V35 xor V45, output, outputOffset + 20)
+        encodeBEInt(V06 xor V16 xor V26 xor V36 xor V46, output, outputOffset + 24)
+        encodeBEInt(V07 xor V17 xor V27 xor V37 xor V47, output, outputOffset + 28)
         update(tmpBuf, 0, 32)
-        encodeBEInt(V00 xor V10 xor V20 xor V30 xor V40, out, off + 32)
-        encodeBEInt(V01 xor V11 xor V21 xor V31 xor V41, out, off + 36)
-        encodeBEInt(V02 xor V12 xor V22 xor V32 xor V42, out, off + 40)
-        encodeBEInt(V03 xor V13 xor V23 xor V33 xor V43, out, off + 44)
-        encodeBEInt(V04 xor V14 xor V24 xor V34 xor V44, out, off + 48)
-        encodeBEInt(V05 xor V15 xor V25 xor V35 xor V45, out, off + 52)
-        encodeBEInt(V06 xor V16 xor V26 xor V36 xor V46, out, off + 56)
-        encodeBEInt(V07 xor V17 xor V27 xor V37 xor V47, out, off + 60)
+        encodeBEInt(V00 xor V10 xor V20 xor V30 xor V40, output, outputOffset + 32)
+        encodeBEInt(V01 xor V11 xor V21 xor V31 xor V41, output, outputOffset + 36)
+        encodeBEInt(V02 xor V12 xor V22 xor V32 xor V42, output, outputOffset + 40)
+        encodeBEInt(V03 xor V13 xor V23 xor V33 xor V43, output, outputOffset + 44)
+        encodeBEInt(V04 xor V14 xor V24 xor V34 xor V44, output, outputOffset + 48)
+        encodeBEInt(V05 xor V15 xor V25 xor V35 xor V45, output, outputOffset + 52)
+        encodeBEInt(V06 xor V16 xor V26 xor V36 xor V46, output, outputOffset + 56)
+        encodeBEInt(V07 xor V17 xor V27 xor V37 xor V47, output, outputOffset + 60)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         tmpBuf = ByteArray(32)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var tmp: Int
         var a0: Int
@@ -894,8 +874,6 @@ class Luffa512
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Luffa-512"
     }

@@ -48,7 +48,6 @@ class HMACTest {
                     + "\u00DD\u00DD\u00DD",
             "56BE34521D144C88DBB8C733F0E8B3F6"
         )
-        reportSuccess("HMACMD5")
     }
 
     /**
@@ -107,8 +106,6 @@ class HMACTest {
             hmac, "Sample #4",
             "9EA886EFE268DBECCE420C75"
         )
-
-        reportSuccess("HMACSHA1")
     }
 
     /**
@@ -148,7 +145,6 @@ class HMACTest {
             "The successful verification of a MAC does not completely guarantee that the accompanying message is authentic: there is a chance that a source with no knowledge of the key can present a purported MAC.",
             "16F9D79EF410A118DDD398396A6A3FD0AC9816ED7110ECA90A05430A"
         )
-        reportSuccess("HMACBMW224")
     }
 
     /**
@@ -186,7 +182,6 @@ class HMACTest {
             "The successful verification of a MAC does not completely guarantee that the accompanying message is authentic: there is a chance that a source with no knowledge of the key can present a purported MAC.",
             "F5C8A1F531FD09D1F33845E705075A8CE5EEB29B33EFF70BAE97B750E3231383"
         )
-        reportSuccess("HMACBMW256")
     }
 
     /**
@@ -232,7 +227,6 @@ class HMACTest {
             "The successful verification of a MAC does not completely guarantee that the accompanying message is authentic: there is a chance that a source with no knowledge of the key can present a purported MAC.",
             "9525578E38E7DD70CB9FECB6DC72DEC0388072FD3C63F6EC733E26466DA7EEA23A5CD49C5B566D8E730E30838F4C5563"
         )
-        reportSuccess("HMACBMW384")
     }
 
     /**
@@ -278,6 +272,5 @@ class HMACTest {
             "The successful verification of a MAC does not completely guarantee that the accompanying message is authentic: there is a chance that a source with no knowledge of the key can present a purported MAC.",
             "44FCDF6C712B75BE3CA93EB2F98ECEAB23D7C5A3839C2D267CFE0A9A202E73756B8B30882D94725A82D2C705B5256154231EC14756CCF4A7132E911CA24C1AAB"
         )
-        reportSuccess("HMACBMW512")
     }
 }

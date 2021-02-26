@@ -81,7 +81,6 @@ class HAVALCoreTest {
                     + "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0"
                     + "e212006369b1f5")
         )
-        reportSuccess("HAVAL128_3")
     }
 
     /**
@@ -115,7 +114,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "97DC988D97CAAE757BE7523C4E8D4EA63007A4B9"
         )
-        reportSuccess("HAVAL160_3")
     }
 
     /**
@@ -149,7 +147,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "DEF6653091E3005B43A61681014A066CD189009D00856EE7"
         )
-        reportSuccess("HAVAL192_3")
     }
 
     /**
@@ -183,7 +180,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "939F7ED7801C1CE4B32BC74A4056EEE6081C999ED246907ADBA880A7"
         )
-        reportSuccess("HAVAL224_3")
     }
 
     /**
@@ -217,7 +213,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "899397D96489281E9E76D5E65ABAB751F312E06C06C07C9C1D42ABD31BB6A404"
         )
-        reportSuccess("HAVAL256_3")
     }
 
     /**
@@ -251,7 +246,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "CAD57C0563BDA208D66BB89EB922E2A2"
         )
-        reportSuccess("HAVAL128_4")
     }
 
     /**
@@ -285,7 +279,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "148334AAD24B658BDC946C521CDD2B1256608C7B"
         )
-        reportSuccess("HAVAL160_4")
     }
 
     /**
@@ -319,7 +312,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "E5C9F81AE0B31FC8780FC37CB63BB4EC96496F79A9B58344"
         )
-        reportSuccess("HAVAL192_4")
     }
 
     /**
@@ -353,7 +345,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "3E63C95727E0CD85D42034191314401E42AB9063A94772647E3E8E0F"
         )
-        reportSuccess("HAVAL224_4")
     }
 
     /**
@@ -387,7 +378,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "46A3A1DFE867EDE652425CCD7FE8006537EAD26372251686BEA286DA152DC35A"
         )
-        reportSuccess("HAVAL256_4")
     }
 
     /**
@@ -421,7 +411,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "4B27D04DDB516BDCDFEB96EB8C7C8E90"
         )
-        reportSuccess("HAVAL128_5")
     }
 
     /**
@@ -455,7 +444,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "6DDBDE98EA1C4F8C7F360FB9163C7C952680AA70"
         )
-        reportSuccess("HAVAL160_5")
     }
 
     /**
@@ -489,7 +477,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "D651C8AC45C9050810D9FD64FC919909900C4664BE0336D0"
         )
-        reportSuccess("HAVAL192_5")
     }
 
     /**
@@ -523,7 +510,6 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "180AED7F988266016719F60148BA2C9B4F5EC3B9758960FC735DF274"
         )
-        reportSuccess("HAVAL224_5")
     }
 
     /**
@@ -557,6 +543,5 @@ class HAVALCoreTest {
                     + "abcdefghijklmnopqrstuvwxyz0123456789",
             "B45CB6E62F2B1320E4F8F1B0B273D45ADD47C321FD23999DCF403AC37636D963"
         )
-        reportSuccess("HAVAL256_5")
     }
 }

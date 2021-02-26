@@ -36,18 +36,11 @@ package fr.cryptohash
  * @version   $Revision: 198 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Groestl224
-/**
- * Create the engine.
- */
-    : GroestlSmallCore() {
-    /** @see Digest
-     */
+class Groestl224 : GroestlSmallCore() {
+
     override val digestLength: Int
         get() = 28
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(Groestl224())
     }

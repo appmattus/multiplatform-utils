@@ -49,8 +49,6 @@ internal abstract class SkeinSmallCore : Digest {
     private var h3: Long = 0
     private var bcount: Long = 0
 
-    /** @see Digest
-     */
     override fun update(`in`: Byte) {
         if (ptr == blockLength) {
             val etype = if (bcount == 0L) 224 else 96
@@ -63,14 +61,10 @@ internal abstract class SkeinSmallCore : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray) {
         update(inbuf, 0, inbuf.size)
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -99,8 +93,6 @@ internal abstract class SkeinSmallCore : Digest {
         ptr = len
     }
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         val len = digestLength
         val out = ByteArray(len)
@@ -108,15 +100,11 @@ internal abstract class SkeinSmallCore : Digest {
         return out
     }
 
-    /** @see Digest
-     */
     override fun digest(inbuf: ByteArray): ByteArray {
         update(inbuf, 0, inbuf.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         for (i in ptr until blockLength) buf[i] = 0x00
@@ -135,8 +123,6 @@ internal abstract class SkeinSmallCore : Digest {
         return len
     }
 
-    /** @see Digest
-     */
     override fun reset() {
         ptr = 0
         val iv = initVal
@@ -147,8 +133,6 @@ internal abstract class SkeinSmallCore : Digest {
         bcount = 0L
     }
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val dst = dup()
         buf.copyInto(dst.buf, 0, 0, ptr)
@@ -552,14 +536,10 @@ internal abstract class SkeinSmallCore : Digest {
         h3 = m3 xor p3
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Skein-" + (digestLength shl 3)
     }
 
-    /** @see Digest
-     */
     override val blockLength = 32
 
     companion object {
@@ -587,9 +567,6 @@ internal abstract class SkeinSmallCore : Digest {
         }
     }
 
-    /**
-     * Create the object.
-     */
     init {
         buf = ByteArray(blockLength)
         tmpOut = ByteArray(blockLength)

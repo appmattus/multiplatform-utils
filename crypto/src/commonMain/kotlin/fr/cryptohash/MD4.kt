@@ -38,32 +38,21 @@ package fr.cryptohash
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 class MD4 : MDHelper(true, 8) {
-    /**
-     * Create the object.
-     */
 
     private lateinit var currentVal: IntArray
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = MD4()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 16
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         currentVal[0] = 0x67452301
         currentVal[1] = -0x10325477
@@ -71,8 +60,6 @@ class MD4 : MDHelper(true, 8) {
         currentVal[3] = 0x10325476
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         for (i in 0..3) encodeLEInt(
@@ -81,15 +68,11 @@ class MD4 : MDHelper(true, 8) {
         )
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         currentVal = IntArray(4)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         /*
 		 * This method could have been made simpler by using
@@ -271,8 +254,6 @@ class MD4 : MDHelper(true, 8) {
         currentVal[3] += D
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "MD4"
     }

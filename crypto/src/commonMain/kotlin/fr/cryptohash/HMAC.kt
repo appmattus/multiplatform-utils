@@ -129,19 +129,16 @@ class HMAC : DigestEngine {
         }
     }
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val h = HMAC(dig.copy(), kipad, kopad, outputLength)
         return copyState(h)
-    }/*
-		 * At construction time, outputLength is first set to 0,
-		 * which means that this method will return 0, which is
-		 * appropriate since at that time "dig" has not yet been
-		 * set.
-		 */
+    }
 
-    /** @see Digest
+    /*
+     * At construction time, outputLength is first set to 0,
+     * which means that this method will return 0, which is
+     * appropriate since at that time "dig" has not yet been
+     * set.
      */
     override val digestLength: Int
         get() =/*
@@ -150,26 +147,17 @@ class HMAC : DigestEngine {
 		 * appropriate since at that time "dig" has not yet been
 		 * set.
 		 */
-            if (outputLength < 0) dig.digestLength else outputLength/*
-		 * Internal block length is not defined for HMAC, which
-		 * is not, stricto-sensu, an iterated hash function.
-		 * The value 64 should provide correct buffering. Do NOT
-		 * change this value without checking doPadding().
-		 */
+            if (outputLength < 0) dig.digestLength else outputLength
 
-    /** @see Digest
-     */
+    /*
+	 * Internal block length is not defined for HMAC, which
+	 * is not, stricto-sensu, an iterated hash function.
+	 * The value 64 should provide correct buffering. Do NOT
+	 * change this value without checking doPadding().
+	 */
     override val blockLength: Int
-        get() =/*
-		 * Internal block length is not defined for HMAC, which
-		 * is not, stricto-sensu, an iterated hash function.
-		 * The value 64 should provide correct buffering. Do NOT
-		 * change this value without checking doPadding().
-		 */
-            64
+        get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         dig.reset()
         dig.update(kipad)
@@ -177,8 +165,6 @@ class HMAC : DigestEngine {
 
     private var onlyThis = 0
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         if (onlyThis > 0) {
             dig.update(data, 0, onlyThis)
@@ -188,8 +174,6 @@ class HMAC : DigestEngine {
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         /*
 		 * This is slightly ugly... we need to get the still
@@ -210,8 +194,6 @@ class HMAC : DigestEngine {
         tmpOut.copyInto(output, outputOffset, 0, olen)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         /*
 		 * Empty: we do not want to do anything here because
@@ -220,8 +202,6 @@ class HMAC : DigestEngine {
 		 */
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "HMAC/$dig"
     }

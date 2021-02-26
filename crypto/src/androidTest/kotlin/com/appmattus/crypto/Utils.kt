@@ -3,10 +3,6 @@ package com.appmattus.crypto
 import fr.cryptohash.Digest
 import kotlin.test.fail
 
-fun reportSuccess(name: String) {
-    println("===== test $name passed")
-}
-
 fun testKat(dig: Digest, buf: ByteArray, exp: ByteArray) {
     /*
      * First test the hashing itself.
@@ -79,14 +75,10 @@ fun equals(b1: ByteArray?, b2: ByteArray?): Boolean {
     return true*/
 }
 
-fun assertTrue(expr: Boolean) {
-    if (!expr) fail("assertion failed")
-}
-
 fun assertEquals(b1: ByteArray, b2: ByteArray) {
-    if (!equals(b1, b2)) fail("byte streams are not equal")
+    if (!b1.contentEquals(b2)) fail("byte streams are not equal")
 }
 
 fun assertNotEquals(b1: ByteArray, b2: ByteArray) {
-    if (equals(b1, b2)) fail("byte streams are equal")
+    if (b1.contentEquals(b2)) fail("byte streams are equal")
 }

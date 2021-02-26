@@ -39,8 +39,6 @@ abstract class JHCore : DigestEngine() {
     private lateinit var h: LongArray
     private lateinit var tmpBuf: ByteArray
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         doReset()
     }
@@ -220,8 +218,6 @@ abstract class JHCore : DigestEngine() {
         h[15] = t
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         val m0h = decodeBELong(data, 0)
         val m0l = decodeBELong(data, 8)
@@ -274,9 +270,7 @@ abstract class JHCore : DigestEngine() {
         h[15] = h[15] xor m3l
     }
 
-    /** @see DigestEngine
-     */
-    override fun doPadding(buf: ByteArray, off: Int) {
+    override fun doPadding(output: ByteArray, outputOffset: Int) {
         val rem = flush()
         val bc = blockCount
         val numz = if (rem == 0) 47 else 111 - rem
@@ -287,11 +281,9 @@ abstract class JHCore : DigestEngine() {
         update(tmpBuf, 0, numz + 17)
         for (i in 0..7) encodeBELong(h[i + 8], tmpBuf, i shl 3)
         val dlen = digestLength
-        tmpBuf.copyInto(buf, off, 64 - dlen, 64)
+        tmpBuf.copyInto(output, outputOffset, 64 - dlen, 64)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         h = LongArray(16)
         tmpBuf = ByteArray(128)
@@ -305,8 +297,6 @@ abstract class JHCore : DigestEngine() {
      */
     abstract val iV: LongArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
@@ -314,15 +304,11 @@ abstract class JHCore : DigestEngine() {
         iV.copyInto(h, 0, 0, 16)
     }
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: JHCore): Digest {
         h.copyInto(dst.h, 0, 0, 16)
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "JH-" + (digestLength shl 3)
     }

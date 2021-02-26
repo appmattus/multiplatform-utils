@@ -46,8 +46,6 @@ abstract class TigerCore
     private var currentB: Long = 0
     private var currentC: Long = 0
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: TigerCore): Digest {
         dst.currentA = currentA
         dst.currentB = currentB
@@ -55,26 +53,18 @@ abstract class TigerCore
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 24
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         currentA = 0x0123456789ABCDEFL
         currentB = -0x123456789abcdf0L
         currentC = -0xf695a4b3c4d1e79L
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         encodeLELong(currentA, output, outputOffset)
@@ -82,8 +72,6 @@ abstract class TigerCore
         encodeLELong(currentC, output, outputOffset + 16)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         engineReset()
     }
@@ -102,8 +90,6 @@ abstract class TigerCore
                 xor T1[(x ushr 56).toInt() and 0xFF])
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         /*
 		 * Note: we use external methods for the table lookups.

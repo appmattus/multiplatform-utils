@@ -158,8 +158,6 @@ interface Digest {
      *
      * Get the display name for this function (e.g. `"SHA-1"`
      * for SHA-1).
-     *
-     * @see Object
      */
     override fun toString(): String
 }

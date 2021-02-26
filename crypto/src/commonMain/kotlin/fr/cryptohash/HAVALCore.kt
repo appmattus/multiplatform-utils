@@ -35,6 +35,13 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+
+/**
+ * Create the object.
+ *
+ * @param outputLength   output length (in bits)
+ * @param passes         number of passes (3, 4 or 5)
+ */
 abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
     /**
      * Output length, in 32-bit words (4, 5, 6, 7, or 8).
@@ -68,8 +75,6 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
      */
     private lateinit var inw: IntArray
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: HAVALCore): Digest {
         dst.olen = olen
         dst.passes = passes
@@ -84,13 +89,9 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         s0 = 0x243F6A88
         s1 = -0x7a5cf72d
@@ -102,8 +103,6 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         s7 = -0x13b19377
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val dataLen = flush()
         val currentLength = (blockCount shl 7) + dataLen.toLong() shl 3
@@ -125,16 +124,12 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
 		 */writeOutput(output, outputOffset)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         padBuf = ByteArray(10)
         inw = IntArray(32)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         for (i in 0..31) inw[i] = decodeLEInt(data, 4 * i)
         val save0 = s0
@@ -770,8 +765,6 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "HAVAL-" + passes + "-" + (olen shl 5)
     }
@@ -982,12 +975,6 @@ abstract class HAVALCore(outputLength: Int, passes: Int) : DigestEngine() {
         }
     }
 
-    /**
-     * Create the object.
-     *
-     * @param outputLength   output length (in bits)
-     * @param passes         number of passes (3, 4 or 5)
-     */
     init {
         olen = outputLength shr 5
         this.passes = passes

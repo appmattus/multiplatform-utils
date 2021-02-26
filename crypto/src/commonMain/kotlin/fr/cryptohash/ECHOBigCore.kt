@@ -34,11 +34,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class ECHOBigCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class ECHOBigCore : DigestEngine() {
     private lateinit var V: IntArray
     private var C0 = 0
     private var C1 = 0
@@ -50,13 +46,9 @@ abstract class ECHOBigCore
     private var K2 = 0
     private var K3 = 0
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: ECHOBigCore): Digest {
         V.copyInto(dst.V, 0, 0, 32)
         dst.C0 = C0
@@ -66,8 +58,6 @@ abstract class ECHOBigCore
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         val outSize = digestLength shl 3
         V[12] = outSize
@@ -94,8 +84,6 @@ abstract class ECHOBigCore
         C0 = C1
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val elen = ptr shl 3
@@ -135,8 +123,6 @@ abstract class ECHOBigCore
         for (i in 0 until outLen) encodeLEInt(V[i], output, outputOffset + (i shl 2))
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         V = IntArray(32)
         W = IntArray(64)
@@ -154,8 +140,6 @@ abstract class ECHOBigCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         incrCounter(1024)
         compress(data)
@@ -312,8 +296,6 @@ abstract class ECHOBigCore
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "ECHO-" + (digestLength shl 3)
     }

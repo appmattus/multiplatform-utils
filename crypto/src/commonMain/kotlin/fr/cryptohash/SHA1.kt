@@ -36,33 +36,21 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA1
-/**
- * Build the object.
- */
-    : MDHelper(false, 8) {
+class SHA1 : MDHelper(false, 8) {
     private lateinit var currentVal: IntArray
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = SHA1()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 20
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         currentVal[0] = 0x67452301
         currentVal[1] = -0x10325477
@@ -71,8 +59,6 @@ class SHA1
         currentVal[4] = -0x3c2d1e10
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         for (i in 0..4) encodeBEInt(
@@ -81,15 +67,11 @@ class SHA1
         )
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         currentVal = IntArray(5)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var A = currentVal[0]
         var B = currentVal[1]
@@ -488,8 +470,6 @@ class SHA1
         currentVal[4] += E
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SHA-1"
     }

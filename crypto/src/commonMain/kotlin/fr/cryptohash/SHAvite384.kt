@@ -37,23 +37,14 @@ package fr.cryptohash
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHAvite384
-/**
- * Create the engine.
- */
-    : SHAviteBigCore() {
-    /** @see SHAviteBigCore
-     */
+class SHAvite384 : SHAviteBigCore() {
+
     override val initVal: IntArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 48
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(SHAvite384())
     }

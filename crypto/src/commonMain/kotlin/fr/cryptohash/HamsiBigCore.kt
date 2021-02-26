@@ -40,8 +40,6 @@ abstract class HamsiBigCore : Digest {
     private var partial: Long = 0
     private var partialLen = 0
 
-    /** @see Digest
-     */
     override fun update(`in`: Byte) {
         bitCount += 8
         partial = partial shl 8 or (`in`.toLong() and 0xFF)
@@ -61,14 +59,10 @@ abstract class HamsiBigCore : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray) {
         update(inbuf, 0, inbuf.size)
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -111,8 +105,6 @@ abstract class HamsiBigCore : Digest {
         while (len-- > 0) partial = partial shl 8 or (inbuf[off++].toLong() and 0xFF)
     }
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         val n = digestLength
         val out = ByteArray(n)
@@ -120,15 +112,11 @@ abstract class HamsiBigCore : Digest {
         return out
     }
 
-    /** @see Digest
-     */
     override fun digest(inbuf: ByteArray): ByteArray {
         update(inbuf, 0, inbuf.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         val bitCount = bitCount
@@ -160,16 +148,12 @@ abstract class HamsiBigCore : Digest {
         return len
     }
 
-    /** @see Digest
-     */
     override fun reset() {
         iV.copyInto(h, 0, 0, h.size)
         bitCount = 0
         partialLen = 0
     }
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = dup()
         h.copyInto(d.h, 0, 0, h.size)
@@ -177,23 +161,16 @@ abstract class HamsiBigCore : Digest {
         d.partial = partial
         d.partialLen = partialLen
         return d
-    }/*
-		 * Private communication from Hamsi designer Ozgul Kucuk:
-		 *
-		 * << For HMAC you can calculate B = 256*ceil(k / 256)
-		 *    (same as CubeHash). >>
-		 */
+    }
 
-    /** @see Digest
+    /*
+     * Private communication from Hamsi designer Ozgul Kucuk:
+     *
+     * << For HMAC you can calculate B = 256*ceil(k / 256)
+     *    (same as CubeHash). >>
      */
     override val blockLength: Int
-        get() =/*
-		 * Private communication from Hamsi designer Ozgul Kucuk:
-		 *
-		 * << For HMAC you can calculate B = 256*ceil(k / 256)
-		 *    (same as CubeHash). >>
-		 */
-            -32
+        get() = -32
 
     /**
      * Get the IV.
@@ -1170,8 +1147,6 @@ abstract class HamsiBigCore : Digest {
         h[0x0] = h[0x0] xor m0
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Hamsi-" + (digestLength shl 3)
     }
@@ -1551,9 +1526,6 @@ abstract class HamsiBigCore : Digest {
         )
     }
 
-    /**
-     * Create the object.
-     */
     init {
         h = IntArray(16)
         reset()

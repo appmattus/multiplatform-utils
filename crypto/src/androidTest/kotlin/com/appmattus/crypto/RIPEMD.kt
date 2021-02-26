@@ -60,6 +60,5 @@ class RIPEMD {
                     + "20560b1179754de7aade0bf291bc787d6dc0c7b1d1bd9a15"
                     + "205da4ff04a5a0a8588db1b6660c67")
         )
-        reportSuccess("RIPEMD")
     }
 }

@@ -36,23 +36,14 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SIMD512
-/**
- * Create the engine.
- */
-    : SIMDBigCore() {
-    /** @see SIMDSmallCore
-     */
+class SIMD512 : SIMDBigCore() {
+
     override val initVal: IntArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 64
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(SIMD512())
     }

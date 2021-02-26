@@ -35,11 +35,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class PANAMA
-/**
- * Create the object.
- */
-    : DigestEngine() {
+class PANAMA : DigestEngine() {
     private lateinit var buffer: IntArray
     private var bufferPtr = 0
     private var state0 = 0
@@ -68,8 +64,6 @@ class PANAMA
     private var inData6 = 0
     private var inData7 = 0
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = PANAMA()
         buffer.copyInto(d.buffer, 0, 0, buffer.size)
@@ -94,18 +88,12 @@ class PANAMA
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 32
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 32
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         for (i in buffer.indices) buffer[i] = 0
         bufferPtr = 0
@@ -128,8 +116,6 @@ class PANAMA
         state16 = 0
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val pending = flush()
         update(0x01.toByte())
@@ -146,8 +132,6 @@ class PANAMA
         encodeLEInt(state16, output, outputOffset + 28)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         buffer = IntArray(256)
         /*
@@ -157,8 +141,6 @@ class PANAMA
 		 */
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         inData0 = decodeLEInt(data, 0)
         inData1 = decodeLEInt(data, 4)
@@ -364,8 +346,6 @@ class PANAMA
         state16 = t16 xor buffer[ptr16 + 7]
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "PANAMA"
     }

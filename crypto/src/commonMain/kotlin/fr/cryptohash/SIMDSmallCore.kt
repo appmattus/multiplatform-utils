@@ -34,31 +34,21 @@ package fr.cryptohash
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SIMDSmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class SIMDSmallCore : DigestEngine() {
     private lateinit var state: IntArray
     private lateinit var q: IntArray
     private lateinit var w: IntArray
     private lateinit var tmpState: IntArray
     private lateinit var tA: IntArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     fun copyState(dst: SIMDSmallCore): Digest {
         state.copyInto(dst.state, 0, 0, 16)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         initVal.copyInto(state, 0, 0, 16)
     }
@@ -70,8 +60,6 @@ abstract class SIMDSmallCore
      */
     abstract val initVal: IntArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         val buf = blockBuffer
@@ -88,8 +76,6 @@ abstract class SIMDSmallCore
         for (i in 0 until n) encodeLEInt(state[i], output, outputOffset + (i shl 2))
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         state = IntArray(16)
         q = IntArray(128)
@@ -99,8 +85,6 @@ abstract class SIMDSmallCore
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         compress(data, false)
     }
@@ -924,8 +908,6 @@ abstract class SIMDSmallCore
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SIMD-" + (digestLength shl 3)
     }

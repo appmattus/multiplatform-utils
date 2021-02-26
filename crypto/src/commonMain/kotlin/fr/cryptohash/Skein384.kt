@@ -37,23 +37,14 @@ package fr.cryptohash
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Skein384
-/**
- * Create the engine.
- */
-    : SkeinBigCore() {
-    /** @see SkeinBigCore
-     */
+class Skein384 : SkeinBigCore() {
+
     override val initVal: LongArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 48
 
-    /** @see SkeinBigCore
-     */
     override fun dup(): SkeinBigCore {
         return Skein384()
     }

@@ -36,28 +36,19 @@ package fr.cryptohash
  * @version   $Revision: 206 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Hamsi512
-/**
- * Create the engine.
- */
-    : HamsiBigCore() {
-    /** @see Digest
-     */
+class Hamsi512 : HamsiBigCore() {
+
     override val digestLength: Int
         get() = 64
 
     override val iV: IntArray
         get() = Companion.iV
 
-    /** @see HamsiBigCore
-     */
     override fun dup(): HamsiBigCore {
         return Hamsi512()
     }
 
     companion object {
-        /** @see HamsiBigCore
-         */
         val iV = intArrayOf(
             0x73746565, 0x6c706172, 0x6b204172, 0x656e6265,
             0x72672031, 0x302c2062, 0x75732032, 0x3434362c,

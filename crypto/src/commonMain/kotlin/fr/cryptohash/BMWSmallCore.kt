@@ -34,36 +34,27 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BMWSmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class BMWSmallCore : DigestEngine() {
     private lateinit var M: IntArray
     private lateinit var H: IntArray
     private lateinit var H2: IntArray
     private lateinit var Q: IntArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: BMWSmallCore): Digest {
         H.copyInto(dst.H, 0, 0, H.size)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         val iv = initVal
         iv.copyInto(H, 0, 0, iv.size)
     }
 
     abstract val initVal: IntArray
+
     private fun compress(m: IntArray) {
         val h = H
         val q = Q
@@ -517,8 +508,6 @@ abstract class BMWSmallCore
                 + (xl ushr 2 xor q[22] xor q[15]))
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val buf = blockBuffer
         var ptr = flush()
@@ -548,8 +537,6 @@ abstract class BMWSmallCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         M = IntArray(16)
         H = IntArray(16)
@@ -558,15 +545,11 @@ abstract class BMWSmallCore
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         for (i in 0..15) M[i] = decodeLEInt(data, i * 4)
         compress(M)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "BMW-" + (digestLength shl 3)
     }

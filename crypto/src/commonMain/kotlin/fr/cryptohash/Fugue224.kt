@@ -36,28 +36,19 @@ package fr.cryptohash
  * @version   $Revision: 159 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Fugue224
-/**
- * Create the engine.
- */
-    : Fugue2Core() {
-    /** @see Digest
-     */
+class Fugue224 : Fugue2Core() {
+
     override val digestLength: Int
         get() = 28
 
     override val iV: IntArray
         get() = Companion.iV
 
-    /** @see FugueCore
-     */
     override fun dup(): FugueCore {
         return Fugue224()
     }
 
     companion object {
-        /** @see FugueCore
-         */
         /** The initial value for Fugue-224.  */
         val iV = intArrayOf(
             -0xb36edf3, 0x6286f757, -0x11c61fe4, -0x1f8b1c35,

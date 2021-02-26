@@ -36,13 +36,8 @@ package fr.cryptohash
  * @version   $Revision: 213 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Shabal192
-/**
- * Create the engine.
- */
-    : ShabalGeneric(192) {
-    /** @see ShabalGeneric
-     */
+class Shabal192 : ShabalGeneric(192) {
+
     override fun dup(): ShabalGeneric {
         return Shabal192()
     }

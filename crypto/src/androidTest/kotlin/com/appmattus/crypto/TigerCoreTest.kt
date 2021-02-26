@@ -52,7 +52,6 @@ class TigerCoreTest {
             dig,
             "6DB0E2729CBEAD93D715C6A7D36302E9B3CEE0D2BC314B41"
         )
-        reportSuccess("Tiger")
     }
 
     /**
@@ -100,6 +99,5 @@ class TigerCoreTest {
             dig,
             "E068281F060F551628CC5715B9D0226796914D45F7717CF4"
         )
-        reportSuccess("Tiger2")
     }
 }

@@ -64,6 +64,5 @@ class MD5Test {
                     + "9f33420f577ee8ce54b67080280d1ec69821bcb6a8839396"
                     + "f965ab6ff72a70")
         )
-        reportSuccess("MD5")
     }
 }

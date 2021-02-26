@@ -36,23 +36,14 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA256
-/**
- * Create the engine.
- */
-    : SHA2Core() {
-    /** @see SHA2Core
-     */
+class SHA256 : SHA2Core() {
+
     override val initVal: IntArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 32
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(SHA256())
     }

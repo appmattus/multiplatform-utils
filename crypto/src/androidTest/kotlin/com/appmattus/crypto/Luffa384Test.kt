@@ -365,6 +365,5 @@ class Luffa384Test {
             "94f7ca8e1a54234c6d53cc734bb3d3150c8ba8c5f880eab8d25fed13793a9701ebe320509286fd8e422e931d99c98da4df7e70ae447bab8cffd92382d8a77760a259fc4fbd72",
             "4b902d53f10843e3fd3a8a3756ca310705e278fc6e9a969c8948eef8f359ca820e870d07564f01349cc7a035b2149865"
         )
-        reportSuccess("Luffa-384")
     }
 }

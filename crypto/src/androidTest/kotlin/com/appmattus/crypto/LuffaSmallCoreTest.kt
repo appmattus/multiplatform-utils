@@ -371,7 +371,6 @@ class LuffaSmallCoreTest {
             "94f7ca8e1a54234c6d53cc734bb3d3150c8ba8c5f880eab8d25fed13793a9701ebe320509286fd8e422e931d99c98da4df7e70ae447bab8cffd92382d8a77760a259fc4fbd72",
             "8335c00f01f81fdee0586da33d78d0e8099a64e439ee0df192000450"
         )
-        reportSuccess("Luffa-224")
     }
 
     /**
@@ -739,6 +738,5 @@ class LuffaSmallCoreTest {
             "94f7ca8e1a54234c6d53cc734bb3d3150c8ba8c5f880eab8d25fed13793a9701ebe320509286fd8e422e931d99c98da4df7e70ae447bab8cffd92382d8a77760a259fc4fbd72",
             "8335c00f01f81fdee0586da33d78d0e8099a64e439ee0df192000450de39441a"
         )
-        reportSuccess("Luffa-256")
     }
 }

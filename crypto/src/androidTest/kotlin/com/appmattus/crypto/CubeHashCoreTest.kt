@@ -337,7 +337,6 @@ class CubeHashCoreTest {
             "e926ae8b0af6e53176dbffcc2a6b88c6bd765f939d3d178a9bde9ef3aa131c61e31c1e42cdfaf4b4dcde579a37e150efbef5555b4c1cb40439d835a724e2fae7",
             "06a2a08f2ca14ca233b98cb195c6fc284ce6ef026961ca2278178040"
         )
-        reportSuccess("CubeHash-224")
     }
 
     /**
@@ -670,7 +669,6 @@ class CubeHashCoreTest {
             "e926ae8b0af6e53176dbffcc2a6b88c6bd765f939d3d178a9bde9ef3aa131c61e31c1e42cdfaf4b4dcde579a37e150efbef5555b4c1cb40439d835a724e2fae7",
             "7bc71319ccad55e166104988765523eb6757791ea2d713d4d4920c4d10fdcc51"
         )
-        reportSuccess("CubeHash-256")
     }
 
     /**
@@ -1003,7 +1001,6 @@ class CubeHashCoreTest {
             "e926ae8b0af6e53176dbffcc2a6b88c6bd765f939d3d178a9bde9ef3aa131c61e31c1e42cdfaf4b4dcde579a37e150efbef5555b4c1cb40439d835a724e2fae7",
             "956177309941025d73d917f1fa569cbe756adf8ae483f038370a333e1f6d6613ecbbc7026ed6751445c33b7cc7964d50"
         )
-        reportSuccess("CubeHash-384")
     }
 
     /**
@@ -1336,6 +1333,5 @@ class CubeHashCoreTest {
             "e926ae8b0af6e53176dbffcc2a6b88c6bd765f939d3d178a9bde9ef3aa131c61e31c1e42cdfaf4b4dcde579a37e150efbef5555b4c1cb40439d835a724e2fae7",
             "c096f535cab880f0d77d6aff91fcbdc863cac17fd5177122e2b9c5a0063a6182dcb1f0086618b80fe4c02872dc3ab6ab8cb2608d19d904935b392c20c520fdba"
         )
-        reportSuccess("CubeHash-512")
     }
 }

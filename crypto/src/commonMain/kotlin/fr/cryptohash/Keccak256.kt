@@ -36,19 +36,12 @@ package fr.cryptohash
  * @version   $Revision: 189 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Keccak256
-/**
- * Create the engine.
- */
-    : KeccakCore() {
-    /** @see Digest
-     */
+class Keccak256  : KeccakCore() {
+
     override fun copy(): Digest {
         return copyState(Keccak256())
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 32
 }

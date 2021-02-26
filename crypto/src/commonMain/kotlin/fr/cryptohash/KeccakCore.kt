@@ -39,14 +39,10 @@ abstract class KeccakCore : DigestEngine() {
     private lateinit var A: LongArray
     private lateinit var tmpOut: ByteArray
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         doReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         /* Input block */
         var i = 0
@@ -461,9 +457,7 @@ abstract class KeccakCore : DigestEngine() {
         }
     }
 
-    /** @see DigestEngine
-     */
-    override fun doPadding(out: ByteArray, off: Int) {
+    override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         val buf = blockBuffer
         if (ptr + 1 == buf.size) {
@@ -486,19 +480,15 @@ abstract class KeccakCore : DigestEngine() {
             encodeLELong(A[i ushr 3], tmpOut, i)
             i += 8
         }
-        tmpOut.copyInto(out, off, 0, dlen)
+        tmpOut.copyInto(output, outputOffset, 0, dlen)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         A = LongArray(25)
         tmpOut = ByteArray(digestLength + 7 and 7.inv())
         doReset()
     }
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 200 - 2 * digestLength
 
@@ -512,15 +502,11 @@ abstract class KeccakCore : DigestEngine() {
         A[20] = -0x1L
     }
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: KeccakCore): Digest {
         A.copyInto(dst.A, 0, 0, 25)
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Keccak-" + (digestLength shl 3)
     }

@@ -40,8 +40,6 @@ abstract class HamsiSmallCore : Digest {
     private var partial = 0
     private var partialLen = 0
 
-    /** @see Digest
-     */
     override fun update(`in`: Byte) {
         bitCount += 8
         partial = partial shl 8 or (`in`.toInt() and 0xFF)
@@ -55,14 +53,10 @@ abstract class HamsiSmallCore : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray) {
         update(inbuf, 0, inbuf.size)
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -95,8 +89,6 @@ abstract class HamsiSmallCore : Digest {
         while (len-- > 0) partial = partial shl 8 or (inbuf[off++].toInt() and 0xFF)
     }
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         val n = digestLength
         val out = ByteArray(n)
@@ -104,15 +96,11 @@ abstract class HamsiSmallCore : Digest {
         return out
     }
 
-    /** @see Digest
-     */
     override fun digest(inbuf: ByteArray): ByteArray {
         update(inbuf, 0, inbuf.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         val bitCount = bitCount
@@ -145,16 +133,12 @@ abstract class HamsiSmallCore : Digest {
         return len
     }
 
-    /** @see Digest
-     */
     override fun reset() {
         iV.copyInto(h, 0, 0, h.size)
         bitCount = 0
         partialLen = 0
     }
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = dup()
         h.copyInto(d.h, 0, 0, h.size)
@@ -169,8 +153,6 @@ abstract class HamsiSmallCore : Digest {
 		 *    (same as CubeHash). >>
 		 */
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() =/*
 		 * Private communication from Hamsi designer Ozgul Kucuk:
@@ -835,8 +817,6 @@ abstract class HamsiSmallCore : Digest {
         h[0] = h[0] xor m0
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Hamsi-" + (digestLength shl 3)
     }
@@ -982,9 +962,6 @@ abstract class HamsiSmallCore : Digest {
         )
     }
 
-    /**
-     * Create the object.
-     */
     init {
         h = IntArray(8)
         reset()

@@ -36,11 +36,7 @@ package fr.cryptohash
  * @version   $Revision: 235 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Luffa384
-/**
- * Create the engine.
- */
-    : DigestEngine() {
+class Luffa384 : DigestEngine() {
     private var V00 = 0
     private var V01 = 0
     private var V02 = 0
@@ -75,31 +71,23 @@ class Luffa384
     private var V37 = 0
     private lateinit var tmpBuf: ByteArray
 
-    /** @see Digest
-     */
+    /*
+	 * Private communication for Luffa designer Watanabe Dai:
+	 *
+	 * << I think that there is no problem to use the same
+	 *    setting as CubeHash, namely B = 256*ceil(k / 256). >>
+	 */
     override val blockLength: Int
-        get() =/*
-		 * Private communication for Luffa designer Watanabe Dai:
-		 *
-		 * << I think that there is no problem to use the same
-		 *    setting as CubeHash, namely B = 256*ceil(k / 256). >>
-		 */
-            32
+        get() = 32
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 48
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(Luffa384())
     }
 
-    /** @see DigestEngine
-     */
-    protected fun copyState(dst: Luffa384): Digest {
+    private fun copyState(dst: Luffa384): Digest {
         dst.V00 = V00
         dst.V01 = V01
         dst.V02 = V02
@@ -135,8 +123,6 @@ class Luffa384
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         V00 = IV[0]
         V01 = IV[1]
@@ -172,8 +158,6 @@ class Luffa384
         V37 = IV[31]
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         tmpBuf[ptr] = 0x80.toByte()
@@ -196,15 +180,11 @@ class Luffa384
         encodeBEInt(V03 xor V13 xor V23 xor V33, output, outputOffset + 44)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         tmpBuf = ByteArray(32)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var tmp: Int
         var a0: Int
@@ -669,8 +649,6 @@ class Luffa384
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Luffa-384"
     }

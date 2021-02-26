@@ -36,23 +36,14 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA512
-/**
- * Create the engine.
- */
-    : SHA2BigCore() {
-    /** @see SHA2BigCore
-     */
+class SHA512 : SHA2BigCore() {
+
     override val initVal: LongArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 64
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(SHA512())
     }

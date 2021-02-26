@@ -37,17 +37,12 @@ package fr.cryptohash
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 class MD2 : DigestEngine() {
-    /**
-     * Create the object.
-     */
 
     private lateinit var X: IntArray
     private lateinit var C: IntArray
     private lateinit var D: ByteArray
     private var L = 0
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = MD2()
         X.copyInto(d.X, 0, 0, X.size)
@@ -57,18 +52,12 @@ class MD2 : DigestEngine() {
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 16
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 16
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         for (i in 0..15) {
             X[i] = 0
@@ -77,8 +66,6 @@ class MD2 : DigestEngine() {
         L = 0
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val pending = flush()
         for (i in 0 until 16 - pending) update((16 - pending).toByte())
@@ -88,8 +75,6 @@ class MD2 : DigestEngine() {
         for (i in 0..15) output!![outputOffset + i] = X[i].toByte()
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         X = IntArray(48)
         C = IntArray(16)
@@ -97,8 +82,6 @@ class MD2 : DigestEngine() {
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var tL = L
         for (i in 0..15) {
@@ -126,8 +109,6 @@ class MD2 : DigestEngine() {
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "MD2"
     }

@@ -44,8 +44,6 @@ abstract class SkeinBigCore : Digest {
     private val h: LongArray
     private var bcount: Long = 0
 
-    /** @see Digest
-     */
     override fun update(`in`: Byte) {
         if (ptr == blockLength) {
             val etype = if (bcount == 0L) 224 else 96
@@ -58,14 +56,10 @@ abstract class SkeinBigCore : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray) {
         update(inbuf, 0, inbuf.size)
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -94,8 +88,6 @@ abstract class SkeinBigCore : Digest {
         ptr = len
     }
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         val len = digestLength
         val out = ByteArray(len)
@@ -103,15 +95,11 @@ abstract class SkeinBigCore : Digest {
         return out
     }
 
-    /** @see Digest
-     */
     override fun digest(inbuf: ByteArray): ByteArray {
         update(inbuf, 0, inbuf.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         for (i in ptr until blockLength) buf[i] = 0x00
@@ -127,8 +115,6 @@ abstract class SkeinBigCore : Digest {
         return len
     }
 
-    /** @see Digest
-     */
     override fun reset() {
         ptr = 0
         val iv = initVal
@@ -136,8 +122,6 @@ abstract class SkeinBigCore : Digest {
         bcount = 0L
     }
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val dst = dup()
         buf.copyInto(dst.buf, 0, 0, ptr)
@@ -291,14 +275,10 @@ abstract class SkeinBigCore : Digest {
         h[7] = m7 xor p7
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Skein-" + (digestLength shl 3)
     }
 
-    /** @see Digest
-     */
     override val blockLength = 64
 
     companion object {
@@ -326,9 +306,6 @@ abstract class SkeinBigCore : Digest {
         }
     }
 
-    /**
-     * Create the object.
-     */
     init {
         buf = ByteArray(blockLength)
         tmpOut = ByteArray(blockLength)

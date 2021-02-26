@@ -42,26 +42,18 @@ class MD5 : MDHelper(true, 8) {
     private lateinit var currentVal: IntArray
     private lateinit var X: IntArray
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = MD5()
         currentVal.copyInto(d.currentVal, 0, 0, currentVal.size)
         return copyState(d)
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 16
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         currentVal[0] = 0x67452301
         currentVal[1] = -0x10325477
@@ -69,8 +61,6 @@ class MD5 : MDHelper(true, 8) {
         currentVal[3] = 0x10325476
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         for (i in 0..3) encodeLEInt(
@@ -79,16 +69,12 @@ class MD5 : MDHelper(true, 8) {
         )
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         currentVal = IntArray(4)
         X = IntArray(16)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var A = currentVal[0]
         var B = currentVal[1]
@@ -165,8 +151,6 @@ class MD5 : MDHelper(true, 8) {
         currentVal[3] += D
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "MD5"
     }

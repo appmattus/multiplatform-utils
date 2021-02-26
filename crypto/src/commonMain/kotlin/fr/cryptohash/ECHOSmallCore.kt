@@ -34,11 +34,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class ECHOSmallCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class ECHOSmallCore : DigestEngine() {
     private lateinit var V: IntArray
     private var C0 = 0
     private var C1 = 0
@@ -50,13 +46,9 @@ abstract class ECHOSmallCore
     private var K2 = 0
     private var K3 = 0
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 192
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: ECHOSmallCore): Digest {
         V.copyInto(dst.V, 0, 0, 16)
         dst.C0 = C0
@@ -66,8 +58,6 @@ abstract class ECHOSmallCore
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         V[12] = digestLength shl 3
         V[8] = V[12]
@@ -85,8 +75,6 @@ abstract class ECHOSmallCore
         C0 = C1
     }
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val elen = ptr shl 3
@@ -126,8 +114,6 @@ abstract class ECHOSmallCore
         for (i in 0 until outLen) encodeLEInt(V[i], output, outputOffset + (i shl 2))
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         V = IntArray(16)
         W = IntArray(64)
@@ -145,8 +131,6 @@ abstract class ECHOSmallCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         incrCounter(1536)
         compress(data)
@@ -306,8 +290,6 @@ abstract class ECHOSmallCore
         }
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "ECHO-" + (digestLength shl 3)
     }

@@ -36,23 +36,14 @@ package fr.cryptohash
  * @version   $Revision: 166 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BMW512
-/**
- * Create the engine.
- */
-    : BMWBigCore() {
-    /** @see BMWSmallCore
-     */
+class BMW512 : BMWBigCore() {
+
     override val initVal: LongArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 64
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(BMW512())
     }

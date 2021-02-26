@@ -52,6 +52,5 @@ class MD4Test {
                     + "a083b69f5d2a3bb3719dc69891e9f95e809fd7e8b23ba631"
                     + "8edc45e51fe39740c213f769cfb8a7")
         )
-        reportSuccess("MD4")
     }
 }

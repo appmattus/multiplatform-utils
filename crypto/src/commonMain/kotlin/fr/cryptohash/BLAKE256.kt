@@ -1,14 +1,4 @@
-// $Id: BLAKE256.java 252 2011-06-07 17:55:14Z tp $
-package fr.cryptohash
-
-/**
- *
- * This class implements the BLAKE-256 digest algorithm under the
- * [Digest] API.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -29,30 +19,26 @@ package fr.cryptohash
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+package fr.cryptohash
+
+/**
  *
- * ===========================(LICENSE END)=============================
-</pre> *
+ * This class implements the BLAKE-256 digest algorithm under the
+ * [Digest] API.
  *
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BLAKE256
-/**
- * Create the engine.
- */
-    : BLAKESmallCore() {
-    /** @see BLAKESmallCore
-     */
+class BLAKE256 : BLAKESmallCore() {
+
     override val initVal: IntArray
         get() = Companion.initVal
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = 32
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(BLAKE256())
     }

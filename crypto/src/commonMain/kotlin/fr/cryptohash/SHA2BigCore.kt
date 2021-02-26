@@ -36,27 +36,18 @@ package fr.cryptohash
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class SHA2BigCore : MDHelper(false, 16) {
-    /**
-     * Create the object.
-     */
 
     private lateinit var currentVal: LongArray
     private lateinit var W: LongArray
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: SHA2BigCore): Digest {
         currentVal.copyInto(dst.currentVal, 0, 0, currentVal.size)
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         initVal.copyInto(currentVal, 0, 0, 8)
     }
@@ -68,8 +59,6 @@ abstract class SHA2BigCore : MDHelper(false, 16) {
      */
     abstract val initVal: LongArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         makeMDPadding()
         val olen = digestLength
@@ -82,16 +71,12 @@ abstract class SHA2BigCore : MDHelper(false, 16) {
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         currentVal = LongArray(8)
         W = LongArray(80)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         var A = currentVal[0]
         var B = currentVal[1]
@@ -150,8 +135,6 @@ abstract class SHA2BigCore : MDHelper(false, 16) {
         currentVal[7] += H
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SHA-" + (digestLength shl 3)
     }

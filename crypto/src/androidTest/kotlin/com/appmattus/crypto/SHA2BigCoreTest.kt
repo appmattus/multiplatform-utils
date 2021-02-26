@@ -27,7 +27,6 @@ class SHA2BigCoreTest {
             dig, "9d0e1809716474cb086e834e310a4a1ced149e9c00f24852"
                     + "7972cec5704c2a5b07b8b3dc38ecc4ebae97ddd87f3d8985"
         )
-        reportSuccess("SHA-384")
     }
 
     /**
@@ -51,6 +50,5 @@ class SHA2BigCoreTest {
                     "e718483d0ce769644e2e42c7bc15b4638e1f98b13b2044285632a803afa973eb"
                             + "de0ff244877ea60a4cb0432ce577c31beb009c5c2c49aa2e4eadb217ad8cc09b")
         )
-        reportSuccess("SHA-512")
     }
 }

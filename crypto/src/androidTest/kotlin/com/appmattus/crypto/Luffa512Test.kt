@@ -364,6 +364,5 @@ class Luffa512Test {
             "94f7ca8e1a54234c6d53cc734bb3d3150c8ba8c5f880eab8d25fed13793a9701ebe320509286fd8e422e931d99c98da4df7e70ae447bab8cffd92382d8a77760a259fc4fbd72",
             "ec624ed0d48d3dc3c7dddf4d6b6217c815addda9b9b45f9bc38189f7794214bc21eff46cb48b4cfad225b9e78397fb9ac91a193906febc94e0fc7129f0525d24"
         )
-        reportSuccess("Luffa-512")
     }
 }

@@ -6,7 +6,7 @@ import fr.cryptohash.Whirlpool0
 import fr.cryptohash.Whirlpool1
 import kotlin.test.Test
 
-class WHIRLPOOLCoreTest {
+class WhirlpoolCoreTest {
     /**
      * Test Whirlpool implementation.
      */
@@ -54,7 +54,6 @@ class WHIRLPOOLCoreTest {
                     "0C99005BEB57EFF50A7CF005560DDF5D29057FD86B20BFD62DECA0F1CCEA4AF5"
                             + "1FC15490EDDC47AF32BB2B66C34FF9AD8C6008AD677F77126953B226E4ED8B01")
         )
-        reportSuccess("Whirlpool")
     }
 
     /**
@@ -78,7 +77,6 @@ class WHIRLPOOLCoreTest {
                     "228FBF76B2A93469D4B25929836A12B7D7F2A0803E43DABA0C7FC38BC11C8F2A"
                             + "9416BBCF8AB8392EB2AB7BCB565A64AC50C26179164B26084A253CAF2E012676")
         )
-        reportSuccess("Whirlpool0")
     }
 
     /**
@@ -102,6 +100,5 @@ class WHIRLPOOLCoreTest {
                     "C8C15D2A0E0DE6E6885E8A7D9B8A9139746DA299AD50158F5FA9EECDDEF744F9"
                             + "1B8B83C617080D77CB4247B1E964C2959C507AB2DB0F1F3BF3E3B299CA00CAE3")
         )
-        reportSuccess("Whirlpool1")
     }
 }

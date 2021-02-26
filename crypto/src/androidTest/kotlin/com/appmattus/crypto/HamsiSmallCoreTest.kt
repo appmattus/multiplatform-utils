@@ -176,7 +176,6 @@ class HamsiSmallCoreTest {
             "9f2fcc7c90de090d6b87cd7e9718c1ea6cb21118fc2d5de9f97e5db6ac1e9c10",
             "66ffd45e37f72bf74f7143df4fe5d4d99d56109dd86d1374d55f3bef"
         )
-        reportSuccess("Hamsi-224")
     }
 
     /**
@@ -349,6 +348,5 @@ class HamsiSmallCoreTest {
             "9f2fcc7c90de090d6b87cd7e9718c1ea6cb21118fc2d5de9f97e5db6ac1e9c10",
             "6e72391d5be0769c20d92aebee0b1772939e31d521bca1d25f2add261e920ec1"
         )
-        reportSuccess("Hamsi-256")
     }
 }

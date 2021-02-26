@@ -35,8 +35,7 @@ package fr.cryptohash
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 abstract class Fugue2Core : FugueCore() {
-    /** @see FugueCore
-     */
+
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
@@ -462,8 +461,6 @@ abstract class Fugue2Core : FugueCore() {
         }
     }
 
-    /** @see FugueCore
-     */
     override fun processFinal(out: ByteArray?) {
         val S = S
         ror(6 * rshift, 30)

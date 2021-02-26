@@ -1,15 +1,4 @@
-// $Id: BLAKEBigCore.java 252 2011-06-07 17:55:14Z tp $
-package fr.cryptohash
-
-import kotlin.experimental.or
-
-/**
- * This class implements BLAKE-384 and BLAKE-512, which differ only by
- * the IV, output length, and one bit in the padding.
- *
- * <pre>
- * ==========================(LICENSE BEGIN)============================
- *
+/*
  * Copyright (c) 2007-2010  Projet RNRT SAPHIR
  *
  * Permission is hereby granted, free of charge, to any person obtaining
@@ -30,18 +19,20 @@ import kotlin.experimental.or
  * CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- *
- * ===========================(LICENSE END)=============================
-</pre> *
+ */
+
+package fr.cryptohash
+
+import kotlin.experimental.or
+
+/**
+ * This class implements BLAKE-384 and BLAKE-512, which differ only by
+ * the IV, output length, and one bit in the padding.
  *
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKEBigCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class BLAKEBigCore : DigestEngine() {
     private var h0: Long = 0
     private var h1: Long = 0
     private var h2: Long = 0
@@ -59,13 +50,9 @@ abstract class BLAKEBigCore
     private lateinit var tmpM: LongArray
     private lateinit var tmpBuf: ByteArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: BLAKEBigCore): Digest {
         dst.h0 = h0
         dst.h1 = h1
@@ -84,8 +71,6 @@ abstract class BLAKEBigCore
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         val iv = initVal
         h0 = iv[0]
@@ -111,8 +96,6 @@ abstract class BLAKEBigCore
      */
     abstract val initVal: LongArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         val ptr = flush()
         val bitLen = ptr shl 3
@@ -157,16 +140,12 @@ abstract class BLAKEBigCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         tmpM = LongArray(16)
         tmpBuf = ByteArray(128)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         t0 += 1024
         if (t0 and 0x3FF.inv() == 0L) t1++
@@ -280,8 +259,6 @@ abstract class BLAKEBigCore
         h7 = h7 xor (s3 xor v7 xor vF)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "BLAKE-" + (digestLength shl 3)
     }

@@ -35,24 +35,15 @@ package fr.cryptohash
  * @version   $Revision: 159 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Fugue512
-/**
- * Create the engine.
- */
-    : FugueCore() {
-    /** @see Digest
-     */
+class Fugue512 : FugueCore() {
+
     override val digestLength: Int
         get() = 64
 
-    /** @see FugueCore
-     */
     override fun dup(): FugueCore {
         return Fugue512()
     }
 
-    /** @see FugueCore
-     */
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
@@ -327,8 +318,6 @@ class Fugue512
         }
     }
 
-    /** @see FugueCore
-     */
     override fun processFinal(out: ByteArray?) {
         val S = S
         ror(12 * rshift, 36)
@@ -389,8 +378,6 @@ class Fugue512
         get() = Companion.iV
 
     companion object {
-        /** @see FugueCore
-         */
         val iV = intArrayOf(
             -0x77f85a82, -0x19e9508b, -0x3a2c1b25, -0x53654fd9,
             -0x26ea0ee9, -0x491133ac, 0x06e8020b, 0x4a92efd1,

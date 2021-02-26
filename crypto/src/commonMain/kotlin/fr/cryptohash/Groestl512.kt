@@ -36,18 +36,11 @@ package fr.cryptohash
  * @version   $Revision: 198 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Groestl512
-/**
- * Create the engine.
- */
-    : GroestlBigCore() {
-    /** @see Digest
-     */
+class Groestl512 : GroestlBigCore() {
+
     override val digestLength: Int
         get() = 64
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         return copyState(Groestl512())
     }

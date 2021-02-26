@@ -96,7 +96,6 @@ class FugueCoreTest {
             "52a608ab21ccdd8a4457a57ede782176",
             "04847908c63e56a9d0e662a81ea05dddaf3eafcb711e6e16311d4c5090df0d73da31b5672b660bc59b679dae9d569c3b"
         )
-        reportSuccess("Fugue-384")
     }
 
     /**
@@ -189,6 +188,5 @@ class FugueCoreTest {
             "52a608ab21ccdd8a4457a57ede782176",
             "4d047431c2f0c6bab89982425138a86eb042f72d59847d13c8a3cb6541a25b31383704d24c0133edf675f4011566debec0f14ccb65503056234bb11bec5e58b4"
         )
-        reportSuccess("Fugue-512")
     }
 }

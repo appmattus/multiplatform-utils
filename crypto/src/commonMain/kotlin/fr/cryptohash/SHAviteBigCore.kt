@@ -34,28 +34,18 @@ package fr.cryptohash
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHAviteBigCore
-/**
- * Create the object.
- */
-    : DigestEngine() {
+abstract class SHAviteBigCore : DigestEngine() {
     private lateinit var h: IntArray
     private lateinit var rk: IntArray
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 128
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: SHAviteBigCore): Digest {
         h.copyInto(dst.h, 0, 0, h.size)
         return super.copyState(dst)
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         initVal.copyInto(h, 0, 0, h.size)
     }
@@ -67,8 +57,6 @@ abstract class SHAviteBigCore
      */
     abstract val initVal: IntArray
 
-    /** @see DigestEngine
-     */
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val bc = blockCount
@@ -113,16 +101,12 @@ abstract class SHAviteBigCore
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         h = IntArray(16)
         rk = IntArray(448)
         engineReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         val bc = blockCount + 1
         val bitLen = bc shl 10
@@ -493,8 +477,6 @@ abstract class SHAviteBigCore
         h[0xF] = h[0xF] xor pF
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "SHAvite-" + (digestLength shl 3)
     }

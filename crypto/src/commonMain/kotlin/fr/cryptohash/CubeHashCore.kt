@@ -276,22 +276,16 @@ abstract class CubeHashCore : DigestEngine() {
         }
     }
 
-    /** @see DigestEngine
-     */
     override fun engineReset() {
         doReset()
     }
 
-    /** @see DigestEngine
-     */
     override fun processBlock(data: ByteArray) {
         inputBlock(data)
         sixteenRounds()
     }
 
-    /** @see DigestEngine
-     */
-    override fun doPadding(out: ByteArray, off: Int) {
+    override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val buf = blockBuffer
         buf[ptr++] = 0x80.toByte()
@@ -301,29 +295,27 @@ abstract class CubeHashCore : DigestEngine() {
         xv = xv xor 1
         for (j in 0..9) sixteenRounds()
         val dlen = digestLength
-        encodeLEInt(x0, out, off + 0)
-        encodeLEInt(x1, out, off + 4)
-        encodeLEInt(x2, out, off + 8)
-        encodeLEInt(x3, out, off + 12)
-        encodeLEInt(x4, out, off + 16)
-        encodeLEInt(x5, out, off + 20)
-        encodeLEInt(x6, out, off + 24)
+        encodeLEInt(x0, output, outputOffset + 0)
+        encodeLEInt(x1, output, outputOffset + 4)
+        encodeLEInt(x2, output, outputOffset + 8)
+        encodeLEInt(x3, output, outputOffset + 12)
+        encodeLEInt(x4, output, outputOffset + 16)
+        encodeLEInt(x5, output, outputOffset + 20)
+        encodeLEInt(x6, output, outputOffset + 24)
         if (dlen == 28) return
-        encodeLEInt(x7, out, off + 28)
+        encodeLEInt(x7, output, outputOffset + 28)
         if (dlen == 32) return
-        encodeLEInt(x8, out, off + 32)
-        encodeLEInt(x9, out, off + 36)
-        encodeLEInt(xa, out, off + 40)
-        encodeLEInt(xb, out, off + 44)
+        encodeLEInt(x8, output, outputOffset + 32)
+        encodeLEInt(x9, output, outputOffset + 36)
+        encodeLEInt(xa, output, outputOffset + 40)
+        encodeLEInt(xb, output, outputOffset + 44)
         if (dlen == 48) return
-        encodeLEInt(xc, out, off + 48)
-        encodeLEInt(xd, out, off + 52)
-        encodeLEInt(xe, out, off + 56)
-        encodeLEInt(xf, out, off + 60)
+        encodeLEInt(xc, output, outputOffset + 48)
+        encodeLEInt(xd, output, outputOffset + 52)
+        encodeLEInt(xe, output, outputOffset + 56)
+        encodeLEInt(xf, output, outputOffset + 60)
     }
 
-    /** @see DigestEngine
-     */
     override fun doInit() {
         doReset()
     }
@@ -335,32 +327,17 @@ abstract class CubeHashCore : DigestEngine() {
      */
     abstract val iV: IntArray
 
-    /** @see DigestEngine
-     */
-    val internalBlockLength: Int
-        get() = 32/*
-		 * From the CubeHash specification:
-		 *
-		 * << Applications such as HMAC that pad to a full block
-		 *    of SHA-h input are required to pad to a full minimal
-		 *    integral number of b-byte blocks for CubeHashr/b-h. >>
-		 *
-		 * Here, b = 32.
-		 */
-
-    /** @see Digest
+    /*
+     * From the CubeHash specification:
+     *
+     * << Applications such as HMAC that pad to a full block
+     *    of SHA-h input are required to pad to a full minimal
+     *    integral number of b-byte blocks for CubeHashr/b-h. >>
+     *
+     * Here, b = 32.
      */
     override val blockLength: Int
-        get() =/*
-		 * From the CubeHash specification:
-		 *
-		 * << Applications such as HMAC that pad to a full block
-		 *    of SHA-h input are required to pad to a full minimal
-		 *    integral number of b-byte blocks for CubeHashr/b-h. >>
-		 *
-		 * Here, b = 32.
-		 */
-            32
+        get() = 32
 
     private fun doReset() {
         val iv = iV
@@ -398,8 +375,6 @@ abstract class CubeHashCore : DigestEngine() {
         xv = iv[31]
     }
 
-    /** @see DigestEngine
-     */
     protected fun copyState(dst: CubeHashCore): Digest {
         dst.x0 = x0
         dst.x1 = x1
@@ -436,8 +411,6 @@ abstract class CubeHashCore : DigestEngine() {
         return super.copyState(dst)
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "CubeHash-" + (digestLength shl 3)
     }

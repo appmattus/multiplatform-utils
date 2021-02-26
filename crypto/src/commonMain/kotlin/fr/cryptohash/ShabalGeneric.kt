@@ -60,8 +60,6 @@ open class ShabalGeneric private constructor() : Digest {
         reset()
     }
 
-    /** @see Digest
-     */
     override fun update(`in`: Byte) {
         buf[ptr++] = `in`
         if (ptr == 64) {
@@ -70,14 +68,10 @@ open class ShabalGeneric private constructor() : Digest {
         }
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray) {
         update(inbuf, 0, inbuf.size)
     }
 
-    /** @see Digest
-     */
     override fun update(inbuf: ByteArray, off: Int, len: Int) {
         var off = off
         var len = len
@@ -104,13 +98,9 @@ open class ShabalGeneric private constructor() : Digest {
         ptr = len
     }
 
-    /** @see Digest
-     */
     override val digestLength: Int
         get() = outSizeW32 shl 2
 
-    /** @see Digest
-     */
     override fun digest(): ByteArray {
         val n = digestLength
         val out = ByteArray(n)
@@ -118,15 +108,11 @@ open class ShabalGeneric private constructor() : Digest {
         return out
     }
 
-    /** @see Digest
-     */
     override fun digest(inbuf: ByteArray): ByteArray {
         update(inbuf, 0, inbuf.size)
         return digest()
     }
 
-    /** @see Digest
-     */
     override fun digest(outbuf: ByteArray, off: Int, len: Int): Int {
         var len = len
         val dlen = digestLength
@@ -148,16 +134,12 @@ open class ShabalGeneric private constructor() : Digest {
         return len
     }
 
-    /** @see Digest
-     */
     final override fun reset() {
         getIV(outSizeW32).copyInto(state, 0, 0, 44)
         W = 1
         ptr = 0
     }
 
-    /** @see Digest
-     */
     override fun copy(): Digest {
         val d = dup()
         d.outSizeW32 = outSizeW32
@@ -178,11 +160,9 @@ open class ShabalGeneric private constructor() : Digest {
         return ShabalGeneric()
     }
 
-    /** @see Digest
-     */
     override val blockLength: Int
         get() = 64
-    private val M = IntArray(16)
+
     private fun core(data: ByteArray, off: Int, num: Int) {
         var off = off
         var num = num
@@ -535,8 +515,6 @@ open class ShabalGeneric private constructor() : Digest {
         state[43] = CF
     }
 
-    /** @see Digest
-     */
     override fun toString(): String {
         return "Shabal-" + (digestLength shl 3)
     }
