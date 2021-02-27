@@ -46,7 +46,7 @@ package fr.cryptohash
  * be at least 8)
  * @param fbyte          the first padding byte
  */
-abstract class MDHelper<D : MDHelper<D>>(
+abstract class MDHelper<D : MDHelper<D>> internal constructor(
     private val littleEndian: Boolean,
     lenlen: Int,
     private val fbyte: Byte = 0x80.toByte()

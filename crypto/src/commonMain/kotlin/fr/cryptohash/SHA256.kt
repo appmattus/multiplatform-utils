@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the SHA-256 digest algorithm under the
@@ -31,13 +33,16 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA256 : SHA2Core<SHA256>() {
+internal class SHA256 : SHA2Core<SHA256>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
 
     override val digestLength: Int
         get() = 32
+
+    override val blockLength: Int
+        get() = Algorithm.SHA256.blockLength
 
     override fun copy(): SHA256 {
         return copyState(SHA256())

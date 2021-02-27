@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the MD5 digest algorithm under the
@@ -47,7 +49,7 @@ internal class MD5 : MDHelper<MD5>(true, 8) {
         get() = 16
 
     override val blockLength: Int
-        get() = 64
+        get() = Algorithm.MD5.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301

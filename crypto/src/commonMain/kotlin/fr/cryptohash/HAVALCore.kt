@@ -29,15 +29,11 @@ package fr.cryptohash
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
- */
-
-/**
- * Create the object.
  *
  * @param outputLength   output length (in bits)
  * @param passes         number of passes (3, 4 or 5)
  */
-abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private val passes: Int) : DigestEngine<D>() {
+abstract class HAVALCore<D : HAVALCore<D>> internal constructor(outputLength: Int, private val passes: Int) : DigestEngine<D>() {
     /**
      * Output length, in 32-bit words (4, 5, 6, 7, or 8).
      */

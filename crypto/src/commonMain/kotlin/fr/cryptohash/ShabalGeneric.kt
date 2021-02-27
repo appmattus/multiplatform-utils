@@ -49,7 +49,7 @@ abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Diges
      *
      * @param outSize   the intended output size
      */
-    constructor(outSize: Int) : this() {
+    internal constructor(outSize: Int) : this() {
         if (outSize < 32 || outSize > 512 || outSize and 31 != 0) throw IllegalArgumentException(
             "invalid Shabal output size: $outSize"
         )

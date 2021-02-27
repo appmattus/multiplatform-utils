@@ -22,7 +22,13 @@ internal actual class PlatformDigest {
 
     actual fun createDigest(algorithm: Algorithm): Digest<*>? {
         return when (algorithm) {
-            Algorithm.MD5 -> MessageDigestPlatform("MD5", 64)
+            Algorithm.MD2 -> MessageDigestPlatform("MD2", algorithm.blockLength)
+            Algorithm.MD5 -> MessageDigestPlatform("MD5", algorithm.blockLength)
+            Algorithm.SHA1 -> MessageDigestPlatform("SHA-1", algorithm.blockLength)
+            Algorithm.SHA224 -> MessageDigestPlatform("SHA-224", algorithm.blockLength)
+            Algorithm.SHA256 -> MessageDigestPlatform("SHA-256", algorithm.blockLength)
+            Algorithm.SHA384 -> MessageDigestPlatform("SHA-384", algorithm.blockLength)
+            Algorithm.SHA512 -> MessageDigestPlatform("SHA-512", algorithm.blockLength)
             else -> null
         }
     }

@@ -16,7 +16,14 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.ios.MD2
+import com.appmattus.crypto.ios.MD4
 import com.appmattus.crypto.ios.MD5
+import com.appmattus.crypto.ios.SHA1
+import com.appmattus.crypto.ios.SHA224
+import com.appmattus.crypto.ios.SHA256
+import com.appmattus.crypto.ios.SHA384
+import com.appmattus.crypto.ios.SHA512
 
 fun ByteArray.toHexString(): String {
     return joinToString("") { (0xFF and it.toInt()).toString(16).padStart(2, '0') }
@@ -26,9 +33,14 @@ internal actual class PlatformDigest {
 
     actual fun createDigest(algorithm: Algorithm): Digest<*>? {
         return when (algorithm) {
-            Algorithm.MD5 -> {
-                MD5()
-            }
+            Algorithm.MD2 -> MD2()
+            Algorithm.MD4 -> MD4()
+            Algorithm.MD5 -> MD5()
+            Algorithm.SHA1 -> SHA1()
+            Algorithm.SHA224 -> SHA224()
+            Algorithm.SHA256 -> SHA256()
+            Algorithm.SHA384 -> SHA384()
+            Algorithm.SHA512 -> SHA512()
             else -> null
         }
     }

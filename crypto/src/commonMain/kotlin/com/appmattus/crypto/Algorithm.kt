@@ -16,6 +16,13 @@
 
 package com.appmattus.crypto
 
-enum class Algorithm {
-    MD5
+enum class Algorithm(val blockLength: Int) {
+    MD2(16),
+    MD4(64),
+    MD5(64),
+    SHA1(64),
+    SHA224(64),
+    SHA256(64),
+    SHA384(128),
+    SHA512(128)
 }

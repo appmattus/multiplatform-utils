@@ -27,22 +27,21 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.set
 import kotlinx.cinterop.usePinned
-import platform.CoreCrypto.CC_MD5_BLOCK_LONG
-import platform.CoreCrypto.CC_MD5_CTX
-import platform.CoreCrypto.CC_MD5_DIGEST_LENGTH
-import platform.CoreCrypto.CC_MD5_Final
-import platform.CoreCrypto.CC_MD5_Init
-import platform.CoreCrypto.CC_MD5_Update
+import platform.CoreCrypto.CC_SHA256_CTX
+import platform.CoreCrypto.CC_SHA256_DIGEST_LENGTH
+import platform.CoreCrypto.CC_SHA256_Final
+import platform.CoreCrypto.CC_SHA256_Init
+import platform.CoreCrypto.CC_SHA256_Update
 
 @Suppress("EXPERIMENTAL_API_USAGE")
-internal class MD5 : Digest<MD5> {
+internal class SHA256 : Digest<SHA256> {
 
-    private var hashObject: CC_MD5_CTX? = null
+    private var hashObject: CC_SHA256_CTX? = null
 
-    private val hashObjectPtr: CPointer<CC_MD5_CTX>
-        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_MD5_CTX>().run {
+    private val hashObjectPtr: CPointer<CC_SHA256_CTX>
+        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_SHA256_CTX>().run {
             hashObject = this
-            CC_MD5_Init(ptr)
+            CC_SHA256_Init(ptr)
             ptr
         }
 
@@ -57,16 +56,16 @@ internal class MD5 : Digest<MD5> {
     override fun update(input: ByteArray, offset: Int, length: Int) {
         if (length > 0) {
             input.usePinned {
-                CC_MD5_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
+                CC_SHA256_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
             }
         }
     }
 
     override fun digest(): ByteArray {
-        val digest = UByteArray(CC_MD5_DIGEST_LENGTH)
+        val digest = UByteArray(CC_SHA256_DIGEST_LENGTH)
 
         digest.usePinned {
-            CC_MD5_Final(it.addressOf(0), hashObjectPtr)
+            CC_SHA256_Final(it.addressOf(0), hashObjectPtr)
         }
 
         reset()
@@ -109,35 +108,34 @@ internal class MD5 : Digest<MD5> {
     }
 
     override val digestLength: Int
-        get() = CC_MD5_DIGEST_LENGTH
+        get() = CC_SHA256_DIGEST_LENGTH
 
     override fun reset() {
         hashObject?.let { nativeHeap.free(it) }
         hashObject = null
     }
 
-    override fun copy(): MD5 {
-        val digest = MD5()
+    override fun copy(): SHA256 {
+        val digest = SHA256()
 
         hashObject?.let { hashObject ->
             digest.hashObject = nativeHeap.alloc {
-                A = hashObject.A
-                B = hashObject.B
-                C = hashObject.C
-                D = hashObject.D
-                Nl = hashObject.Nl
-                Nh = hashObject.Nh
-                for (i in 0..CC_MD5_BLOCK_LONG.toInt()) {
-                    data[i] = hashObject.data[i]
+                for (i in 0..2) {
+                    count[i] = hashObject.count[i]
                 }
-                num = hashObject.num
+                for (i in 0..8) {
+                    hash[i] = hashObject.hash[i]
+                }
+                for (i in 0..16) {
+                    wbuf[i] = hashObject.wbuf[i]
+                }
             }
         }
         return digest
     }
 
     override val blockLength: Int
-        get() = Algorithm.MD5.blockLength
+        get() = Algorithm.SHA256.blockLength
 
-    override fun toString() = "MD5"
+    override fun toString() = "SHA256"
 }

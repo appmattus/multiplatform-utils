@@ -31,7 +31,7 @@ import com.appmattus.crypto.Digest
  * @version   $Revision: 239 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class HamsiSmallCore<D : HamsiSmallCore<D>> : Digest<D> {
+abstract class HamsiSmallCore<D : HamsiSmallCore<D>> internal constructor() : Digest<D> {
     private val h: IntArray = IntArray(8)
     private var bitCount: Long = 0
     private var partial = 0

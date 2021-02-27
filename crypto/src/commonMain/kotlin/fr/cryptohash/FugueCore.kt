@@ -32,7 +32,7 @@ import com.appmattus.crypto.Digest
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class FugueCore<D : FugueCore<D>> : Digest<D> {
+abstract class FugueCore<D : FugueCore<D>> internal constructor() : Digest<D> {
     private var bitCount: Long = 0
     private var partial = 0
     private var partialLen = 0

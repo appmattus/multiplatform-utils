@@ -18,12 +18,12 @@ package com.appmattus.crypto
 
 import com.appmattus.crypto.internal.PlatformDelegating
 
-class MD5 : PlatformDelegating<MD5>(
-    algorithm = Algorithm.MD5,
+class MD2 : PlatformDelegating<MD2>(
+    algorithm = Algorithm.MD2,
     coreImplementation = {
-        fr.cryptohash.MD5()
+        fr.cryptohash.MD2()
     }
 ) {
 
-    override fun dup() = MD5()
+    override fun dup() = MD2()
 }

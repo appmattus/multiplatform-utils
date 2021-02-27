@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class ECHOSmallCore<D : ECHOSmallCore<D>> : DigestEngine<D>() {
+abstract class ECHOSmallCore<D : ECHOSmallCore<D>> internal constructor() : DigestEngine<D>() {
     private lateinit var v: IntArray
     private var c0 = 0
     private var c1 = 0

@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the SHA-1 digest algorithm under the
@@ -31,7 +33,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA1 : MDHelper<SHA1>(false, 8) {
+internal class SHA1 : MDHelper<SHA1>(false, 8) {
     private lateinit var currentVal: IntArray
 
     override fun copy(): SHA1 {
@@ -44,7 +46,7 @@ class SHA1 : MDHelper<SHA1>(false, 8) {
         get() = 20
 
     override val blockLength: Int
-        get() = 64
+        get() = Algorithm.SHA1.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301

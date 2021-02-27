@@ -32,7 +32,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
+abstract class WhirlpoolCore<D : WhirlpoolCore<D>> internal constructor(
     private val T0: LongArray,
     private val T1: LongArray,
     private val T2: LongArray,

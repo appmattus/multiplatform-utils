@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the SHA-512 digest algorithm under the
@@ -31,13 +33,16 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA512 : SHA2BigCore<SHA512>() {
+internal class SHA512 : SHA2BigCore<SHA512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
 
     override val digestLength: Int
         get() = 64
+
+    override val blockLength: Int
+        get() = Algorithm.SHA512.blockLength
 
     override fun copy(): SHA512 {
         return copyState(SHA512())

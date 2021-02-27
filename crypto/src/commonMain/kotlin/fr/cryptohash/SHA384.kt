@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the SHA-384 digest algorithm under the
@@ -31,13 +33,16 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA384 : SHA2BigCore<SHA384>() {
+internal class SHA384 : SHA2BigCore<SHA384>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
 
     override val digestLength: Int
         get() = 48
+
+    override val blockLength: Int
+        get() = Algorithm.SHA384.blockLength
 
     override fun copy(): SHA384 {
         return copyState(SHA384())

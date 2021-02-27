@@ -74,8 +74,6 @@ import fr.cryptohash.Luffa224
 import fr.cryptohash.Luffa256
 import fr.cryptohash.Luffa384
 import fr.cryptohash.Luffa512
-import fr.cryptohash.MD2
-import fr.cryptohash.MD4
 import fr.cryptohash.PANAMA
 import fr.cryptohash.RIPEMD
 import fr.cryptohash.RIPEMD128
@@ -83,11 +81,6 @@ import fr.cryptohash.RIPEMD160
 import fr.cryptohash.RadioGatun32
 import fr.cryptohash.RadioGatun64
 import fr.cryptohash.SHA0
-import fr.cryptohash.SHA1
-import fr.cryptohash.SHA224
-import fr.cryptohash.SHA256
-import fr.cryptohash.SHA384
-import fr.cryptohash.SHA512
 import fr.cryptohash.SHAvite224
 import fr.cryptohash.SHAvite256
 import fr.cryptohash.SHAvite384

@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the MD4 digest algorithm under the
@@ -32,7 +34,7 @@ package fr.cryptohash
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class MD4 : MDHelper<MD4>(true, 8) {
+internal class MD4 : MDHelper<MD4>(true, 8) {
 
     private lateinit var currentVal: IntArray
 
@@ -46,7 +48,7 @@ class MD4 : MDHelper<MD4>(true, 8) {
         get() = 16
 
     override val blockLength: Int
-        get() = 64
+        get() = Algorithm.MD4.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301

@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 256 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class GroestlSmallCore<D : GroestlSmallCore<D>> : DigestEngine<D>() {
+abstract class GroestlSmallCore<D : GroestlSmallCore<D>> internal constructor() : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var g: LongArray
     private lateinit var m: LongArray

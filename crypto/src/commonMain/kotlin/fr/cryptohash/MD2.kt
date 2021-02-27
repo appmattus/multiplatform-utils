@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the MD2 digest algorithm under the [ ] API, using the [DigestEngine] class. MD4 is described
@@ -31,7 +33,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class MD2 : DigestEngine<MD2>() {
+internal class MD2 : DigestEngine<MD2>() {
 
     private lateinit var x: IntArray
     private lateinit var c: IntArray
@@ -51,7 +53,7 @@ class MD2 : DigestEngine<MD2>() {
         get() = 16
 
     override val blockLength: Int
-        get() = 16
+        get() = Algorithm.MD2.blockLength
 
     override fun engineReset() {
         for (i in 0..15) {

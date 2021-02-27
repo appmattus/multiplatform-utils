@@ -32,7 +32,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKESmallCore<D : BLAKESmallCore<D>> : DigestEngine<D>() {
+abstract class BLAKESmallCore<D : BLAKESmallCore<D>> internal constructor() : DigestEngine<D>() {
 
     private var h0 = 0
     private var h1 = 0

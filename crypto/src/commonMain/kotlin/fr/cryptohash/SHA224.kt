@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the SHA-224 digest algorithm under the
@@ -31,13 +33,16 @@ package fr.cryptohash
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA224 : SHA2Core<SHA224>() {
+internal class SHA224 : SHA2Core<SHA224>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
 
     override val digestLength: Int
         get() = 28
+
+    override val blockLength: Int
+        get() = Algorithm.SHA224.blockLength
 
     override fun copy(): SHA224 {
         return copyState(SHA224())

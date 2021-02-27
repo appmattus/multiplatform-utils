@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 258 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class KeccakCore<D : KeccakCore<D>> : DigestEngine<D>() {
+abstract class KeccakCore<D : KeccakCore<D>> internal constructor() : DigestEngine<D>() {
     private lateinit var a: LongArray
     private lateinit var tmpOut: ByteArray
 

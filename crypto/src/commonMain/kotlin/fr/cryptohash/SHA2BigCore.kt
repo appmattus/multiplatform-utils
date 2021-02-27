@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16) {
+internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16) {
 
     private lateinit var currentVal: LongArray
     private lateinit var w: LongArray

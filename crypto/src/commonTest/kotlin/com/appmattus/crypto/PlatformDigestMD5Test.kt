@@ -1,9 +1,26 @@
+/*
+ * Copyright 2021 Appmattus Limited
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.appmattus.crypto
 
 import fr.cryptohash.testCollision
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Test
+import kotlin.test.fail
 
 class PlatformDigestMD5Test {
 
@@ -12,7 +29,7 @@ class PlatformDigestMD5Test {
      */
     @Test
     fun testMD5() {
-        val dig = PlatformDigest().createDigest(Algorithm.MD5) ?: return
+        val dig = PlatformDigest().createDigest(Algorithm.MD5) ?: fail()
 
         testKat(dig, "", "d41d8cd98f00b204e9800998ecf8427e")
         testKat(dig, "a", "0cc175b9c0f1b6a831c399e269772661")

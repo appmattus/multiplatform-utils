@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BMWBigCore<D : BMWBigCore<D>> : DigestEngine<D>() {
+abstract class BMWBigCore<D : BMWBigCore<D>> internal constructor() : DigestEngine<D>() {
 
     private lateinit var m: LongArray
     private lateinit var h: LongArray

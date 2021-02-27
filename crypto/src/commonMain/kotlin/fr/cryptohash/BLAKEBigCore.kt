@@ -32,7 +32,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKEBigCore<D : BLAKEBigCore<D>> : DigestEngine<D>() {
+abstract class BLAKEBigCore<D : BLAKEBigCore<D>> internal constructor() : DigestEngine<D>() {
     private var h0: Long = 0
     private var h1: Long = 0
     private var h2: Long = 0

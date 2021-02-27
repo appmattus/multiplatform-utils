@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() {
+abstract class SIMDSmallCore<D : SIMDSmallCore<D>> internal constructor() : DigestEngine<D>() {
     private lateinit var state: IntArray
     private lateinit var q: IntArray
     private lateinit var w: IntArray

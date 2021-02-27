@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-abstract class PlatformDelegating<D : PlatformDelegating<D>>(
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
+import com.appmattus.crypto.PlatformDigest
+
+abstract class PlatformDelegating<D : PlatformDelegating<D>> internal constructor(
     algorithm: Algorithm,
     coreImplementation: () -> Digest<*>
 ) : Digest<D> {

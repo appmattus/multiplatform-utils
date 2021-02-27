@@ -29,7 +29,7 @@ package fr.cryptohash
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine<D>() {
+abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> internal constructor() : DigestEngine<D>() {
     private lateinit var h: IntArray
     private lateinit var rk: IntArray
 
