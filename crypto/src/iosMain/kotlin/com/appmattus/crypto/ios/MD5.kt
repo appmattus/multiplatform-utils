@@ -62,8 +62,33 @@ internal class MD5 : Digest<MD5> {
         return digest()
     }
 
+    /**
+     * Completes the hash computation by performing final
+     * operations such as padding.
+     *
+     * @param output the output buffer in which to store the digest
+     *
+     * @param offset offset to start from in the output buffer
+     *
+     * @param length number of bytes within buf allotted for the digest. This
+     * implementation does not return partial digests. The presence of this
+     * parameter is solely for consistency in our API's. If the value of this
+     * parameter is less than the actual digest length, the method will throw
+     * an Exception.
+     * This parameter is ignored if its value is greater than or equal to
+     * the actual digest length.
+     *
+     * @return the length of the digest stored in the output buffer.
+     */
     override fun digest(output: ByteArray, offset: Int, length: Int): Int {
-        TODO("Not yet implemented")
+        val digest = digest()
+
+        if (length < digest.size) throw IllegalArgumentException("partial digests not returned")
+        if (output.size - offset < digest.size) throw IllegalArgumentException("insufficient space in the output buffer to store the digest")
+
+        digest.copyInto(output, offset, 0, digest.size)
+
+        return digest.size
     }
 
     override val digestLength: Int
