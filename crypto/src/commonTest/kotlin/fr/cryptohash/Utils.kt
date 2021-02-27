@@ -1,5 +1,6 @@
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
 import kotlin.test.fail
 
 fun testKat(dig: Digest<*>, buf: ByteArray, exp: ByteArray) {
@@ -63,15 +64,6 @@ fun encodeLatin1(str: String): ByteArray {
     val buf = ByteArray(blen)
     for (i in 0 until blen) buf[i] = str[i].toByte()
     return buf
-}
-
-fun equals(b1: ByteArray?, b2: ByteArray?): Boolean {
-    return b1.contentEquals(b2)
-    /*if (b1 == b2) return true
-    if (b1 == null || b2 == null) return false
-    if (b1.size != b2.size) return false
-    for (i in b1.indices) if (b1[i] != b2[i]) return false
-    return true*/
 }
 
 fun assertEquals(b1: ByteArray, b2: ByteArray) {

@@ -1,8 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.SHA384
-import fr.cryptohash.SHA512
 import kotlin.test.Test
 
 class SHA2BigCoreTest {

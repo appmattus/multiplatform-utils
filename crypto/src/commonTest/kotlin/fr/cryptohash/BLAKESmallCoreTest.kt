@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.BLAKE224
-import fr.cryptohash.BLAKE256
 import kotlin.test.Test
 
 class BLAKESmallCoreTest {

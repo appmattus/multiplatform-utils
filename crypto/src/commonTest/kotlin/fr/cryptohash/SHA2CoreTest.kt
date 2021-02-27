@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.SHA224
-import fr.cryptohash.SHA256
 import kotlin.test.Test
 
 class SHA2CoreTest {

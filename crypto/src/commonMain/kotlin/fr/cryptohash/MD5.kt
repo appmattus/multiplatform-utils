@@ -32,7 +32,7 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class MD5 : MDHelper<MD5>(true, 8) {
+internal class MD5 : MDHelper<MD5>(true, 8) {
 
     private lateinit var currentVal: IntArray
     private lateinit var x: IntArray

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("unused")
+@file:Suppress("unused", "FunctionName", "SpellCheckingInspection")
 
 package com.appmattus.crypto
 
@@ -30,7 +30,6 @@ import fr.cryptohash.CubeHash224
 import fr.cryptohash.CubeHash256
 import fr.cryptohash.CubeHash384
 import fr.cryptohash.CubeHash512
-import fr.cryptohash.Digest
 import fr.cryptohash.ECHO224
 import fr.cryptohash.ECHO256
 import fr.cryptohash.ECHO384
@@ -77,7 +76,6 @@ import fr.cryptohash.Luffa384
 import fr.cryptohash.Luffa512
 import fr.cryptohash.MD2
 import fr.cryptohash.MD4
-import fr.cryptohash.MD5
 import fr.cryptohash.PANAMA
 import fr.cryptohash.RIPEMD
 import fr.cryptohash.RIPEMD128

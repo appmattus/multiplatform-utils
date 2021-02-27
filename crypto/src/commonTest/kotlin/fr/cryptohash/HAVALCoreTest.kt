@@ -1,20 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.HAVAL128_3
-import fr.cryptohash.HAVAL128_4
-import fr.cryptohash.HAVAL128_5
-import fr.cryptohash.HAVAL160_3
-import fr.cryptohash.HAVAL160_4
-import fr.cryptohash.HAVAL160_5
-import fr.cryptohash.HAVAL192_3
-import fr.cryptohash.HAVAL192_4
-import fr.cryptohash.HAVAL192_5
-import fr.cryptohash.HAVAL224_3
-import fr.cryptohash.HAVAL224_4
-import fr.cryptohash.HAVAL224_5
-import fr.cryptohash.HAVAL256_3
-import fr.cryptohash.HAVAL256_4
-import fr.cryptohash.HAVAL256_5
 import kotlin.test.Test
 
 class HAVALCoreTest {

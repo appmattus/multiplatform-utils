@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.PANAMA
 import kotlin.test.Test
 
 class PANAMATest {

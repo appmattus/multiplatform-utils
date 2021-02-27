@@ -1,9 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.JH224
-import fr.cryptohash.JH256
-import fr.cryptohash.JH384
-import fr.cryptohash.JH512
 import kotlin.test.Test
 
 class JHCoreTest {

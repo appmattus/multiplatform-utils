@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
+
 /**
  * This class is the base class for Fugue implementation. It does not
  * use [DigestEngine] since Fugue is not nominally block-based.

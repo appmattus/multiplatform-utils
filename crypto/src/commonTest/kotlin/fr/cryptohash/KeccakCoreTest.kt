@@ -1,9 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Keccak224
-import fr.cryptohash.Keccak256
-import fr.cryptohash.Keccak384
-import fr.cryptohash.Keccak512
 import kotlin.test.Test
 
 class KeccakCoreTest {

@@ -1,6 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.RadioGatun64
 import kotlin.test.Test
 
 class RadioGatun64Test {

@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.SIMD224
-import fr.cryptohash.SIMD256
 import kotlin.test.Test
 
 class SIMDSmallCoreTest {

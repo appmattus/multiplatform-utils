@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.SIMD384
-import fr.cryptohash.SIMD512
 import kotlin.test.Test
 
 class SIMDBigCoreTest {

@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.SHA1
 import kotlin.test.Test
 
 class SHA1Test {

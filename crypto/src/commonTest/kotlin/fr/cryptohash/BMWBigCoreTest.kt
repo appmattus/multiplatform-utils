@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.BMW384
-import fr.cryptohash.BMW512
 import kotlin.test.Test
 
 class BMWBigCoreTest {

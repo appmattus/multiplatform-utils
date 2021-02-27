@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.MD5
 import kotlin.test.Test
 
 class MD5Test {

@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.SHAvite224
-import fr.cryptohash.SHAvite256
 import kotlin.test.Test
 
 class SHAviteSmallCoreTest {

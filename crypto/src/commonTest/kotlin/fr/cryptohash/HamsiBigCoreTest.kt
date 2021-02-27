@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Hamsi384
-import fr.cryptohash.Hamsi512
 import kotlin.test.Test
 
 class HamsiBigCoreTest {

@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Groestl224
-import fr.cryptohash.Groestl256
 import kotlin.test.Test
 
 class GroestlSmallCoreTest {

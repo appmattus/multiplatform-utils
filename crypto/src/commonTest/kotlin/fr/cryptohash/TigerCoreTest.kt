@@ -1,8 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.Tiger
-import fr.cryptohash.Tiger2
 import kotlin.test.Test
 
 class TigerCoreTest {

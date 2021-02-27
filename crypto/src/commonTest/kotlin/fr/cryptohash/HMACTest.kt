@@ -2,13 +2,6 @@
 
 package fr.cryptohash
 
-import fr.cryptohash.BMW224
-import fr.cryptohash.BMW256
-import fr.cryptohash.BMW384
-import fr.cryptohash.BMW512
-import fr.cryptohash.HMAC
-import fr.cryptohash.MD5
-import fr.cryptohash.SHA1
 import kotlin.test.Test
 
 class HMACTest {

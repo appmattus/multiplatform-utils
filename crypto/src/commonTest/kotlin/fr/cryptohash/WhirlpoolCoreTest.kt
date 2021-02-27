@@ -1,9 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.Whirlpool
-import fr.cryptohash.Whirlpool0
-import fr.cryptohash.Whirlpool1
 import kotlin.test.Test
 
 class WhirlpoolCoreTest {

@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.RIPEMD128
 import kotlin.test.Test
 
 class RIPEMD128Test {

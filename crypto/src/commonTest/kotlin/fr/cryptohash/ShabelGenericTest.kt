@@ -1,10 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Shabal192
-import fr.cryptohash.Shabal224
-import fr.cryptohash.Shabal256
-import fr.cryptohash.Shabal384
-import fr.cryptohash.Shabal512
 import kotlin.test.Test
 
 class ShabelGenericTest {

@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
+
 /**
  *
  * This class implements the HMAC message authentication algorithm,

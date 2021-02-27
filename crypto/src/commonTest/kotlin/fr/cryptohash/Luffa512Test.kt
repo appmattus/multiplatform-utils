@@ -1,6 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Luffa512
 import kotlin.test.Test
 
 class Luffa512Test {

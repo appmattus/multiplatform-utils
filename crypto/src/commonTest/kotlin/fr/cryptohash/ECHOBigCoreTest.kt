@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.ECHO384
-import fr.cryptohash.ECHO512
 import kotlin.test.Test
 
 class ECHOBigCoreTest {

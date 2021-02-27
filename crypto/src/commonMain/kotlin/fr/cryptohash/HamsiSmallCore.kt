@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
+
 /**
  * This class implements Hamsi-224 and Hamsi-256.
  *

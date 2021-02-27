@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
+
 /**
  * This class is a template which can be used to implement hash
  * functions. It takes care of some of the API, and also provides an

@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
+
 /**
  * This class implements the Skein core function when used with a
  * 256-bit internal state ("Skein-256" in the Skein specification

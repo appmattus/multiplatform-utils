@@ -1,9 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Skein224
-import fr.cryptohash.Skein256
-import fr.cryptohash.Skein384
-import fr.cryptohash.Skein512
 import kotlin.test.Test
 
 class SkeinBigCoreTest {

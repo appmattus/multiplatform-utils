@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Fugue224
-import fr.cryptohash.Fugue256
 import kotlin.test.Test
 
 class Fugue2CoreTest {

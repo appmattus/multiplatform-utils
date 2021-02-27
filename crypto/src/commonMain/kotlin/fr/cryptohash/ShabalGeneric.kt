@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Digest
+
 /**
  * This class implements Shabal for all output sizes from 32 to 512 bits
  * (inclusive, only multiples of 32 are supported). The output size must

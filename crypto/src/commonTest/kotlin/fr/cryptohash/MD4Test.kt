@@ -1,7 +1,5 @@
 package fr.cryptohash
 
-import fr.cryptohash.Digest
-import fr.cryptohash.MD4
 import kotlin.test.Test
 
 class MD4Test {
