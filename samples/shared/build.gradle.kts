@@ -29,6 +29,7 @@ kotlin {
             framework {
                 export(project(":battery"))
                 export(project(":connectivity"))
+                export(project(":crypto"))
                 export(project(":package-info"))
                 baseName = "shared"
             }
@@ -39,6 +40,7 @@ kotlin {
             dependencies {
                 api(project(":battery"))
                 api(project(":connectivity"))
+                api(project(":crypto"))
                 api(project(":package-info"))
             }
         }

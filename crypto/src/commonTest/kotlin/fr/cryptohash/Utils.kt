@@ -31,6 +31,10 @@ fun testKat(dig: Digest<*>, data: String, ref: String) {
     testKat(dig, encodeLatin1(data), strtobin(ref))
 }
 
+fun testKat(dig: Digest<*>, data: ByteArray, ref: String) {
+    testKat(dig, data, strtobin(ref))
+}
+
 fun testKatHex(dig: Digest<*>, data: String, ref: String) {
     testKat(dig, strtobin(data), strtobin(ref))
 }

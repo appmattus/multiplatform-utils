@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package fr.cryptohash
 
-import kotlin.test.fail
+import com.appmattus.crypto.Digest
+import com.appmattus.crypto.SHA512Base
 
-class PlatformDigestSHA384Test : SHA384Base() {
-    override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA384) ?: fail()
+class SHA512Test : SHA512Base() {
+
+    override fun digest(): Digest<*> = SHA512()
 }
