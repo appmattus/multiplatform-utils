@@ -37,19 +37,30 @@ abstract class SHA224Base {
             dig, "",
             "d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f"
         )
-
-        testKat(
-            dig, "abc",
-            "23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7"
-        )
-        testKat(
-            dig, ("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
-                    + "nomnopnopq"),
-            "75388b16512776cc5dba5da1fd890150b0c6455cb4f58b1952522525"
-        )
         testKatMillionA(
             dig,
             "20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67"
+        )
+    }
+
+    /**
+     * Tests from https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Standards-and-Guidelines/documents/examples/SHA224.pdf
+     */
+    @Test
+    fun nistAbc() {
+        testKat(
+            digest(),
+            "abc",
+            "23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7"
+        )
+    }
+
+    @Test
+    fun nist56chars() {
+        testKat(
+            digest(),
+            "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+            "75388b16512776cc5dba5da1fd890150b0c6455cb4f58b1952522525"
         )
     }
 

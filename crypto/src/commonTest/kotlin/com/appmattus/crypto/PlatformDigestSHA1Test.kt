@@ -16,29 +16,8 @@
 
 package com.appmattus.crypto
 
-import fr.cryptohash.testKat
-import fr.cryptohash.testKatMillionA
-import kotlin.test.Test
 import kotlin.test.fail
 
-class PlatformDigestSHA1Test {
-
-    /**
-     * Test SHA-1 implementation.
-     */
-    @Test
-    fun testSHA1() {
-        val dig = PlatformDigest().createDigest(Algorithm.SHA1) ?: fail()
-        testKat(dig, "", "da39a3ee5e6b4b0d3255bfef95601890afd80709")
-        testKat(dig, "abc", "a9993e364706816aba3e25717850c26c9cd0d89d")
-        testKat(
-            dig, ("abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
-                    + "nomnopnopq"),
-            "84983e441c3bd26ebaae4aa1f95129e5e54670f1"
-        )
-        testKatMillionA(
-            dig,
-            "34aa973cd4c4daa4f61eeb2bdbad27316534016f"
-        )
-    }
+class PlatformDigestSHA1Test : SHA1Base() {
+    override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA1) ?: fail()
 }
