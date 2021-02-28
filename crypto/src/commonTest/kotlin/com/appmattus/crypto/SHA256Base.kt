@@ -38,21 +38,32 @@ abstract class SHA256Base {
                 dig, "",
                 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
             )
-
-            testKat(
-                dig, "abc",
-                "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
-            )
-            testKat(
-                dig, "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlm"
-                        + "nomnopnopq",
-                "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
-            )
             testKatMillionA(
                 dig,
                 "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
             )
         }
+    }
+
+    /**
+     * Tests from https://csrc.nist.gov/CSRC/media/Projects/Cryptographic-Standards-and-Guidelines/documents/examples/SHA256.pdf
+     */
+    @Test
+    fun nistAbc() {
+        testKat(
+            dig = digest(),
+            data = "abc",
+            ref = "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        )
+    }
+
+    @Test
+    fun nist56chars() {
+        testKat(
+            dig = digest(),
+            data = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+            ref = "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+        )
     }
 
     /**
