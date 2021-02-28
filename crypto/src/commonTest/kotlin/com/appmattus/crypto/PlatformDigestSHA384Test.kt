@@ -16,8 +16,10 @@
 
 package com.appmattus.crypto
 
+import kotlin.test.Ignore
 import kotlin.test.fail
 
+@Ignore
 class PlatformDigestSHA384Test : SHA384Base() {
     override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA384) ?: fail()
 }

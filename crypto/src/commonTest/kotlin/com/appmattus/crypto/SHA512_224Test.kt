@@ -16,10 +16,11 @@
 
 package com.appmattus.crypto
 
-import kotlin.test.Ignore
-import kotlin.test.fail
+import com.appmattus.crypto.Digest
+import com.appmattus.crypto.SHA512_224
+import com.appmattus.crypto.SHA512_224Base
 
-@Ignore
-class PlatformDigestSHA512Test : SHA512Base() {
-    override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA512) ?: fail()
+class SHA512_224Test : SHA512_224Base() {
+
+    override fun digest(): Digest<*> = SHA512_224()
 }

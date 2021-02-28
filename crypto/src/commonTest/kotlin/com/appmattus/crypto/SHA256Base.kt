@@ -31,18 +31,16 @@ abstract class SHA256Base {
      */
     @Test
     fun testSHA256() {
-        repeat(100) {
-            val dig = digest()
+        val dig = digest()
 
-            testKat(
-                dig, "",
-                "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-            )
-            testKatMillionA(
-                dig,
-                "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
-            )
-        }
+        testKat(
+            dig, "",
+            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        )
+        testKatMillionA(
+            dig,
+            "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
+        )
     }
 
     /**

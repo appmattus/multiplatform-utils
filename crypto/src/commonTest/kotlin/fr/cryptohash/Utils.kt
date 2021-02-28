@@ -3,40 +3,36 @@ package fr.cryptohash
 import com.appmattus.crypto.Digest
 import kotlin.test.fail
 
-fun testKat(dig: Digest<*>, buf: ByteArray, exp: ByteArray) {
+fun testKat(dig: Digest<*>, data: ByteArray, ref: String) {
     /*
      * First test the hashing itself.
      */
-    val out = dig.digest(buf)
-    assertEquals(out, exp)
+    val out = dig.digest(data)
+    kotlin.test.assertEquals(ref.toLowerCase(), out.toHexString().toLowerCase())
 
     /*
      * Now the update() API; this also exercises auto-reset.
-     */for (i in buf.indices) dig.update(buf[i])
-    assertEquals(dig.digest(), exp)
+     */for (i in data.indices) dig.update(data[i])
+    kotlin.test.assertEquals(ref.toLowerCase(), dig.digest().toHexString().toLowerCase())
 
     /*
      * The cloning API.
      */
-    val blen = buf.size
-    dig.update(buf, 0, blen / 2)
+    val blen = data.size
+    dig.update(data, 0, blen / 2)
     val dig2 = dig.copy()
-    dig.update(buf, blen / 2, blen - blen / 2)
-    assertEquals(dig.digest(), exp)
-    dig2.update(buf, blen / 2, blen - blen / 2)
-    assertEquals(dig2.digest(), exp)
+    dig.update(data, blen / 2, blen - blen / 2)
+    kotlin.test.assertEquals(ref.toLowerCase(), dig.digest().toHexString().toLowerCase())
+    dig2.update(data, blen / 2, blen - blen / 2)
+    kotlin.test.assertEquals(ref.toLowerCase(), dig2.digest().toHexString().toLowerCase())
 }
 
 fun testKat(dig: Digest<*>, data: String, ref: String) {
-    testKat(dig, encodeLatin1(data), strtobin(ref))
-}
-
-fun testKat(dig: Digest<*>, data: ByteArray, ref: String) {
-    testKat(dig, data, strtobin(ref))
+    testKat(dig, encodeLatin1(data), ref)
 }
 
 fun testKatHex(dig: Digest<*>, data: String, ref: String) {
-    testKat(dig, strtobin(data), strtobin(ref))
+    testKat(dig, strtobin(data), ref)
 }
 
 fun testKatMillionA(dig: Digest<*>, ref: String) {
@@ -76,4 +72,8 @@ fun assertEquals(b1: ByteArray, b2: ByteArray) {
 
 fun assertNotEquals(b1: ByteArray, b2: ByteArray) {
     if (b1.contentEquals(b2)) fail("byte streams are equal")
+}
+
+fun ByteArray.toHexString(): String {
+    return joinToString("") { (0xFF and it.toInt()).toString(16).padStart(2, '0') }
 }

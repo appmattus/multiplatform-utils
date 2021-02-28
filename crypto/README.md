@@ -23,7 +23,7 @@ The following hashing algorithms are supported
 - PANAMA
 - RadioGatun32, RadioGatun64
 - RIPEMD, RIPEMD-128, RIPEMD-160
-- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512
+- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256
 - Shabal-192, Shabal-224, Shabal-256, Shabal-384, Shabal-512
 - SHAvite-224, SHAvite-256, SHAvite-384, SHAvite-512
 - SIMD-224, SIMD-256, SIMD-384, SIMD-512
