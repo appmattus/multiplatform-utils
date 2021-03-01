@@ -36,7 +36,8 @@ kotlin {
         val commonTest by getting
         val jvmMain by getting {
             dependencies {
-                implementation(kotlin("test-junit"))
+                compileOnly(kotlin("test-junit"))
+                compileOnly(kotlin("test-junit5"))
             }
         }
         val jvmTest by getting

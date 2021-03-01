@@ -16,4 +16,6 @@
 
 package com.appmattus.ignore
 
-actual typealias IgnoreJvm = org.junit.Ignore
+import org.junit.Ignore
+
+actual typealias IgnoreJunit4 = Ignore

@@ -20,4 +20,4 @@ package com.appmattus.ignore
 @OptionalExpectation
 @Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.BINARY)
-expect annotation class IgnoreJvm()
+expect annotation class IgnoreJunit4()
