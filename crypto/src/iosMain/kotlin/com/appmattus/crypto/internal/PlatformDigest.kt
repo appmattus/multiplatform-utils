@@ -26,6 +26,8 @@ import com.appmattus.crypto.ios.SHA224
 import com.appmattus.crypto.ios.SHA256
 import com.appmattus.crypto.ios.SHA384
 import com.appmattus.crypto.ios.SHA512
+import com.appmattus.crypto.ios.SHA512_224
+import com.appmattus.crypto.ios.SHA512_256
 
 internal actual class PlatformDigest {
 
@@ -39,6 +41,8 @@ internal actual class PlatformDigest {
             Algorithm.SHA_256 -> SHA256()
             Algorithm.SHA_384 -> SHA384()
             Algorithm.SHA_512 -> SHA512()
+            Algorithm.SHA_512_224 -> SHA512_224()
+            Algorithm.SHA_512_256 -> SHA512_256()
             else -> null
         }
     }
