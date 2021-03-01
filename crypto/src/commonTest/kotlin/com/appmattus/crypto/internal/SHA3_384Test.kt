@@ -31,8 +31,6 @@ import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.fail
 
-// No core support yet
-@Ignore
 class SHA3_384CoreTest : SHA3_384Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SHA3_384)
 

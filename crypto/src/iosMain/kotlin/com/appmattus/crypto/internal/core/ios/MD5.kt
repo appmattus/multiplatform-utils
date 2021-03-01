@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.ios
+package com.appmattus.crypto.internal.core.ios
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
@@ -27,22 +27,22 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.set
 import kotlinx.cinterop.usePinned
-import platform.CoreCrypto.CC_MD2_BLOCK_LONG
-import platform.CoreCrypto.CC_MD2_CTX
-import platform.CoreCrypto.CC_MD2_DIGEST_LENGTH
-import platform.CoreCrypto.CC_MD2_Final
-import platform.CoreCrypto.CC_MD2_Init
-import platform.CoreCrypto.CC_MD2_Update
+import platform.CoreCrypto.CC_MD5_BLOCK_LONG
+import platform.CoreCrypto.CC_MD5_CTX
+import platform.CoreCrypto.CC_MD5_DIGEST_LENGTH
+import platform.CoreCrypto.CC_MD5_Final
+import platform.CoreCrypto.CC_MD5_Init
+import platform.CoreCrypto.CC_MD5_Update
 
 @Suppress("EXPERIMENTAL_API_USAGE")
-internal class MD2 : Digest<MD2> {
+internal class MD5 : Digest<MD5> {
 
-    private var hashObject: CC_MD2_CTX? = null
+    private var hashObject: CC_MD5_CTX? = null
 
-    private val hashObjectPtr: CPointer<CC_MD2_CTX>
-        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_MD2_CTX>().run {
+    private val hashObjectPtr: CPointer<CC_MD5_CTX>
+        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_MD5_CTX>().run {
             hashObject = this
-            CC_MD2_Init(ptr)
+            CC_MD5_Init(ptr)
             ptr
         }
 
@@ -57,16 +57,16 @@ internal class MD2 : Digest<MD2> {
     override fun update(input: ByteArray, offset: Int, length: Int) {
         if (length > 0) {
             input.usePinned {
-                CC_MD2_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
+                CC_MD5_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
             }
         }
     }
 
     override fun digest(): ByteArray {
-        val digest = UByteArray(CC_MD2_DIGEST_LENGTH)
+        val digest = UByteArray(CC_MD5_DIGEST_LENGTH)
 
         digest.usePinned {
-            CC_MD2_Final(it.addressOf(0), hashObjectPtr)
+            CC_MD5_Final(it.addressOf(0), hashObjectPtr)
         }
 
         reset()
@@ -109,35 +109,35 @@ internal class MD2 : Digest<MD2> {
     }
 
     override val digestLength: Int
-        get() = CC_MD2_DIGEST_LENGTH
+        get() = CC_MD5_DIGEST_LENGTH
 
     override fun reset() {
         hashObject?.let { nativeHeap.free(it) }
         hashObject = null
     }
 
-    override fun copy(): MD2 {
-        val digest = MD2()
+    override fun copy(): MD5 {
+        val digest = MD5()
 
         hashObject?.let { hashObject ->
             digest.hashObject = nativeHeap.alloc {
-                num = hashObject.num
-                for (i in 0..CC_MD2_DIGEST_LENGTH) {
+                A = hashObject.A
+                B = hashObject.B
+                C = hashObject.C
+                D = hashObject.D
+                Nl = hashObject.Nl
+                Nh = hashObject.Nh
+                for (i in 0..CC_MD5_BLOCK_LONG.toInt()) {
                     data[i] = hashObject.data[i]
                 }
-                for (i in 0..CC_MD2_BLOCK_LONG.toInt()) {
-                    cksm[i] = hashObject.cksm[i]
-                }
-                for (i in 0..CC_MD2_BLOCK_LONG.toInt()) {
-                    state[i] = hashObject.state[i]
-                }
+                num = hashObject.num
             }
         }
         return digest
     }
 
     override val blockLength: Int
-        get() = Algorithm.MD2.blockLength
+        get() = Algorithm.MD5.blockLength
 
-    override fun toString() = Algorithm.MD2.algorithmName
+    override fun toString() = Algorithm.MD5.algorithmName
 }

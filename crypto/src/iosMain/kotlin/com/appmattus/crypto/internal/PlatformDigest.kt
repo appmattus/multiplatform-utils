@@ -18,16 +18,16 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import com.appmattus.crypto.ios.MD2
-import com.appmattus.crypto.ios.MD4
-import com.appmattus.crypto.ios.MD5
-import com.appmattus.crypto.ios.SHA1
-import com.appmattus.crypto.ios.SHA224
-import com.appmattus.crypto.ios.SHA256
-import com.appmattus.crypto.ios.SHA384
-import com.appmattus.crypto.ios.SHA512
-import com.appmattus.crypto.ios.SHA512_224
-import com.appmattus.crypto.ios.SHA512_256
+import com.appmattus.crypto.internal.core.ios.MD2
+import com.appmattus.crypto.internal.core.ios.MD4
+import com.appmattus.crypto.internal.core.ios.MD5
+import com.appmattus.crypto.internal.core.ios.SHA1
+import com.appmattus.crypto.internal.core.ios.SHA224
+import com.appmattus.crypto.internal.core.ios.SHA256
+import com.appmattus.crypto.internal.core.ios.SHA384
+import com.appmattus.crypto.internal.core.ios.SHA512
+import com.appmattus.crypto.internal.core.ios.SHA512_224
+import com.appmattus.crypto.internal.core.ios.SHA512_256
 
 internal actual class PlatformDigest {
 

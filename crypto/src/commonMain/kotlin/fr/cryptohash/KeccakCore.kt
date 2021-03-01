@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 258 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class KeccakCore<D : KeccakCore<D>> internal constructor() : DigestEngine<D>() {
+abstract class KeccakCore<D : KeccakCore<D>> internal constructor(private val markByte: Byte = 0x01) : DigestEngine<D>() {
     private lateinit var a: LongArray
     private lateinit var tmpOut: ByteArray
 
@@ -455,9 +455,9 @@ abstract class KeccakCore<D : KeccakCore<D>> internal constructor() : DigestEngi
         val ptr = flush()
         val buf = blockBuffer
         if (ptr + 1 == buf.size) {
-            buf[ptr] = 0x81.toByte()
+            buf[ptr] = (markByte + 0x80).toByte()
         } else {
-            buf[ptr] = 0x01.toByte()
+            buf[ptr] = markByte
             for (i in ptr + 1 until buf.size - 1) buf[i] = 0
             buf[buf.size - 1] = 0x80.toByte()
         }
@@ -499,10 +499,6 @@ abstract class KeccakCore<D : KeccakCore<D>> internal constructor() : DigestEngi
     override fun copyState(dest: D): D {
         a.copyInto(dest.a, 0, 0, 25)
         return super.copyState(dest)
-    }
-
-    override fun toString(): String {
-        return "Keccak-" + (digestLength shl 3)
     }
 
     companion object {

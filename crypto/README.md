@@ -17,13 +17,13 @@ The following hashing algorithms are supported
   HAVAL-256-3, HAVAL-256-4, HAVAL-256-5
 - HMAC
 - JH-224, JH-256, JH-384, JH-512
-- Keccak-224, Keccak-256, Keccak-384, Keccak-512
+- Keccak-224, Keccak-256, Keccak-288, Keccak-384, Keccak-512
 - Luffa-224, Luffa-256, Luffa-384, Luffa-512
 - MD2, MD4, MD5
 - PANAMA
 - RadioGatun32, RadioGatun64
 - RIPEMD, RIPEMD-128, RIPEMD-160
-- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256
+- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512
 - Shabal-192, Shabal-224, Shabal-256, Shabal-384, Shabal-512
 - SHAvite-224, SHAvite-256, SHAvite-384, SHAvite-512
 - SIMD-224, SIMD-256, SIMD-384, SIMD-512

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.ios
+package com.appmattus.crypto.internal.core.ios
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
@@ -27,21 +27,22 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.set
 import kotlinx.cinterop.usePinned
-import platform.CoreCrypto.CC_SHA224_DIGEST_LENGTH
-import platform.CoreCrypto.CC_SHA224_Final
-import platform.CoreCrypto.CC_SHA224_Init
-import platform.CoreCrypto.CC_SHA224_Update
-import platform.CoreCrypto.CC_SHA256_CTX
+import platform.CoreCrypto.CC_SHA1_BLOCK_LONG
+import platform.CoreCrypto.CC_SHA1_CTX
+import platform.CoreCrypto.CC_SHA1_DIGEST_LENGTH
+import platform.CoreCrypto.CC_SHA1_Final
+import platform.CoreCrypto.CC_SHA1_Init
+import platform.CoreCrypto.CC_SHA1_Update
 
 @Suppress("EXPERIMENTAL_API_USAGE")
-internal class SHA224 : Digest<SHA224> {
+internal class SHA1 : Digest<SHA1> {
 
-    private var hashObject: CC_SHA256_CTX? = null
+    private var hashObject: CC_SHA1_CTX? = null
 
-    private val hashObjectPtr: CPointer<CC_SHA256_CTX>
-        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_SHA256_CTX>().run {
+    private val hashObjectPtr: CPointer<CC_SHA1_CTX>
+        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_SHA1_CTX>().run {
             hashObject = this
-            CC_SHA224_Init(ptr)
+            CC_SHA1_Init(ptr)
             ptr
         }
 
@@ -56,16 +57,16 @@ internal class SHA224 : Digest<SHA224> {
     override fun update(input: ByteArray, offset: Int, length: Int) {
         if (length > 0) {
             input.usePinned {
-                CC_SHA224_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
+                CC_SHA1_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
             }
         }
     }
 
     override fun digest(): ByteArray {
-        val digest = UByteArray(CC_SHA224_DIGEST_LENGTH)
+        val digest = UByteArray(CC_SHA1_DIGEST_LENGTH)
 
         digest.usePinned {
-            CC_SHA224_Final(it.addressOf(0), hashObjectPtr)
+            CC_SHA1_Final(it.addressOf(0), hashObjectPtr)
         }
 
         reset()
@@ -108,34 +109,36 @@ internal class SHA224 : Digest<SHA224> {
     }
 
     override val digestLength: Int
-        get() = CC_SHA224_DIGEST_LENGTH
+        get() = CC_SHA1_DIGEST_LENGTH
 
     override fun reset() {
         hashObject?.let { nativeHeap.free(it) }
         hashObject = null
     }
 
-    override fun copy(): SHA224 {
-        val digest = SHA224()
+    override fun copy(): SHA1 {
+        val digest = SHA1()
 
         hashObject?.let { hashObject ->
             digest.hashObject = nativeHeap.alloc {
-                for (i in 0..2) {
-                    count[i] = hashObject.count[i]
+                h0 = hashObject.h0
+                h1 = hashObject.h1
+                h2 = hashObject.h2
+                h3 = hashObject.h3
+                h4 = hashObject.h4
+                Nl = hashObject.Nl
+                Nh = hashObject.Nh
+                for (i in 0..CC_SHA1_BLOCK_LONG.toInt()) {
+                    data[i] = hashObject.data[i]
                 }
-                for (i in 0..8) {
-                    hash[i] = hashObject.hash[i]
-                }
-                for (i in 0..16) {
-                    wbuf[i] = hashObject.wbuf[i]
-                }
+                num = hashObject.num
             }
         }
         return digest
     }
 
     override val blockLength: Int
-        get() = Algorithm.SHA_224.blockLength
+        get() = Algorithm.SHA_1.blockLength
 
-    override fun toString() = Algorithm.SHA_224.algorithmName
+    override fun toString() = Algorithm.SHA_1.algorithmName
 }

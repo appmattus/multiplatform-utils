@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.ios
+package com.appmattus.crypto.internal.core.ios
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest

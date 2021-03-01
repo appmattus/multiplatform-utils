@@ -20,6 +20,7 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     MD2("MD2", 16),
     MD4("MD4", 64),
     MD5("MD5", 64),
+
     SHA_1("SHA-1", 64),
     SHA_224("SHA-224", 64),
     SHA_256("SHA-256", 64),
@@ -28,9 +29,14 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     SHA_512_224("SHA-512/224", 128),
     SHA_512_256("SHA-512/256", 128),
 
-    // Block lengths based on values in Keccak implementation
     SHA3_224("SHA3-224", 144),
     SHA3_256("SHA3-256", 136),
     SHA3_384("SHA3-384", 104),
-    SHA3_512("SHA3-512", 72)
+    SHA3_512("SHA3-512", 72),
+
+    Keccak224("Keccak-224", 144),
+    Keccak256("Keccak-256", 136),
+    Keccak288("Keccak-288", 128),
+    Keccak384("Keccak-384", 104),
+    Keccak512("Keccak-512", 72),
 }

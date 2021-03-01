@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the Keccak-384 digest algorithm under the
@@ -39,4 +41,6 @@ class Keccak384 : KeccakCore<Keccak384>() {
 
     override val digestLength: Int
         get() = 48
+
+    override fun toString() = Algorithm.Keccak384.algorithmName
 }

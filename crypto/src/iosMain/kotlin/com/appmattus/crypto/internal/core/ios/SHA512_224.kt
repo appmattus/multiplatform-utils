@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.ios
+package com.appmattus.crypto.internal.core.ios
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
@@ -27,22 +27,51 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.set
 import kotlinx.cinterop.usePinned
-import platform.CoreCrypto.CC_MD4_BLOCK_LONG
-import platform.CoreCrypto.CC_MD4_CTX
-import platform.CoreCrypto.CC_MD4_DIGEST_LENGTH
-import platform.CoreCrypto.CC_MD4_Final
-import platform.CoreCrypto.CC_MD4_Init
-import platform.CoreCrypto.CC_MD4_Update
+import platform.CoreCrypto.CC_SHA512_CTX
+import platform.CoreCrypto.CC_SHA512_DIGEST_LENGTH
+import platform.CoreCrypto.CC_SHA512_Final
+import platform.CoreCrypto.CC_SHA512_Init
+import platform.CoreCrypto.CC_SHA512_Update
 
 @Suppress("EXPERIMENTAL_API_USAGE")
-internal class MD4 : Digest<MD4> {
+internal class SHA512_224 : Digest<SHA512_224> {
 
-    private var hashObject: CC_MD4_CTX? = null
+    private var hashObject: CC_SHA512_CTX? = null
 
-    private val hashObjectPtr: CPointer<CC_MD4_CTX>
-        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_MD4_CTX>().run {
+    @Suppress("EXPERIMENTAL_UNSIGNED_LITERALS")
+    private val hashObjectPtr: CPointer<CC_SHA512_CTX>
+        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_SHA512_CTX>().run {
             hashObject = this
-            CC_MD4_Init(ptr)
+            CC_SHA512_Init(ptr)
+
+            hash[0] = 0x8C3D37C819544DA2UL
+            hash[1] = 0x73E1996689DCD4D6UL
+            hash[2] = 0x1DFAB7AE32FF9C82UL
+            hash[3] = 0x679DD514582F9FCFUL
+            hash[4] = 0x0F6D2B697BD44DA8UL
+            hash[5] = 0x77E36F7304C48942UL
+            hash[6] = 0x3F9D85A86A1D36C8UL
+            hash[7] = 0x1112E6AD91D692A1UL
+
+            wbuf[0] = 0x6162638000000000UL
+            wbuf[1] = 0x0000000000000000UL
+            wbuf[2] = 0x0000000000000000UL
+            wbuf[3] = 0x0000000000000000UL
+            wbuf[4] = 0x0000000000000000UL
+            wbuf[5] = 0x0000000000000000UL
+            wbuf[6] = 0x0000000000000000UL
+            wbuf[7] = 0x0000000000000000UL
+            wbuf[8] = 0x0000000000000000UL
+            wbuf[9] = 0x0000000000000000UL
+            wbuf[10] = 0x0000000000000000UL
+            wbuf[11] = 0x0000000000000000UL
+            wbuf[12] = 0x0000000000000000UL
+            wbuf[13] = 0x0000000000000000UL
+            wbuf[14] = 0x0000000000000000UL
+            wbuf[15] = 0x0000000000000018UL
+
+            count[2] = hash[0]
+
             ptr
         }
 
@@ -57,21 +86,21 @@ internal class MD4 : Digest<MD4> {
     override fun update(input: ByteArray, offset: Int, length: Int) {
         if (length > 0) {
             input.usePinned {
-                CC_MD4_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
+                CC_SHA512_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
             }
         }
     }
 
     override fun digest(): ByteArray {
-        val digest = UByteArray(CC_MD4_DIGEST_LENGTH)
+        val digest = UByteArray(CC_SHA512_DIGEST_LENGTH)
 
         digest.usePinned {
-            CC_MD4_Final(it.addressOf(0), hashObjectPtr)
+            CC_SHA512_Final(it.addressOf(0), hashObjectPtr)
         }
 
         reset()
 
-        return digest.toByteArray()
+        return digest.toByteArray().sliceArray(0 until digestLength)
     }
 
     override fun digest(input: ByteArray): ByteArray {
@@ -109,37 +138,34 @@ internal class MD4 : Digest<MD4> {
     }
 
     override val digestLength: Int
-        get() = CC_MD4_DIGEST_LENGTH
+        get() = 28
 
     override fun reset() {
         hashObject?.let { nativeHeap.free(it) }
         hashObject = null
     }
 
-    override fun copy(): MD4 {
-        val digest = MD4()
+    override fun copy(): SHA512_224 {
+        val digest = SHA512_224()
 
         hashObject?.let { hashObject ->
             digest.hashObject = nativeHeap.alloc {
-                A = hashObject.A
-                B = hashObject.B
-                C = hashObject.C
-                D = hashObject.D
-                Nl = hashObject.Nl
-                Nh = hashObject.Nh
-
-                for (i in 0..CC_MD4_BLOCK_LONG.toInt()) {
-                    data[i] = hashObject.data[i]
+                for (i in 0..2) {
+                    count[i] = hashObject.count[i]
                 }
-
-                num = hashObject.num
+                for (i in 0..8) {
+                    hash[i] = hashObject.hash[i]
+                }
+                for (i in 0..16) {
+                    wbuf[i] = hashObject.wbuf[i]
+                }
             }
         }
         return digest
     }
 
     override val blockLength: Int
-        get() = Algorithm.MD4.blockLength
+        get() = Algorithm.SHA_512_224.blockLength
 
-    override fun toString() = Algorithm.MD4.algorithmName
+    override fun toString() = Algorithm.SHA_512_224.algorithmName
 }

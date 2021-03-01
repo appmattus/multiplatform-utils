@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.ios
+package com.appmattus.crypto.internal.core.ios
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
@@ -27,51 +27,22 @@ import kotlinx.cinterop.nativeHeap
 import kotlinx.cinterop.ptr
 import kotlinx.cinterop.set
 import kotlinx.cinterop.usePinned
-import platform.CoreCrypto.CC_SHA512_CTX
-import platform.CoreCrypto.CC_SHA512_DIGEST_LENGTH
-import platform.CoreCrypto.CC_SHA512_Final
-import platform.CoreCrypto.CC_SHA512_Init
-import platform.CoreCrypto.CC_SHA512_Update
+import platform.CoreCrypto.CC_MD2_BLOCK_LONG
+import platform.CoreCrypto.CC_MD2_CTX
+import platform.CoreCrypto.CC_MD2_DIGEST_LENGTH
+import platform.CoreCrypto.CC_MD2_Final
+import platform.CoreCrypto.CC_MD2_Init
+import platform.CoreCrypto.CC_MD2_Update
 
-@Suppress("EXPERIMENTAL_API_USAGE", "ClassName")
-internal class SHA512_256 : Digest<SHA512_256> {
+@Suppress("EXPERIMENTAL_API_USAGE")
+internal class MD2 : Digest<MD2> {
 
-    private var hashObject: CC_SHA512_CTX? = null
+    private var hashObject: CC_MD2_CTX? = null
 
-    @Suppress("EXPERIMENTAL_UNSIGNED_LITERALS")
-    private val hashObjectPtr: CPointer<CC_SHA512_CTX>
-        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_SHA512_CTX>().run {
+    private val hashObjectPtr: CPointer<CC_MD2_CTX>
+        get() = hashObject?.ptr ?: nativeHeap.alloc<CC_MD2_CTX>().run {
             hashObject = this
-            CC_SHA512_Init(ptr)
-
-            hash[0] = 0x22312194FC2BF72CUL
-            hash[1] = 0x9F555FA3C84C64C2UL
-            hash[2] = 0x2393B86B6F53B151UL
-            hash[3] = 0x963877195940EABDUL
-            hash[4] = 0x96283EE2A88EFFE3UL
-            hash[5] = 0xBE5E1E2553863992UL
-            hash[6] = 0x2B0199FC2C85B8AAUL
-            hash[7] = 0x0EB72DDC81C52CA2UL
-
-            wbuf[0] = 0x6162638000000000UL
-            wbuf[1] = 0x0000000000000000UL
-            wbuf[2] = 0x0000000000000000UL
-            wbuf[3] = 0x0000000000000000UL
-            wbuf[4] = 0x0000000000000000UL
-            wbuf[5] = 0x0000000000000000UL
-            wbuf[6] = 0x0000000000000000UL
-            wbuf[7] = 0x0000000000000000UL
-            wbuf[8] = 0x0000000000000000UL
-            wbuf[9] = 0x0000000000000000UL
-            wbuf[10] = 0x0000000000000000UL
-            wbuf[11] = 0x0000000000000000UL
-            wbuf[12] = 0x0000000000000000UL
-            wbuf[13] = 0x0000000000000000UL
-            wbuf[14] = 0x0000000000000000UL
-            wbuf[15] = 0x0000000000000018UL
-
-            count[2] = hash[0]
-
+            CC_MD2_Init(ptr)
             ptr
         }
 
@@ -86,21 +57,21 @@ internal class SHA512_256 : Digest<SHA512_256> {
     override fun update(input: ByteArray, offset: Int, length: Int) {
         if (length > 0) {
             input.usePinned {
-                CC_SHA512_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
+                CC_MD2_Update(hashObjectPtr, it.addressOf(offset), length.toUInt())
             }
         }
     }
 
     override fun digest(): ByteArray {
-        val digest = UByteArray(CC_SHA512_DIGEST_LENGTH)
+        val digest = UByteArray(CC_MD2_DIGEST_LENGTH)
 
         digest.usePinned {
-            CC_SHA512_Final(it.addressOf(0), hashObjectPtr)
+            CC_MD2_Final(it.addressOf(0), hashObjectPtr)
         }
 
         reset()
 
-        return digest.toByteArray().sliceArray(0 until digestLength)
+        return digest.toByteArray()
     }
 
     override fun digest(input: ByteArray): ByteArray {
@@ -138,26 +109,27 @@ internal class SHA512_256 : Digest<SHA512_256> {
     }
 
     override val digestLength: Int
-        get() = 32
+        get() = CC_MD2_DIGEST_LENGTH
 
     override fun reset() {
         hashObject?.let { nativeHeap.free(it) }
         hashObject = null
     }
 
-    override fun copy(): SHA512_256 {
-        val digest = SHA512_256()
+    override fun copy(): MD2 {
+        val digest = MD2()
 
         hashObject?.let { hashObject ->
             digest.hashObject = nativeHeap.alloc {
-                for (i in 0..2) {
-                    count[i] = hashObject.count[i]
+                num = hashObject.num
+                for (i in 0..CC_MD2_DIGEST_LENGTH) {
+                    data[i] = hashObject.data[i]
                 }
-                for (i in 0..8) {
-                    hash[i] = hashObject.hash[i]
+                for (i in 0..CC_MD2_BLOCK_LONG.toInt()) {
+                    cksm[i] = hashObject.cksm[i]
                 }
-                for (i in 0..16) {
-                    wbuf[i] = hashObject.wbuf[i]
+                for (i in 0..CC_MD2_BLOCK_LONG.toInt()) {
+                    state[i] = hashObject.state[i]
                 }
             }
         }
@@ -165,7 +137,7 @@ internal class SHA512_256 : Digest<SHA512_256> {
     }
 
     override val blockLength: Int
-        get() = Algorithm.SHA_512_256.blockLength
+        get() = Algorithm.MD2.blockLength
 
-    override fun toString() = Algorithm.SHA_512_256.algorithmName
+    override fun toString() = Algorithm.MD2.algorithmName
 }

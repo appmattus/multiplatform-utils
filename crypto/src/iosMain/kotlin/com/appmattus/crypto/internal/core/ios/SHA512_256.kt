@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.ios
+package com.appmattus.crypto.internal.core.ios
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
@@ -33,8 +33,8 @@ import platform.CoreCrypto.CC_SHA512_Final
 import platform.CoreCrypto.CC_SHA512_Init
 import platform.CoreCrypto.CC_SHA512_Update
 
-@Suppress("EXPERIMENTAL_API_USAGE")
-internal class SHA512_224 : Digest<SHA512_224> {
+@Suppress("EXPERIMENTAL_API_USAGE", "ClassName")
+internal class SHA512_256 : Digest<SHA512_256> {
 
     private var hashObject: CC_SHA512_CTX? = null
 
@@ -44,14 +44,14 @@ internal class SHA512_224 : Digest<SHA512_224> {
             hashObject = this
             CC_SHA512_Init(ptr)
 
-            hash[0] = 0x8C3D37C819544DA2UL
-            hash[1] = 0x73E1996689DCD4D6UL
-            hash[2] = 0x1DFAB7AE32FF9C82UL
-            hash[3] = 0x679DD514582F9FCFUL
-            hash[4] = 0x0F6D2B697BD44DA8UL
-            hash[5] = 0x77E36F7304C48942UL
-            hash[6] = 0x3F9D85A86A1D36C8UL
-            hash[7] = 0x1112E6AD91D692A1UL
+            hash[0] = 0x22312194FC2BF72CUL
+            hash[1] = 0x9F555FA3C84C64C2UL
+            hash[2] = 0x2393B86B6F53B151UL
+            hash[3] = 0x963877195940EABDUL
+            hash[4] = 0x96283EE2A88EFFE3UL
+            hash[5] = 0xBE5E1E2553863992UL
+            hash[6] = 0x2B0199FC2C85B8AAUL
+            hash[7] = 0x0EB72DDC81C52CA2UL
 
             wbuf[0] = 0x6162638000000000UL
             wbuf[1] = 0x0000000000000000UL
@@ -138,15 +138,15 @@ internal class SHA512_224 : Digest<SHA512_224> {
     }
 
     override val digestLength: Int
-        get() = 28
+        get() = 32
 
     override fun reset() {
         hashObject?.let { nativeHeap.free(it) }
         hashObject = null
     }
 
-    override fun copy(): SHA512_224 {
-        val digest = SHA512_224()
+    override fun copy(): SHA512_256 {
+        val digest = SHA512_256()
 
         hashObject?.let { hashObject ->
             digest.hashObject = nativeHeap.alloc {
@@ -165,7 +165,7 @@ internal class SHA512_224 : Digest<SHA512_224> {
     }
 
     override val blockLength: Int
-        get() = Algorithm.SHA_512_224.blockLength
+        get() = Algorithm.SHA_512_256.blockLength
 
-    override fun toString() = Algorithm.SHA_512_224.algorithmName
+    override fun toString() = Algorithm.SHA_512_256.algorithmName
 }
