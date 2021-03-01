@@ -14,19 +14,64 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatHex
 import fr.cryptohash.testKatMillionA
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertNotNull
+import kotlin.test.fail
+
+class SHA224CoreTest : SHA224Test() {
+    override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SHA_224)
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+class SHA224PlatformTest : SHA224Test() {
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_224) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// On iOS this test is equivalent to the "...PlatformTest"
+class SHA224InstalledProviderTest : SHA224Test() {
+
+    @BeforeTest
+    fun beforeTest() {
+        installPlatformProvider()
+    }
+
+    @AfterTest
+    fun afterTest() {
+        removePlatformProvider()
+    }
+
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_224) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
 
 /**
- * Test SHA-224 implementation.
+ * Test SHA-225 implementation.
  */
-abstract class SHA224Base {
+abstract class SHA224Test {
 
     abstract fun digest(): Digest<*>
 

@@ -14,19 +14,64 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatHex
 import fr.cryptohash.testKatMillionA
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertNotNull
+import kotlin.test.fail
+
+class SHA256CoreTest : SHA256Test() {
+    override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SHA_256)
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+class SHA256PlatformTest : SHA256Test() {
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_256) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// On iOS this test is equivalent to the "...PlatformTest"
+class SHA256InstalledProviderTest : SHA256Test() {
+
+    @BeforeTest
+    fun beforeTest() {
+        installPlatformProvider()
+    }
+
+    @AfterTest
+    fun afterTest() {
+        removePlatformProvider()
+    }
+
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_256) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
 
 /**
- * Test SHA-256 implementation.
+ * Test SHA-225 implementation.
  */
-abstract class SHA256Base {
+abstract class SHA256Test {
 
     abstract fun digest(): Digest<*>
 
