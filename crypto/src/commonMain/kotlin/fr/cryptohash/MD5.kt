@@ -148,9 +148,7 @@ internal class MD5 : MDHelper<MD5>(true, 8) {
         currentVal[3] += d
     }
 
-    override fun toString(): String {
-        return "MD5"
-    }
+    override fun toString() = Algorithm.MD5.algorithmName
 
     companion object {
         /**

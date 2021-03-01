@@ -64,7 +64,7 @@ class SHA512_224 : Digest<SHA512_224> {
     override val blockLength: Int
         get() = delegate.blockLength
 
-    override fun toString() = "SHA-512/224"
+    override fun toString() = Algorithm.SHA_512_224.algorithmName
 
     private class Hash : SHA2BigCore<Hash>() {
         override val initVal: LongArray
@@ -74,11 +74,13 @@ class SHA512_224 : Digest<SHA512_224> {
             get() = 64
 
         override val blockLength: Int
-            get() = Algorithm.SHA_512.blockLength
+            get() = Algorithm.SHA_512_224.blockLength
 
         override fun copy(): Hash {
             return copyState(Hash())
         }
+
+        override fun toString() = Algorithm.SHA_512_224.algorithmName
     }
 
     companion object {

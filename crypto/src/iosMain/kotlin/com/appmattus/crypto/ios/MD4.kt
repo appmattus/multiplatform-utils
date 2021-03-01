@@ -141,5 +141,5 @@ internal class MD4 : Digest<MD4> {
     override val blockLength: Int
         get() = Algorithm.MD4.blockLength
 
-    override fun toString() = "MD4"
+    override fun toString() = Algorithm.MD4.algorithmName
 }

@@ -467,9 +467,7 @@ internal class SHA1 : MDHelper<SHA1>(false, 8) {
         currentVal[4] += e
     }
 
-    override fun toString(): String {
-        return "SHA-1"
-    }
+    override fun toString() = Algorithm.SHA_1.algorithmName
 
     companion object {
         /**

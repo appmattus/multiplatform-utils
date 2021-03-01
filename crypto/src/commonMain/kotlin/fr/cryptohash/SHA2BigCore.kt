@@ -130,10 +130,6 @@ internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16)
         currentVal[7] += h
     }
 
-    override fun toString(): String {
-        return "SHA-" + (digestLength shl 3)
-    }
-
     companion object {
         /** private special values.  */
         private val K = longArrayOf(

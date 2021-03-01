@@ -74,7 +74,7 @@ class SHA384InstalledProviderTest : SHA384Test() {
 }
 
 /**
- * Test SHA-225 implementation.
+ * Test SHA-384 implementation.
  */
 abstract class SHA384Test {
 

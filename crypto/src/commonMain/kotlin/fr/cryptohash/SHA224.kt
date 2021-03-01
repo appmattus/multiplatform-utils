@@ -48,6 +48,8 @@ internal class SHA224 : SHA2Core<SHA224>() {
         return copyState(SHA224())
     }
 
+    override fun toString() = Algorithm.SHA_224.algorithmName
+
     companion object {
         /** The initial value for SHA-224.  */
         private val initVal = intArrayOf(

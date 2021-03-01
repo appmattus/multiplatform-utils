@@ -53,6 +53,7 @@ class SHA3_384PlatformTest : SHA3_384Test() {
     }
 }
 
+// No built-in iOS support
 @IgnoreIos
 class SHA3_384InstalledProviderTest : SHA3_384Test() {
 

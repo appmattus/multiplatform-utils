@@ -48,6 +48,8 @@ internal class SHA512 : SHA2BigCore<SHA512>() {
         return copyState(SHA512())
     }
 
+    override fun toString() = Algorithm.SHA_512.algorithmName
+
     companion object {
         /** The initial value for SHA-512.  */
         private val initVal = longArrayOf(

@@ -252,9 +252,7 @@ internal class MD4 : MDHelper<MD4>(true, 8) {
         currentVal[3] += d
     }
 
-    override fun toString(): String {
-        return "MD4"
-    }
+    override fun toString() = Algorithm.MD4.algorithmName
 
     companion object {
         /**

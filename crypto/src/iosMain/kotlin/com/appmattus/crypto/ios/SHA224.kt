@@ -137,5 +137,5 @@ internal class SHA224 : Digest<SHA224> {
     override val blockLength: Int
         get() = Algorithm.SHA_224.blockLength
 
-    override fun toString() = "SHA224"
+    override fun toString() = Algorithm.SHA_224.algorithmName
 }

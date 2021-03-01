@@ -48,6 +48,8 @@ internal class SHA384 : SHA2BigCore<SHA384>() {
         return copyState(SHA384())
     }
 
+    override fun toString() = Algorithm.SHA_384.algorithmName
+
     companion object {
         /** The initial value for SHA-384.  */
         private val initVal = longArrayOf(

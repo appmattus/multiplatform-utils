@@ -137,5 +137,5 @@ internal class SHA512 : Digest<SHA512> {
     override val blockLength: Int
         get() = Algorithm.SHA_512.blockLength
 
-    override fun toString() = "SHA512"
+    override fun toString() = Algorithm.SHA_512.algorithmName
 }

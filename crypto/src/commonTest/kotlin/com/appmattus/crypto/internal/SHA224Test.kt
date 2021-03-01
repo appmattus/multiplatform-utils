@@ -69,7 +69,7 @@ class SHA224InstalledProviderTest : SHA224Test() {
 }
 
 /**
- * Test SHA-225 implementation.
+ * Test SHA-224 implementation.
  */
 abstract class SHA224Test {
 

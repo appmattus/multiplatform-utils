@@ -139,5 +139,5 @@ internal class MD5 : Digest<MD5> {
     override val blockLength: Int
         get() = Algorithm.MD5.blockLength
 
-    override fun toString() = "MD5"
+    override fun toString() = Algorithm.MD5.algorithmName
 }

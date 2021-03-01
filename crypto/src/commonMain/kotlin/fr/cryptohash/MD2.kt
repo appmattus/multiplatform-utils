@@ -106,9 +106,7 @@ internal class MD2 : DigestEngine<MD2>() {
         }
     }
 
-    override fun toString(): String {
-        return "MD2"
-    }
+    override fun toString() = Algorithm.MD2.algorithmName
 
     companion object {
         /** Internal "magic" table.  */

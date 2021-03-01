@@ -73,7 +73,7 @@ class SHA512InstalledProviderTest : SHA512Test() {
 }
 
 /**
- * Test SHA-225 implementation.
+ * Test SHA-512 implementation.
  */
 abstract class SHA512Test {
 

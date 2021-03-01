@@ -536,10 +536,6 @@ internal abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
 		*/
     }
 
-    override fun toString(): String {
-        return "SHA-" + (digestLength shl 3)
-    }
-
     companion object {
         /** private special values.  */
         private val K = intArrayOf(

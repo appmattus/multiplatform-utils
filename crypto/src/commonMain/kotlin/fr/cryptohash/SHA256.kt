@@ -48,6 +48,8 @@ internal class SHA256 : SHA2Core<SHA256>() {
         return copyState(SHA256())
     }
 
+    override fun toString() = Algorithm.SHA_256.algorithmName
+
     companion object {
         /** The initial value for SHA-256.  */
         private val initVal = intArrayOf(

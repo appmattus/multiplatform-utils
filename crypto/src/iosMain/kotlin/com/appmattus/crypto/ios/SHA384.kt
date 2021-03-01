@@ -137,5 +137,5 @@ internal class SHA384 : Digest<SHA384> {
     override val blockLength: Int
         get() = Algorithm.SHA_384.blockLength
 
-    override fun toString() = "SHA384"
+    override fun toString() = Algorithm.SHA_384.algorithmName
 }

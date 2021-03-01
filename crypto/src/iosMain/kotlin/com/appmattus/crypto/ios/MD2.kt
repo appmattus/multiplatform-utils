@@ -139,5 +139,5 @@ internal class MD2 : Digest<MD2> {
     override val blockLength: Int
         get() = Algorithm.MD2.blockLength
 
-    override fun toString() = "MD2"
+    override fun toString() = Algorithm.MD2.algorithmName
 }
