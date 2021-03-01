@@ -17,22 +17,45 @@
 package com.appmattus.crypto
 
 import fr.cryptohash.testKat
+import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Ignore
 import kotlin.test.Test
 
+/**
+ * Test SHA-512 implementation.
+ */
 abstract class SHA512Base {
 
     abstract fun digest(): Digest<*>
 
     /**
-     * Test SHA-512 implementation.
+     * Tests from https://www.di-mgt.com.au/sha_testvectors.html
      */
+
     @Test
-    fun testSHA512() {
+    fun nist56chars() {
+        testKat(
+            dig = digest(),
+            data = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+            ref = "204a8fc6dda82f0a0ced7beb8e08a41657c16ef468b228a8279be331a703c33596fd15c13b1b07f9aa1d3bea57789ca031ad85c7a71dd70354ec631238ca3445"
+        )
+    }
+
+    @Test
+    fun oneMillionA() {
         testKatMillionA(
             digest(),
             "e718483d0ce769644e2e42c7bc15b4638e1f98b13b2044285632a803afa973ebde0ff244877ea60a4cb0432ce577c31beb009c5c2c49aa2e4eadb217ad8cc09b"
+        )
+    }
+
+    @Test
+    @Ignore
+    fun reallyLong() {
+        testKatExtremelyLong(
+            digest(),
+            "b47c933421ea2db149ad6e10fce6c7f93d0752380180ffd7f4629a712134831d77be6091b819ed352c2967a2e2d4fa5050723c9630691f1a05a7281dbe6c1086"
         )
     }
 

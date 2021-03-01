@@ -42,6 +42,14 @@ fun testKatMillionA(dig: Digest<*>, ref: String) {
     assertEquals(dig.digest(), strtobin(ref))
 }
 
+fun testKatExtremelyLong(dig: Digest<*>, ref: String) {
+    val buf = encodeLatin1("abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmno")
+    repeat(16777216) {
+        dig.update(buf)
+    }
+    assertEquals(dig.digest(), strtobin(ref))
+}
+
 fun testCollision(dig: Digest<*>, s1: String, s2: String) {
     val msg1 = strtobin(s1)
     val msg2 = strtobin(s2)

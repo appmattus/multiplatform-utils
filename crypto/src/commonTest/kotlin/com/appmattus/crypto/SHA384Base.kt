@@ -17,22 +17,45 @@
 package com.appmattus.crypto
 
 import fr.cryptohash.testKat
+import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Ignore
 import kotlin.test.Test
 
+/**
+ * Test SHA-384 implementation.
+ */
 abstract class SHA384Base {
 
     abstract fun digest(): Digest<*>
 
     /**
-     * Test SHA-384 implementation.
+     * Tests from https://www.di-mgt.com.au/sha_testvectors.html
      */
+
     @Test
-    fun testSHA384() {
+    fun nist56chars() {
+        testKat(
+            dig = digest(),
+            data = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
+            ref = "3391fdddfc8dc7393707a65b1b4709397cf8b1d162af05abfe8f450de5f36bc6b0455a8520bc4e6f5fe95b1fe3c8452b"
+        )
+    }
+
+    @Test
+    fun oneMillionA() {
         testKatMillionA(
             dig = digest(),
             ref = "9d0e1809716474cb086e834e310a4a1ced149e9c00f248527972cec5704c2a5b07b8b3dc38ecc4ebae97ddd87f3d8985"
+        )
+    }
+
+    @Test
+    @Ignore
+    fun reallyLong() {
+        testKatExtremelyLong(
+            digest(),
+            "5441235cc0235341ed806a64fb354742b5e5c02a3c5cb71b5f63fb793458d8fdae599c8cd8884943c04f11b31b89f023"
         )
     }
 

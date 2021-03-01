@@ -17,25 +17,55 @@
 package com.appmattus.crypto
 
 import fr.cryptohash.testKat
+import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatMillionA
+import kotlin.test.Ignore
 import kotlin.test.Test
 
+/**
+ * Test SHA-1 implementation.
+ */
 abstract class SHA1Base {
 
     abstract fun digest(): Digest<*>
 
     /**
-     * Test SHA-1 implementation.
+     * From https://www.di-mgt.com.au/sha_testvectors.html
      */
     @Test
-    fun testSHA1() {
-        val dig = digest()
-        testKat(dig, "", "da39a3ee5e6b4b0d3255bfef95601890afd80709")
+    fun empty() {
+        testKat(digest(), "", "da39a3ee5e6b4b0d3255bfef95601890afd80709")
+    }
+
+    @Test
+    fun nist112chars() {
+        testKat(
+            dig = digest(),
+            data = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu",
+            ref = "a49b2446a02c645bf419f995b67091253a04a259"
+        )
+    }
+
+    @Test
+    fun oneMillionA() {
         testKatMillionA(
-            dig,
+            digest(),
             "34aa973cd4c4daa4f61eeb2bdbad27316534016f"
         )
     }
+
+    @Test
+    @Ignore
+    fun reallyLong() {
+        testKatExtremelyLong(
+            digest(),
+            "7789f0c9ef7bfc40d93311143dfbe69e2017f592"
+        )
+    }
+
+    /**
+     * From https://csrc.nist.gov/csrc/media/projects/cryptographic-standards-and-guidelines/documents/examples/sha_all.pdf
+     */
 
     @Test
     fun nistAbc() {

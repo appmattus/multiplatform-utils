@@ -17,29 +17,41 @@
 package com.appmattus.crypto
 
 import fr.cryptohash.testKat
+import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatHex
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Ignore
 import kotlin.test.Test
 
+/**
+ * Test SHA-256 implementation.
+ */
 abstract class SHA256Base {
 
     abstract fun digest(): Digest<*>
 
     /**
-     * Test SHA-256 implementation.
+     * From https://www.di-mgt.com.au/sha_testvectors.html
      */
     @Test
-    fun testSHA256() {
-        val dig = digest()
+    fun empty() {
+        testKat(digest(), "", "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855")
+    }
 
-        testKat(
-            dig, "",
-            "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-        )
+    @Test
+    fun oneMillionA() {
         testKatMillionA(
-            dig,
+            digest(),
             "cdc76e5c9914fb9281a1c7e284d73e67f1809a48a497200e046d39ccc7112cd0"
+        )
+    }
+
+    @Test
+    @Ignore
+    fun reallyLong() {
+        testKatExtremelyLong(
+            digest(),
+            "50e72a0e26442fe2552dc3938ac58658228c0cbfb1d2ca872ae435266fcd055e"
         )
     }
 
@@ -61,6 +73,15 @@ abstract class SHA256Base {
             dig = digest(),
             data = "abcdbcdecdefdefgefghfghighijhijkijkljklmklmnlmnomnopnopq",
             ref = "248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1"
+        )
+    }
+
+    @Test
+    fun nist112chars() {
+        testKat(
+            dig = digest(),
+            data = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu",
+            ref = "cf5b16a778af8380036ce59e7b0492370b249b11e8f07a51afac45037afee9d1"
         )
     }
 

@@ -17,29 +17,50 @@
 package com.appmattus.crypto
 
 import fr.cryptohash.testKat
+import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatHex
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Ignore
 import kotlin.test.Test
 
+/**
+ * Test SHA-224 implementation.
+ */
 abstract class SHA224Base {
 
     abstract fun digest(): Digest<*>
 
     /**
-     * Test SHA-224 implementation.
+     * From https://www.di-mgt.com.au/sha_testvectors.html
      */
     @Test
-    fun testSHA224() {
-        val dig = digest()
+    fun empty() {
+        testKat(digest(), "", "d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f")
+    }
 
+    @Test
+    fun nist112chars() {
         testKat(
-            dig, "",
-            "d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f"
+            dig = digest(),
+            data = "abcdefghbcdefghicdefghijdefghijkefghijklfghijklmghijklmnhijklmnoijklmnopjklmnopqklmnopqrlmnopqrsmnopqrstnopqrstu",
+            ref = "c97ca9a559850ce97a04a96def6d99a9e0e0e2ab14e6b8df265fc0b3"
         )
+    }
+
+    @Test
+    fun oneMillionA() {
         testKatMillionA(
-            dig,
+            digest(),
             "20794655980c91d8bbb4c1ea97618a4bf03f42581948b2ee4ee7ad67"
+        )
+    }
+
+    @Test
+    @Ignore
+    fun reallyLong() {
+        testKatExtremelyLong(
+            digest(),
+            "b5989713ca4fe47a009f8621980b34e6d63ed3063b2a0a2c867d8a85"
         )
     }
 
