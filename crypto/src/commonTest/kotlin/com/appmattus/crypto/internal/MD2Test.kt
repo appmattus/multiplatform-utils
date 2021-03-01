@@ -14,23 +14,67 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDigest
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatMillionA
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 import kotlin.test.fail
 
-class PlatformDigestMD2Test {
+class MD2CoreTest : MD2Test() {
+    override fun digest(): Digest<*> = CoreDigest.create(Algorithm.MD2)
 
-    /**
-     * Test MD2 implementation.
-     */
     @Test
-    @Deprecated("")
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+class MD2PlatformTest : MD2Test() {
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.MD2) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// On iOS this test is equivalent to the "...PlatformTest"
+class MD2InstalledProviderTest : MD2Test() {
+
+    @BeforeTest
+    fun beforeTest() {
+        installPlatformProvider()
+    }
+
+    @AfterTest
+    fun afterTest() {
+        removePlatformProvider()
+    }
+
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.MD2) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+/**
+ * Test MD2 implementation.
+ */
+abstract class MD2Test {
+
+    abstract fun digest(): Digest<*>
+
+    @Test
     fun testMD2() {
-        val dig = PlatformDigest().create(Algorithm.MD2) ?: fail()
+        val dig = digest()
         testKat(dig, "", "8350e5a3e24c153df2275c9f80692773")
         testKat(dig, "a", "32ec01ec4a6dac72c0ab96fb34c0b5d1")
         testKat(dig, "abc", "da853b0d3f88d99b30283a69e6ded6bb")

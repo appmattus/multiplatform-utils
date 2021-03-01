@@ -39,6 +39,7 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
+                implementation("org.bouncycastle:bcprov-jdk15to18:1.68")
             }
         }
         val iosMain by getting

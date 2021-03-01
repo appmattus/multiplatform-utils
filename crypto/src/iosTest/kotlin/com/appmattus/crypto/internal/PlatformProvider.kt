@@ -14,11 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDigest
-import kotlin.test.fail
-
-class PlatformDigestSHA1Test : SHA1Base() {
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_1) ?: fail()
-}
+actual fun installPlatformProvider() = Unit
+actual fun removePlatformProvider() = Unit

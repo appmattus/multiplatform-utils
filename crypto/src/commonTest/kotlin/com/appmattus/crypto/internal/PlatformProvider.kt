@@ -14,13 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDigest
-import com.appmattus.ignore.IgnoreIos
-import kotlin.test.fail
-
-@IgnoreIos
-class PlatformDigestSHA3_224Test : SHA3_224Base() {
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA3_224) ?: fail()
-}
+expect fun installPlatformProvider()
+expect fun removePlatformProvider()

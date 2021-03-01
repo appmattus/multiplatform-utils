@@ -14,18 +14,63 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatMillionA
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertNotNull
+import kotlin.test.fail
+
+class SHA1CoreTest : SHA1Test() {
+    override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SHA_1)
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+class SHA1PlatformTest : SHA1Test() {
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_1) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// On iOS this test is equivalent to the "...PlatformTest"
+class SHA1InstalledProviderTest : SHA1Test() {
+
+    @BeforeTest
+    fun beforeTest() {
+        installPlatformProvider()
+    }
+
+    @AfterTest
+    fun afterTest() {
+        removePlatformProvider()
+    }
+
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_1) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
 
 /**
  * Test SHA-1 implementation.
  */
-abstract class SHA1Base {
+abstract class SHA1Test {
 
     abstract fun digest(): Digest<*>
 

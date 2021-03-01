@@ -14,18 +14,68 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
+import com.appmattus.ignore.IgnoreIos
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatExtremelyLong
 import fr.cryptohash.testKatMillionA
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Ignore
 import kotlin.test.Test
+import kotlin.test.assertNotNull
+import kotlin.test.fail
+
+// No core support yet
+@Ignore
+class SHA3_256CoreTest : SHA3_256Test() {
+    override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SHA3_256)
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// Only supported in Java 9+ and no built-in support on iOS
+@Ignore
+class SHA3_256PlatformTest : SHA3_256Test() {
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA3_256) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+@IgnoreIos
+class SHA3_256InstalledProviderTest : SHA3_256Test() {
+
+    @BeforeTest
+    fun beforeTest() {
+        installPlatformProvider()
+    }
+
+    @AfterTest
+    fun afterTest() {
+        removePlatformProvider()
+    }
+
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA3_256) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
 
 /**
- * Test SHA-512 implementation.
+ * Test SHA3-256 implementation.
  */
-abstract class SHA3_256Base {
+abstract class SHA3_256Test {
 
     abstract fun digest(): Digest<*>
 

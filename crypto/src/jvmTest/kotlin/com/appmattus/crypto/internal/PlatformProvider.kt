@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDigest
-import com.appmattus.ignore.IgnoreIos
-import kotlin.test.fail
+import org.bouncycastle.jce.provider.BouncyCastleProvider
+import java.security.Security
 
-@IgnoreIos
-class PlatformDigestSHA3_512Test : SHA3_512Base() {
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA3_512) ?: fail()
+actual fun installPlatformProvider() {
+    Security.insertProviderAt(BouncyCastleProvider(), 0)
+}
+
+actual fun removePlatformProvider() {
+    Security.removeProvider(BouncyCastleProvider.PROVIDER_NAME)
 }

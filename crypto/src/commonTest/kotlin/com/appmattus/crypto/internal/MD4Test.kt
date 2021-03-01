@@ -14,25 +14,71 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDigest
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 import com.appmattus.ignore.IgnoreJunit4
 import fr.cryptohash.testCollision
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatMillionA
+import kotlin.test.AfterTest
+import kotlin.test.BeforeTest
 import kotlin.test.Test
+import kotlin.test.assertNotNull
 import kotlin.test.fail
 
-@IgnoreJunit4
-class PlatformDigestMD4Test {
+class MD4CoreTest : MD4Test() {
+    override fun digest(): Digest<*> = CoreDigest.create(Algorithm.MD4)
 
-    /**
-     * Test MD4 implementation.
-     */
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// Java does not implement MD4
+@IgnoreJunit4
+class MD4PlatformTest : MD4Test() {
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.MD4) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+// On iOS this test is equivalent to the "...PlatformTest"
+class MD4InstalledProviderTest : MD4Test() {
+
+    @BeforeTest
+    fun beforeTest() {
+        installPlatformProvider()
+    }
+
+    @AfterTest
+    fun afterTest() {
+        removePlatformProvider()
+    }
+
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.MD4) ?: fail()
+
+    @Test
+    fun hasImplementation() {
+        assertNotNull(digest())
+    }
+}
+
+/**
+ * Test MD4 implementation.
+ */
+abstract class MD4Test {
+
+    abstract fun digest(): Digest<*>
+
     @Test
     fun testMD4() {
-        val dig = PlatformDigest().create(Algorithm.MD4) ?: fail()
+        val dig = digest()
         testKat(dig, "", "31d6cfe0d16ae931b73c59d7e0c089c0")
         testKat(dig, "a", "bde52cb31de33e46245e05fbdbd6fb24")
         testKat(dig, "abc", "a448017aaf21d8525fc10ae87aa6729d")
@@ -45,13 +91,13 @@ class PlatformDigestMD4Test {
             "d79e1c308aa5bbcdeea8ed63df412da9"
         )
         testKat(
-            dig, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstu"
-                    + "vwxyz0123456789",
+            dig,
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
             "043f8582f241db351ce627e153e7f0e4"
         )
         testKat(
-            dig, "1234567890123456789012345678901234567890123456789"
-                    + "0123456789012345678901234567890",
+            dig,
+            "12345678901234567890123456789012345678901234567890123456789012345678901234567890",
             "e33b4ddc9c38f2199c3e7b164fcc0536"
         )
         testKatMillionA(dig, "bbce80cc6bb65e5c6745e30d4eeca9a4")
