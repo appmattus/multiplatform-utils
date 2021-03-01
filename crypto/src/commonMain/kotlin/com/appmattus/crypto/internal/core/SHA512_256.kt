@@ -20,7 +20,8 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import fr.cryptohash.SHA2BigCore
 
-class SHA512_256 : Digest<SHA512_256> {
+@Suppress("ClassName")
+internal class SHA512_256 : Digest<SHA512_256> {
     private var delegate = Hash()
 
     override fun update(input: Byte) = delegate.update(input)

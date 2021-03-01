@@ -30,7 +30,7 @@ package fr.cryptohash
  * @version   $Revision: 258 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class KeccakCore<D : KeccakCore<D>> internal constructor(private val markByte: Byte = 0x01) : DigestEngine<D>() {
+internal abstract class KeccakCore<D : KeccakCore<D>> internal constructor(private val markByte: Byte = 0x01) : DigestEngine<D>() {
     private lateinit var a: LongArray
     private lateinit var tmpOut: ByteArray
 

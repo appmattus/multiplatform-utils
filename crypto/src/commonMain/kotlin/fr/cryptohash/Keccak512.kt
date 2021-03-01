@@ -33,7 +33,7 @@ import com.appmattus.crypto.Algorithm
  * @version   $Revision: 189 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Keccak512 : KeccakCore<Keccak512>() {
+internal class Keccak512 : KeccakCore<Keccak512>() {
 
     override fun copy(): Keccak512 {
         return copyState(Keccak512())

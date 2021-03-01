@@ -24,7 +24,7 @@ import fr.cryptohash.KeccakCore
  * This class implements the SHA3-384 digest algorithm under the
  * [Digest] API.
  */
-class SHA3_384 : KeccakCore<SHA3_384>(markByte = 0x06) {
+internal class SHA3_384 : KeccakCore<SHA3_384>(markByte = 0x06) {
 
     override fun copy(): SHA3_384 {
         return copyState(SHA3_384())

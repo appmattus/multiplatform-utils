@@ -24,7 +24,7 @@ import fr.cryptohash.KeccakCore
  * This class implements the Keccak-288 digest algorithm under the
  * [Digest] API.
  */
-class Keccak288 : KeccakCore<Keccak288>() {
+internal class Keccak288 : KeccakCore<Keccak288>() {
 
     override fun copy(): Keccak288 {
         return copyState(Keccak288())
