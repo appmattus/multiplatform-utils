@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto.jvm
+package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Digest
 import java.security.MessageDigest

@@ -16,10 +16,11 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.internal.PlatformDigest
 import com.appmattus.ignore.IgnoreIos
 import kotlin.test.fail
 
 @IgnoreIos
 class PlatformDigestSHA512_256Test : SHA512_256Base() {
-    override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA_512_256) ?: fail()
+    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA_512_256) ?: fail()
 }

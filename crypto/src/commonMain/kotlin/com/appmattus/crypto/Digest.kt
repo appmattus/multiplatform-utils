@@ -16,6 +16,10 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.internal.CoreDigest
+import com.appmattus.crypto.internal.PlatformDigest
+import fr.cryptohash.HMAC
+
 /**
  * Digests are secure one-way hash functions that take arbitrary-sized
  * data and output a fixed-length hash value.
@@ -150,4 +154,20 @@ interface Digest<D : Digest<D>> {
      * for SHA-1).
      */
     override fun toString(): String
+
+    companion object {
+        fun create(algorithm: Algorithm): Digest<*> {
+
+            return try {
+                PlatformDigest().create(algorithm) ?: CoreDigest.create(algorithm)
+            } catch (expected: Exception) {
+                CoreDigest.create(algorithm)
+            }
+        }
+    }
 }
+
+fun ByteArray.hash(algorithm: Algorithm): ByteArray = Digest.create(algorithm).digest(this)
+
+fun ByteArray.hmac(digest: Digest<*>, key: ByteArray): ByteArray = HMAC(digest, key).digest(this)
+fun ByteArray.hmac(digest: Digest<*>, key: ByteArray, outputLength: Int): ByteArray = HMAC(digest, key, outputLength).digest(this)

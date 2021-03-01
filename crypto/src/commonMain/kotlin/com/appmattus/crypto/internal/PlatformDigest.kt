@@ -14,16 +14,12 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDelegating
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 
-class SHA224 : PlatformDelegating<SHA224>(
-    algorithm = Algorithm.SHA_224,
-    coreImplementation = {
-        fr.cryptohash.SHA224()
-    }
-) {
+internal expect class PlatformDigest() {
 
-    override fun dup() = SHA224()
+    fun create(algorithm: Algorithm): Digest<*>?
 }

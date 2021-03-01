@@ -16,9 +16,7 @@
 
 package com.appmattus.crypto
 
-import com.appmattus.crypto.Digest
-import com.appmattus.crypto.SHA512_224
-import com.appmattus.crypto.SHA512_224Base
+import com.appmattus.crypto.internal.core.SHA512_224
 
 class SHA512_224Test : SHA512_224Base() {
 

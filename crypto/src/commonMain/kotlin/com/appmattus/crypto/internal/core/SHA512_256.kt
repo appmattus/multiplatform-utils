@@ -14,8 +14,10 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal.core
 
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 import fr.cryptohash.SHA2BigCore
 
 class SHA512_256 : Digest<SHA512_256> {

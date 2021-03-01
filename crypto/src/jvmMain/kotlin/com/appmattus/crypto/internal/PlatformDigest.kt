@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.internal.PlatformDelegating
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
 
-class MD5 : PlatformDelegating<MD5>(
-    algorithm = Algorithm.MD5,
-    coreImplementation = {
-        fr.cryptohash.MD5()
+internal actual class PlatformDigest {
+
+    actual fun create(algorithm: Algorithm): Digest<*>? {
+        return try {
+            MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)
+        } catch (expected: Exception) {
+            null
+        }
     }
-) {
-
-    override fun dup() = MD5()
 }

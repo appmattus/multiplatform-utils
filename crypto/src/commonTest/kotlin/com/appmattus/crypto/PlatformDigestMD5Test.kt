@@ -16,6 +16,7 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.internal.PlatformDigest
 import fr.cryptohash.testCollision
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatMillionA
@@ -29,7 +30,7 @@ class PlatformDigestMD5Test {
      */
     @Test
     fun testMD5() {
-        val dig = PlatformDigest().createDigest(Algorithm.MD5) ?: fail()
+        val dig = PlatformDigest().create(Algorithm.MD5) ?: fail()
 
         testKat(dig, "", "d41d8cd98f00b204e9800998ecf8427e")
         testKat(dig, "a", "0cc175b9c0f1b6a831c399e269772661")

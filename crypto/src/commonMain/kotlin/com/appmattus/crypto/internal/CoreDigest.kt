@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.crypto.internal
 
-import com.appmattus.crypto.ios.MD2
-import com.appmattus.crypto.ios.MD4
-import com.appmattus.crypto.ios.MD5
-import com.appmattus.crypto.ios.SHA1
-import com.appmattus.crypto.ios.SHA224
-import com.appmattus.crypto.ios.SHA256
-import com.appmattus.crypto.ios.SHA384
-import com.appmattus.crypto.ios.SHA512
+import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.SHA512_224
+import com.appmattus.crypto.internal.core.SHA512_256
+import fr.cryptohash.MD2
+import fr.cryptohash.MD4
+import fr.cryptohash.MD5
+import fr.cryptohash.SHA1
+import fr.cryptohash.SHA224
+import fr.cryptohash.SHA256
+import fr.cryptohash.SHA384
+import fr.cryptohash.SHA512
 
-fun ByteArray.toHexString(): String {
-    return joinToString("") { (0xFF and it.toInt()).toString(16).padStart(2, '0') }
-}
-
-internal actual class PlatformDigest {
-
-    actual fun createDigest(algorithm: Algorithm): Digest<*>? {
+internal object CoreDigest {
+    fun create(algorithm: Algorithm): Digest<*> {
         return when (algorithm) {
             Algorithm.MD2 -> MD2()
             Algorithm.MD4 -> MD4()
@@ -41,7 +40,12 @@ internal actual class PlatformDigest {
             Algorithm.SHA_256 -> SHA256()
             Algorithm.SHA_384 -> SHA384()
             Algorithm.SHA_512 -> SHA512()
-            else -> null
+            Algorithm.SHA_512_224 -> SHA512_224()
+            Algorithm.SHA_512_256 -> SHA512_256()
+            Algorithm.SHA3_224 -> TODO()
+            Algorithm.SHA3_256 -> TODO()
+            Algorithm.SHA3_384 -> TODO()
+            Algorithm.SHA3_512 -> TODO()
         }
     }
 }

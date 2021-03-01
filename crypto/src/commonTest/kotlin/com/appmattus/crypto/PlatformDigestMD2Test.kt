@@ -16,6 +16,7 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.internal.PlatformDigest
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Test
@@ -29,7 +30,7 @@ class PlatformDigestMD2Test {
     @Test
     @Deprecated("")
     fun testMD2() {
-        val dig = PlatformDigest().createDigest(Algorithm.MD2) ?: fail()
+        val dig = PlatformDigest().create(Algorithm.MD2) ?: fail()
         testKat(dig, "", "8350e5a3e24c153df2275c9f80692773")
         testKat(dig, "a", "32ec01ec4a6dac72c0ab96fb34c0b5d1")
         testKat(dig, "abc", "da853b0d3f88d99b30283a69e6ded6bb")

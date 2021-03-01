@@ -16,6 +16,7 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.internal.PlatformDigest
 import com.appmattus.ignore.IgnoreJunit4
 import fr.cryptohash.testCollision
 import fr.cryptohash.testKat
@@ -31,7 +32,7 @@ class PlatformDigestMD4Test {
      */
     @Test
     fun testMD4() {
-        val dig = PlatformDigest().createDigest(Algorithm.MD4) ?: fail()
+        val dig = PlatformDigest().create(Algorithm.MD4) ?: fail()
         testKat(dig, "", "31d6cfe0d16ae931b73c59d7e0c089c0")
         testKat(dig, "a", "bde52cb31de33e46245e05fbdbd6fb24")
         testKat(dig, "abc", "a448017aaf21d8525fc10ae87aa6729d")
