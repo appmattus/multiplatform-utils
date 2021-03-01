@@ -138,7 +138,7 @@ internal class SHA1 : Digest<SHA1> {
     }
 
     override val blockLength: Int
-        get() = Algorithm.SHA1.blockLength
+        get() = Algorithm.SHA_1.blockLength
 
     override fun toString() = "SHA1"
 }

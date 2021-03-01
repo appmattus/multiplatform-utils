@@ -19,7 +19,7 @@ package com.appmattus.crypto
 import com.appmattus.crypto.internal.PlatformDelegating
 
 class SHA256 : PlatformDelegating<SHA256>(
-    algorithm = Algorithm.SHA256,
+    algorithm = Algorithm.SHA_256,
     coreImplementation = {
         fr.cryptohash.SHA256()
     }

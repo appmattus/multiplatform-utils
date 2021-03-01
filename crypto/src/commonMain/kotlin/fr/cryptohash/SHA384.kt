@@ -42,7 +42,7 @@ internal class SHA384 : SHA2BigCore<SHA384>() {
         get() = 48
 
     override val blockLength: Int
-        get() = Algorithm.SHA384.blockLength
+        get() = Algorithm.SHA_384.blockLength
 
     override fun copy(): SHA384 {
         return copyState(SHA384())

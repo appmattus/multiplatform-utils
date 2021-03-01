@@ -72,7 +72,7 @@ class SHA512_224 : Digest<SHA512_224> {
             get() = 64
 
         override val blockLength: Int
-            get() = Algorithm.SHA512.blockLength
+            get() = Algorithm.SHA_512.blockLength
 
         override fun copy(): Hash {
             return copyState(Hash())

@@ -19,7 +19,7 @@ package com.appmattus.crypto
 import com.appmattus.crypto.internal.PlatformDelegating
 
 class SHA384 : PlatformDelegating<SHA384>(
-    algorithm = Algorithm.SHA384,
+    algorithm = Algorithm.SHA_384,
     coreImplementation = {
         fr.cryptohash.SHA384()
     }

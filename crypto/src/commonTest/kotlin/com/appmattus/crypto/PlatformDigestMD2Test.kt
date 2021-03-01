@@ -27,6 +27,7 @@ class PlatformDigestMD2Test {
      * Test MD2 implementation.
      */
     @Test
+    @Deprecated("")
     fun testMD2() {
         val dig = PlatformDigest().createDigest(Algorithm.MD2) ?: fail()
         testKat(dig, "", "8350e5a3e24c153df2275c9f80692773")

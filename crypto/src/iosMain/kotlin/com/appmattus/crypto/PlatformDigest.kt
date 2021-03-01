@@ -36,11 +36,11 @@ internal actual class PlatformDigest {
             Algorithm.MD2 -> MD2()
             Algorithm.MD4 -> MD4()
             Algorithm.MD5 -> MD5()
-            Algorithm.SHA1 -> SHA1()
-            Algorithm.SHA224 -> SHA224()
-            Algorithm.SHA256 -> SHA256()
-            Algorithm.SHA384 -> SHA384()
-            Algorithm.SHA512 -> SHA512()
+            Algorithm.SHA_1 -> SHA1()
+            Algorithm.SHA_224 -> SHA224()
+            Algorithm.SHA_256 -> SHA256()
+            Algorithm.SHA_384 -> SHA384()
+            Algorithm.SHA_512 -> SHA512()
             else -> null
         }
     }

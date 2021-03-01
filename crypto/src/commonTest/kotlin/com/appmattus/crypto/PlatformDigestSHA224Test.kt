@@ -19,5 +19,5 @@ package com.appmattus.crypto
 import kotlin.test.fail
 
 class PlatformDigestSHA224Test : SHA224Base() {
-    override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA224) ?: fail()
+    override fun digest(): Digest<*> = PlatformDigest().createDigest(Algorithm.SHA_224) ?: fail()
 }

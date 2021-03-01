@@ -16,12 +16,14 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.ignore.IgnoreJvm
 import fr.cryptohash.testCollision
 import fr.cryptohash.testKat
 import fr.cryptohash.testKatMillionA
 import kotlin.test.Test
 import kotlin.test.fail
 
+@IgnoreJvm
 class PlatformDigestMD4Test {
 
     /**

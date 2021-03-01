@@ -42,7 +42,7 @@ internal class SHA224 : SHA2Core<SHA224>() {
         get() = 28
 
     override val blockLength: Int
-        get() = Algorithm.SHA224.blockLength
+        get() = Algorithm.SHA_224.blockLength
 
     override fun copy(): SHA224 {
         return copyState(SHA224())

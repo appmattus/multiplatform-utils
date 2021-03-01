@@ -19,7 +19,7 @@ package com.appmattus.crypto
 import com.appmattus.crypto.internal.PlatformDelegating
 
 class SHA512 : PlatformDelegating<SHA512>(
-    algorithm = Algorithm.SHA512,
+    algorithm = Algorithm.SHA_512,
     coreImplementation = {
         fr.cryptohash.SHA512()
     }

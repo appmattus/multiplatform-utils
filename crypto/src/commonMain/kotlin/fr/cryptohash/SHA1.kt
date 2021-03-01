@@ -46,7 +46,7 @@ internal class SHA1 : MDHelper<SHA1>(false, 8) {
         get() = 20
 
     override val blockLength: Int
-        get() = Algorithm.SHA1.blockLength
+        get() = Algorithm.SHA_1.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301

@@ -135,7 +135,7 @@ internal class SHA256 : Digest<SHA256> {
     }
 
     override val blockLength: Int
-        get() = Algorithm.SHA256.blockLength
+        get() = Algorithm.SHA_256.blockLength
 
     override fun toString() = "SHA256"
 }

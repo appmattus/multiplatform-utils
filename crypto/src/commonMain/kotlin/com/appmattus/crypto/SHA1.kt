@@ -19,7 +19,7 @@ package com.appmattus.crypto
 import com.appmattus.crypto.internal.PlatformDelegating
 
 class SHA1 : PlatformDelegating<SHA1>(
-    algorithm = Algorithm.SHA1,
+    algorithm = Algorithm.SHA_1,
     coreImplementation = {
         fr.cryptohash.SHA1()
     }

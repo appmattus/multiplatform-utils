@@ -14,23 +14,10 @@
  * limitations under the License.
  */
 
-package com.appmattus.crypto
+package com.appmattus.ignore
 
-enum class Algorithm(val blockLength: Int) {
-    MD2(16),
-    MD4(64),
-    MD5(64),
-    SHA_1(64),
-    SHA_224(64),
-    SHA_256(64),
-    SHA_384(128),
-    SHA_512(128),
-    SHA_512_224(128),
-    SHA_512_256(128),
-
-    // Block lengths based on values in Keccak implementation
-    SHA3_224(144),
-    SHA3_256(136),
-    SHA3_384(104),
-    SHA3_512(72)
-}
+@Suppress("EXPERIMENTAL_API_USAGE_ERROR")
+@OptionalExpectation
+@Target(AnnotationTarget.CLASS, AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.BINARY)
+expect annotation class IgnoreIos()

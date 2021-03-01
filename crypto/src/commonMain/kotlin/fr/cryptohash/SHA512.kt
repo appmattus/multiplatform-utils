@@ -42,7 +42,7 @@ internal class SHA512 : SHA2BigCore<SHA512>() {
         get() = 64
 
     override val blockLength: Int
-        get() = Algorithm.SHA512.blockLength
+        get() = Algorithm.SHA_512.blockLength
 
     override fun copy(): SHA512 {
         return copyState(SHA512())

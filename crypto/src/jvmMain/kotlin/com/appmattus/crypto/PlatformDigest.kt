@@ -24,11 +24,20 @@ internal actual class PlatformDigest {
         return when (algorithm) {
             Algorithm.MD2 -> MessageDigestPlatform("MD2", algorithm.blockLength)
             Algorithm.MD5 -> MessageDigestPlatform("MD5", algorithm.blockLength)
-            Algorithm.SHA1 -> MessageDigestPlatform("SHA-1", algorithm.blockLength)
-            Algorithm.SHA224 -> MessageDigestPlatform("SHA-224", algorithm.blockLength)
-            Algorithm.SHA256 -> MessageDigestPlatform("SHA-256", algorithm.blockLength)
-            Algorithm.SHA384 -> MessageDigestPlatform("SHA-384", algorithm.blockLength)
-            Algorithm.SHA512 -> MessageDigestPlatform("SHA-512", algorithm.blockLength)
+            Algorithm.SHA_1 -> MessageDigestPlatform("SHA-1", algorithm.blockLength)
+            Algorithm.SHA_224 -> MessageDigestPlatform("SHA-224", algorithm.blockLength)
+            Algorithm.SHA_256 -> MessageDigestPlatform("SHA-256", algorithm.blockLength)
+            Algorithm.SHA_384 -> MessageDigestPlatform("SHA-384", algorithm.blockLength)
+            Algorithm.SHA_512 -> MessageDigestPlatform("SHA-512", algorithm.blockLength)
+
+            Algorithm.SHA_512_224 -> MessageDigestPlatform("SHA-512/224", algorithm.blockLength)
+            Algorithm.SHA_512_256 -> MessageDigestPlatform("SHA-512/256", algorithm.blockLength)
+
+            Algorithm.SHA3_224 -> MessageDigestPlatform("SHA3-224", algorithm.blockLength)
+            Algorithm.SHA3_256 -> MessageDigestPlatform("SHA3-256", algorithm.blockLength)
+            Algorithm.SHA3_384 -> MessageDigestPlatform("SHA3-384", algorithm.blockLength)
+            Algorithm.SHA3_512 -> MessageDigestPlatform("SHA3-512", algorithm.blockLength)
+
             else -> null
         }
     }

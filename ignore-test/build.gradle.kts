@@ -27,20 +27,19 @@ kotlin {
     ios()
 
     sourceSets {
-        val commonMain by getting
-        val commonTest by getting {
+        val commonMain by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation(project(":ignore-test"))
             }
         }
-        val jvmMain by getting
-        val jvmTest by getting {
+        val commonTest by getting
+        val jvmMain by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
             }
         }
+        val jvmTest by getting
         val iosMain by getting
         val iosTest by getting
     }

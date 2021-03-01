@@ -19,7 +19,7 @@ package com.appmattus.crypto
 import com.appmattus.crypto.internal.PlatformDelegating
 
 class SHA224 : PlatformDelegating<SHA224>(
-    algorithm = Algorithm.SHA224,
+    algorithm = Algorithm.SHA_224,
     coreImplementation = {
         fr.cryptohash.SHA224()
     }
