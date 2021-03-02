@@ -32,6 +32,8 @@ import fr.cryptohash.Keccak512
 import fr.cryptohash.MD2
 import fr.cryptohash.MD4
 import fr.cryptohash.MD5
+import fr.cryptohash.RIPEMD128
+import fr.cryptohash.RIPEMD160
 import fr.cryptohash.SHA1
 import fr.cryptohash.SHA224
 import fr.cryptohash.SHA256
@@ -62,6 +64,9 @@ internal object CoreDigest {
             Algorithm.Keccak288 -> Keccak288()
             Algorithm.Keccak384 -> Keccak384()
             Algorithm.Keccak512 -> Keccak512()
+
+            Algorithm.RIPEMD128 -> RIPEMD128()
+            Algorithm.RIPEMD160 -> RIPEMD160()
         }
     }
 }

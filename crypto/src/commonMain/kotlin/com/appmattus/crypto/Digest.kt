@@ -156,14 +156,7 @@ interface Digest<D : Digest<D>> {
     override fun toString(): String
 
     companion object {
-        fun create(algorithm: Algorithm): Digest<*> {
-
-            return try {
-                PlatformDigest().create(algorithm) ?: CoreDigest.create(algorithm)
-            } catch (expected: Exception) {
-                CoreDigest.create(algorithm)
-            }
-        }
+        fun create(algorithm: Algorithm): Digest<*> = PlatformDigest().create(algorithm) ?: CoreDigest.create(algorithm)
     }
 }
 

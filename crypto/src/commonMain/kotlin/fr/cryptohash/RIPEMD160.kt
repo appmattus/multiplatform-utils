@@ -31,7 +31,8 @@ package fr.cryptohash
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RIPEMD160 : MDHelper<RIPEMD160>(true, 8) {
+internal class RIPEMD160 : MDHelper<RIPEMD160>(true, 8) {
+
     private lateinit var currentVal: IntArray
     private lateinit var x: IntArray
 

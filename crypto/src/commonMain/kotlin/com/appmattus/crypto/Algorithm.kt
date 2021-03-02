@@ -39,4 +39,7 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     Keccak288("Keccak-288", 128),
     Keccak384("Keccak-384", 104),
     Keccak512("Keccak-512", 72),
+
+    RIPEMD128("RIPEMD128", 64),
+    RIPEMD160("RIPEMD160", 64),
 }

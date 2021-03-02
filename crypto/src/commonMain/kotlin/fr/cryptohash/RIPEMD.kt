@@ -25,7 +25,7 @@ package fr.cryptohash
 
 /**
  *
- * This class implements the RIPEMD digest algorithm under the [ ] API. This is the original RIPEMD, **not** the
+ * This class implements the RIPEMD digest algorithm under the [Digest] API. This is the original RIPEMD, **not** the
  * strengthened variants RIPEMD-128 or RIPEMD-160. A collision for this
  * RIPEMD has been published in 2004.
  *
