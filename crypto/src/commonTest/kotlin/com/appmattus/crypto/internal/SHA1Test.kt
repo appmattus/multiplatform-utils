@@ -135,6 +135,60 @@ abstract class SHA1Test {
         testCollision(digest(), goodPdf, badPdf)
     }
 
+    /**
+     * From https://sha-mbles.github.io
+     */
+    @Test
+    fun shamblesCollision() {
+        testCollision(
+            dig = digest(),
+            s1 = "99040d047fe81780012000ff4b65792069732070617274206f6620612063" +
+                    "6f6c6c6973696f6e212049742773206120747261702179c61af0afcc0545" +
+                    "15d9274e7307624b1dc7fb23988bb8de8b575dba7b9eab31c1674b6d9743" +
+                    "78a827732ff5851c76a2e60772b5a47ce1eac40bb993c12d8c70e24a4f8d" +
+                    "5fcdedc1b32c9cf19e31af2429759d42e4dfdb31719f587623ee552939b6" +
+                    "dcdc459fca53553b70f87ede30a247ea3af6c759a2f20b320d760db64ff4" +
+                    "79084fd3ccb3cdd48362d96a9c430617caff6c36c637e53fde28417f626f" +
+                    "ec54ed7943a46e5f5730f2bb38fb1df6e0090010d00e24ad78bf92641993" +
+                    "608e8d158a789f34c46fe1e6027f35a4cbfb827076c50eca0e8b7cca69bb" +
+                    "2c2b790259f9bf9570dd8d4437a3115faff7c3cac09ad25266055c271047" +
+                    "55178eaeff825a2caa2acfb5de64ce7641dc59a541a9fc9c756756e2e23d" +
+                    "c713c8c24c9790aa6b0e38a7f55f14452a1ca2850ddd9562fd9a18ad4249" +
+                    "6aa97008f74672f68ef461eb88b09933d626b4f918749cc027fddd6c425f" +
+                    "c4216835d0134d15285bab2cb784a4f7cbb4fb514d4bf0f6237cf00a9e9f" +
+                    "132b9a066e6fd17f6c42987478586ff651af96747fb426b9872b9a88e406" +
+                    "3f59bb334cc00650f83a80c42751b71974d300fc2819a2e8f1e32c1b51cb" +
+                    "18e6bfc4db9baef675d4aaf5b1574a047f8f6dd2ec153a93412293974d92" +
+                    "8f88ced9363cfef97ce2e742bf34c96b8ef3875676fea5cca8e5f7dea0ba" +
+                    "b2413d4de00ee71ee01f162bdb6d1eafd925e6aebaae6a354ef17cf205a4" +
+                    "04fbdb12fc454d41fdd95cf2459664a2ad032d1da60a73264075d7f1e0d6" +
+                    "c1403ae7a0d861df3fe5707188dd5e07d1589b9f8b6630553f8fc352b3e0" +
+                    "c27da80bddba4c64020d",
+            s2 = "99030d047fe81780011800ff50726163746963616c205348412d31206368" +
+                    "6f73656e2d70726566697820636f6c6c6973696f6e211d276c6ba661e104" +
+                    "0e1f7d767f076249ddc7fb332c8bb8c2b7575dbec79eab2be1674b7db343" +
+                    "78b4cb732fe1891c76a0260772a5107ce1f6e80bb9977d2d8c68524a4f9d" +
+                    "5fcdedcd0b2c9ce19231af26e9759d5250dfdb2d4d9f58729fee553319b6" +
+                    "dccc619fca4fb93b70ec72de30a087ea3ae67359a2ee27320d72b1b64fec" +
+                    "c9084fc3ccb3cdd83b62d97a904306150aff6c267237e523e228417bde6f" +
+                    "ec4ecd7943b44a5f572c1ebb38ef11f6e00bc010d01e90ad78a3be641997" +
+                    "dc8e8d0d3a789f24c46fe1eaba7f35b4c7fb8272b6c50edaba8b7cd655bb" +
+                    "2c2fc50259e39f9570cda94437bffd5fafe3cfcac09812526615e827105b" +
+                    "79178eaa43825a341a2acfa5de64ce7af9dc59b54da9fc9eb56756f2563d" +
+                    "c70ff4c24c932caa6b1418a7f54f30452a004e850dc99962fd98d8ad4259" +
+                    "dea97014db4672f232f461f338b09923d626b4f5a0749cd02bfddd6e825f" +
+                    "c431dc35d00f7115285f172cb79e84f7cba4df514d571cf62368fc0a9e9d" +
+                    "d32b9a16da6fd16340429870c4586feee1af96647fb426b53f2b9a98e806" +
+                    "3f5b7b334cd0b250f826bcc427550b1974c920fc280986e8f1ffc01b51df" +
+                    "14e6bfc61b9baee6c1d4aae99d574a00c38f6dca5c153a834122939bf592" +
+                    "8f98c2d9363e3ef97cf25342bf28f56b8ef73b5676e485cca8f5d3dea0a6" +
+                    "5e413d59ec0ee71c201f163b6f6d1eb3f525e6aa06ae6a2dfef17ce205a4" +
+                    "04f76312fc554141fddb9cf24586d0a2ad1f111da60ecf26406ff7f1e0c6" +
+                    "e5403afb4cd861cb33e5707348dd5e1765589b83a7663051838fc34a03e0" +
+                    "c26da80bddb6f464021d"
+        )
+    }
+
     companion object {
         private const val goodPdf = "255044462d312e330a25e2e3cfd30a0a0a312030206f626a0a3c3c2f5769" +
                 "6474682032203020522f4865696768742033203020522f54797065203420" +
