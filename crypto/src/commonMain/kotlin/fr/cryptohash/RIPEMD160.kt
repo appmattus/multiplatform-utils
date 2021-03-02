@@ -23,6 +23,8 @@
 
 package fr.cryptohash
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the RIPEMD-160 digest algorithm under the
@@ -218,9 +220,7 @@ internal class RIPEMD160 : MDHelper<RIPEMD160>(true, 8) {
         currentVal[0] = t
     }
 
-    override fun toString(): String {
-        return "RIPEMD-160"
-    }
+    override fun toString() = Algorithm.RIPEMD160.algorithmName
 
     companion object {
         /**
