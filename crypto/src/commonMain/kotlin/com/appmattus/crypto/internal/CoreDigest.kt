@@ -19,6 +19,8 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.Keccak288
+import com.appmattus.crypto.internal.core.RIPEMD256
+import com.appmattus.crypto.internal.core.RIPEMD320
 import com.appmattus.crypto.internal.core.SHA3_224
 import com.appmattus.crypto.internal.core.SHA3_256
 import com.appmattus.crypto.internal.core.SHA3_384
@@ -67,6 +69,8 @@ internal object CoreDigest {
 
             Algorithm.RIPEMD128 -> RIPEMD128()
             Algorithm.RIPEMD160 -> RIPEMD160()
+            Algorithm.RIPEMD256 -> RIPEMD256()
+            Algorithm.RIPEMD320 -> RIPEMD320()
         }
     }
 }
