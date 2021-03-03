@@ -43,6 +43,8 @@ import fr.cryptohash.SHA224
 import fr.cryptohash.SHA256
 import fr.cryptohash.SHA384
 import fr.cryptohash.SHA512
+import fr.cryptohash.Tiger
+import fr.cryptohash.Tiger2
 
 internal object CoreDigest {
     fun create(algorithm: Algorithm): Digest<*> {
@@ -73,6 +75,9 @@ internal object CoreDigest {
             Algorithm.RIPEMD160 -> RIPEMD160()
             Algorithm.RIPEMD256 -> RIPEMD256()
             Algorithm.RIPEMD320 -> RIPEMD320()
+
+            Algorithm.Tiger -> Tiger()
+            Algorithm.Tiger2 -> Tiger2()
 
             Algorithm.Adler32 -> Adler32()
             Algorithm.CRC32 -> CRC32()
