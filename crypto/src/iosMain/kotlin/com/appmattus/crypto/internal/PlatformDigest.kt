@@ -18,6 +18,7 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.ios.CRC32
 import com.appmattus.crypto.internal.core.ios.MD2
 import com.appmattus.crypto.internal.core.ios.MD4
 import com.appmattus.crypto.internal.core.ios.MD5
@@ -36,6 +37,7 @@ internal actual class PlatformDigest {
             Algorithm.MD2 -> MD2()
             Algorithm.MD4 -> MD4()
             Algorithm.MD5 -> MD5()
+
             Algorithm.SHA_1 -> SHA1()
             Algorithm.SHA_224 -> SHA224()
             Algorithm.SHA_256 -> SHA256()
@@ -43,6 +45,9 @@ internal actual class PlatformDigest {
             Algorithm.SHA_512 -> SHA512()
             Algorithm.SHA_512_224 -> SHA512_224()
             Algorithm.SHA_512_256 -> SHA512_256()
+
+            Algorithm.CRC32 -> CRC32()
+
             else -> null
         }
     }

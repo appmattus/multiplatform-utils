@@ -5,8 +5,10 @@ functions.
 
 The following hashing algorithms are supported
 
+- Adler32
 - BLAKE-224, BLAKE-256, BLAKE-384, BLAKE-512
 - BMW-224, BMW-256, BMW-384, BMW-512
+- CRC32
 - CubeHash-224, CubeHash-256, CubeHash-384, CubeHash-512
 - ECHO-224, ECHO-256, ECHO-384, ECHO-512
 - Fugue-224, Fugue-256, Fugue-384, Fugue-512
@@ -22,7 +24,7 @@ The following hashing algorithms are supported
 - MD2, MD4, MD5
 - PANAMA
 - RadioGatun32, RadioGatun64
-- RIPEMD, RIPEMD-128, RIPEMD-160
+- RIPEMD, RIPEMD-128, RIPEMD-160, RIPEMD-256, RIPEMD-320
 - SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512
 - Shabal-192, Shabal-224, Shabal-256, Shabal-384, Shabal-512
 - SHAvite-224, SHAvite-256, SHAvite-384, SHAvite-512

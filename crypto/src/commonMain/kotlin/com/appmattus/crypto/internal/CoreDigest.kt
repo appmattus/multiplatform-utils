@@ -18,6 +18,8 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.Adler32
+import com.appmattus.crypto.internal.core.CRC32
 import com.appmattus.crypto.internal.core.Keccak288
 import com.appmattus.crypto.internal.core.RIPEMD256
 import com.appmattus.crypto.internal.core.RIPEMD320
@@ -71,6 +73,9 @@ internal object CoreDigest {
             Algorithm.RIPEMD160 -> RIPEMD160()
             Algorithm.RIPEMD256 -> RIPEMD256()
             Algorithm.RIPEMD320 -> RIPEMD320()
+
+            Algorithm.Adler32 -> Adler32()
+            Algorithm.CRC32 -> CRC32()
         }
     }
 }

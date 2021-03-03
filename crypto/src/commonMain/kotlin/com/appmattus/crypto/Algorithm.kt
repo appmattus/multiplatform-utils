@@ -45,4 +45,7 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
 
     RIPEMD256("RIPEMD256", 64),
     RIPEMD320("RIPEMD320", 64),
+
+    Adler32("Adler32", 32),
+    CRC32("CRC32", 32),
 }

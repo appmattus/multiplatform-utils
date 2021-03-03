@@ -18,14 +18,21 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.jvm.Adler32
+import com.appmattus.crypto.internal.core.jvm.CRC32
 
 internal actual class PlatformDigest {
 
     actual fun create(algorithm: Algorithm): Digest<*>? {
-        return try {
-            MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)
-        } catch (expected: Exception) {
-            null
+        return when (algorithm) {
+            Algorithm.Adler32 -> Adler32()
+            Algorithm.CRC32 -> CRC32()
+
+            else -> try {
+                MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)
+            } catch (expected: Exception) {
+                null
+            }
         }
     }
 }
