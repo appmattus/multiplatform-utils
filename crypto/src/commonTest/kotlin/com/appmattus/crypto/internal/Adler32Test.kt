@@ -19,7 +19,7 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.ignore.IgnoreIos
-import fr.cryptohash.testKat
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.fail

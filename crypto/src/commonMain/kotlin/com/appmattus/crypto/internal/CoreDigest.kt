@@ -21,30 +21,30 @@ import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.Adler32
 import com.appmattus.crypto.internal.core.CRC32
 import com.appmattus.crypto.internal.core.Keccak288
-import com.appmattus.crypto.internal.core.RIPEMD256
-import com.appmattus.crypto.internal.core.RIPEMD320
+import com.appmattus.crypto.internal.core.RipeMD256
+import com.appmattus.crypto.internal.core.RipeMD320
 import com.appmattus.crypto.internal.core.SHA3_224
 import com.appmattus.crypto.internal.core.SHA3_256
 import com.appmattus.crypto.internal.core.SHA3_384
 import com.appmattus.crypto.internal.core.SHA3_512
 import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
-import fr.cryptohash.Keccak224
-import fr.cryptohash.Keccak256
-import fr.cryptohash.Keccak384
-import fr.cryptohash.Keccak512
-import fr.cryptohash.MD2
-import fr.cryptohash.MD4
-import fr.cryptohash.MD5
-import fr.cryptohash.RIPEMD128
-import fr.cryptohash.RIPEMD160
-import fr.cryptohash.SHA1
-import fr.cryptohash.SHA224
-import fr.cryptohash.SHA256
-import fr.cryptohash.SHA384
-import fr.cryptohash.SHA512
-import fr.cryptohash.Tiger
-import fr.cryptohash.Tiger2
+import com.appmattus.crypto.internal.core.sphlib.Keccak224
+import com.appmattus.crypto.internal.core.sphlib.Keccak256
+import com.appmattus.crypto.internal.core.sphlib.Keccak384
+import com.appmattus.crypto.internal.core.sphlib.Keccak512
+import com.appmattus.crypto.internal.core.sphlib.MD2
+import com.appmattus.crypto.internal.core.sphlib.MD4
+import com.appmattus.crypto.internal.core.sphlib.MD5
+import com.appmattus.crypto.internal.core.sphlib.RipeMD128
+import com.appmattus.crypto.internal.core.sphlib.RipeMD160
+import com.appmattus.crypto.internal.core.sphlib.SHA1
+import com.appmattus.crypto.internal.core.sphlib.SHA224
+import com.appmattus.crypto.internal.core.sphlib.SHA256
+import com.appmattus.crypto.internal.core.sphlib.SHA384
+import com.appmattus.crypto.internal.core.sphlib.SHA512
+import com.appmattus.crypto.internal.core.sphlib.Tiger
+import com.appmattus.crypto.internal.core.sphlib.Tiger2
 
 internal object CoreDigest {
     fun create(algorithm: Algorithm): Digest<*> {
@@ -71,10 +71,10 @@ internal object CoreDigest {
             Algorithm.Keccak384 -> Keccak384()
             Algorithm.Keccak512 -> Keccak512()
 
-            Algorithm.RIPEMD128 -> RIPEMD128()
-            Algorithm.RIPEMD160 -> RIPEMD160()
-            Algorithm.RIPEMD256 -> RIPEMD256()
-            Algorithm.RIPEMD320 -> RIPEMD320()
+            Algorithm.RipeMD128 -> RipeMD128()
+            Algorithm.RipeMD160 -> RipeMD160()
+            Algorithm.RipeMD256 -> RipeMD256()
+            Algorithm.RipeMD320 -> RipeMD320()
 
             Algorithm.Tiger -> Tiger()
             Algorithm.Tiger2 -> Tiger2()

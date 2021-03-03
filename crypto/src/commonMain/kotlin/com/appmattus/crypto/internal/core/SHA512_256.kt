@@ -18,7 +18,7 @@ package com.appmattus.crypto.internal.core
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import fr.cryptohash.SHA2BigCore
+import com.appmattus.crypto.internal.core.sphlib.SHA2BigCore
 
 @Suppress("ClassName")
 internal class SHA512_256 : Digest<SHA512_256> {

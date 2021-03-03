@@ -17,7 +17,7 @@
 package com.appmattus.crypto.internal.core
 
 import com.appmattus.crypto.Algorithm
-import fr.cryptohash.KeccakCore
+import com.appmattus.crypto.internal.core.sphlib.KeccakCore
 
 /**
  *

@@ -18,7 +18,7 @@ package com.appmattus.crypto
 
 import com.appmattus.crypto.internal.CoreDigest
 import com.appmattus.crypto.internal.PlatformDigest
-import fr.cryptohash.HMAC
+import com.appmattus.crypto.internal.core.sphlib.HMAC
 
 /**
  * Digests are secure one-way hash functions that take arbitrary-sized

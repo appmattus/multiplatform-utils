@@ -21,7 +21,7 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.ignore.IgnoreIos
-import fr.cryptohash.testKatHex
+import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test

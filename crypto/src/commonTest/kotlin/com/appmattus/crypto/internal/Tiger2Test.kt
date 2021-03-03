@@ -2,8 +2,8 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import fr.cryptohash.testKat
-import fr.cryptohash.testKatMillionA
+import com.appmattus.crypto.internal.core.sphlib.testKat
+import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
