@@ -29,6 +29,8 @@ import com.appmattus.crypto.internal.core.SHA3_384
 import com.appmattus.crypto.internal.core.SHA3_512
 import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
+import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
+import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
@@ -81,6 +83,9 @@ internal object CoreDigest {
 
             Algorithm.Adler32 -> Adler32()
             Algorithm.CRC32 -> CRC32()
+
+            Algorithm.GOST3411_2012_256 -> GOST3411_2012_256()
+            Algorithm.GOST3411_2012_512 -> GOST3411_2012_512()
         }
     }
 }

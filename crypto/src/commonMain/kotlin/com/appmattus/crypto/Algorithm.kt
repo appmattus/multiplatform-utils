@@ -50,4 +50,7 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
 
     Adler32("Adler32", 32),
     CRC32("CRC32", 32),
+
+    GOST3411_2012_256("GOST3411-2012-256", 64),
+    GOST3411_2012_512("GOST3411-2012-512", 64),
 }
