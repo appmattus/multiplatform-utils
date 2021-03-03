@@ -98,277 +98,277 @@ class RIPEMD320 : MDHelper<RIPEMD320>(true, 8) {
         e2 = currentVal[9]
         var j = 0
         while (j < 15) {
-            a = Bits.rotateLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
-            c = Bits.rotateLeft(c, 10)
-            e = Bits.rotateLeft(e + f1(a, b, c) + x[permute[j]], rotate[j++]) + d
-            b = Bits.rotateLeft(b, 10)
-            d = Bits.rotateLeft(d + f1(e, a, b) + x[permute[j]], rotate[j++]) + c
-            a = Bits.rotateLeft(a, 10)
-            c = Bits.rotateLeft(c + f1(d, e, a) + x[permute[j]], rotate[j++]) + b
-            e = Bits.rotateLeft(e, 10)
-            b = Bits.rotateLeft(b + f1(c, d, e) + x[permute[j]], rotate[j++]) + a
-            d = Bits.rotateLeft(d, 10)
+            a = rotateLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
+            c = rotateLeft(c, 10)
+            e = rotateLeft(e + f1(a, b, c) + x[permute[j]], rotate[j++]) + d
+            b = rotateLeft(b, 10)
+            d = rotateLeft(d + f1(e, a, b) + x[permute[j]], rotate[j++]) + c
+            a = rotateLeft(a, 10)
+            c = rotateLeft(c + f1(d, e, a) + x[permute[j]], rotate[j++]) + b
+            e = rotateLeft(e, 10)
+            b = rotateLeft(b + f1(c, d, e) + x[permute[j]], rotate[j++]) + a
+            d = rotateLeft(d, 10)
         }
-        a = Bits.rotateLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
-        c = Bits.rotateLeft(c, 10)
+        a = rotateLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
+        c = rotateLeft(c, 10)
         while (j < 31) {
-            a2 = Bits.rotateLeft(
+            a2 = rotateLeft(
                 a2 + f5(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + e2
-            c2 = Bits.rotateLeft(c2, 10)
-            e2 = Bits.rotateLeft(
+            c2 = rotateLeft(c2, 10)
+            e2 = rotateLeft(
                 e2 + f5(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + d2
-            b2 = Bits.rotateLeft(b2, 10)
-            d2 = Bits.rotateLeft(
+            b2 = rotateLeft(b2, 10)
+            d2 = rotateLeft(
                 d2 + f5(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + c2
-            a2 = Bits.rotateLeft(a2, 10)
-            c2 = Bits.rotateLeft(
+            a2 = rotateLeft(a2, 10)
+            c2 = rotateLeft(
                 c2 + f5(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + b2
-            e2 = Bits.rotateLeft(e2, 10)
-            b2 = Bits.rotateLeft(
+            e2 = rotateLeft(e2, 10)
+            b2 = rotateLeft(
                 b2 + f5(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + a2
-            d2 = Bits.rotateLeft(d2, 10)
+            d2 = rotateLeft(d2, 10)
         }
-        a2 = Bits.rotateLeft(a2 + f5(b2, c2, d2) + x[permute[j]] + m1, rotate[j++]) + e2
-        c2 = Bits.rotateLeft(c2, 10)
+        a2 = rotateLeft(a2 + f5(b2, c2, d2) + x[permute[j]] + m1, rotate[j++]) + e2
+        c2 = rotateLeft(c2, 10)
         temp = a2
         a2 = a
         a = temp
         while (j < 47) {
-            e = Bits.rotateLeft(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
-            b = Bits.rotateLeft(b, 10)
-            d = Bits.rotateLeft(d + f2(e, a, b) + x[permute[j]] + m2, rotate[j++]) + c
-            a = Bits.rotateLeft(a, 10)
-            c = Bits.rotateLeft(c + f2(d, e, a) + x[permute[j]] + m2, rotate[j++]) + b
-            e = Bits.rotateLeft(e, 10)
-            b = Bits.rotateLeft(b + f2(c, d, e) + x[permute[j]] + m2, rotate[j++]) + a
-            d = Bits.rotateLeft(d, 10)
-            a = Bits.rotateLeft(a + f2(b, c, d) + x[permute[j]] + m2, rotate[j++]) + e
-            c = Bits.rotateLeft(c, 10)
+            e = rotateLeft(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
+            b = rotateLeft(b, 10)
+            d = rotateLeft(d + f2(e, a, b) + x[permute[j]] + m2, rotate[j++]) + c
+            a = rotateLeft(a, 10)
+            c = rotateLeft(c + f2(d, e, a) + x[permute[j]] + m2, rotate[j++]) + b
+            e = rotateLeft(e, 10)
+            b = rotateLeft(b + f2(c, d, e) + x[permute[j]] + m2, rotate[j++]) + a
+            d = rotateLeft(d, 10)
+            a = rotateLeft(a + f2(b, c, d) + x[permute[j]] + m2, rotate[j++]) + e
+            c = rotateLeft(c, 10)
         }
-        e = Bits.rotateLeft(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
-        b = Bits.rotateLeft(b, 10)
+        e = rotateLeft(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
+        b = rotateLeft(b, 10)
         while (j < 63) {
-            e2 = Bits.rotateLeft(
+            e2 = rotateLeft(
                 e2 + f4(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + d2
-            b2 = Bits.rotateLeft(b2, 10)
-            d2 = Bits.rotateLeft(
+            b2 = rotateLeft(b2, 10)
+            d2 = rotateLeft(
                 d2 + f4(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + c2
-            a2 = Bits.rotateLeft(a2, 10)
-            c2 = Bits.rotateLeft(
+            a2 = rotateLeft(a2, 10)
+            c2 = rotateLeft(
                 c2 + f4(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + b2
-            e2 = Bits.rotateLeft(e2, 10)
-            b2 = Bits.rotateLeft(
+            e2 = rotateLeft(e2, 10)
+            b2 = rotateLeft(
                 b2 + f4(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + a2
-            d2 = Bits.rotateLeft(d2, 10)
-            a2 = Bits.rotateLeft(
+            d2 = rotateLeft(d2, 10)
+            a2 = rotateLeft(
                 a2 + f4(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + e2
-            c2 = Bits.rotateLeft(c2, 10)
+            c2 = rotateLeft(c2, 10)
         }
-        e2 = Bits.rotateLeft(e2 + f4(a2, b2, c2) + x[permute[j]] + m3, rotate[j++]) + d2
-        b2 = Bits.rotateLeft(b2, 10)
+        e2 = rotateLeft(e2 + f4(a2, b2, c2) + x[permute[j]] + m3, rotate[j++]) + d2
+        b2 = rotateLeft(b2, 10)
         temp = b2
         b2 = b
         b = temp
         while (j < 79) {
-            d = Bits.rotateLeft(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
-            a = Bits.rotateLeft(a, 10)
-            c = Bits.rotateLeft(c + f3(d, e, a) + x[permute[j]] + m4, rotate[j++]) + b
-            e = Bits.rotateLeft(e, 10)
-            b = Bits.rotateLeft(b + f3(c, d, e) + x[permute[j]] + m4, rotate[j++]) + a
-            d = Bits.rotateLeft(d, 10)
-            a = Bits.rotateLeft(a + f3(b, c, d) + x[permute[j]] + m4, rotate[j++]) + e
-            c = Bits.rotateLeft(c, 10)
-            e = Bits.rotateLeft(e + f3(a, b, c) + x[permute[j]] + m4, rotate[j++]) + d
-            b = Bits.rotateLeft(b, 10)
+            d = rotateLeft(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
+            a = rotateLeft(a, 10)
+            c = rotateLeft(c + f3(d, e, a) + x[permute[j]] + m4, rotate[j++]) + b
+            e = rotateLeft(e, 10)
+            b = rotateLeft(b + f3(c, d, e) + x[permute[j]] + m4, rotate[j++]) + a
+            d = rotateLeft(d, 10)
+            a = rotateLeft(a + f3(b, c, d) + x[permute[j]] + m4, rotate[j++]) + e
+            c = rotateLeft(c, 10)
+            e = rotateLeft(e + f3(a, b, c) + x[permute[j]] + m4, rotate[j++]) + d
+            b = rotateLeft(b, 10)
         }
-        d = Bits.rotateLeft(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
-        a = Bits.rotateLeft(a, 10)
+        d = rotateLeft(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
+        a = rotateLeft(a, 10)
         while (j < 95) {
-            d2 = Bits.rotateLeft(
+            d2 = rotateLeft(
                 d2 + f3(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + c2
-            a2 = Bits.rotateLeft(a2, 10)
-            c2 = Bits.rotateLeft(
+            a2 = rotateLeft(a2, 10)
+            c2 = rotateLeft(
                 c2 + f3(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + b2
-            e2 = Bits.rotateLeft(e2, 10)
-            b2 = Bits.rotateLeft(
+            e2 = rotateLeft(e2, 10)
+            b2 = rotateLeft(
                 b2 + f3(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + a2
-            d2 = Bits.rotateLeft(d2, 10)
-            a2 = Bits.rotateLeft(
+            d2 = rotateLeft(d2, 10)
+            a2 = rotateLeft(
                 a2 + f3(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + e2
-            c2 = Bits.rotateLeft(c2, 10)
-            e2 = Bits.rotateLeft(
+            c2 = rotateLeft(c2, 10)
+            e2 = rotateLeft(
                 e2 + f3(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + d2
-            b2 = Bits.rotateLeft(b2, 10)
+            b2 = rotateLeft(b2, 10)
         }
-        d2 = Bits.rotateLeft(d2 + f3(e2, a2, b2) + x[permute[j]] + m5, rotate[j++]) + c2
-        a2 = Bits.rotateLeft(a2, 10)
+        d2 = rotateLeft(d2 + f3(e2, a2, b2) + x[permute[j]] + m5, rotate[j++]) + c2
+        a2 = rotateLeft(a2, 10)
         temp = c2
         c2 = c
         c = temp
         while (j < 111) {
-            c = Bits.rotateLeft(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
-            e = Bits.rotateLeft(e, 10)
-            b = Bits.rotateLeft(b + f4(c, d, e) + x[permute[j]] + m6, rotate[j++]) + a
-            d = Bits.rotateLeft(d, 10)
-            a = Bits.rotateLeft(a + f4(b, c, d) + x[permute[j]] + m6, rotate[j++]) + e
-            c = Bits.rotateLeft(c, 10)
-            e = Bits.rotateLeft(e + f4(a, b, c) + x[permute[j]] + m6, rotate[j++]) + d
-            b = Bits.rotateLeft(b, 10)
-            d = Bits.rotateLeft(d + f4(e, a, b) + x[permute[j]] + m6, rotate[j++]) + c
-            a = Bits.rotateLeft(a, 10)
+            c = rotateLeft(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
+            e = rotateLeft(e, 10)
+            b = rotateLeft(b + f4(c, d, e) + x[permute[j]] + m6, rotate[j++]) + a
+            d = rotateLeft(d, 10)
+            a = rotateLeft(a + f4(b, c, d) + x[permute[j]] + m6, rotate[j++]) + e
+            c = rotateLeft(c, 10)
+            e = rotateLeft(e + f4(a, b, c) + x[permute[j]] + m6, rotate[j++]) + d
+            b = rotateLeft(b, 10)
+            d = rotateLeft(d + f4(e, a, b) + x[permute[j]] + m6, rotate[j++]) + c
+            a = rotateLeft(a, 10)
         }
-        c = Bits.rotateLeft(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
-        e = Bits.rotateLeft(e, 10)
+        c = rotateLeft(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
+        e = rotateLeft(e, 10)
         while (j < 127) {
-            c2 = Bits.rotateLeft(
+            c2 = rotateLeft(
                 c2 + f2(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + b2
-            e2 = Bits.rotateLeft(e2, 10)
-            b2 = Bits.rotateLeft(
+            e2 = rotateLeft(e2, 10)
+            b2 = rotateLeft(
                 b2 + f2(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + a2
-            d2 = Bits.rotateLeft(d2, 10)
-            a2 = Bits.rotateLeft(
+            d2 = rotateLeft(d2, 10)
+            a2 = rotateLeft(
                 a2 + f2(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + e2
-            c2 = Bits.rotateLeft(c2, 10)
-            e2 = Bits.rotateLeft(
+            c2 = rotateLeft(c2, 10)
+            e2 = rotateLeft(
                 e2 + f2(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + d2
-            b2 = Bits.rotateLeft(b2, 10)
-            d2 = Bits.rotateLeft(
+            b2 = rotateLeft(b2, 10)
+            d2 = rotateLeft(
                 d2 + f2(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + c2
-            a2 = Bits.rotateLeft(a2, 10)
+            a2 = rotateLeft(a2, 10)
         }
-        c2 = Bits.rotateLeft(c2 + f2(d2, e2, a2) + x[permute[j]] + m7, rotate[j++]) + b2
-        e2 = Bits.rotateLeft(e2, 10)
+        c2 = rotateLeft(c2 + f2(d2, e2, a2) + x[permute[j]] + m7, rotate[j++]) + b2
+        e2 = rotateLeft(e2, 10)
         temp = d2
         d2 = d
         d = temp
         while (j < 143) {
-            b = Bits.rotateLeft(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
-            d = Bits.rotateLeft(d, 10)
-            a = Bits.rotateLeft(a + f5(b, c, d) + x[permute[j]] + m8, rotate[j++]) + e
-            c = Bits.rotateLeft(c, 10)
-            e = Bits.rotateLeft(e + f5(a, b, c) + x[permute[j]] + m8, rotate[j++]) + d
-            b = Bits.rotateLeft(b, 10)
-            d = Bits.rotateLeft(d + f5(e, a, b) + x[permute[j]] + m8, rotate[j++]) + c
-            a = Bits.rotateLeft(a, 10)
-            c = Bits.rotateLeft(c + f5(d, e, a) + x[permute[j]] + m8, rotate[j++]) + b
-            e = Bits.rotateLeft(e, 10)
+            b = rotateLeft(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
+            d = rotateLeft(d, 10)
+            a = rotateLeft(a + f5(b, c, d) + x[permute[j]] + m8, rotate[j++]) + e
+            c = rotateLeft(c, 10)
+            e = rotateLeft(e + f5(a, b, c) + x[permute[j]] + m8, rotate[j++]) + d
+            b = rotateLeft(b, 10)
+            d = rotateLeft(d + f5(e, a, b) + x[permute[j]] + m8, rotate[j++]) + c
+            a = rotateLeft(a, 10)
+            c = rotateLeft(c + f5(d, e, a) + x[permute[j]] + m8, rotate[j++]) + b
+            e = rotateLeft(e, 10)
         }
-        b = Bits.rotateLeft(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
-        d = Bits.rotateLeft(d, 10)
+        b = rotateLeft(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
+        d = rotateLeft(d, 10)
         while (j < 159) {
-            b2 = Bits.rotateLeft(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j++]) + a2
-            d2 = Bits.rotateLeft(d2, 10)
-            a2 = Bits.rotateLeft(a2 + f1(b2, c2, d2) + x[permute[j]], rotate[j++]) + e2
-            c2 = Bits.rotateLeft(c2, 10)
-            e2 = Bits.rotateLeft(e2 + f1(a2, b2, c2) + x[permute[j]], rotate[j++]) + d2
-            b2 = Bits.rotateLeft(b2, 10)
-            d2 = Bits.rotateLeft(d2 + f1(e2, a2, b2) + x[permute[j]], rotate[j++]) + c2
-            a2 = Bits.rotateLeft(a2, 10)
-            c2 = Bits.rotateLeft(c2 + f1(d2, e2, a2) + x[permute[j]], rotate[j++]) + b2
-            e2 = Bits.rotateLeft(e2, 10)
+            b2 = rotateLeft(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j++]) + a2
+            d2 = rotateLeft(d2, 10)
+            a2 = rotateLeft(a2 + f1(b2, c2, d2) + x[permute[j]], rotate[j++]) + e2
+            c2 = rotateLeft(c2, 10)
+            e2 = rotateLeft(e2 + f1(a2, b2, c2) + x[permute[j]], rotate[j++]) + d2
+            b2 = rotateLeft(b2, 10)
+            d2 = rotateLeft(d2 + f1(e2, a2, b2) + x[permute[j]], rotate[j++]) + c2
+            a2 = rotateLeft(a2, 10)
+            c2 = rotateLeft(c2 + f1(d2, e2, a2) + x[permute[j]], rotate[j++]) + b2
+            e2 = rotateLeft(e2, 10)
         }
-        b2 = Bits.rotateLeft(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j++]) + a2
-        d2 = Bits.rotateLeft(d2, 10)
+        b2 = rotateLeft(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j++]) + a2
+        d2 = rotateLeft(d2, 10)
         currentVal[0] += a
         currentVal[1] += b
         currentVal[2] += c
@@ -436,6 +436,10 @@ class RIPEMD320 : MDHelper<RIPEMD320>(true, 8) {
 
         private fun f5(a: Int, b: Int, c: Int): Int {
             return a xor (b or c.inv())
+        }
+
+        fun rotateLeft(b: Int, k: Int): Int {
+            return b shl k or (b ushr 32 - k)
         }
 
         /**

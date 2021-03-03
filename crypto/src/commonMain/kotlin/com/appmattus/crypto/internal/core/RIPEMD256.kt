@@ -92,61 +92,61 @@ class RIPEMD256 : MDHelper<RIPEMD256>(true, 8) {
         d2 = currentVal[7]
         var j = 0
         while (j < 16) {
-            a = Bits.rotateLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++])
-            d = Bits.rotateLeft(d + f1(a, b, c) + x[permute[j]], rotate[j++])
-            c = Bits.rotateLeft(c + f1(d, a, b) + x[permute[j]], rotate[j++])
-            b = Bits.rotateLeft(b + f1(c, d, a) + x[permute[j]], rotate[j++])
+            a = rotateLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++])
+            d = rotateLeft(d + f1(a, b, c) + x[permute[j]], rotate[j++])
+            c = rotateLeft(c + f1(d, a, b) + x[permute[j]], rotate[j++])
+            b = rotateLeft(b + f1(c, d, a) + x[permute[j]], rotate[j++])
         }
         while (j < 32) {
-            a2 = Bits.rotateLeft(a2 + f4(b2, c2, d2) + x[permute[j]] + m6, rotate[j++])
-            d2 = Bits.rotateLeft(d2 + f4(a2, b2, c2) + x[permute[j]] + m6, rotate[j++])
-            c2 = Bits.rotateLeft(c2 + f4(d2, a2, b2) + x[permute[j]] + m6, rotate[j++])
-            b2 = Bits.rotateLeft(b2 + f4(c2, d2, a2) + x[permute[j]] + m6, rotate[j++])
+            a2 = rotateLeft(a2 + f4(b2, c2, d2) + x[permute[j]] + m6, rotate[j++])
+            d2 = rotateLeft(d2 + f4(a2, b2, c2) + x[permute[j]] + m6, rotate[j++])
+            c2 = rotateLeft(c2 + f4(d2, a2, b2) + x[permute[j]] + m6, rotate[j++])
+            b2 = rotateLeft(b2 + f4(c2, d2, a2) + x[permute[j]] + m6, rotate[j++])
         }
         temp = a2
         a2 = a
         a = temp
         while (j < 48) {
-            a = Bits.rotateLeft(a + f2(b, c, d) + x[permute[j]] + m1, rotate[j++])
-            d = Bits.rotateLeft(d + f2(a, b, c) + x[permute[j]] + m1, rotate[j++])
-            c = Bits.rotateLeft(c + f2(d, a, b) + x[permute[j]] + m1, rotate[j++])
-            b = Bits.rotateLeft(b + f2(c, d, a) + x[permute[j]] + m1, rotate[j++])
+            a = rotateLeft(a + f2(b, c, d) + x[permute[j]] + m1, rotate[j++])
+            d = rotateLeft(d + f2(a, b, c) + x[permute[j]] + m1, rotate[j++])
+            c = rotateLeft(c + f2(d, a, b) + x[permute[j]] + m1, rotate[j++])
+            b = rotateLeft(b + f2(c, d, a) + x[permute[j]] + m1, rotate[j++])
         }
         while (j < 64) {
-            a2 = Bits.rotateLeft(a2 + f3(b2, c2, d2) + x[permute[j]] + m5, rotate[j++])
-            d2 = Bits.rotateLeft(d2 + f3(a2, b2, c2) + x[permute[j]] + m5, rotate[j++])
-            c2 = Bits.rotateLeft(c2 + f3(d2, a2, b2) + x[permute[j]] + m5, rotate[j++])
-            b2 = Bits.rotateLeft(b2 + f3(c2, d2, a2) + x[permute[j]] + m5, rotate[j++])
+            a2 = rotateLeft(a2 + f3(b2, c2, d2) + x[permute[j]] + m5, rotate[j++])
+            d2 = rotateLeft(d2 + f3(a2, b2, c2) + x[permute[j]] + m5, rotate[j++])
+            c2 = rotateLeft(c2 + f3(d2, a2, b2) + x[permute[j]] + m5, rotate[j++])
+            b2 = rotateLeft(b2 + f3(c2, d2, a2) + x[permute[j]] + m5, rotate[j++])
         }
         temp = b2
         b2 = b
         b = temp
         while (j < 80) {
-            a = Bits.rotateLeft(a + f3(b, c, d) + x[permute[j]] + m2, rotate[j++])
-            d = Bits.rotateLeft(d + f3(a, b, c) + x[permute[j]] + m2, rotate[j++])
-            c = Bits.rotateLeft(c + f3(d, a, b) + x[permute[j]] + m2, rotate[j++])
-            b = Bits.rotateLeft(b + f3(c, d, a) + x[permute[j]] + m2, rotate[j++])
+            a = rotateLeft(a + f3(b, c, d) + x[permute[j]] + m2, rotate[j++])
+            d = rotateLeft(d + f3(a, b, c) + x[permute[j]] + m2, rotate[j++])
+            c = rotateLeft(c + f3(d, a, b) + x[permute[j]] + m2, rotate[j++])
+            b = rotateLeft(b + f3(c, d, a) + x[permute[j]] + m2, rotate[j++])
         }
         while (j < 96) {
-            a2 = Bits.rotateLeft(a2 + f2(b2, c2, d2) + x[permute[j]] + m4, rotate[j++])
-            d2 = Bits.rotateLeft(d2 + f2(a2, b2, c2) + x[permute[j]] + m4, rotate[j++])
-            c2 = Bits.rotateLeft(c2 + f2(d2, a2, b2) + x[permute[j]] + m4, rotate[j++])
-            b2 = Bits.rotateLeft(b2 + f2(c2, d2, a2) + x[permute[j]] + m4, rotate[j++])
+            a2 = rotateLeft(a2 + f2(b2, c2, d2) + x[permute[j]] + m4, rotate[j++])
+            d2 = rotateLeft(d2 + f2(a2, b2, c2) + x[permute[j]] + m4, rotate[j++])
+            c2 = rotateLeft(c2 + f2(d2, a2, b2) + x[permute[j]] + m4, rotate[j++])
+            b2 = rotateLeft(b2 + f2(c2, d2, a2) + x[permute[j]] + m4, rotate[j++])
         }
         temp = c2
         c2 = c
         c = temp
         while (j < 112) {
-            a = Bits.rotateLeft(a + f4(b, c, d) + x[permute[j]] + m3, rotate[j++])
-            d = Bits.rotateLeft(d + f4(a, b, c) + x[permute[j]] + m3, rotate[j++])
-            c = Bits.rotateLeft(c + f4(d, a, b) + x[permute[j]] + m3, rotate[j++])
-            b = Bits.rotateLeft(b + f4(c, d, a) + x[permute[j]] + m3, rotate[j++])
+            a = rotateLeft(a + f4(b, c, d) + x[permute[j]] + m3, rotate[j++])
+            d = rotateLeft(d + f4(a, b, c) + x[permute[j]] + m3, rotate[j++])
+            c = rotateLeft(c + f4(d, a, b) + x[permute[j]] + m3, rotate[j++])
+            b = rotateLeft(b + f4(c, d, a) + x[permute[j]] + m3, rotate[j++])
         }
         while (j < 128) {
-            a2 = Bits.rotateLeft(a2 + f1(b2, c2, d2) + x[permute[j]], rotate[j++])
-            d2 = Bits.rotateLeft(d2 + f1(a2, b2, c2) + x[permute[j]], rotate[j++])
-            c2 = Bits.rotateLeft(c2 + f1(d2, a2, b2) + x[permute[j]], rotate[j++])
-            b2 = Bits.rotateLeft(b2 + f1(c2, d2, a2) + x[permute[j]], rotate[j++])
+            a2 = rotateLeft(a2 + f1(b2, c2, d2) + x[permute[j]], rotate[j++])
+            d2 = rotateLeft(d2 + f1(a2, b2, c2) + x[permute[j]], rotate[j++])
+            c2 = rotateLeft(c2 + f1(d2, a2, b2) + x[permute[j]], rotate[j++])
+            b2 = rotateLeft(b2 + f1(c2, d2, a2) + x[permute[j]], rotate[j++])
         }
         temp = d2
         d2 = d
@@ -206,6 +206,10 @@ class RIPEMD256 : MDHelper<RIPEMD256>(true, 8) {
 
         private fun f4(a: Int, b: Int, c: Int): Int {
             return a and c or (b and c.inv())
+        }
+
+        fun rotateLeft(b: Int, k: Int): Int {
+            return b shl k or (b ushr 32 - k)
         }
 
         /**
