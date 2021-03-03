@@ -30,13 +30,6 @@ import com.appmattus.crypto.Algorithm
 @Suppress("ClassName")
 internal class GOST3411_2012_256 : GOST3411_2012Core<GOST3411_2012_256>(IV) {
 
-    override fun doFinal(out: ByteArray, outOff: Int): Int {
-        val result = ByteArray(64)
-        super.doFinal(result, 0)
-        result.copyInto(out, outOff, 32, 64)
-        return 32
-    }
-
     override val digestLength: Int
         get() = 32
 
@@ -46,6 +39,13 @@ internal class GOST3411_2012_256 : GOST3411_2012Core<GOST3411_2012_256>(IV) {
     override fun toString() = Algorithm.GOST3411_2012_256.algorithmName
 
     override fun createInstance() = GOST3411_2012_256()
+
+    override fun doFinal(out: ByteArray, outOff: Int): Int {
+        val result = ByteArray(64)
+        super.doFinal(result, 0)
+        result.copyInto(out, outOff, 32, 64)
+        return 32
+    }
 
     companion object {
         private val IV = byteArrayOf(

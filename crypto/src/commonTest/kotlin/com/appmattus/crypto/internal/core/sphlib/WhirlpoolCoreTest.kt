@@ -84,7 +84,7 @@ class WhirlpoolCoreTest {
      */
     @Test
     fun testWhirlpool1() {
-        val dig1 = Whirlpool1()
+        val dig1 = WhirlpoolT()
         testKat(
             dig1, "", (
                     "470F0409ABAA446E49667D4EBE12A14387CEDBD10DD17B8243CAD550A089DC0F"

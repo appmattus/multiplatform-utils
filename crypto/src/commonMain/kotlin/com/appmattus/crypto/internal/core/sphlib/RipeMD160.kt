@@ -48,7 +48,7 @@ internal class RipeMD160 : MDHelper<RipeMD160>(true, 8) {
         get() = 20
 
     override val blockLength: Int
-        get() = 64
+        get() = Algorithm.RipeMD160.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301

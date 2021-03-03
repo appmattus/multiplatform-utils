@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Tiger : TigerCore<Tiger>(0x01.toByte()) {
+internal class Tiger : TigerCore<Tiger>(0x01.toByte()) {
 
     override fun copy(): Tiger {
         return copyState(Tiger())

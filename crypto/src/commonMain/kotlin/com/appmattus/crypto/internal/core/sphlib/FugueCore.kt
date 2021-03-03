@@ -274,7 +274,7 @@ abstract class FugueCore<D : FugueCore<D>> internal constructor() : Digest<D> {
      *    bytes in ipad, opad) as B = 4*ceil(#-bits-in-key /32). >>
      */
     override val blockLength: Int
-        get() = -4
+        get() = digestLength
 
     override fun toString(): String {
         return "Fugue-" + (digestLength shl 3)

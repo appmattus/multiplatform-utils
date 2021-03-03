@@ -32,7 +32,7 @@ package com.appmattus.crypto.internal.core.sphlib
  *
  * @param fbyte   the first padding byte
  */
-abstract class TigerCore<D : TigerCore<D>> internal constructor(fbyte: Byte) : MDHelper<D>(true, 8, fbyte) {
+internal abstract class TigerCore<D : TigerCore<D>> internal constructor(fbyte: Byte) : MDHelper<D>(true, 8, fbyte) {
 
     private var currentA: Long = 0
     private var currentB: Long = 0

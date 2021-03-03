@@ -40,6 +40,7 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     Keccak384("Keccak-384", 104),
     Keccak512("Keccak-512", 72),
 
+    RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),
     RipeMD256("RipeMD256", 64),
@@ -53,4 +54,8 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
 
     GOST3411_2012_256("GOST3411-2012-256", 64),
     GOST3411_2012_512("GOST3411-2012-512", 64),
+
+    Whirlpool("Whirlpool", 64),
+    Whirlpool0("Whirlpool-0", 64),
+    WhirlpoolT("Whirlpool-T", 64)
 }

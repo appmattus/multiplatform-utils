@@ -38,6 +38,7 @@ import com.appmattus.crypto.internal.core.sphlib.Keccak512
 import com.appmattus.crypto.internal.core.sphlib.MD2
 import com.appmattus.crypto.internal.core.sphlib.MD4
 import com.appmattus.crypto.internal.core.sphlib.MD5
+import com.appmattus.crypto.internal.core.sphlib.RipeMD
 import com.appmattus.crypto.internal.core.sphlib.RipeMD128
 import com.appmattus.crypto.internal.core.sphlib.RipeMD160
 import com.appmattus.crypto.internal.core.sphlib.SHA1
@@ -47,6 +48,9 @@ import com.appmattus.crypto.internal.core.sphlib.SHA384
 import com.appmattus.crypto.internal.core.sphlib.SHA512
 import com.appmattus.crypto.internal.core.sphlib.Tiger
 import com.appmattus.crypto.internal.core.sphlib.Tiger2
+import com.appmattus.crypto.internal.core.sphlib.Whirlpool
+import com.appmattus.crypto.internal.core.sphlib.Whirlpool0
+import com.appmattus.crypto.internal.core.sphlib.WhirlpoolT
 
 internal object CoreDigest {
     fun create(algorithm: Algorithm): Digest<*> {
@@ -73,6 +77,7 @@ internal object CoreDigest {
             Algorithm.Keccak384 -> Keccak384()
             Algorithm.Keccak512 -> Keccak512()
 
+            Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()
             Algorithm.RipeMD160 -> RipeMD160()
             Algorithm.RipeMD256 -> RipeMD256()
@@ -86,6 +91,10 @@ internal object CoreDigest {
 
             Algorithm.GOST3411_2012_256 -> GOST3411_2012_256()
             Algorithm.GOST3411_2012_512 -> GOST3411_2012_512()
+
+            Algorithm.Whirlpool -> Whirlpool()
+            Algorithm.Whirlpool0 -> Whirlpool0()
+            Algorithm.WhirlpoolT -> WhirlpoolT()
         }
     }
 }

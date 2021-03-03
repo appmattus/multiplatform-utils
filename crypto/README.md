@@ -12,6 +12,7 @@ The following hashing algorithms are supported
 - CubeHash-224, CubeHash-256, CubeHash-384, CubeHash-512
 - ECHO-224, ECHO-256, ECHO-384, ECHO-512
 - Fugue-224, Fugue-256, Fugue-384, Fugue-512
+- GOST3411-2012-256, GOST3411-2012-512
 - Groestl-224, Groestl-256, Groestl-384, Groestl-512
 - Hamsi-224, Hamsi-256, Hamsi-384, Hamsi-512
 - HAVAL-128-3, HAVAL-128-4, HAVAL-128-5, HAVAL-160-3, HAVAL-160-4, HAVAL-160-5,
@@ -31,7 +32,8 @@ The following hashing algorithms are supported
 - SIMD-224, SIMD-256, SIMD-384, SIMD-512
 - Skein-224, Skein-256, Skein-384, Skein-512
 - Tiger, Tiger2
-- Whirlpool, Whirlpool0, Whirlpool1
+- Whirlpool, Whirlpool-0, Whirlpool-T
 
 Inspired by the Flutter [crypto](https://pub.dev/packages/crypto)
-package. Pure Kotlin implementations based on [saphir](https://github.com/sfuhrm/saphir-hash).
+package. Pure Kotlin implementations based on [saphir](https://github.com/sfuhrm/saphir-hash)
+and [Bouncy Castle](https://github.com/bcgit/bc-java/).

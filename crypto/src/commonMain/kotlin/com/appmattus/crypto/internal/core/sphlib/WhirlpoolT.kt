@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the Whirlpool-1 digest algorithm under the
@@ -32,15 +34,13 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Whirlpool1 : WhirlpoolCore<Whirlpool1>(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
+internal class WhirlpoolT : WhirlpoolCore<WhirlpoolT>(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
 
-    override fun copy(): Whirlpool1 {
-        return copyState(Whirlpool1())
+    override fun copy(): WhirlpoolT {
+        return copyState(WhirlpoolT())
     }
 
-    override fun toString(): String {
-        return "Whirlpool-1"
-    }
+    override fun toString() = Algorithm.WhirlpoolT.algorithmName
 
     companion object {
         private val T0 = longArrayOf(

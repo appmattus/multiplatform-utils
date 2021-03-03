@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the RipeMD digest algorithm under the [Digest] API. This is the original RipeMD, **not** the
@@ -32,7 +34,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RipeMD : MDHelper<RipeMD>(true, 8) {
+internal class RipeMD : MDHelper<RipeMD>(true, 8) {
 
     private lateinit var currentVal: IntArray
     private lateinit var x: IntArray
@@ -47,7 +49,7 @@ class RipeMD : MDHelper<RipeMD>(true, 8) {
         get() = 16
 
     override val blockLength: Int
-        get() = 64
+        get() = Algorithm.RipeMD.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301
@@ -303,9 +305,7 @@ class RipeMD : MDHelper<RipeMD>(true, 8) {
         currentVal[0] = t
     }
 
-    override fun toString(): String {
-        return "RIPEMD"
-    }
+    override fun toString() = Algorithm.RipeMD.algorithmName
 
     companion object {
         /**

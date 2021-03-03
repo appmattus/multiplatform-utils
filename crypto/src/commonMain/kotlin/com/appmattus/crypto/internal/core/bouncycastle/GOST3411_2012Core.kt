@@ -54,10 +54,10 @@ import kotlin.experimental.xor
  */
 @Suppress("ClassName")
 internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArray) : Digest<D> {
-    private val IV = ByteArray(64)
-    private val N = ByteArray(64)
-    private val Sigma = ByteArray(64)
-    private val Ki = ByteArray(64)
+    private val iv = ByteArray(64)
+    private val n = ByteArray(64)
+    private val sigma = ByteArray(64)
+    private val ki = ByteArray(64)
     private val m = ByteArray(64)
     private val h = ByteArray(64)
 
@@ -95,34 +95,34 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
         return digest.size
     }
 
-    override fun update(`in`: Byte) {
-        block[--bOff] = `in`
+    override fun update(input: Byte) {
+        block[--bOff] = input
         if (bOff == 0) {
-            g_N(h, N, block)
-            addMod512(N, 512)
-            addMod512(Sigma, block)
+            gN(h, n, block)
+            addMod512(n, 512)
+            addMod512(sigma, block)
             bOff = 64
         }
     }
 
-    override fun update(`in`: ByteArray, inOff: Int, len: Int) {
-        var inOff = inOff
-        var len = len
+    override fun update(input: ByteArray, offset: Int, length: Int) {
+        var inOff = offset
+        var len = length
         while (bOff != 64 && len > 0) {
-            update(`in`[inOff++])
+            update(input[inOff++])
             len--
         }
         while (len >= 64) {
-            `in`.copyInto(tmp, 0, inOff, inOff + 64)
+            input.copyInto(tmp, 0, inOff, inOff + 64)
             reverse(tmp, block)
-            g_N(h, N, block)
-            addMod512(N, 512)
-            addMod512(Sigma, block)
+            gN(h, n, block)
+            addMod512(n, 512)
+            addMod512(sigma, block)
             len -= 64
             inOff += 64
         }
         while (len > 0) {
-            update(`in`[inOff++])
+            update(input[inOff++])
             len--
         }
     }
@@ -138,11 +138,11 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
         if (bOff != 64) {
             block.copyInto(m, 64 - lenM, bOff, bOff + lenM)
         }
-        g_N(h, N, m)
-        addMod512(N, lenM * 8)
-        addMod512(Sigma, m)
-        g_N(h, Zero, N)
-        g_N(h, Zero, Sigma)
+        gN(h, n, m)
+        addMod512(n, lenM * 8)
+        addMod512(sigma, m)
+        gN(h, Zero, n)
+        gN(h, Zero, sigma)
         reverse(h, tmp)
         tmp.copyInto(out, outOff, 0, 64)
         reset()
@@ -151,13 +151,14 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
 
     override fun reset() {
         bOff = 64
-        N.fill(0.toByte())
-        Sigma.fill(0.toByte())
-        IV.copyInto(h, 0, 0, 64)
+        n.fill(0.toByte())
+        sigma.fill(0.toByte())
+        iv.copyInto(h, 0, 0, 64)
         block.fill(0.toByte())
     }
 
-    private fun F(V: ByteArray) {
+    @Suppress("JoinDeclarationAndAssignment")
+    private fun f(V: ByteArray) {
         val res = LongArray(8)
         var r: Long
         r = 0
@@ -320,27 +321,27 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
         }
     }
 
-    private fun E(K: ByteArray, m: ByteArray) {
-        K.copyInto(Ki, 0, 0, 64)
+    private fun e(K: ByteArray, m: ByteArray) {
+        K.copyInto(ki, 0, 0, 64)
         xor512(K, m)
-        F(K)
+        f(K)
         for (i in 0..10) {
-            xor512(Ki, C[i])
-            F(Ki)
-            xor512(K, Ki)
-            F(K)
+            xor512(ki, C[i])
+            f(ki)
+            xor512(K, ki)
+            f(K)
         }
-        xor512(Ki, C[11])
-        F(Ki)
-        xor512(K, Ki)
+        xor512(ki, C[11])
+        f(ki)
+        xor512(K, ki)
     }
 
-    private fun g_N(h: ByteArray, N: ByteArray, m: ByteArray) {
+    private fun gN(h: ByteArray, N: ByteArray, m: ByteArray) {
         h.copyInto(tmp, 0, 0, 64)
 
         xor512(h, N)
-        F(h)
-        E(h, m)
+        f(h)
+        e(h, m)
         xor512(h, tmp)
         xor512(h, m)
     }
@@ -1028,10 +1029,10 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
     override fun copy(): D {
         val instance = createInstance()
 
-        IV.copyInto(instance.IV, 0, 0, 64)
-        N.copyInto(instance.N, 0, 0, 64)
-        Sigma.copyInto(instance.Sigma, 0, 0, 64)
-        Ki.copyInto(instance.Ki, 0, 0, 64)
+        iv.copyInto(instance.iv, 0, 0, 64)
+        n.copyInto(instance.n, 0, 0, 64)
+        sigma.copyInto(instance.sigma, 0, 0, 64)
+        ki.copyInto(instance.ki, 0, 0, 64)
         m.copyInto(instance.m, 0, 0, 64)
         h.copyInto(instance.h, 0, 0, 64)
 
@@ -1043,7 +1044,7 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
     }
 
     init {
-        IV.copyInto(this.IV, 0, 0, 64)
+        IV.copyInto(this.iv, 0, 0, 64)
         IV.copyInto(h, 0, 0, 64)
     }
 }
