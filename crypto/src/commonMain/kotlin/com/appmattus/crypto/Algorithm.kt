@@ -91,6 +91,9 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     SIMD384("SIMD-384", 128),
     SIMD512("SIMD-512", 128),
 
+    RadioGatun32("RadioGatún[32]", 156),
+    RadioGatun64("RadioGatún[64]", 312),
+
     RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),

@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the RadioGatun[32] digest algorithm under the
@@ -46,7 +48,7 @@ internal class RadioGatun32 : DigestEngine<RadioGatun32>() {
         get() = 32
 
     override val blockLength: Int
-        get() = 156 //-12
+        get() = Algorithm.RadioGatun32.blockLength
 
     override fun engineReset() {
         for (i in a.indices) a[i] = 0
@@ -397,9 +399,7 @@ internal class RadioGatun32 : DigestEngine<RadioGatun32>() {
 		*/
     }
 
-    override fun toString(): String {
-        return "RadioGatun[32]"
-    }
+    override fun toString() = Algorithm.RadioGatun32.algorithmName
 
     companion object {
         /**

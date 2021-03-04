@@ -70,6 +70,8 @@ import com.appmattus.crypto.internal.core.sphlib.Luffa512
 import com.appmattus.crypto.internal.core.sphlib.MD2
 import com.appmattus.crypto.internal.core.sphlib.MD4
 import com.appmattus.crypto.internal.core.sphlib.MD5
+import com.appmattus.crypto.internal.core.sphlib.RadioGatun32
+import com.appmattus.crypto.internal.core.sphlib.RadioGatun64
 import com.appmattus.crypto.internal.core.sphlib.RipeMD
 import com.appmattus.crypto.internal.core.sphlib.RipeMD128
 import com.appmattus.crypto.internal.core.sphlib.RipeMD160
@@ -169,6 +171,9 @@ internal object CoreDigest {
             Algorithm.SIMD256 -> SIMD256()
             Algorithm.SIMD384 -> SIMD384()
             Algorithm.SIMD512 -> SIMD512()
+
+            Algorithm.RadioGatun32 -> RadioGatun32()
+            Algorithm.RadioGatun64 -> RadioGatun64()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()
