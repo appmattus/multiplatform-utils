@@ -51,6 +51,16 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     BMW384("BMW-384", 128),
     BMW512("BMW-512", 128),
 
+    CubeHash224("CubeHash-224", 32),
+    CubeHash256("CubeHash-256", 32),
+    CubeHash384("CubeHash-384", 32),
+    CubeHash512("CubeHash-512", 32),
+
+    ECHO224("ECHO-224", 192),
+    ECHO256("ECHO-256", 192),
+    ECHO384("ECHO-384", 128),
+    ECHO512("ECHO-512", 128),
+
     RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),

@@ -39,6 +39,14 @@ import com.appmattus.crypto.internal.core.sphlib.BMW224
 import com.appmattus.crypto.internal.core.sphlib.BMW256
 import com.appmattus.crypto.internal.core.sphlib.BMW384
 import com.appmattus.crypto.internal.core.sphlib.BMW512
+import com.appmattus.crypto.internal.core.sphlib.CubeHash224
+import com.appmattus.crypto.internal.core.sphlib.CubeHash256
+import com.appmattus.crypto.internal.core.sphlib.CubeHash384
+import com.appmattus.crypto.internal.core.sphlib.CubeHash512
+import com.appmattus.crypto.internal.core.sphlib.ECHO224
+import com.appmattus.crypto.internal.core.sphlib.ECHO256
+import com.appmattus.crypto.internal.core.sphlib.ECHO384
+import com.appmattus.crypto.internal.core.sphlib.ECHO512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
@@ -97,6 +105,16 @@ internal object CoreDigest {
             Algorithm.BMW256 -> BMW256()
             Algorithm.BMW384 -> BMW384()
             Algorithm.BMW512 -> BMW512()
+
+            Algorithm.CubeHash224 -> CubeHash224()
+            Algorithm.CubeHash256 -> CubeHash256()
+            Algorithm.CubeHash384 -> CubeHash384()
+            Algorithm.CubeHash512 -> CubeHash512()
+
+            Algorithm.ECHO224 -> ECHO224()
+            Algorithm.ECHO256 -> ECHO256()
+            Algorithm.ECHO384 -> ECHO384()
+            Algorithm.ECHO512 -> ECHO512()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()
