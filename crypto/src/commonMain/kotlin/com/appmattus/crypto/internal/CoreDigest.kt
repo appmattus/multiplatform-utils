@@ -47,6 +47,14 @@ import com.appmattus.crypto.internal.core.sphlib.ECHO224
 import com.appmattus.crypto.internal.core.sphlib.ECHO256
 import com.appmattus.crypto.internal.core.sphlib.ECHO384
 import com.appmattus.crypto.internal.core.sphlib.ECHO512
+import com.appmattus.crypto.internal.core.sphlib.Fugue224
+import com.appmattus.crypto.internal.core.sphlib.Fugue256
+import com.appmattus.crypto.internal.core.sphlib.Fugue384
+import com.appmattus.crypto.internal.core.sphlib.Fugue512
+import com.appmattus.crypto.internal.core.sphlib.Groestl224
+import com.appmattus.crypto.internal.core.sphlib.Groestl256
+import com.appmattus.crypto.internal.core.sphlib.Groestl384
+import com.appmattus.crypto.internal.core.sphlib.Groestl512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
@@ -115,6 +123,16 @@ internal object CoreDigest {
             Algorithm.ECHO256 -> ECHO256()
             Algorithm.ECHO384 -> ECHO384()
             Algorithm.ECHO512 -> ECHO512()
+
+            Algorithm.Fugue224 -> Fugue224()
+            Algorithm.Fugue256 -> Fugue256()
+            Algorithm.Fugue384 -> Fugue384()
+            Algorithm.Fugue512 -> Fugue512()
+
+            Algorithm.Groestl224 -> Groestl224()
+            Algorithm.Groestl256 -> Groestl256()
+            Algorithm.Groestl384 -> Groestl384()
+            Algorithm.Groestl512 -> Groestl512()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()

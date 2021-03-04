@@ -61,6 +61,16 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     ECHO384("ECHO-384", 128),
     ECHO512("ECHO-512", 128),
 
+    Fugue224("Fugue-224", 28),
+    Fugue256("Fugue-256", 32),
+    Fugue384("Fugue-384", 48),
+    Fugue512("Fugue-512", 64),
+
+    Groestl224("Groestl-224", 64),
+    Groestl256("Groestl-256", 64),
+    Groestl384("Groestl-384", 128),
+    Groestl512("Groestl-512", 128),
+
     RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),
