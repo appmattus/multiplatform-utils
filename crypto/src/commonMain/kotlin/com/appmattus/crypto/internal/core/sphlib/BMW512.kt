@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the BMW-512 ("Blue Midnight Wish") digest
@@ -31,7 +33,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 166 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BMW512 : BMWBigCore<BMW512>() {
+internal class BMW512 : BMWBigCore<BMW512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -42,6 +44,11 @@ class BMW512 : BMWBigCore<BMW512>() {
     override fun copy(): BMW512 {
         return copyState(BMW512())
     }
+
+    override val blockLength: Int
+        get() = Algorithm.BMW512.blockLength
+
+    override fun toString() = Algorithm.BMW512.algorithmName
 
     companion object {
         /** The initial value for BMW-512.  */

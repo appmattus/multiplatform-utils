@@ -29,14 +29,12 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BMWSmallCore<D : BMWSmallCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class BMWSmallCore<D : BMWSmallCore<D>> internal constructor() : DigestEngine<D>() {
+
     private lateinit var m: IntArray
     private lateinit var h: IntArray
     private lateinit var h2: IntArray
     private lateinit var q: IntArray
-
-    override val blockLength: Int
-        get() = 64
 
     override fun copyState(dest: D): D {
         h.copyInto(dest.h, 0, 0, h.size)
@@ -544,10 +542,6 @@ abstract class BMWSmallCore<D : BMWSmallCore<D>> internal constructor() : Digest
     override fun processBlock(data: ByteArray) {
         for (i in 0..15) m[i] = decodeLEInt(data, i * 4)
         compress(m)
-    }
-
-    override fun toString(): String {
-        return "BMW-" + (digestLength shl 3)
     }
 
     companion object {

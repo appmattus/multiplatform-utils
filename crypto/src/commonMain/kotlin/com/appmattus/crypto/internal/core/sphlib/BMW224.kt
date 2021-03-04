@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the BMW-224 ("Blue Midnight Wish") digest
@@ -31,7 +33,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 166 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BMW224 : BMWSmallCore<BMW224>() {
+internal class BMW224 : BMWSmallCore<BMW224>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
@@ -42,6 +44,11 @@ class BMW224 : BMWSmallCore<BMW224>() {
     override fun copy(): BMW224 {
         return copyState(BMW224())
     }
+
+    override val blockLength: Int
+        get() = Algorithm.BMW224.blockLength
+
+    override fun toString() = Algorithm.BMW224.algorithmName
 
     companion object {
         /** The initial value for BMW-224.  */

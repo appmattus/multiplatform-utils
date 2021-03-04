@@ -46,6 +46,11 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     BLAKE384("BLAKE-384", 128),
     BLAKE512("BLAKE-512", 128),
 
+    BMW224("BMW-224", 64),
+    BMW256("BMW-256", 64),
+    BMW384("BMW-384", 128),
+    BMW512("BMW-512", 128),
+
     RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),

@@ -35,6 +35,10 @@ import com.appmattus.crypto.internal.core.sphlib.BLAKE224
 import com.appmattus.crypto.internal.core.sphlib.BLAKE256
 import com.appmattus.crypto.internal.core.sphlib.BLAKE384
 import com.appmattus.crypto.internal.core.sphlib.BLAKE512
+import com.appmattus.crypto.internal.core.sphlib.BMW224
+import com.appmattus.crypto.internal.core.sphlib.BMW256
+import com.appmattus.crypto.internal.core.sphlib.BMW384
+import com.appmattus.crypto.internal.core.sphlib.BMW512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
@@ -88,6 +92,11 @@ internal object CoreDigest {
             Algorithm.BLAKE256 -> BLAKE256()
             Algorithm.BLAKE384 -> BLAKE384()
             Algorithm.BLAKE512 -> BLAKE512()
+
+            Algorithm.BMW224 -> BMW224()
+            Algorithm.BMW256 -> BMW256()
+            Algorithm.BMW384 -> BMW384()
+            Algorithm.BMW512 -> BMW512()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()
