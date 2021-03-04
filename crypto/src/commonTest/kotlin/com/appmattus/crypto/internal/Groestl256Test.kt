@@ -18,6 +18,7 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -58,6 +59,20 @@ class Groestl256InstalledProviderTest {
 abstract class Groestl256Test {
 
     abstract fun digest(): Digest<*>
+
+    @Test
+    fun quickBrownFox() {
+        testKat(
+            digest(),
+            "The quick brown fox jumps over the lazy dog",
+            "8c7ad62eb26a21297bc39c2d7293b4bd4d3399fa8afab29e970471739e28b301"
+        )
+        testKat(
+            digest(),
+            "The quick brown fox jumps over the lazy dog.",
+            "f48290b1bcacee406a0429b993adb8fb3d065f4b09cbcdb464a631d4a0080aaf"
+        )
+    }
 
     @Test
     fun testGroestl256() {
