@@ -55,10 +55,18 @@ import com.appmattus.crypto.internal.core.sphlib.Groestl224
 import com.appmattus.crypto.internal.core.sphlib.Groestl256
 import com.appmattus.crypto.internal.core.sphlib.Groestl384
 import com.appmattus.crypto.internal.core.sphlib.Groestl512
+import com.appmattus.crypto.internal.core.sphlib.Hamsi224
+import com.appmattus.crypto.internal.core.sphlib.Hamsi256
+import com.appmattus.crypto.internal.core.sphlib.Hamsi384
+import com.appmattus.crypto.internal.core.sphlib.Hamsi512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
 import com.appmattus.crypto.internal.core.sphlib.Keccak512
+import com.appmattus.crypto.internal.core.sphlib.Luffa224
+import com.appmattus.crypto.internal.core.sphlib.Luffa256
+import com.appmattus.crypto.internal.core.sphlib.Luffa384
+import com.appmattus.crypto.internal.core.sphlib.Luffa512
 import com.appmattus.crypto.internal.core.sphlib.MD2
 import com.appmattus.crypto.internal.core.sphlib.MD4
 import com.appmattus.crypto.internal.core.sphlib.MD5
@@ -71,6 +79,14 @@ import com.appmattus.crypto.internal.core.sphlib.SHA224
 import com.appmattus.crypto.internal.core.sphlib.SHA256
 import com.appmattus.crypto.internal.core.sphlib.SHA384
 import com.appmattus.crypto.internal.core.sphlib.SHA512
+import com.appmattus.crypto.internal.core.sphlib.SHAvite224
+import com.appmattus.crypto.internal.core.sphlib.SHAvite256
+import com.appmattus.crypto.internal.core.sphlib.SHAvite384
+import com.appmattus.crypto.internal.core.sphlib.SHAvite512
+import com.appmattus.crypto.internal.core.sphlib.SIMD224
+import com.appmattus.crypto.internal.core.sphlib.SIMD256
+import com.appmattus.crypto.internal.core.sphlib.SIMD384
+import com.appmattus.crypto.internal.core.sphlib.SIMD512
 import com.appmattus.crypto.internal.core.sphlib.Tiger
 import com.appmattus.crypto.internal.core.sphlib.Tiger2
 import com.appmattus.crypto.internal.core.sphlib.Whirlpool
@@ -133,6 +149,26 @@ internal object CoreDigest {
             Algorithm.Groestl256 -> Groestl256()
             Algorithm.Groestl384 -> Groestl384()
             Algorithm.Groestl512 -> Groestl512()
+
+            Algorithm.Hamsi224 -> Hamsi224()
+            Algorithm.Hamsi256 -> Hamsi256()
+            Algorithm.Hamsi384 -> Hamsi384()
+            Algorithm.Hamsi512 -> Hamsi512()
+
+            Algorithm.Luffa224 -> Luffa224()
+            Algorithm.Luffa256 -> Luffa256()
+            Algorithm.Luffa384 -> Luffa384()
+            Algorithm.Luffa512 -> Luffa512()
+
+            Algorithm.SHAvite224 -> SHAvite224()
+            Algorithm.SHAvite256 -> SHAvite256()
+            Algorithm.SHAvite384 -> SHAvite384()
+            Algorithm.SHAvite512 -> SHAvite512()
+
+            Algorithm.SIMD224 -> SIMD224()
+            Algorithm.SIMD256 -> SIMD256()
+            Algorithm.SIMD384 -> SIMD384()
+            Algorithm.SIMD512 -> SIMD512()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()

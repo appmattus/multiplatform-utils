@@ -71,6 +71,26 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     Groestl384("Groestl-384", 128),
     Groestl512("Groestl-512", 128),
 
+    Hamsi224("Hamsi-224", 32),
+    Hamsi256("Hamsi-256", 32),
+    Hamsi384("Hamsi-384", 32),
+    Hamsi512("Hamsi-512", 32),
+
+    Luffa224("Luffa-224", 32),
+    Luffa256("Luffa-256", 32),
+    Luffa384("Luffa-384", 32),
+    Luffa512("Luffa-512", 32),
+
+    SHAvite224("SHAvite-224", 64),
+    SHAvite256("SHAvite-256", 64),
+    SHAvite384("SHAvite-384", 128),
+    SHAvite512("SHAvite-512", 128),
+
+    SIMD224("SIMD-224", 64),
+    SIMD256("SIMD-256", 64),
+    SIMD384("SIMD-384", 128),
+    SIMD512("SIMD-512", 128),
+
     RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),

@@ -158,7 +158,7 @@ internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>>() : Digest<D> {
      *    (same as CubeHash). >>
      */
     override val blockLength: Int
-        get() = -32
+        get() = 32
 
     /**
      * Get the IV.
