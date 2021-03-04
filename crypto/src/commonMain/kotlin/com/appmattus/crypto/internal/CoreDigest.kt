@@ -31,6 +31,10 @@ import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_512
+import com.appmattus.crypto.internal.core.sphlib.BLAKE224
+import com.appmattus.crypto.internal.core.sphlib.BLAKE256
+import com.appmattus.crypto.internal.core.sphlib.BLAKE384
+import com.appmattus.crypto.internal.core.sphlib.BLAKE512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
@@ -79,6 +83,11 @@ internal object CoreDigest {
             Algorithm.Keccak288 -> Keccak288()
             Algorithm.Keccak384 -> Keccak384()
             Algorithm.Keccak512 -> Keccak512()
+
+            Algorithm.BLAKE224 -> BLAKE224()
+            Algorithm.BLAKE256 -> BLAKE256()
+            Algorithm.BLAKE384 -> BLAKE384()
+            Algorithm.BLAKE512 -> BLAKE512()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()

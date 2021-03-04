@@ -32,7 +32,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKESmallCore<D : BLAKESmallCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class BLAKESmallCore<D : BLAKESmallCore<D>> internal constructor() : DigestEngine<D>() {
 
     private var h0 = 0
     private var h1 = 0
@@ -50,9 +50,6 @@ abstract class BLAKESmallCore<D : BLAKESmallCore<D>> internal constructor() : Di
     private var t1 = 0
     private lateinit var tmpM: IntArray
     private lateinit var tmpBuf: ByteArray
-
-    override val blockLength: Int
-        get() = 64
 
     override fun copyState(dest: D): D {
         dest.h0 = h0
@@ -257,10 +254,6 @@ abstract class BLAKESmallCore<D : BLAKESmallCore<D>> internal constructor() : Di
         h5 = h5 xor (s1 xor v5 xor vD)
         h6 = h6 xor (s2 xor v6 xor vE)
         h7 = h7 xor (s3 xor v7 xor vF)
-    }
-
-    override fun toString(): String {
-        return "BLAKE-" + (digestLength shl 3)
     }
 
     companion object {

@@ -27,7 +27,7 @@ import com.appmattus.crypto.Algorithm
 
 /**
  *
- * This class implements the Whirlpool-1 digest algorithm under the
+ * This class implements the Whirlpool-T digest algorithm under the
  * [Digest] API. This is the second variant of Whirlpool, created
  * in 2001 and superseded in 2003 by the third variant (Whirlpool).
  *

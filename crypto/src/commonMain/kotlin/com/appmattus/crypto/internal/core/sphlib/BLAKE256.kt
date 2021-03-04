@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the BLAKE-256 digest algorithm under the
@@ -31,7 +33,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BLAKE256 : BLAKESmallCore<BLAKE256>() {
+internal class BLAKE256 : BLAKESmallCore<BLAKE256>() {
 
     override val initVal: IntArray
         get() = Companion.initVal
@@ -42,6 +44,11 @@ class BLAKE256 : BLAKESmallCore<BLAKE256>() {
     override fun copy(): BLAKE256 {
         return copyState(BLAKE256())
     }
+
+    override val blockLength: Int
+        get() = Algorithm.BLAKE256.blockLength
+
+    override fun toString() = Algorithm.BLAKE256.algorithmName
 
     companion object {
         /** The initial value for BLAKE-256.  */

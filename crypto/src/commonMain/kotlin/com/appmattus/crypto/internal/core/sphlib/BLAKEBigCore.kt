@@ -32,7 +32,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class BLAKEBigCore<D : BLAKEBigCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>> internal constructor() : DigestEngine<D>() {
     private var h0: Long = 0
     private var h1: Long = 0
     private var h2: Long = 0
@@ -49,9 +49,6 @@ abstract class BLAKEBigCore<D : BLAKEBigCore<D>> internal constructor() : Digest
     private var t1: Long = 0
     private lateinit var tmpM: LongArray
     private lateinit var tmpBuf: ByteArray
-
-    override val blockLength: Int
-        get() = 128
 
     override fun copyState(dest: D): D {
         dest.h0 = h0
@@ -257,10 +254,6 @@ abstract class BLAKEBigCore<D : BLAKEBigCore<D>> internal constructor() : Digest
         h5 = h5 xor (s1 xor v5 xor vD)
         h6 = h6 xor (s2 xor v6 xor vE)
         h7 = h7 xor (s3 xor v7 xor vF)
-    }
-
-    override fun toString(): String {
-        return "BLAKE-" + (digestLength shl 3)
     }
 
     companion object {

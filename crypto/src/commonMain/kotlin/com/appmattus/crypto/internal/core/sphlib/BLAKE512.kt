@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the BLAKE-512 digest algorithm under the
@@ -31,7 +33,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class BLAKE512 : BLAKEBigCore<BLAKE512>() {
+internal class BLAKE512 : BLAKEBigCore<BLAKE512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -42,6 +44,11 @@ class BLAKE512 : BLAKEBigCore<BLAKE512>() {
     override fun copy(): BLAKE512 {
         return copyState(BLAKE512())
     }
+
+    override val blockLength: Int
+        get() = Algorithm.BLAKE512.blockLength
+
+    override fun toString() = Algorithm.BLAKE512.algorithmName
 
     companion object {
         /** The initial value for BLAKE-512.  */
