@@ -23,15 +23,16 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
- *
- * This class implements the SHA-0 digest algorithm under the [ ] API. SHA-0 was defined by FIPS 180 (the original standard,
+ * This class implements the SHA-0 digest algorithm under the [Digest] API. SHA-0 was defined by FIPS 180 (the original standard,
  * now obsolete).
  *
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHA0 : MDHelper<SHA0>(false, 8) {
+internal class SHA0 : MDHelper<SHA0>(false, 8) {
     private lateinit var currentVal: IntArray
 
     override fun copy(): SHA0 {
@@ -44,7 +45,7 @@ class SHA0 : MDHelper<SHA0>(false, 8) {
         get() = 20
 
     override val blockLength: Int
-        get() = 64
+        get() = Algorithm.SHA_0.blockLength
 
     override fun engineReset() {
         currentVal[0] = 0x67452301
@@ -400,9 +401,7 @@ class SHA0 : MDHelper<SHA0>(false, 8) {
         currentVal[4] += e
     }
 
-    override fun toString(): String {
-        return "SHA-0"
-    }
+    override fun toString() = Algorithm.SHA_0.algorithmName
 
     companion object {
         /**

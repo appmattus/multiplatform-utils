@@ -41,6 +41,7 @@ import com.appmattus.crypto.internal.core.sphlib.MD5
 import com.appmattus.crypto.internal.core.sphlib.RipeMD
 import com.appmattus.crypto.internal.core.sphlib.RipeMD128
 import com.appmattus.crypto.internal.core.sphlib.RipeMD160
+import com.appmattus.crypto.internal.core.sphlib.SHA0
 import com.appmattus.crypto.internal.core.sphlib.SHA1
 import com.appmattus.crypto.internal.core.sphlib.SHA224
 import com.appmattus.crypto.internal.core.sphlib.SHA256
@@ -58,6 +59,8 @@ internal object CoreDigest {
             Algorithm.MD2 -> MD2()
             Algorithm.MD4 -> MD4()
             Algorithm.MD5 -> MD5()
+
+            Algorithm.SHA_0 -> SHA0()
             Algorithm.SHA_1 -> SHA1()
             Algorithm.SHA_224 -> SHA224()
             Algorithm.SHA_256 -> SHA256()

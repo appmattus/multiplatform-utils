@@ -21,6 +21,7 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     MD4("MD4", 64),
     MD5("MD5", 64),
 
+    SHA_0("SHA-0", 64),
     SHA_1("SHA-1", 64),
     SHA_224("SHA-224", 64),
     SHA_256("SHA-256", 64),
