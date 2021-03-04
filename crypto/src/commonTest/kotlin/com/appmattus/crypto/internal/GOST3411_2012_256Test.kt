@@ -78,6 +78,15 @@ abstract class GOST3411_2012_256Test {
     abstract fun digest(): Digest<*>
 
     @Test
+    fun abc() {
+        testKat(
+            digest(),
+            "abc",
+            "4e2919cf137ed41ec4fb6270c61826cc4fffb660341e0af3688cd0626d23b481"
+        )
+    }
+
+    @Test
     fun quickBrownFox() {
         testKat(
             digest(),
