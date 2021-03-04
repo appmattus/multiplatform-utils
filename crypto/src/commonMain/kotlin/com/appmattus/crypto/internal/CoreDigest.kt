@@ -70,6 +70,7 @@ import com.appmattus.crypto.internal.core.sphlib.Luffa512
 import com.appmattus.crypto.internal.core.sphlib.MD2
 import com.appmattus.crypto.internal.core.sphlib.MD4
 import com.appmattus.crypto.internal.core.sphlib.MD5
+import com.appmattus.crypto.internal.core.sphlib.PANAMA
 import com.appmattus.crypto.internal.core.sphlib.RadioGatun32
 import com.appmattus.crypto.internal.core.sphlib.RadioGatun64
 import com.appmattus.crypto.internal.core.sphlib.RipeMD
@@ -174,6 +175,8 @@ internal object CoreDigest {
 
             Algorithm.RadioGatun32 -> RadioGatun32()
             Algorithm.RadioGatun64 -> RadioGatun64()
+
+            Algorithm.PANAMA -> PANAMA()
 
             Algorithm.RipeMD -> RipeMD()
             Algorithm.RipeMD128 -> RipeMD128()

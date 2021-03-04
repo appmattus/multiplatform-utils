@@ -94,6 +94,8 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     RadioGatun32("RadioGatún[32]", 156),
     RadioGatun64("RadioGatún[64]", 312),
 
+    PANAMA("PANAMA", 32),
+
     RipeMD("RipeMD", 64),
     RipeMD128("RipeMD128", 64),
     RipeMD160("RipeMD160", 64),

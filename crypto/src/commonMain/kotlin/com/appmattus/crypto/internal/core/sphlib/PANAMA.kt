@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  * This class implements the PANAMA digest algorithm under the
  * [Digest] API.
@@ -87,7 +89,7 @@ internal class PANAMA : DigestEngine<PANAMA>() {
         get() = 32
 
     override val blockLength: Int
-        get() = 32
+        get() = Algorithm.PANAMA.blockLength
 
     override fun engineReset() {
         for (i in buffer.indices) buffer[i] = 0
@@ -342,9 +344,7 @@ internal class PANAMA : DigestEngine<PANAMA>() {
         state16 = t16 xor buffer[ptr16 + 7]
     }
 
-    override fun toString(): String {
-        return "PANAMA"
-    }
+    override fun toString() = Algorithm.PANAMA.algorithmName
 
     companion object {
         /**
