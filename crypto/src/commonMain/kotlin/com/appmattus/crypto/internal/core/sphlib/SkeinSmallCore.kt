@@ -36,7 +36,6 @@ import com.appmattus.crypto.Digest
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-@Suppress("unused")
 internal abstract class SkeinSmallCore<D : SkeinSmallCore<D>>() : Digest<D> {
     private val buf: ByteArray
     private val tmpOut: ByteArray
@@ -104,7 +103,6 @@ internal abstract class SkeinSmallCore<D : SkeinSmallCore<D>>() : Digest<D> {
         return digest()
     }
 
-    @Suppress("NAME_SHADOWING")
     override fun digest(output: ByteArray, offset: Int, length: Int): Int {
         var len = length
         for (i in ptr until blockLength) buf[i] = 0x00

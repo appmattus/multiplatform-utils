@@ -57,7 +57,6 @@ internal abstract class SkeinBigCore<D : SkeinBigCore<D>>() : Digest<D> {
         update(input, 0, input.size)
     }
 
-    @Suppress("NAME_SHADOWING")
     override fun update(input: ByteArray, offset: Int, length: Int) {
         var off = offset
         var len = length
@@ -98,7 +97,6 @@ internal abstract class SkeinBigCore<D : SkeinBigCore<D>>() : Digest<D> {
         return digest()
     }
 
-    @Suppress("NAME_SHADOWING")
     override fun digest(output: ByteArray, offset: Int, length: Int): Int {
         var len = length
         for (i in ptr until blockLength) buf[i] = 0x00

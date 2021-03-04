@@ -90,6 +90,10 @@ import com.appmattus.crypto.internal.core.sphlib.SIMD224
 import com.appmattus.crypto.internal.core.sphlib.SIMD256
 import com.appmattus.crypto.internal.core.sphlib.SIMD384
 import com.appmattus.crypto.internal.core.sphlib.SIMD512
+import com.appmattus.crypto.internal.core.sphlib.Skein512_224
+import com.appmattus.crypto.internal.core.sphlib.Skein512_256
+import com.appmattus.crypto.internal.core.sphlib.Skein512_384
+import com.appmattus.crypto.internal.core.sphlib.Skein512_512
 import com.appmattus.crypto.internal.core.sphlib.Tiger
 import com.appmattus.crypto.internal.core.sphlib.Tiger2
 import com.appmattus.crypto.internal.core.sphlib.Whirlpool
@@ -196,6 +200,17 @@ internal object CoreDigest {
             Algorithm.Whirlpool -> Whirlpool()
             Algorithm.Whirlpool0 -> Whirlpool0()
             Algorithm.WhirlpoolT -> WhirlpoolT()
+
+            Algorithm.Skein256_128 -> Skein256_128()
+            Algorithm.Skein256_160 -> Skein256_160()
+            Algorithm.Skein256_224 -> Skein256_224()
+            Algorithm.Skein256_256 -> Skein256_256()
+            Algorithm.Skein512_128 -> Skein512_128()
+            Algorithm.Skein512_160 -> Skein512_160()
+            Algorithm.Skein512_224 -> Skein512_224()
+            Algorithm.Skein512_256 -> Skein512_256()
+            Algorithm.Skein512_384 -> Skein512_384()
+            Algorithm.Skein512_512 -> Skein512_512()
         }
     }
 }

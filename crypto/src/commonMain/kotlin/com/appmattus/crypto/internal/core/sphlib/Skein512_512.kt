@@ -25,32 +25,33 @@ package com.appmattus.crypto.internal.core.sphlib
 
 /**
  *
- * This class implements the Skein-256 digest algorithm under the
+ * This class implements the Skein-512 digest algorithm under the
  * [Digest] API. In the Skein specification, that function is
- * called under the full name "Skein-512-256".
+ * called under the full name "Skein-512-512".
  *
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal class Skein256 : SkeinBigCore<Skein256>() {
+@Suppress("ClassName")
+internal class Skein512_512 : SkeinBigCore<Skein512_512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
 
     override val digestLength: Int
-        get() = 32
+        get() = 64
 
-    override fun dup(): Skein256 {
-        return Skein256()
+    override fun dup(): Skein512_512 {
+        return Skein512_512()
     }
 
     companion object {
-        /** The initial value for Skein-256.  */
+        /** The initial value for Skein-512.  */
         private val initVal = longArrayOf(
-            -0x332fbb5ed024c1edL, -0x17ca6fcfe5865615L,
-            0x55AEA0614F816E6FL, 0x2A2767A4AE9B94DBL,
-            -0x13f9fda18b22897dL, -0x185bc9323b8b9dafL,
-            -0x3c904506c6c52e7bL, 0x3EEDBA1833EDFC13L
+            0x4903ADFF749C51CEL, 0x0D95DE399746DF03L,
+            -0x702e6cbed8386432L, -0x65daa9d600cad34fL,
+            0x5DB62599DF6CA7B0L, -0x1541c6b3562a3c0cL,
+            -0x66eeed38e58a4addL, -0x51e75bf499f033cdL
         )
     }
 }

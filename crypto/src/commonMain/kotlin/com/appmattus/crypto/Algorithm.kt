@@ -16,6 +16,7 @@
 
 package com.appmattus.crypto
 
+@Suppress("EnumEntryName")
 enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     MD2("MD2", 16),
     MD4("MD4", 64),
@@ -113,5 +114,17 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
 
     Whirlpool("Whirlpool", 64),
     Whirlpool0("Whirlpool-0", 64),
-    WhirlpoolT("Whirlpool-T", 64)
+    WhirlpoolT("Whirlpool-T", 64),
+
+    Skein256_128("Skein-256-128", 32),
+    Skein256_160("Skein-256-160", 32),
+    Skein256_224("Skein-256-224", 32),
+    Skein256_256("Skein-256-256", 32),
+
+    Skein512_128("Skein-512-128", 64),
+    Skein512_160("Skein-512-160", 64),
+    Skein512_224("Skein-512-224", 64),
+    Skein512_256("Skein-512-256", 64),
+    Skein512_384("Skein-512-384", 64),
+    Skein512_512("Skein-512-512", 64)
 }

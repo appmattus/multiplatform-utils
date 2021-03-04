@@ -32,7 +32,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal class Skein224 : SkeinBigCore<Skein224>() {
+@Suppress("ClassName")
+internal class Skein512_224 : SkeinBigCore<Skein512_224>() {
 
     override val initVal: LongArray
         get() = Companion.initVal
@@ -40,8 +41,8 @@ internal class Skein224 : SkeinBigCore<Skein224>() {
     override val digestLength: Int
         get() = 28
 
-    override fun dup(): Skein224 {
-        return Skein224()
+    override fun dup(): Skein512_224 {
+        return Skein512_224()
     }
 
     companion object {
