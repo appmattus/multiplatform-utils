@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 159 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Fugue224 : Fugue2Core<Fugue224>() {
+internal class Fugue224 : Fugue2Core<Fugue224>() {
 
     override val digestLength: Int
         get() = 28

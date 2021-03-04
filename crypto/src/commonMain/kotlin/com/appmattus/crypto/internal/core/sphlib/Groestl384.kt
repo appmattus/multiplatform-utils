@@ -30,7 +30,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 198 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Groestl384 : GroestlBigCore<Groestl384>() {
+internal class Groestl384 : GroestlBigCore<Groestl384>() {
 
     override val digestLength: Int
         get() = 48

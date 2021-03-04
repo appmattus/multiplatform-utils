@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 213 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Shabal192 : ShabalGeneric<Shabal192>(192) {
+internal class Shabal192 : ShabalGeneric<Shabal192>(192) {
 
     override fun dup(): Shabal192 {
         return Shabal192()

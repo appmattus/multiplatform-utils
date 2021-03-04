@@ -30,7 +30,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class PANAMA : DigestEngine<PANAMA>() {
+internal class PANAMA : DigestEngine<PANAMA>() {
     private lateinit var buffer: IntArray
     private var bufferPtr = 0
     private var state0 = 0

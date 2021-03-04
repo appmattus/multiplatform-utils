@@ -36,7 +36,7 @@ import com.appmattus.crypto.Digest
  * @version   $Revision: 231 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Digest<D> {
+internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Digest<D> {
     private var outSizeW32 = 0
     private val buf: ByteArray = ByteArray(64)
     private var ptr = 0
@@ -49,7 +49,7 @@ abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Diges
      *
      * @param outSize   the intended output size
      */
-    internal constructor(outSize: Int) : this() {
+    constructor(outSize: Int) : this() {
         if (outSize < 32 || outSize > 512 || outSize and 31 != 0) throw IllegalArgumentException(
             "invalid Shabal output size: $outSize"
         )

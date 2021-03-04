@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SIMD256 : SIMDSmallCore<SIMD256>() {
+internal class SIMD256 : SIMDSmallCore<SIMD256>() {
 
     override val initVal: IntArray
         get() = Companion.initVal

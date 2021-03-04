@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class RadioGatun64 : DigestEngine<RadioGatun64>() {
+internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
     private lateinit var a: LongArray
     private lateinit var b: LongArray
 

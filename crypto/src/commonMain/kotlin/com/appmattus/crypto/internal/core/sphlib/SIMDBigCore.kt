@@ -29,7 +29,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class SIMDBigCore<D : SIMDBigCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class SIMDBigCore<D : SIMDBigCore<D>>() : DigestEngine<D>() {
     private lateinit var state: IntArray
     private lateinit var q: IntArray
     private lateinit var w: IntArray

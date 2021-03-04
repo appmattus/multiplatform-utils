@@ -19,7 +19,7 @@ package com.appmattus.crypto.internal.core
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 
-class CRC32 : Digest<CRC32> {
+internal class CRC32 : Digest<CRC32> {
 
     private var checksum = 0
 

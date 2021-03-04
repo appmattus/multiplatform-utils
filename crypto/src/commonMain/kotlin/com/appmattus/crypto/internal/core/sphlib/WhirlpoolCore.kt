@@ -32,7 +32,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>> internal constructor(
+internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
     private val T0: LongArray,
     private val T1: LongArray,
     private val T2: LongArray,

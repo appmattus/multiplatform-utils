@@ -37,7 +37,7 @@ import com.appmattus.crypto.Digest
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 @Suppress("unused")
-internal abstract class SkeinSmallCore<D : SkeinSmallCore<D>> internal constructor() : Digest<D> {
+internal abstract class SkeinSmallCore<D : SkeinSmallCore<D>>() : Digest<D> {
     private val buf: ByteArray
     private val tmpOut: ByteArray
     private var ptr = 0

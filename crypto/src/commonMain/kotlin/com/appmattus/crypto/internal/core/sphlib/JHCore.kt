@@ -30,7 +30,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class JHCore<D : JHCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class JHCore<D : JHCore<D>>() : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var tmpBuf: ByteArray
 

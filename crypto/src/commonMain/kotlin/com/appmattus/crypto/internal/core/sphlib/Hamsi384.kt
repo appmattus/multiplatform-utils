@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 206 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Hamsi384 : HamsiBigCore<Hamsi384>() {
+internal class Hamsi384 : HamsiBigCore<Hamsi384>() {
 
     override val digestLength: Int
         get() = 48

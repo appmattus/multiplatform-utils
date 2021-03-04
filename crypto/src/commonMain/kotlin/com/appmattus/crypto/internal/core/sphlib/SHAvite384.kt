@@ -32,7 +32,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class SHAvite384 : SHAviteBigCore<SHAvite384>() {
+internal class SHAvite384 : SHAviteBigCore<SHAvite384>() {
 
     override val initVal: IntArray
         get() = Companion.initVal

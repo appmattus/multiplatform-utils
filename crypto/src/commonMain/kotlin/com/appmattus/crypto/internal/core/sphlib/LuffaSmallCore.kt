@@ -29,7 +29,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 240 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class LuffaSmallCore<D : LuffaSmallCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class LuffaSmallCore<D : LuffaSmallCore<D>>() : DigestEngine<D>() {
     private var v00 = 0
     private var v01 = 0
     private var v02 = 0

@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 235 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Luffa384 : DigestEngine<Luffa384>() {
+internal class Luffa384 : DigestEngine<Luffa384>() {
     private var v00 = 0
     private var v01 = 0
     private var v02 = 0

@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class JH384 : JHCore<JH384>() {
+internal class JH384 : JHCore<JH384>() {
 
     override fun copy(): JH384 {
         return copyState(JH384())

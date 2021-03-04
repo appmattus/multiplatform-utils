@@ -30,7 +30,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 232 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-abstract class CubeHashCore<D : CubeHashCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class CubeHashCore<D : CubeHashCore<D>>() : DigestEngine<D>() {
     private var x0 = 0
     private var x1 = 0
     private var x2 = 0

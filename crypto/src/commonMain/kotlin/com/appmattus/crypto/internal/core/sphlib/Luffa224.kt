@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Luffa224 : LuffaSmallCore<Luffa224>() {
+internal class Luffa224 : LuffaSmallCore<Luffa224>() {
 
     override val digestLength: Int
         get() = 28

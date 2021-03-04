@@ -46,7 +46,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * be at least 8)
  * @param fbyte          the first padding byte
  */
-abstract class MDHelper<D : MDHelper<D>> internal constructor(
+internal abstract class MDHelper<D : MDHelper<D>>(
     private val littleEndian: Boolean,
     lenlen: Int,
     private val fbyte: Byte = 0x80.toByte()

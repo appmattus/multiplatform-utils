@@ -32,7 +32,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class Skein512 : SkeinBigCore<Skein512>() {
+internal class Skein512 : SkeinBigCore<Skein512>() {
 
     override val initVal: LongArray
         get() = Companion.initVal

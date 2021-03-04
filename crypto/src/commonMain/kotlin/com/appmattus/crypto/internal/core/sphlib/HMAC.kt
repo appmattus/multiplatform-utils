@@ -36,7 +36,7 @@ import com.appmattus.crypto.Digest
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class HMAC : DigestEngine<HMAC> {
+internal class HMAC : DigestEngine<HMAC> {
 
     /**
      * Build the object. The provided digest algorithm will be used

@@ -29,7 +29,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 156 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class HAVAL160_4 : HAVALCore<HAVAL160_4>(160, 4) {
+@Suppress("ClassName")
+internal class HAVAL160_4 : HAVALCore<HAVAL160_4>(160, 4) {
 
     override val digestLength: Int
         get() = 20

@@ -29,7 +29,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class BMWSmallCore<D : BMWSmallCore<D>> internal constructor() : DigestEngine<D>() {
+internal abstract class BMWSmallCore<D : BMWSmallCore<D>>() : DigestEngine<D>() {
 
     private lateinit var m: IntArray
     private lateinit var h: IntArray

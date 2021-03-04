@@ -31,7 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 183 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-class CubeHash256 : CubeHashCore<CubeHash256>() {
+internal class CubeHash256 : CubeHashCore<CubeHash256>() {
 
     override fun copy(): CubeHash256 {
         return copyState(CubeHash256())
