@@ -179,6 +179,91 @@ abstract class Skein512_512Test {
         )
     }
 
+    // From specification - skein_golden_kat.txt
+    @Test
+    fun random() {
+        testKatHex(
+            digest(),
+            "FBD17C26",
+            "92B729419570B22BB75B50CF72DB168B" +
+                    "4C735694BC8AD4433C7C187B0BDD489C" +
+                    "C3F67AE23E5018EBF4100CF6AFB2E1DB" +
+                    "1F175DC266D92575E8D8261D6E6E276E"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E1",
+            "B64071E68CB240FBCCEA6039F351D80E" +
+                    "9AB3314B16B5888EC4EE829332374B1A" +
+                    "57AEDDE7760B39099C6DADCC1F3933B9" +
+                    "AF75582F623EB7BDCFFA33B25874447C"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9",
+            "0304F6E4F2EF71C9539E95EBCE42A16B" +
+                    "451AD8B52A34C2B69E536978F164B7C2" +
+                    "1FD52D15E3825E09835A41AE51B7F016" +
+                    "84969361B7506274C72865B8A5AE3CEE"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B",
+            "B42970F4C458285D36A67D9D9B3D8F13" +
+                    "D2F47FE5E48A0374B897F47D8AE0D53B" +
+                    "72CA9C321DF7C1FDB8F7551BDE4D3AC6" +
+                    "275FE02BE468454BE42EFBF7C43B80AE"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B78439430CDFC5DC8" +
+                    "78BB393A1A5F79BEF30995A85A129233" +
+                    "39BA8AB7D8FC6DC5FEC6F4ED22C122BB",
+            "02D01535C2DF280FDE92146DF054B060" +
+                    "9273C73056C93B94B82F5E7DCC5BE697" +
+                    "9978C4BE24331CAA85D892D2E710C6C9" +
+                    "B4904CD056A53547B866BEE097C0FB17"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B78439430CDFC5DC8" +
+                    "78BB393A1A5F79BEF30995A85A129233" +
+                    "39BA8AB7D8FC6DC5FEC6F4ED22C122BB" +
+                    "E7EB61981892966DE5CEF576F71FC7A8" +
+                    "0D14DAB2D0C03940B95B9FB3A727C66A",
+            "E30E946D4398D102C2FDE56EF7611DD1" +
+                    "33D2D3066BA320F20A00E8A80219F54D" +
+                    "099FFD5AEBE1C94E788BBC8ADAC3BA3E" +
+                    "374E0CEB554C4FA9D4C87A79B2C649AF"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B78439430CDFC5DC8" +
+                    "78BB393A1A5F79BEF30995A85A129233" +
+                    "39BA8AB7D8FC6DC5FEC6F4ED22C122BB" +
+                    "E7EB61981892966DE5CEF576F71FC7A8" +
+                    "0D14DAB2D0C03940B95B9FB3A727C66A" +
+                    "6E1FF0DC311B9AA21A3054484802154C" +
+                    "1826C2A27A0914152AEB76F1168D4410" +
+                    "E114AA47F7C5C61543C4D959188234F7" +
+                    "97F45A1D1665E37646D8129A45EE7078" +
+                    "0991BB6B100239E466D58D4CDD9D9D01" +
+                    "90AB64470DDC87F5E509E9A8CF824F58" +
+                    "EF04732EAB28092D18A5ADA45B6D49FB" +
+                    "0F33F4CC07E39EC6449E8C0ABB17C658" +
+                    "66009A3D9C31C0D765E4AF88B86023E9" +
+                    "A067E3320C09246A3FAE8A3FD97C487E",
+            "9B29A30BD213DFC95C8678CF01875F68" +
+                    "CC2A22350D7161FB9986159EEC3D3C85" +
+                    "0CA06A976CE695871D402823A4E82F1B" +
+                    "21D3596BCAB8E04D69C45E9C7BEFC9E3"
+        )
+    }
+
     // From specification - skein_golden_kat_short.txt
     @Test
     fun goldenKatShort() {
@@ -189,6 +274,58 @@ abstract class Skein512_512Test {
                     "F9A9754C3AD618CCC4E0AAE16B316CC8" +
                     "CA698D864307ED3E80B6EF1570812AC5" +
                     "272DC409B5A012DF2A579102F340617A"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFC",
+            "19D59AAC611C22B849A77900467C2A58" +
+                    "B5217C5B22073C95182788B4996EEBD5" +
+                    "F923E637A295A7AD2B35E8487A7CEFF9" +
+                    "8B23CE5A5211D98554E63813C59F8406"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8",
+            "D74B9150061C93839BC3592C3A587DEC" +
+                    "861BD6E24E5EF89288B6E99F7E0CA0D2" +
+                    "1155D4185D7FF6ACDC7106999F821994" +
+                    "5E61F401796BECE98214059FA962B373"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0",
+            "8EAF7AFC9E85A23F4E46BA4C55130664" +
+                    "09A41779B471AE84FAC5F5C0D6648040" +
+                    "E19337E367ADC7AB1FAC2C78D379B636" +
+                    "9D905CD6CDFAC2B0D98E6260C47193F7"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8",
+            "B61A891E0CCF179E4EA873E68515AFF6" +
+                    "A5E4C2A19FED7F02B1A91C0F9781AE9D" +
+                    "EAE4AA96968D544FF9F9D93B55CC4049" +
+                    "88EFE58F0EFF0DABB1BD2D3C8B8D467C"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0",
+            "0B7FD053AE635EE8E519646EB41EA0CF" +
+                    "7EA340152378062FB2440AA0250FF195" +
+                    "FE32D9A0691E68A0FEB17DC285AA6756" +
+                    "CEF19404E4DB92BF836C4AE65381504A"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0",
+            "8E48B8561654918A72E391976BA975DD" +
+                    "315F251FCABF2D4E232E5950FD9E67DB" +
+                    "6E88BE25920CB65ED0ABA5A4D31B0806" +
+                    "2C6888EB63997A176CE270D05DF39375"
         )
         testKatHex(
             digest(),
@@ -208,6 +345,19 @@ abstract class Skein512_512Test {
                     "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
                     "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
                     "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0",
+            "AC8C00261D7A5A79CD69B5AF128D77EA" +
+                    "4E600C7A8252C6CC1ADF7DBC9572C1C6" +
+                    "13C0C90CD3DD87A54953CB8796209C94" +
+                    "C0165EE1B3CA3734FFE36DD59E3A03A4"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
                     "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0" +
                     "9F9E9D9C9B9A99989796959493929190" +
                     "8F8E8D8C8B8A89888786858483828180",
@@ -215,6 +365,29 @@ abstract class Skein512_512Test {
                     "628631F308747E1BCBAA90E451CAB92E" +
                     "5188087AF4188773A332303E6667A7A2" +
                     "10856F742139000071F48E8BA2A5ADB7"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0" +
+                    "9F9E9D9C9B9A99989796959493929190" +
+                    "8F8E8D8C8B8A89888786858483828180" +
+                    "7F7E7D7C7B7A79787776757473727170" +
+                    "6F6E6D6C6B6A69686766656463626160" +
+                    "5F5E5D5C5B5A59585756555453525150" +
+                    "4F4E4D4C4B4A49484746454443424140" +
+                    "3F3E3D3C3B3A39383736353433323130" +
+                    "2F2E2D2C2B2A29282726252423222120" +
+                    "1F1E1D1C1B1A19181716151413121110" +
+                    "0F0E0D0C0B0A09080706050403020100",
+            "A55CDA09FC2DFB35CC20C1C58D8B00CC" +
+                    "68F31D26D55385D8FC7AC2A4FCCD4522" +
+                    "1FEF7C1D18A900B75A2214EE6F07EF4E" +
+                    "5D03A3E9D7294B1A5FA6E342EEC00558"
         )
     }
 

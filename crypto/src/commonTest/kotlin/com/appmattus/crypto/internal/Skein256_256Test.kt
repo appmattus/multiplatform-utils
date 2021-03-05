@@ -142,6 +142,182 @@ abstract class Skein256_256Test {
         )
     }
 
+    // From specification - skein_golden_kat.txt
+    @Test
+    fun incrementing() {
+        testKatHex(
+            digest(),
+            "FF",
+            "0B98DCD198EA0E50A7A244C444E25C23" +
+                    "DA30C10FC9A1F270A6637F1F34E67ED2"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFC",
+            "AFB92D1E32FA99493DE9276C6CA528CB" +
+                    "6B33FF0AD200F339C0781002A13734BF"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8",
+            "0B5CA56712AC0D9450BD8398479E2824" +
+                    "6C329647138D2BDB45E163778F8308D4"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0",
+            "53403B16A293104A517BCCCDD136FF71" +
+                    "F584F7FFB057A849133AF3D25002A01D"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8",
+            "167D17E8C206EC9A30D3B709CC51AD33" +
+                    "D0CE4F8D0A3434E602A83F62121028F4"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0",
+            "8D0FA4EF777FD759DFD4044E6F6A5AC3" +
+                    "C774AEC943DCFC07927B723B5DBF408B"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0",
+            "8A4842D9C1E9F24E3886FC0B107555F9" +
+                    "EDA8197707749CECC7772402B2FEA0C5"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0",
+            "DF28E916630D0B44C4A849DC9A02F07A" +
+                    "07CB30F732318256B15D865AC4AE162F"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0",
+            "66D5C6CA0F70845EF601ECCF193D1ECC" +
+                    "C2284D03B4D24610928521448E6C4A1B"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0" +
+                    "9F9E9D9C9B9A99989796959493929190" +
+                    "8F8E8D8C8B8A89888786858483828180",
+            "180DE106A70401BA38F2597C25CBEFC7" +
+                    "36DFD88D90F2D3352E0EB255AFB6DB63"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0" +
+                    "9F9E9D9C9B9A99989796959493929190" +
+                    "8F8E8D8C8B8A89888786858483828180" +
+                    "7F7E7D7C7B7A79787776757473727170" +
+                    "6F6E6D6C6B6A69686766656463626160" +
+                    "5F5E5D5C5B5A59585756555453525150" +
+                    "4F4E4D4C4B4A49484746454443424140" +
+                    "3F3E3D3C3B3A39383736353433323130" +
+                    "2F2E2D2C2B2A29282726252423222120" +
+                    "1F1E1D1C1B1A19181716151413121110" +
+                    "0F0E0D0C0B0A09080706050403020100",
+            "A088EAC7A7256DF7255EB5733779267B" +
+                    "5DD7F864320BAB3AB961DA5BEE23CB35"
+        )
+    }
+
+    // From specification - skein_golden_kat.txt
+    @Test
+    fun random() {
+        testKatHex(
+            digest(),
+            "FBD17C26",
+            "2E8B4A3613EE4EB54230E14CC0D84056" +
+                    "C7C2E3D91AE2F9435E78FB3E93336BEC"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E1",
+            "B1DD13CF629C2D7BEF08E7BD0975366D" +
+                    "D766894EA34C793F9CD420010D25864C"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9",
+            "E0EEA1CBEDC26AA6F6B06AA6BE839CE4" +
+                    "B2C725CCB5BC0D7162BB1D442E582503"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B",
+            "9D0BD975A84EE365CCA8F2E81A8290C3" +
+                    "ECE8D5ACBAB8CC4DD3BB74C403A39C8F"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B78439430CDFC5DC8" +
+                    "78BB393A1A5F79BEF30995A85A129233" +
+                    "39BA8AB7D8FC6DC5FEC6F4ED22C122BB",
+            "34BE001271314EE59A9D66F49BA801AC" +
+                    "8D082F57AF1C091269292CF1F5B69A87"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B78439430CDFC5DC8" +
+                    "78BB393A1A5F79BEF30995A85A129233" +
+                    "39BA8AB7D8FC6DC5FEC6F4ED22C122BB" +
+                    "E7EB61981892966DE5CEF576F71FC7A8" +
+                    "0D14DAB2D0C03940B95B9FB3A727C66A",
+            "91B9D70C9763FF6D3649EB56C87E3A2B" +
+                    "E805DF19CA6659782C1273CE44798957"
+        )
+        testKatHex(
+            digest(),
+            "FBD17C26B61A82E12E125F0D459B96C9" +
+                    "1AB4837DFF22B39B78439430CDFC5DC8" +
+                    "78BB393A1A5F79BEF30995A85A129233" +
+                    "39BA8AB7D8FC6DC5FEC6F4ED22C122BB" +
+                    "E7EB61981892966DE5CEF576F71FC7A8" +
+                    "0D14DAB2D0C03940B95B9FB3A727C66A" +
+                    "6E1FF0DC311B9AA21A3054484802154C" +
+                    "1826C2A27A0914152AEB76F1168D4410" +
+                    "E114AA47F7C5C61543C4D959188234F7" +
+                    "97F45A1D1665E37646D8129A45EE7078" +
+                    "0991BB6B100239E466D58D4CDD9D9D01" +
+                    "90AB64470DDC87F5E509E9A8CF824F58" +
+                    "EF04732EAB28092D18A5ADA45B6D49FB" +
+                    "0F33F4CC07E39EC6449E8C0ABB17C658" +
+                    "66009A3D9C31C0D765E4AF88B86023E9" +
+                    "A067E3320C09246A3FAE8A3FD97C487E",
+            "964A3EE1BDE59B1084E64C12151D92DC" +
+                    "F21B7A06AA3B37A50299CA8D7604CE12"
+        )
+    }
+
     // From https://github.com/bcgit/bc-java/blob/master/core/src/test/java/org/bouncycastle/crypto/test/SkeinDigestTest.java
     @Test
     fun testSkein256_256() {
