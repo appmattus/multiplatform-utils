@@ -44,6 +44,8 @@ import com.appmattus.crypto.internal.core.Skein512_384
 import com.appmattus.crypto.internal.core.Skein512_512
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_512
+import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka256_256
+import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka512_256
 import com.appmattus.crypto.internal.core.sphlib.BLAKE224
 import com.appmattus.crypto.internal.core.sphlib.BLAKE256
 import com.appmattus.crypto.internal.core.sphlib.BLAKE384
@@ -232,6 +234,9 @@ internal object CoreDigest {
             Algorithm.Skein1024_384 -> Skein1024_384()
             Algorithm.Skein1024_512 -> Skein1024_512()
             Algorithm.Skein1024_1024 -> Skein1024_1024()
+
+            Algorithm.Haraka256_256 -> Haraka256_256()
+            Algorithm.Haraka512_256 -> Haraka512_256()
         }
     }
 }

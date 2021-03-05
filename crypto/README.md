@@ -15,6 +15,7 @@ The following hashing algorithms are supported
 - GOST3411-2012-256, GOST3411-2012-512
 - Groestl-224, Groestl-256, Groestl-384, Groestl-512
 - Hamsi-224, Hamsi-256, Hamsi-384, Hamsi-512
+- Haraka-256, Haraka-512
 - HAVAL-128-3, HAVAL-128-4, HAVAL-128-5, HAVAL-160-3, HAVAL-160-4, HAVAL-160-5,
   HAVAL-192-3, HAVAL-192-4, HAVAL-192-5, HAVAL-224-3, HAVAL-224-4, HAVAL-224-5,
   HAVAL-256-3, HAVAL-256-4, HAVAL-256-5
