@@ -92,6 +92,11 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     SIMD384("SIMD-384", 128),
     SIMD512("SIMD-512", 128),
 
+    JH224("JH-224", 64),
+    JH256("JH-256", 64),
+    JH384("JH-384", 64),
+    JH512("JH-512", 64),
+
     RadioGatun32("RadioGatún[32]", 156),
     RadioGatun64("RadioGatún[64]", 312),
 

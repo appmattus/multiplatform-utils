@@ -307,10 +307,6 @@ internal abstract class JHCore<D : JHCore<D>>() : DigestEngine<D>() {
         return super.copyState(dest)
     }
 
-    override fun toString(): String {
-        return "JH-" + (digestLength shl 3)
-    }
-
     companion object {
         private val C = longArrayOf(
             0x72d5dea2df15f867L, 0x7b84150ab7231557L,

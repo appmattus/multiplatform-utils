@@ -72,6 +72,10 @@ import com.appmattus.crypto.internal.core.sphlib.Hamsi224
 import com.appmattus.crypto.internal.core.sphlib.Hamsi256
 import com.appmattus.crypto.internal.core.sphlib.Hamsi384
 import com.appmattus.crypto.internal.core.sphlib.Hamsi512
+import com.appmattus.crypto.internal.core.sphlib.JH224
+import com.appmattus.crypto.internal.core.sphlib.JH256
+import com.appmattus.crypto.internal.core.sphlib.JH384
+import com.appmattus.crypto.internal.core.sphlib.JH512
 import com.appmattus.crypto.internal.core.sphlib.Keccak224
 import com.appmattus.crypto.internal.core.sphlib.Keccak256
 import com.appmattus.crypto.internal.core.sphlib.Keccak384
@@ -185,6 +189,11 @@ internal object CoreDigest {
             Algorithm.SIMD256 -> SIMD256()
             Algorithm.SIMD384 -> SIMD384()
             Algorithm.SIMD512 -> SIMD512()
+
+            Algorithm.JH224 -> JH224()
+            Algorithm.JH256 -> JH256()
+            Algorithm.JH384 -> JH384()
+            Algorithm.JH512 -> JH512()
 
             Algorithm.RadioGatun32 -> RadioGatun32()
             Algorithm.RadioGatun64 -> RadioGatun64()

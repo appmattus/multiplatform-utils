@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.Algorithm
+
 /**
  *
  * This class implements the JH-512 digest algorithm under the
@@ -42,6 +44,8 @@ internal class JH512 : JHCore<JH512>() {
 
     override val digestLength: Int
         get() = 64
+
+    override fun toString() = Algorithm.JH512.algorithmName
 
     companion object {
         val iV = longArrayOf(
