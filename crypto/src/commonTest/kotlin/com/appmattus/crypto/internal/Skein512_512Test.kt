@@ -20,6 +20,7 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
@@ -82,6 +83,99 @@ abstract class Skein512_512Test {
             digest(),
             "ff",
             "71B7BCE6FE6452227B9CED6014249E5BF9A9754C3AD618CCC4E0AAE16B316CC8CA698D864307ED3E80B6EF1570812AC5272DC409B5A012DF2A579102F340617A"
+        )
+    }
+
+    // From specification - skein_golden_kat.txt
+    @Test
+    fun zero() {
+        testKat(
+            digest(),
+            ByteArray(1),
+            "40285F433699A1D8C799B276CCF18010" +
+                    "C9DC9D418B0E8A4ED987B44C61C01C5C" +
+                    "CBCC0977B1D34A4D3665D20E12716DF9" +
+                    "34D208FEA6607F74968ED86BE3C99832"
+        )
+        testKat(
+            digest(),
+            ByteArray(4),
+            "DD01C32531E8100E470C47809BD21F84" +
+                    "307B6B8DA616C46EA1BB4F85B5475916" +
+                    "FB86C13FAF651788AA17216518C724A5" +
+                    "81948B42DE791596D1569EBE91648B89"
+        )
+        testKat(
+            digest(),
+            ByteArray(8),
+            "A8C37D4ED547F6ECDCA7FF52AC34977E" +
+                    "17B568D7E8F49F0BD06CD9C98EA80799" +
+                    "9B11681B3B390FE54D523BD0EA07CAAE" +
+                    "6D31B226D1A7075FC3109D9859C879D8"
+        )
+        testKat(
+            digest(),
+            ByteArray(16),
+            "FC716310CF81B8990844B195DFA76521" +
+                    "756FB0C8F2604772056BE86E83DED36F" +
+                    "2577A8D7D6E3D2112F4637016C75099E" +
+                    "271DF12DDCB3257433F91BBE970B84AA"
+        )
+        testKat(
+            digest(),
+            ByteArray(24),
+            "708B363C78F15CB39D85824EA1339897" +
+                    "A003A792C2A0192604B389740758B3C7" +
+                    "D2344CA8F50F493F306D8468695B18B8" +
+                    "48EAC5234952E5AC4791EC88E7184C37"
+        )
+        testKat(
+            digest(),
+            ByteArray(32),
+            "49A7F0EE7CAEB28E35A70C68045571ED" +
+                    "66388A6E98939C44C632EDB2CA8A1617" +
+                    "CA950213454DA463E2DF5F32284363CF" +
+                    "386A1EF13087A9F826EBB5C86DEAC5EC"
+        )
+        testKat(
+            digest(),
+            ByteArray(48),
+            "E5D37D8D3DDC6A9C5F0B5DF9B840EBD7" +
+                    "343D25EC20B84892BCA40560395D90C7" +
+                    "C7AB8E4B95FA2D7BD183F18D8FDFFC3B" +
+                    "1E04EE73F6E2D17E92FC9C74183A1E8F"
+        )
+        testKat(
+            digest(),
+            ByteArray(64),
+            "33F7457DE06569E7CF5FD1EDD50CCFE1" +
+                    "D5F166429E75DDBE54A5B7E247030DD9" +
+                    "12F0DC5AB6012F59CE9203ABD82B316D" +
+                    "F67D5C6F009A18BA84DB030146DA99DB"
+        )
+        testKat(
+            digest(),
+            ByteArray(96),
+            "24359E4DA39DB5B4995087C3173BD16D" +
+                    "C73E65AB7EC1991F7FA8A3DB239397DC" +
+                    "09C9461157D939B28FB8107A13B31A15" +
+                    "158BD00F85433AD2AAE4A1B01B25E84D"
+        )
+        testKat(
+            digest(),
+            ByteArray(128),
+            "FBE65B75D681B2FE354780BDDF82CCF1" +
+                    "64C5CB2827F8E4E7DE96235907443428" +
+                    "957881C76CE46555E2BB9EE34F42F7A9" +
+                    "B2E090B55D73C7A02506E17BBDFFA4F2"
+        )
+        testKat(
+            digest(),
+            ByteArray(256),
+            "D74F3B946A59D16A50FED34786ACB23A" +
+                    "EB6069A1567BDCC2442A54C74A4D41A2" +
+                    "4A62F3F1A76C6BB44BD54AEDF94B40F5" +
+                    "3D9335154530986CD4F5AA16F93D2D24"
         )
     }
 

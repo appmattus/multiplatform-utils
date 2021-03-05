@@ -20,6 +20,7 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
@@ -74,6 +75,16 @@ class Skein256_160InstalledProviderTest : Skein256_160Test() {
 abstract class Skein256_160Test {
 
     abstract fun digest(): Digest<*>
+
+    // From specification - skein_golden_kat.txt
+    @Test
+    fun zero() {
+        testKat(
+            digest(),
+            ByteArray(128),
+            "2E693AA8CAFB42D90C808F7D2FB6C925DF618275"
+        )
+    }
 
     // From https://github.com/bcgit/bc-java/blob/master/core/src/test/java/org/bouncycastle/crypto/test/SkeinDigestTest.java
     @Test

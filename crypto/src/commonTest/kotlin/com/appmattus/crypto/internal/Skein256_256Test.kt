@@ -76,12 +76,31 @@ abstract class Skein256_256Test {
 
     abstract fun digest(): Digest<*>
 
+    // From specification - skein_golden_kat.txt
     @Test
     fun zero() {
         testKat(
             digest(),
             ByteArray(1),
             "34E2B65BF0BE667CA5DEBA82C37CB253EB9F8474F3426BA622A25219FD182433"
+        )
+        testKat(
+            digest(),
+            ByteArray(4),
+            "6960426D85F4F10DAA23213DE5ADD210" +
+                    "1F4C1B790B530BF7AA66F0930BB6B906"
+        )
+        testKat(
+            digest(),
+            ByteArray(8),
+            "76E48CFDE0177EC9B118E7DF8F0C63E6" +
+                    "6039B76994646D327F7ADB6CEEA4D0E3"
+        )
+        testKat(
+            digest(),
+            ByteArray(16),
+            "73EC7807DDE987D69600D138255E4AF0" +
+                    "585C6CA90A6C7A4ADF8BC025A2FAC394"
         )
         testKat(
             digest(),
@@ -102,6 +121,24 @@ abstract class Skein256_256Test {
             digest(),
             ByteArray(64),
             "3E0CA29E4863E8BE4D9F28777A7FDC676032C4D9F6904B1CB6AABB029F33741A"
+        )
+        testKat(
+            digest(),
+            ByteArray(96),
+            "8B0913FE583AF838E745EC9011978482" +
+                    "FB83A3C58EDA5FA04FF70832B1AC639A"
+        )
+        testKat(
+            digest(),
+            ByteArray(128),
+            "35DA44B91BFB020E6E85592E3310A6E6" +
+                    "D8939A64C778913003A61BC13583EDAF"
+        )
+        testKat(
+            digest(),
+            ByteArray(256),
+            "E00FA9CB56046CC2D2556E2ADF24E92F" +
+                    "681AE3FE9BD8C2103780C29938D64FFE"
         )
     }
 

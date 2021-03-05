@@ -20,6 +20,7 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
@@ -86,6 +87,18 @@ abstract class Skein512_384Test {
                     + "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
             "825f5cbd5da8807a7b4d3e7bd9cd089ca3a256bcc064cd73a9355bf3ae67f2bf"
                     + "93ac7074b3b19907a0665ba3a878b262"
+        )
+    }
+
+    // From specification - skein_golden_kat.txt
+    @Test
+    fun zero() {
+        testKat(
+            digest(),
+            ByteArray(128),
+            "E63EA4698F314AD9F8F8CBD1F336E027" +
+                    "955F8DCE78C3210AF9B1F46BD328367D" +
+                    "8E88D431071C4385CD8B50D74862C248"
         )
     }
 
