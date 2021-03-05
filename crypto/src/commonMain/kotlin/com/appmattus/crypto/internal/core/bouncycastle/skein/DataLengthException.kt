@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2010  Projet RNRT SAPHIR
+ * Copyright (c) 2000-2021 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,37 +21,26 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.appmattus.crypto.internal.core.sphlib
+package com.appmattus.crypto.internal.core.bouncycastle.skein
 
 /**
- *
- * This class implements the Skein-256 digest algorithm under the
- * [Digest] API. In the Skein specification, that function is
- * called under the full name "Skein-512-256".
- *
- * @version   $Revision: 253 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * this exception is thrown if a buffer that is meant to have output
+ * copied into it turns out to be too short, or if we've been given
+ * insufficient input. In general this exception will get thrown rather
+ * than an ArrayOutOfBounds exception.
  */
-@Suppress("ClassName")
-internal class Skein512_256 : SkeinBigCore<Skein512_256>() {
+internal open class DataLengthException : RuntimeCryptoException {
+    /**
+     * base constructor.
+     */
+    constructor()
 
-    override val initVal: LongArray
-        get() = Companion.initVal
-
-    override val digestLength: Int
-        get() = 32
-
-    override fun dup(): Skein512_256 {
-        return Skein512_256()
-    }
-
-    companion object {
-        /** The initial value for Skein-256.  */
-        private val initVal = longArrayOf(
-            -0x332fbb5ed024c1edL, -0x17ca6fcfe5865615L,
-            0x55AEA0614F816E6FL, 0x2A2767A4AE9B94DBL,
-            -0x13f9fda18b22897dL, -0x185bc9323b8b9dafL,
-            -0x3c904506c6c52e7bL, 0x3EEDBA1833EDFC13L
-        )
-    }
+    /**
+     * create a DataLengthException with the given message.
+     *
+     * @param message the message to be carried with the exception.
+     */
+    constructor(
+        message: String?
+    ) : super(message)
 }

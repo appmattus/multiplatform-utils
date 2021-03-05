@@ -26,11 +26,14 @@ The following hashing algorithms are supported
 - PANAMA
 - RadioGatun32, RadioGatun64
 - RIPEMD, RIPEMD-128, RIPEMD-160, RIPEMD-256, RIPEMD-320
-- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224, SHA3-256, SHA3-384, SHA3-512
+- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224,
+  SHA3-256, SHA3-384, SHA3-512
 - Shabal-192, Shabal-224, Shabal-256, Shabal-384, Shabal-512
 - SHAvite-224, SHAvite-256, SHAvite-384, SHAvite-512
 - SIMD-224, SIMD-256, SIMD-384, SIMD-512
-- Skein-224, Skein-256, Skein-384, Skein-512
+- Skein-256-128, Skein-256-160, Skein-256-224, Skein-256-256, Skein-512-128,
+  Skein-512-160, Skein-512-224, Skein-512-256, Skein-512-384, Skein-512-512,
+  Skein-1024-384, Skein-1024-512, Skein-1024-1024
 - Tiger, Tiger2
 - Whirlpool, Whirlpool-0, Whirlpool-T
 

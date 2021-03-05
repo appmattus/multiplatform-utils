@@ -29,6 +29,19 @@ import com.appmattus.crypto.internal.core.SHA3_384
 import com.appmattus.crypto.internal.core.SHA3_512
 import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
+import com.appmattus.crypto.internal.core.Skein1024_1024
+import com.appmattus.crypto.internal.core.Skein1024_384
+import com.appmattus.crypto.internal.core.Skein1024_512
+import com.appmattus.crypto.internal.core.Skein256_128
+import com.appmattus.crypto.internal.core.Skein256_160
+import com.appmattus.crypto.internal.core.Skein256_224
+import com.appmattus.crypto.internal.core.Skein256_256
+import com.appmattus.crypto.internal.core.Skein512_128
+import com.appmattus.crypto.internal.core.Skein512_160
+import com.appmattus.crypto.internal.core.Skein512_224
+import com.appmattus.crypto.internal.core.Skein512_256
+import com.appmattus.crypto.internal.core.Skein512_384
+import com.appmattus.crypto.internal.core.Skein512_512
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_512
 import com.appmattus.crypto.internal.core.sphlib.BLAKE224
@@ -90,10 +103,6 @@ import com.appmattus.crypto.internal.core.sphlib.SIMD224
 import com.appmattus.crypto.internal.core.sphlib.SIMD256
 import com.appmattus.crypto.internal.core.sphlib.SIMD384
 import com.appmattus.crypto.internal.core.sphlib.SIMD512
-import com.appmattus.crypto.internal.core.sphlib.Skein512_224
-import com.appmattus.crypto.internal.core.sphlib.Skein512_256
-import com.appmattus.crypto.internal.core.sphlib.Skein512_384
-import com.appmattus.crypto.internal.core.sphlib.Skein512_512
 import com.appmattus.crypto.internal.core.sphlib.Tiger
 import com.appmattus.crypto.internal.core.sphlib.Tiger2
 import com.appmattus.crypto.internal.core.sphlib.Whirlpool
@@ -211,6 +220,9 @@ internal object CoreDigest {
             Algorithm.Skein512_256 -> Skein512_256()
             Algorithm.Skein512_384 -> Skein512_384()
             Algorithm.Skein512_512 -> Skein512_512()
+            Algorithm.Skein1024_384 -> Skein1024_384()
+            Algorithm.Skein1024_512 -> Skein1024_512()
+            Algorithm.Skein1024_1024 -> Skein1024_1024()
         }
     }
 }

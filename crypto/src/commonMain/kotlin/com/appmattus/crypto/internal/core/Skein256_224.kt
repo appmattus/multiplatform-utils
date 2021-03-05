@@ -16,32 +16,18 @@
 
 package com.appmattus.crypto.internal.core
 
-import com.appmattus.crypto.internal.core.sphlib.SkeinSmallCore
+import com.appmattus.crypto.Algorithm
 
 /**
  * This class implements the Skein-256-224 digest algorithm
  */
 @Suppress("ClassName")
-internal class Skein256_224 : SkeinSmallCore<Skein256_224>() {
+internal class Skein256_224 : SkeinBouncycastleCore<Skein256_224>(256, 224) {
 
-    override val initVal: LongArray
-        get() = Companion.initVal
+    override val blockLength: Int
+        get() = Algorithm.Skein256_224.blockLength
 
-    override val digestLength: Int
-        get() = 28
+    override fun toString() = Algorithm.Skein256_224.algorithmName
 
-    override fun dup(): Skein256_224 {
-        return Skein256_224()
-    }
-
-    companion object {
-        /** The initial value for Skein-256-224.  */
-        @Suppress("EXPERIMENTAL_API_USAGE", "EXPERIMENTAL_UNSIGNED_LITERALS")
-        private val initVal = longArrayOf(
-            0xc6098a8c9ae5ea0bUL.toLong(),
-            0x876d568608c5191cUL.toLong(),
-            0x99cb88d7d7f53884UL.toLong(),
-            0x384bddb1aeddb5deL
-        )
-    }
+    override fun dup() = Skein256_224()
 }

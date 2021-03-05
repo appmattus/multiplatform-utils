@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2010  Projet RNRT SAPHIR
+ * Copyright (c) 2000-2021 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,37 +21,18 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.appmattus.crypto.internal.core.sphlib
+package com.appmattus.crypto.internal.core.bouncycastle.skein
 
-/**
- *
- * This class implements the Skein-224 digest algorithm under the
- * [Digest] API. In the Skein specification, that function is
- * called under the full name "Skein-512-224".
- *
- * @version   $Revision: 253 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
- */
-@Suppress("ClassName")
-internal class Skein512_224 : SkeinBigCore<Skein512_224>() {
+import kotlin.jvm.JvmOverloads
 
-    override val initVal: LongArray
-        get() = Companion.initVal
+internal class KeyParameter @JvmOverloads constructor(
+    key: ByteArray,
+    keyOff: Int = 0,
+    keyLen: Int = key.size
+) : CipherParameters {
+    val key: ByteArray = ByteArray(keyLen)
 
-    override val digestLength: Int
-        get() = 28
-
-    override fun dup(): Skein512_224 {
-        return Skein512_224()
-    }
-
-    companion object {
-        /** The initial value for Skein-224.  */
-        private val initVal = longArrayOf(
-            -0x332f9e9db7988ddcL, -0x3459a30c56dcc611L,
-            -0x73329629ad00b49cL, 0x398AED7B3AB890B4L,
-            0x0F59D1B1457D2BD0L, 0x6776FE6575D4EB3DL,
-            -0x660438f1668bec17L, -0x61d303301e3be109L
-        )
+    init {
+        key.copyInto(this.key, 0, keyOff, keyOff + keyLen)
     }
 }

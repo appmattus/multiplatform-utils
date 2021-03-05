@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2010  Projet RNRT SAPHIR
+ * Copyright (c) 2000-2021 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,37 +21,21 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.appmattus.crypto.internal.core.sphlib
+package com.appmattus.crypto.internal.core.bouncycastle.skein
 
 /**
- *
- * This class implements the Skein-384 digest algorithm under the
- * [Digest] API. In the Skein specification, that function is
- * called under the full name "Skein-512-384".
- *
- * @version   $Revision: 253 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * the foundation class for the exceptions thrown by the crypto packages.
  */
-@Suppress("ClassName")
-internal class Skein512_384 : SkeinBigCore<Skein512_384>() {
+internal open class RuntimeCryptoException : RuntimeException {
+    /**
+     * base constructor.
+     */
+    constructor()
 
-    override val initVal: LongArray
-        get() = Companion.initVal
-
-    override val digestLength: Int
-        get() = 48
-
-    override fun dup(): Skein512_384 {
-        return Skein512_384()
-    }
-
-    companion object {
-        /** The initial value for Skein-384.  */
-        private val initVal = longArrayOf(
-            -0x5c093940c58a10a1L, -0x4f010633027b055cL,
-            -0x62882299c288f302L, -0x2867340c4b970226L,
-            0x1BC4A6668A0E4465L, 0x7ED7D434E5807407L,
-            0x548FC1ACD4EC44D6L, 0x266E17546AA18FF8L
-        )
-    }
+    /**
+     * create a RuntimeCryptoException with the given message.
+     *
+     * @param message the message to be carried with the exception.
+     */
+    constructor(message: String?) : super(message)
 }

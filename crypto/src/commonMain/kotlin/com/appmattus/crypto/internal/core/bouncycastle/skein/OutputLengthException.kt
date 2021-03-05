@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2007-2010  Projet RNRT SAPHIR
+ * Copyright (c) 2000-2021 The Legion of the Bouncy Castle Inc. (https://www.bouncycastle.org)
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -21,37 +21,6 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.appmattus.crypto.internal.core.sphlib
+package com.appmattus.crypto.internal.core.bouncycastle.skein
 
-/**
- *
- * This class implements the Skein-512 digest algorithm under the
- * [Digest] API. In the Skein specification, that function is
- * called under the full name "Skein-512-512".
- *
- * @version   $Revision: 253 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
- */
-@Suppress("ClassName")
-internal class Skein512_512 : SkeinBigCore<Skein512_512>() {
-
-    override val initVal: LongArray
-        get() = Companion.initVal
-
-    override val digestLength: Int
-        get() = 64
-
-    override fun dup(): Skein512_512 {
-        return Skein512_512()
-    }
-
-    companion object {
-        /** The initial value for Skein-512.  */
-        private val initVal = longArrayOf(
-            0x4903ADFF749C51CEL, 0x0D95DE399746DF03L,
-            -0x702e6cbed8386432L, -0x65daa9d600cad34fL,
-            0x5DB62599DF6CA7B0L, -0x1541c6b3562a3c0cL,
-            -0x66eeed38e58a4addL, -0x51e75bf499f033cdL
-        )
-    }
-}
+internal class OutputLengthException(msg: String?) : DataLengthException(msg)

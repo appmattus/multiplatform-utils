@@ -21,36 +21,9 @@
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package com.appmattus.crypto.internal.core.bouncycastle
-
-import com.appmattus.crypto.Algorithm
+package com.appmattus.crypto.internal.core.bouncycastle.skein
 
 /**
- * implementation of GOST R 34.11-2012 512-bit
+ * all parameter classes implement this.
  */
-@Suppress("ClassName")
-internal class GOST3411_2012_512 : GOST3411_2012Core<GOST3411_2012_512>(IV) {
-
-    override val digestLength: Int
-        get() = 64
-
-    override val blockLength: Int
-        get() = Algorithm.GOST3411_2012_512.blockLength
-
-    override fun toString() = Algorithm.GOST3411_2012_512.algorithmName
-
-    override fun createInstance() = GOST3411_2012_512()
-
-    companion object {
-        private val IV = byteArrayOf(
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-        )
-    }
-}
+internal interface CipherParameters

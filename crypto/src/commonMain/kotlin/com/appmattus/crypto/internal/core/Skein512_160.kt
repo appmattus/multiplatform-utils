@@ -16,32 +16,18 @@
 
 package com.appmattus.crypto.internal.core
 
-import com.appmattus.crypto.internal.core.sphlib.SkeinBigCore
+import com.appmattus.crypto.Algorithm
 
 /**
  * This class implements the Skein-512-160 digest algorithm
  */
 @Suppress("ClassName")
-internal class Skein512_160 : SkeinBigCore<Skein512_160>() {
+internal class Skein512_160 : SkeinBouncycastleCore<Skein512_160>(512, 160) {
 
-    override val initVal: LongArray
-        get() = Companion.initVal
+    override val blockLength: Int
+        get() = Algorithm.Skein512_160.blockLength
 
-    override val digestLength: Int
-        get() = 20
+    override fun toString() = Algorithm.Skein512_160.algorithmName
 
-    override fun dup(): Skein512_160 {
-        return Skein512_160()
-    }
-
-    companion object {
-        /** The initial value for Skein-512-160.  */
-        @Suppress("EXPERIMENTAL_API_USAGE", "EXPERIMENTAL_UNSIGNED_LITERALS")
-        private val initVal = longArrayOf(
-            0x28b81a2ae013bd91L, 0xc2f11668b5bdf78fUL.toLong(),
-            0x1760d8f3f6a56f12L, 0x4fb747588239904fL,
-            0x21ede07f7eaf5056L, 0xd908922e63ed70b8UL.toLong(),
-            0xb8ec76ffeccb52faUL.toLong(), 0x01a47bb8a3f27a6eL
-        )
-    }
+    override fun dup() = Skein512_160()
 }

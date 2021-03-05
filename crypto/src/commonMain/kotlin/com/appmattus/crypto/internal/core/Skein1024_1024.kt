@@ -19,15 +19,15 @@ package com.appmattus.crypto.internal.core
 import com.appmattus.crypto.Algorithm
 
 /**
- * This class implements the Skein-256-160 digest algorithm
+ * This class implements the Skein-1024-1024 digest algorithm
  */
 @Suppress("ClassName")
-internal class Skein256_160 : SkeinBouncycastleCore<Skein256_160>(256, 160) {
+internal class Skein1024_1024 : SkeinBouncycastleCore<Skein1024_1024>(1024, 1024) {
 
     override val blockLength: Int
-        get() = Algorithm.Skein256_160.blockLength
+        get() = Algorithm.Skein1024_1024.blockLength
 
-    override fun toString() = Algorithm.Skein256_160.algorithmName
+    override fun toString() = Algorithm.Skein1024_1024.algorithmName
 
-    override fun dup() = Skein256_160()
+    override fun dup() = Skein1024_1024()
 }

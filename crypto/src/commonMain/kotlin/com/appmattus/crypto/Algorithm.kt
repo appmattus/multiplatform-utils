@@ -126,5 +126,8 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     Skein512_224("Skein-512-224", 64),
     Skein512_256("Skein-512-256", 64),
     Skein512_384("Skein-512-384", 64),
-    Skein512_512("Skein-512-512", 64)
+    Skein512_512("Skein-512-512", 64),
+    Skein1024_384("Skein-1024-384", 128),
+    Skein1024_512("Skein-1024-512", 128),
+    Skein1024_1024("Skein-1024-1024", 128)
 }
