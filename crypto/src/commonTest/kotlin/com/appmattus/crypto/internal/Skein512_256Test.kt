@@ -88,6 +88,24 @@ abstract class Skein512_256Test {
         )
     }
 
+    // From specification - skein_golden_kat_short.txt
+    @Test
+    fun goldenKatShort() {
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0" +
+                    "9F9E9D9C9B9A99989796959493929190" +
+                    "8F8E8D8C8B8A89888786858483828180",
+            "1A6A5BA08E74A864B5CB052CFB9B2FA1" +
+                    "28203230A4D9923A329F5427C477A4DB"
+        )
+    }
+
     @Test
     fun testSkein512_256() {
         testKatHex(

@@ -536,7 +536,7 @@ internal abstract class SkeinSmallCore<D : SkeinSmallCore<D>>() : Digest<D> {
     }
 
     override fun toString(): String {
-        return "Skein-" + (digestLength shl 3)
+        return "Skein-256-" + (digestLength shl 3)
     }
 
     override val blockLength = 32

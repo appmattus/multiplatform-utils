@@ -28,8 +28,8 @@ import com.appmattus.crypto.Digest
 /**
  * This class implements the Skein core with a 512-bit internal state
  * ("Skein-512" in the Skein specification terminology). This is used
- * for Skein-224, Skein-256, Skein-384 and Skein-512 (the SHA-3
- * candidates).
+ * for Skein-512-224, Skein-512-256, Skein-512-384 and Skein-512-512
+ * (the SHA-3 candidates).
  *
  * @version   $Revision: 253 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
@@ -274,7 +274,7 @@ internal abstract class SkeinBigCore<D : SkeinBigCore<D>>() : Digest<D> {
     }
 
     override fun toString(): String {
-        return "Skein-" + (digestLength shl 3)
+        return "Skein-512-" + (digestLength shl 3)
     }
 
     override val blockLength = 64

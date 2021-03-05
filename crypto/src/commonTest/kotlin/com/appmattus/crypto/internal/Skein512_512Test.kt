@@ -20,7 +20,6 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import com.appmattus.crypto.internal.core.sphlib.Skein512_512
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
@@ -83,6 +82,45 @@ abstract class Skein512_512Test {
             digest(),
             "ff",
             "71B7BCE6FE6452227B9CED6014249E5BF9A9754C3AD618CCC4E0AAE16B316CC8CA698D864307ED3E80B6EF1570812AC5272DC409B5A012DF2A579102F340617A"
+        )
+    }
+
+    // From specification - skein_golden_kat_short.txt
+    @Test
+    fun goldenKatShort() {
+        testKatHex(
+            digest(),
+            "FF",
+            "71B7BCE6FE6452227B9CED6014249E5B" +
+                    "F9A9754C3AD618CCC4E0AAE16B316CC8" +
+                    "CA698D864307ED3E80B6EF1570812AC5" +
+                    "272DC409B5A012DF2A579102F340617A"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0",
+            "45863BA3BE0C4DFC27E75D358496F4AC" +
+                    "9A736A505D9313B42B2F5EADA79FC17F" +
+                    "63861E947AFB1D056AA199575AD3F8C9" +
+                    "A3CC1780B5E5FA4CAE050E989876625B"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0" +
+                    "BFBEBDBCBBBAB9B8B7B6B5B4B3B2B1B0" +
+                    "AFAEADACABAAA9A8A7A6A5A4A3A2A1A0" +
+                    "9F9E9D9C9B9A99989796959493929190" +
+                    "8F8E8D8C8B8A89888786858483828180",
+            "91CCA510C263C4DDD010530A33073309" +
+                    "628631F308747E1BCBAA90E451CAB92E" +
+                    "5188087AF4188773A332303E6667A7A2" +
+                    "10856F742139000071F48E8BA2A5ADB7"
         )
     }
 

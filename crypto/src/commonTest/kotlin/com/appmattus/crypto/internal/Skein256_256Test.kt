@@ -103,7 +103,6 @@ abstract class Skein256_256Test {
             ByteArray(64),
             "3E0CA29E4863E8BE4D9F28777A7FDC676032C4D9F6904B1CB6AABB029F33741A"
         )
-
     }
 
     // From https://github.com/bcgit/bc-java/blob/master/core/src/test/java/org/bouncycastle/crypto/test/SkeinDigestTest.java
@@ -136,6 +135,33 @@ abstract class Skein256_256Test {
                     + "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a"
                     + "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
             "4de6fe2bfdaa3717a4261030ef0e044ced9225d066354610842a24a3eafd1dcf"
+        )
+    }
+
+    // From specification - skein_golden_kat_short.txt
+    @Test
+    fun goldenKatShort() {
+        testKatHex(
+            digest(),
+            "FF",
+            "0B98DCD198EA0E50A7A244C444E25C23" +
+                    "DA30C10FC9A1F270A6637F1F34E67ED2"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0",
+            "8D0FA4EF777FD759DFD4044E6F6A5AC3" +
+                    "C774AEC943DCFC07927B723B5DBF408B"
+        )
+        testKatHex(
+            digest(),
+            "FFFEFDFCFBFAF9F8F7F6F5F4F3F2F1F0" +
+                    "EFEEEDECEBEAE9E8E7E6E5E4E3E2E1E0" +
+                    "DFDEDDDCDBDAD9D8D7D6D5D4D3D2D1D0" +
+                    "CFCECDCCCBCAC9C8C7C6C5C4C3C2C1C0",
+            "DF28E916630D0B44C4A849DC9A02F07A" +
+                    "07CB30F732318256B15D865AC4AE162F"
         )
     }
 }
