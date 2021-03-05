@@ -138,4 +138,8 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
 
     Haraka256_256("Haraka-256", 32),
     Haraka512_256("Haraka-512", 64),
+
+    DSTU7564_256("DSTU7564-256", 64),
+    DSTU7564_384("DSTU7564-384", 128),
+    DSTU7564_512("DSTU7564-512", 128),
 }

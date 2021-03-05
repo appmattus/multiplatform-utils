@@ -10,6 +10,7 @@ The following hashing algorithms are supported
 - BMW-224, BMW-256, BMW-384, BMW-512
 - CRC32
 - CubeHash-224, CubeHash-256, CubeHash-384, CubeHash-512
+- DSTU7564-256, DSTU7564-384, DSTU7564-512
 - ECHO-224, ECHO-256, ECHO-384, ECHO-512
 - Fugue-224, Fugue-256, Fugue-384, Fugue-512
 - GOST3411-2012-256, GOST3411-2012-512
