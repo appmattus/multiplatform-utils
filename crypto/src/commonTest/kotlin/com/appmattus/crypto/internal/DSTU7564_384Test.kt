@@ -20,6 +20,7 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
@@ -74,6 +75,15 @@ class DSTU7564_384InstalledProviderTest : DSTU7564_384Test() {
 abstract class DSTU7564_384Test {
 
     abstract fun digest(): Digest<*>
+
+    @Test
+    fun abc() {
+        testKat(
+            digest(),
+            "abc",
+            "72945012b0820c3132846ddc90da511f80bb7b70abd0cb1ab8df785d600c187b9d0ac567e8b6f76fde8a0b417a2ebf88"
+        )
+    }
 
     // From https://github.com/bcgit/bc-java/blob/master/core/src/test/java/org/bouncycastle/crypto/test/DSTU7564Test.java
     @Test
