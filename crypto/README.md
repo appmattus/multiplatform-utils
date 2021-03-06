@@ -36,6 +36,7 @@ The following hashing algorithms are supported
 - Skein-256-128, Skein-256-160, Skein-256-224, Skein-256-256, Skein-512-128,
   Skein-512-160, Skein-512-224, Skein-512-256, Skein-512-384, Skein-512-512,
   Skein-1024-384, Skein-1024-512, Skein-1024-1024
+- SM3
 - Tiger, Tiger2
 - Whirlpool, Whirlpool-0, Whirlpool-T
 

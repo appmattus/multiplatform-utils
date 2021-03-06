@@ -29,6 +29,7 @@ import com.appmattus.crypto.internal.core.SHA3_384
 import com.appmattus.crypto.internal.core.SHA3_512
 import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
+import com.appmattus.crypto.internal.core.SM3
 import com.appmattus.crypto.internal.core.Skein1024_1024
 import com.appmattus.crypto.internal.core.Skein1024_384
 import com.appmattus.crypto.internal.core.Skein1024_512
@@ -122,6 +123,8 @@ internal object CoreDigest {
             Algorithm.MD2 -> MD2()
             Algorithm.MD4 -> MD4()
             Algorithm.MD5 -> MD5()
+
+            Algorithm.SM3 -> SM3()
 
             Algorithm.SHA_0 -> SHA0()
             Algorithm.SHA_1 -> SHA1()
