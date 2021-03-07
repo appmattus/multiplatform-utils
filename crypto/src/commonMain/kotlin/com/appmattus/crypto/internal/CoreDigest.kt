@@ -43,9 +43,10 @@ import com.appmattus.crypto.internal.core.Skein512_224
 import com.appmattus.crypto.internal.core.Skein512_256
 import com.appmattus.crypto.internal.core.Skein512_384
 import com.appmattus.crypto.internal.core.Skein512_512
+import com.appmattus.crypto.internal.core.bouncycastle.DSTU7564
+import com.appmattus.crypto.internal.core.bouncycastle.GOST3411
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_512
-import com.appmattus.crypto.internal.core.bouncycastle.DSTU7564
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka256_256
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka512_256
 import com.appmattus.crypto.internal.core.sphlib.BLAKE224
@@ -218,6 +219,7 @@ internal object CoreDigest {
             Algorithm.Adler32 -> Adler32()
             Algorithm.CRC32 -> CRC32()
 
+            Algorithm.GOST3411_94 -> GOST3411()
             Algorithm.GOST3411_2012_256 -> GOST3411_2012_256()
             Algorithm.GOST3411_2012_512 -> GOST3411_2012_512()
 

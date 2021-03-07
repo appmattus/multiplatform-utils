@@ -13,7 +13,7 @@ The following hashing algorithms are supported
 - DSTU7564-256, DSTU7564-384, DSTU7564-512
 - ECHO-224, ECHO-256, ECHO-384, ECHO-512
 - Fugue-224, Fugue-256, Fugue-384, Fugue-512
-- GOST3411-2012-256, GOST3411-2012-512
+- GOST3411-94, GOST3411-2012-256, GOST3411-2012-512
 - Groestl-224, Groestl-256, Groestl-384, Groestl-512
 - Hamsi-224, Hamsi-256, Hamsi-384, Hamsi-512
 - Haraka-256, Haraka-512
