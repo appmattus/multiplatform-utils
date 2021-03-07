@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the JH-384 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 255 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 255 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class JH384 : JHCore<JH384>() {
 

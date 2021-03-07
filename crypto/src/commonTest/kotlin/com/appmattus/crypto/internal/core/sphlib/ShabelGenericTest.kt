@@ -10,8 +10,8 @@ class ShabelGenericTest {
     @Test
     fun testShabal192() {
         testKat(
-            Shabal192(), "abcdefghijklmnopqrstuvwxyz-0123456789-ABCDEFGHIJKLM"
-                    + "NOPQRSTUVWXYZ-0123456789-abcdefghijklmnopqrstuvwxyz",
+            Shabal192(), "abcdefghijklmnopqrstuvwxyz-0123456789-ABCDEFGHIJKLM" +
+                    "NOPQRSTUVWXYZ-0123456789-abcdefghijklmnopqrstuvwxyz",
             "690FAE79226D95760AE8FDB4F58C0537111756557D307B15"
         )
     }

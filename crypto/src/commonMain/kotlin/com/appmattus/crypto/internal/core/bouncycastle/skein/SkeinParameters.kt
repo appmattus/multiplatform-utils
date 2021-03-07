@@ -125,19 +125,17 @@ internal class SkeinParameters private constructor(parameters: MutableMap<Int, B
          * @param value the byte sequence of the parameter.
          * @return the current builder instance.
          */
-        operator fun set(type: Int, value: ByteArray?): Builder {
-            if (value == null) {
-                throw IllegalArgumentException("Parameter value must not be null.")
-            }
-            if (type != PARAM_TYPE_KEY
-                && (type < PARAM_TYPE_CONFIG || type >= PARAM_TYPE_OUTPUT || type == PARAM_TYPE_MESSAGE)
+        @Suppress("ThrowsCount")
+        fun set(type: Int, value: ByteArray): Builder {
+            if (type != PARAM_TYPE_KEY &&
+                (type < PARAM_TYPE_CONFIG || type >= PARAM_TYPE_OUTPUT || type == PARAM_TYPE_MESSAGE)
             ) {
                 throw IllegalArgumentException("Parameter types must be in the range 0,5..47,49..62.")
             }
             if (type == PARAM_TYPE_CONFIG) {
                 throw IllegalArgumentException(
-                    "Parameter type " + PARAM_TYPE_CONFIG
-                            + " is reserved for internal use."
+                    "Parameter type " + PARAM_TYPE_CONFIG +
+                            " is reserved for internal use."
                 )
             }
             parameters[type] = value
@@ -147,14 +145,14 @@ internal class SkeinParameters private constructor(parameters: MutableMap<Int, B
         /**
          * Sets the [.PARAM_TYPE_KEY] parameter.
          */
-        fun setKey(key: ByteArray?): Builder {
+        fun setKey(key: ByteArray): Builder {
             return set(PARAM_TYPE_KEY, key)
         }
 
         /**
          * Sets the [.PARAM_TYPE_PERSONALISATION] parameter.
          */
-        fun setPersonalisation(personalisation: ByteArray?): Builder {
+        fun setPersonalisation(personalisation: ByteArray): Builder {
             return set(PARAM_TYPE_PERSONALISATION, personalisation)
         }
 
@@ -223,21 +221,21 @@ internal class SkeinParameters private constructor(parameters: MutableMap<Int, B
         /**
          * Sets the [SkeinParameters.PARAM_TYPE_KEY_IDENTIFIER] parameter.
          */
-        fun setPublicKey(publicKey: ByteArray?): Builder {
+        fun setPublicKey(publicKey: ByteArray): Builder {
             return set(PARAM_TYPE_PUBLIC_KEY, publicKey)
         }
 
         /**
          * Sets the [SkeinParameters.PARAM_TYPE_KEY_IDENTIFIER] parameter.
          */
-        fun setKeyIdentifier(keyIdentifier: ByteArray?): Builder {
+        fun setKeyIdentifier(keyIdentifier: ByteArray): Builder {
             return set(PARAM_TYPE_KEY_IDENTIFIER, keyIdentifier)
         }
 
         /**
          * Sets the [SkeinParameters.PARAM_TYPE_NONCE] parameter.
          */
-        fun setNonce(nonce: ByteArray?): Builder {
+        fun setNonce(nonce: ByteArray): Builder {
             return set(PARAM_TYPE_NONCE, nonce)
         }
 

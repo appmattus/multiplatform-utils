@@ -28,10 +28,10 @@ import com.appmattus.crypto.Digest
 /**
  * This class implements Hamsi-224 and Hamsi-256.
  *
- * @version   $Revision: 239 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 239 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>>() : Digest<D> {
+internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>> : Digest<D> {
     private val h: IntArray = IntArray(8)
     private var bitCount: Long = 0
     private var partial = 0
@@ -163,14 +163,14 @@ internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>>() : Digest<D> {
     /**
      * Get the IV.
      *
-     * @return  the IV (initial values for the state words)
+     * @return the IV (initial values for the state words)
      */
     protected abstract val iV: IntArray
 
     /**
      * Create a new instance of the same runtime class than this object.
      *
-     * @return  the duplicate
+     * @return the duplicate
      */
     protected abstract fun dup(): D
 

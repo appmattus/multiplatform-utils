@@ -67,7 +67,7 @@ internal class Haraka512_256 : HarakaCore<Haraka512_256> {
         val s1 = Array(4) { ByteArray(16) }
         val s2 = Array(4) { ByteArray(16) }
 
-        //-- Unrolled version of above.
+        // -- Unrolled version of above.
         msg.copyInto(s1[0], 0, 0, 16)
         msg.copyInto(s1[1], 0, 16, 32)
         msg.copyInto(s1[2], 0, 32, 48)

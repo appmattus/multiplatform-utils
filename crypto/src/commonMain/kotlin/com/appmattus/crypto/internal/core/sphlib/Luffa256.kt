@@ -28,8 +28,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * This class implements the Luffa-256 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 156 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 156 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Luffa256 : LuffaSmallCore<Luffa256>() {
 

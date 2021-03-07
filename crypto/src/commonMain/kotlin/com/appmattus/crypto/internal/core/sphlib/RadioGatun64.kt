@@ -32,8 +32,8 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * This class implements the RadioGatun[64] digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 232 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 232 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
     private lateinit var a: LongArray

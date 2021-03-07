@@ -30,8 +30,8 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * This class implements Tiger and Tiger2, which differ only by the
  * padding.
  *
- * @version   $Revision: 156 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 156 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  *
  * @param fbyte   the first padding byte
  */

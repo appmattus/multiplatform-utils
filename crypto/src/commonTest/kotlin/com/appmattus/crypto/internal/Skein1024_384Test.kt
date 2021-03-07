@@ -112,12 +112,12 @@ abstract class Skein1024_384Test {
     fun bouncy() {
         testKatHex(
             digest(),
-            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8"
-                    + "78bb393a1a5f79bef30995a85a12923339ba8ab7d8fc6dc5fec6f4ed22c122bb"
-                    + "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a"
-                    + "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
-            "9c3d0648c11f31c18395d5e6c8ebd73f43d189843fc45235e2c35e345e12d62b"
-                    + "c21a41f65896ddc6a04969654c2e2ce9"
+            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8" +
+                    "78bb393a1a5f79bef30995a85a12923339ba8ab7d8fc6dc5fec6f4ed22c122bb" +
+                    "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a" +
+                    "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
+            "9c3d0648c11f31c18395d5e6c8ebd73f43d189843fc45235e2c35e345e12d62b" +
+                    "c21a41f65896ddc6a04969654c2e2ce9"
         )
     }
 }

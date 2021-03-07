@@ -31,8 +31,8 @@ import com.appmattus.crypto.Algorithm
  * [Digest] API. This is the second variant of Whirlpool, created
  * in 2001 and superseded in 2003 by the third variant (Whirlpool).
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class WhirlpoolT : WhirlpoolCore<WhirlpoolT>(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
 

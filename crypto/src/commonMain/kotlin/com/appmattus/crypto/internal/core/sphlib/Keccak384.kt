@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the Keccak-384 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 189 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 189 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Keccak384 : KeccakCore<Keccak384>() {
 

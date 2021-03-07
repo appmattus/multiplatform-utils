@@ -28,8 +28,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * This class implements the CubeHash-384 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 183 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 183 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class CubeHash384 : CubeHashCore<CubeHash384>() {
 

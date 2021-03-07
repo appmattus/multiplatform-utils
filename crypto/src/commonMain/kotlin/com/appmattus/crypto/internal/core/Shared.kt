@@ -17,28 +17,28 @@
 package com.appmattus.crypto.internal.core
 
 /**
- * Encode the 32-bit word `val` into the array
- * `buf` at offset `off`, in little-endian
+ * Encode the 32-bit word [value] into the array
+ * [buf] at offset [off], in little-endian
  * convention (least significant byte first).
  *
- * @param `val`   the value to encode
+ * @param value   the value to encode
  * @param buf   the destination buffer
  * @param off   the destination offset
  */
-internal fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-    buf[off + 0] = `val`.toByte()
-    buf[off + 1] = (`val` ushr 8).toByte()
-    buf[off + 2] = (`val` ushr 16).toByte()
-    buf[off + 3] = (`val` ushr 24).toByte()
+internal fun encodeLEInt(value: Int, buf: ByteArray, off: Int) {
+    buf[off + 0] = value.toByte()
+    buf[off + 1] = (value ushr 8).toByte()
+    buf[off + 2] = (value ushr 16).toByte()
+    buf[off + 3] = (value ushr 24).toByte()
 }
 
 /**
- * Decode a 32-bit little-endian word from the array `buf`
- * at offset `off`.
+ * Decode a 32-bit little-endian word from the array [buf]
+ * at offset [off].
  *
  * @param buf   the source buffer
  * @param off   the source offset
- * @return  the decoded value
+ * @return the decoded value
  */
 internal fun decodeLEInt(buf: ByteArray, off: Int): Int {
     return (buf[off + 3].toInt() and 0xFF shl 24
@@ -52,7 +52,7 @@ internal fun decodeLEInt(buf: ByteArray, off: Int): Int {
  *
  * @param buf   the source buffer
  * @param off   the source offset
- * @return  the decoded integer
+ * @return the decoded integer
  */
 internal fun decodeLELong(buf: ByteArray, off: Int): Long {
     return (buf[off + 0].toLong() and 0xFF
@@ -68,44 +68,44 @@ internal fun decodeLELong(buf: ByteArray, off: Int): Long {
 /**
  * Encode a 64-bit integer with little-endian convention.
  *
- * @param val   the integer to encode
+ * @param [value]   the integer to encode
  * @param dst   the destination buffer
  * @param off   the destination offset
  */
-internal fun encodeLELong(`val`: Long, dst: ByteArray, off: Int) {
-    dst[off + 0] = `val`.toByte()
-    dst[off + 1] = (`val`.toInt() ushr 8).toByte()
-    dst[off + 2] = (`val`.toInt() ushr 16).toByte()
-    dst[off + 3] = (`val`.toInt() ushr 24).toByte()
-    dst[off + 4] = (`val` ushr 32).toByte()
-    dst[off + 5] = (`val` ushr 40).toByte()
-    dst[off + 6] = (`val` ushr 48).toByte()
-    dst[off + 7] = (`val` ushr 56).toByte()
+internal fun encodeLELong(value: Long, dst: ByteArray, off: Int) {
+    dst[off + 0] = value.toByte()
+    dst[off + 1] = (value.toInt() ushr 8).toByte()
+    dst[off + 2] = (value.toInt() ushr 16).toByte()
+    dst[off + 3] = (value.toInt() ushr 24).toByte()
+    dst[off + 4] = (value ushr 32).toByte()
+    dst[off + 5] = (value ushr 40).toByte()
+    dst[off + 6] = (value ushr 48).toByte()
+    dst[off + 7] = (value ushr 56).toByte()
 }
 
 /**
- * Encode the 32-bit word `val` into the array
- * `buf` at offset `off`, in big-endian
+ * Encode the 32-bit word [value] into the array
+ * [buf] at offset [off], in big-endian
  * convention (most significant byte first).
  *
- * @param val   the value to encode
+ * @param value   the value to encode
  * @param buf   the destination buffer
  * @param off   the destination offset
  */
-internal fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-    buf[off + 0] = (`val` ushr 24).toByte()
-    buf[off + 1] = (`val` ushr 16).toByte()
-    buf[off + 2] = (`val` ushr 8).toByte()
-    buf[off + 3] = `val`.toByte()
+internal fun encodeBEInt(value: Int, buf: ByteArray, off: Int) {
+    buf[off + 0] = (value ushr 24).toByte()
+    buf[off + 1] = (value ushr 16).toByte()
+    buf[off + 2] = (value ushr 8).toByte()
+    buf[off + 3] = value.toByte()
 }
 
 /**
- * Decode a 32-bit big-endian word from the array `buf`
- * at offset `off`.
+ * Decode a 32-bit big-endian word from the array [buf]
+ * at offset [off].
  *
  * @param buf   the source buffer
  * @param off   the source offset
- * @return  the decoded value
+ * @return the decoded value
  */
 internal fun decodeBEInt(buf: ByteArray, off: Int): Int {
     return (buf[off].toInt() and 0xFF shl 24
@@ -115,32 +115,32 @@ internal fun decodeBEInt(buf: ByteArray, off: Int): Int {
 }
 
 /**
- * Encode the 64-bit word `val` into the array
- * `buf` at offset `off`, in big-endian
+ * Encode the 64-bit word [value] into the array
+ * [buf] at offset [off], in big-endian
  * convention (most significant byte first).
  *
- * @param val   the value to encode
+ * @param value   the value to encode
  * @param buf   the destination buffer
  * @param off   the destination offset
  */
-internal fun encodeBELong(`val`: Long, buf: ByteArray, off: Int) {
-    buf[off + 0] = (`val` ushr 56).toByte()
-    buf[off + 1] = (`val` ushr 48).toByte()
-    buf[off + 2] = (`val` ushr 40).toByte()
-    buf[off + 3] = (`val` ushr 32).toByte()
-    buf[off + 4] = (`val` ushr 24).toByte()
-    buf[off + 5] = (`val` ushr 16).toByte()
-    buf[off + 6] = (`val` ushr 8).toByte()
-    buf[off + 7] = `val`.toByte()
+internal fun encodeBELong(value: Long, buf: ByteArray, off: Int) {
+    buf[off + 0] = (value ushr 56).toByte()
+    buf[off + 1] = (value ushr 48).toByte()
+    buf[off + 2] = (value ushr 40).toByte()
+    buf[off + 3] = (value ushr 32).toByte()
+    buf[off + 4] = (value ushr 24).toByte()
+    buf[off + 5] = (value ushr 16).toByte()
+    buf[off + 6] = (value ushr 8).toByte()
+    buf[off + 7] = value.toByte()
 }
 
 /**
- * Decode a 64-bit big-endian word from the array `buf`
- * at offset `off`.
+ * Decode a 64-bit big-endian word from the array [buf]
+ * at offset [off].
  *
  * @param buf   the source buffer
  * @param off   the source offset
- * @return  the decoded value
+ * @return the decoded value
  */
 internal fun decodeBELong(buf: ByteArray, off: Int): Long {
     return ((buf[off].toLong() and 0xFF) shl 56
@@ -154,52 +154,52 @@ internal fun decodeBELong(buf: ByteArray, off: Int): Long {
 }
 
 /**
- * Perform a circular rotation by `n` to the left
- * of the 32-bit word `x`. The `n` parameter
+ * Perform a circular rotation by [n] to the left
+ * of the 32-bit word [x]. The [n] parameter
  * must lie between 1 and 31 (inclusive).
  *
  * @param x   the value to rotate
  * @param n   the rotation count (between 1 and 31)
- * @return  the rotated value
+ * @return the rotated value
  */
 internal fun circularLeftInt(x: Int, n: Int): Int {
     return x shl n or (x ushr -n)
 }
 
 /**
- * Perform a circular rotation by `n` to the right
- * of the 32-bit word `x`. The `n` parameter
+ * Perform a circular rotation by [n] to the right
+ * of the 32-bit word [x]. The [n] parameter
  * must lie between 1 and 31 (inclusive).
  *
  * @param x   the value to rotate
  * @param n   the rotation count (between 1 and 31)
- * @return  the rotated value
+ * @return the rotated value
  */
 internal fun circularRightInt(x: Int, n: Int): Int {
     return x ushr n or (x shl -n)
 }
 
 /**
- * Perform a circular rotation by `n` to the left
- * of the 64-bit word `x`. The `n` parameter
+ * Perform a circular rotation by [n] to the left
+ * of the 64-bit word [x]. The [n] parameter
  * must lie between 1 and 63 (inclusive).
  *
  * @param x   the value to rotate
  * @param n   the rotation count (between 1 and 63)
- * @return  the rotated value
+ * @return the rotated value
  */
 internal fun circularLeftLong(x: Long, n: Int): Long {
     return (x shl n) or (x ushr -n)
 }
 
 /**
- * Perform a circular rotation by `n` to the right
- * of the 64-bit word `x`. The `n` parameter
+ * Perform a circular rotation by [n] to the right
+ * of the 64-bit word [x]. The [n] parameter
  * must lie between 1 and 63 (inclusive).
  *
  * @param x   the value to rotate
  * @param n   the rotation count (between 1 and 63)
- * @return  the rotated value
+ * @return the rotated value
  */
 internal fun circularRightLong(x: Long, n: Int): Long {
     return x ushr n or (x shl -n)

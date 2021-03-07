@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the BLAKE-512 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 252 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 252 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class BLAKE512 : BLAKEBigCore<BLAKE512>() {
 

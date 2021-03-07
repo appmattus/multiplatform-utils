@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the MD2 digest algorithm under the [ ] API, using the [DigestEngine] class. MD4 is described
  * in RFC 1319.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class MD2 : DigestEngine<MD2>() {
 

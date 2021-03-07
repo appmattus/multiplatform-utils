@@ -26,8 +26,8 @@ package com.appmattus.crypto.internal.core.sphlib
 /**
  * This class implements HAVAL with 160-bit output and 5 passes.
  *
- * @version   $Revision: 156 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 156 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 @Suppress("ClassName")
 internal class HAVAL160_5 : HAVALCore<HAVAL160_5>(160, 5) {

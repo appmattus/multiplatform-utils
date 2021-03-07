@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the SHA-256 digest algorithm under the
  * [Digest] API. SHA-256 is specified by FIPS 180-2.
  *
- * @version   $Revision: 156 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 156 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class SHA256 : SHA2Core<SHA256>() {
 

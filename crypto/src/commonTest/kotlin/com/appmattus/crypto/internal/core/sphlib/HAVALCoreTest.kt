@@ -31,39 +31,39 @@ class HAVALCoreTest {
             "DC502247FB3EB8376109EDA32D361D82"
         )
         testKat(
-            dig128_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig128_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "DE5EB3F7D9EB08FAE7A07D68E3047EC6"
         )
         testCollision(
             dig128_3,
-            "8b447763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733"
-                    + "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d993056cd"
-                    + "5dea867bae39a7328efd54362bbbac9a3c183889927ab6b2"
-                    + "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7"
-                    + "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0"
-                    + "e21200877f30f4",
-            ("8b487763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733"
-                    + "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d9930d6cd"
-                    + "5dea867bae39a7328efd54362bbbac9a3c183889927ab6ba"
-                    + "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7"
-                    + "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0"
-                    + "e21200877f30f4")
+            "8b447763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733" +
+                    "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d993056cd" +
+                    "5dea867bae39a7328efd54362bbbac9a3c183889927ab6b2" +
+                    "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7" +
+                    "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0" +
+                    "e21200877f30f4",
+            ("8b487763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733" +
+                    "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d9930d6cd" +
+                    "5dea867bae39a7328efd54362bbbac9a3c183889927ab6ba" +
+                    "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7" +
+                    "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0" +
+                    "e21200877f30f4")
         )
         testCollision(
             dig128_3,
-            ("8b447763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733"
-                    + "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d993056cd"
-                    + "5dea867bae39a7328efd54362bbbac9a3c183889927ab6b2"
-                    + "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7"
-                    + "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0"
-                    + "e212006369b1f5"),
-            ("8b487763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733"
-                    + "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d9930d6cd"
-                    + "5dea867bae39a7328efd54362bbbac9a3c183889927ab6ba"
-                    + "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7"
-                    + "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0"
-                    + "e212006369b1f5")
+            ("8b447763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733" +
+                    "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d993056cd" +
+                    "5dea867bae39a7328efd54362bbbac9a3c183889927ab6b2" +
+                    "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7" +
+                    "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0" +
+                    "e212006369b1f5"),
+            ("8b487763189fe5d9bb3caaf2ba92cbd6444a54ee76a59f8733" +
+                    "46a31c4f5dca76428a7aa68bdc3a8d14d8e3b68d9930d6cd" +
+                    "5dea867bae39a7328efd54362bbbac9a3c183889927ab6ba" +
+                    "9972c4e59e0327145e55ddd8189083c9d9bbaa32c68fd7a7" +
+                    "b3f4ff96000040ac6a467fc0fbffffd216405fd016405fb0" +
+                    "e212006369b1f5")
         )
     }
 
@@ -94,8 +94,8 @@ class HAVALCoreTest {
             "EBA9FA6050F24C07C29D1834A60900EA4E32E61B"
         )
         testKat(
-            dig160_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig160_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "97DC988D97CAAE757BE7523C4E8D4EA63007A4B9"
         )
     }
@@ -127,8 +127,8 @@ class HAVALCoreTest {
             "A25E1456E6863E7D7C74017BB3E098E086AD4BE0580D7056"
         )
         testKat(
-            dig192_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig192_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "DEF6653091E3005B43A61681014A066CD189009D00856EE7"
         )
     }
@@ -160,8 +160,8 @@ class HAVALCoreTest {
             "06AE38EBC43DB58BD6B1D477C7B4E01B85A1E7B19B0BD088E33B58D1"
         )
         testKat(
-            dig224_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig224_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "939F7ED7801C1CE4B32BC74A4056EEE6081C999ED246907ADBA880A7"
         )
     }
@@ -193,8 +193,8 @@ class HAVALCoreTest {
             "72FAD4BDE1DA8C8332FB60561A780E7F504F21547B98686824FC33FC796AFA76"
         )
         testKat(
-            dig256_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig256_3, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "899397D96489281E9E76D5E65ABAB751F312E06C06C07C9C1D42ABD31BB6A404"
         )
     }
@@ -226,8 +226,8 @@ class HAVALCoreTest {
             "B2A73B99775FFB17CD8781B85EC66221"
         )
         testKat(
-            dig128_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig128_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "CAD57C0563BDA208D66BB89EB922E2A2"
         )
     }
@@ -259,8 +259,8 @@ class HAVALCoreTest {
             "1C7884AF86D11AC120FE5DF75CEE792D2DFA48EF"
         )
         testKat(
-            dig160_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig160_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "148334AAD24B658BDC946C521CDD2B1256608C7B"
         )
     }
@@ -292,8 +292,8 @@ class HAVALCoreTest {
             "2E2E581D725E799FDA1948C75E85A28CFE1CF0C6324A1ADA"
         )
         testKat(
-            dig192_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig192_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "E5C9F81AE0B31FC8780FC37CB63BB4EC96496F79A9B58344"
         )
     }
@@ -325,8 +325,8 @@ class HAVALCoreTest {
             "A0AC696CDB2030FA67F6CC1D14613B1962A7B69B4378A9A1B9738796"
         )
         testKat(
-            dig224_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig224_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "3E63C95727E0CD85D42034191314401E42AB9063A94772647E3E8E0F"
         )
     }
@@ -358,8 +358,8 @@ class HAVALCoreTest {
             "124F6EB645DC407637F8F719CC31250089C89903BF1DB8FAC21EA4614DF4E99A"
         )
         testKat(
-            dig256_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig256_4, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "46A3A1DFE867EDE652425CCD7FE8006537EAD26372251686BEA286DA152DC35A"
         )
     }
@@ -391,8 +391,8 @@ class HAVALCoreTest {
             "0EFFF71D7D14344CBA1F4B25F924A693"
         )
         testKat(
-            dig128_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig128_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "4B27D04DDB516BDCDFEB96EB8C7C8E90"
         )
     }
@@ -424,8 +424,8 @@ class HAVALCoreTest {
             "917836A9D27EED42D406F6002E7D11A0F87C404C"
         )
         testKat(
-            dig160_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig160_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "6DDBDE98EA1C4F8C7F360FB9163C7C952680AA70"
         )
     }
@@ -457,8 +457,8 @@ class HAVALCoreTest {
             "85F1F1C0ECA04330CF2DE5C8C83CF85A611B696F793284DE"
         )
         testKat(
-            dig192_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig192_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "D651C8AC45C9050810D9FD64FC919909900C4664BE0336D0"
         )
     }
@@ -490,8 +490,8 @@ class HAVALCoreTest {
             "1B360ACFF7806502B5D40C71D237CC0C40343D2000AE2F65CF487C94"
         )
         testKat(
-            dig224_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig224_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "180AED7F988266016719F60148BA2C9B4F5EC3B9758960FC735DF274"
         )
     }
@@ -523,8 +523,8 @@ class HAVALCoreTest {
             "C9C7D8AFA159FD9E965CB83FF5EE6F58AEDA352C0EFF005548153A61551C38EE"
         )
         testKat(
-            dig256_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                    + "abcdefghijklmnopqrstuvwxyz0123456789",
+            dig256_5, "ABCDEFGHIJKLMNOPQRSTUVWXYZ" +
+                    "abcdefghijklmnopqrstuvwxyz0123456789",
             "B45CB6E62F2B1320E4F8F1B0B273D45ADD47C321FD23999DCF403AC37636D963"
         )
     }

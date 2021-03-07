@@ -32,8 +32,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * [Digest] API, using the [DigestEngine] class.
  * MD4 is described in RFC 1320.
  *
- * @version   $Revision: 241 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 241 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class MD4 : MDHelper<MD4>(true, 8) {
 

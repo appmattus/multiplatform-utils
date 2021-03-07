@@ -34,8 +34,8 @@ import com.appmattus.crypto.internal.core.decodeLEInt
  * [Shabal384] or [Shabal512] classes for size-specific
  * variants which offer a nullary constructor.
  *
- * @version   $Revision: 231 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 231 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Digest<D> {
     private var outSizeW32 = 0
@@ -154,7 +154,7 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
      * Create a new instance with the same parameters. This method
      * is invoked from [.copy].
      *
-     * @return  the new instance
+     * @return the new instance
      */
     protected abstract fun dup(): D
 
@@ -166,8 +166,8 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
     }
 
     private fun getIV(outSizeW32: Int): IntArray {
-        //var iv = IVs[outSizeW32 - 1]
-        //if (iv == null) {
+        // var iv = IVs[outSizeW32 - 1]
+        // if (iv == null) {
         val outSize = outSizeW32 shl 5
 
         val state = IntArray(44)
@@ -186,9 +186,9 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
         }
         core(state, w, buf, 0, 1)
         return state
-        //iv = IVs[outSizeW32 - 1]
-        //}
-        //return iv!!
+        // iv = IVs[outSizeW32 - 1]
+        // }
+        // return iv!!
     }
 
     companion object {

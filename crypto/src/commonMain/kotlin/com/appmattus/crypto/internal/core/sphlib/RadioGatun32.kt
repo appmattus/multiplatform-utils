@@ -32,8 +32,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * This class implements the RadioGatun[32] digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 232 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 232 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class RadioGatun32 : DigestEngine<RadioGatun32>() {
     private lateinit var a: IntArray

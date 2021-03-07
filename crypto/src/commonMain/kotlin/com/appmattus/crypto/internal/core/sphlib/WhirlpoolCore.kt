@@ -32,19 +32,19 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * algorithm family. The three variants differ only in the tables of
  * constants which are provided to this implementation in the constructor.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
-    private val T0: LongArray,
-    private val T1: LongArray,
-    private val T2: LongArray,
-    private val T3: LongArray,
-    private val T4: LongArray,
-    private val T5: LongArray,
-    private val T6: LongArray,
-    private val T7: LongArray,
-    private val RC: LongArray
+    private val t0: LongArray,
+    private val t1: LongArray,
+    private val t2: LongArray,
+    private val t3: LongArray,
+    private val t4: LongArray,
+    private val t5: LongArray,
+    private val t6: LongArray,
+    private val t7: LongArray,
+    private val rc: LongArray
 ) : MDHelper<D>(false, 32) {
 
     private var state0: Long = 0
@@ -146,71 +146,71 @@ internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
             var t5: Long
             var t6: Long
             var t7: Long
-            t0 = (T0[h0.toInt() and 0xFF]
-                    xor T1[h7.toInt() shr 8 and 0xFF]
-                    xor T2[h6.toInt() shr 16 and 0xFF]
-                    xor T3[h5.toInt() shr 24 and 0xFF]
-                    xor T4[(h4 shr 32).toInt() and 0xFF]
-                    xor T5[(h3 shr 40).toInt() and 0xFF]
-                    xor T6[(h2 shr 48).toInt() and 0xFF]
-                    xor T7[(h1 shr 56).toInt() and 0xFF]
-                    xor RC[r])
-            t1 = (T0[h1.toInt() and 0xFF]
-                    xor T1[h0.toInt() shr 8 and 0xFF]
-                    xor T2[h7.toInt() shr 16 and 0xFF]
-                    xor T3[h6.toInt() shr 24 and 0xFF]
-                    xor T4[(h5 shr 32).toInt() and 0xFF]
-                    xor T5[(h4 shr 40).toInt() and 0xFF]
-                    xor T6[(h3 shr 48).toInt() and 0xFF]
-                    xor T7[(h2 shr 56).toInt() and 0xFF])
-            t2 = (T0[h2.toInt() and 0xFF]
-                    xor T1[h1.toInt() shr 8 and 0xFF]
-                    xor T2[h0.toInt() shr 16 and 0xFF]
-                    xor T3[h7.toInt() shr 24 and 0xFF]
-                    xor T4[(h6 shr 32).toInt() and 0xFF]
-                    xor T5[(h5 shr 40).toInt() and 0xFF]
-                    xor T6[(h4 shr 48).toInt() and 0xFF]
-                    xor T7[(h3 shr 56).toInt() and 0xFF])
-            t3 = (T0[h3.toInt() and 0xFF]
-                    xor T1[h2.toInt() shr 8 and 0xFF]
-                    xor T2[h1.toInt() shr 16 and 0xFF]
-                    xor T3[h0.toInt() shr 24 and 0xFF]
-                    xor T4[(h7 shr 32).toInt() and 0xFF]
-                    xor T5[(h6 shr 40).toInt() and 0xFF]
-                    xor T6[(h5 shr 48).toInt() and 0xFF]
-                    xor T7[(h4 shr 56).toInt() and 0xFF])
-            t4 = (T0[h4.toInt() and 0xFF]
-                    xor T1[h3.toInt() shr 8 and 0xFF]
-                    xor T2[h2.toInt() shr 16 and 0xFF]
-                    xor T3[h1.toInt() shr 24 and 0xFF]
-                    xor T4[(h0 shr 32).toInt() and 0xFF]
-                    xor T5[(h7 shr 40).toInt() and 0xFF]
-                    xor T6[(h6 shr 48).toInt() and 0xFF]
-                    xor T7[(h5 shr 56).toInt() and 0xFF])
-            t5 = (T0[h5.toInt() and 0xFF]
-                    xor T1[h4.toInt() shr 8 and 0xFF]
-                    xor T2[h3.toInt() shr 16 and 0xFF]
-                    xor T3[h2.toInt() shr 24 and 0xFF]
-                    xor T4[(h1 shr 32).toInt() and 0xFF]
-                    xor T5[(h0 shr 40).toInt() and 0xFF]
-                    xor T6[(h7 shr 48).toInt() and 0xFF]
-                    xor T7[(h6 shr 56).toInt() and 0xFF])
-            t6 = (T0[h6.toInt() and 0xFF]
-                    xor T1[h5.toInt() shr 8 and 0xFF]
-                    xor T2[h4.toInt() shr 16 and 0xFF]
-                    xor T3[h3.toInt() shr 24 and 0xFF]
-                    xor T4[(h2 shr 32).toInt() and 0xFF]
-                    xor T5[(h1 shr 40).toInt() and 0xFF]
-                    xor T6[(h0 shr 48).toInt() and 0xFF]
-                    xor T7[(h7 shr 56).toInt() and 0xFF])
-            t7 = (T0[h7.toInt() and 0xFF]
-                    xor T1[h6.toInt() shr 8 and 0xFF]
-                    xor T2[h5.toInt() shr 16 and 0xFF]
-                    xor T3[h4.toInt() shr 24 and 0xFF]
-                    xor T4[(h3 shr 32).toInt() and 0xFF]
-                    xor T5[(h2 shr 40).toInt() and 0xFF]
-                    xor T6[(h1 shr 48).toInt() and 0xFF]
-                    xor T7[(h0 shr 56).toInt() and 0xFF])
+            t0 = (this.t0[h0.toInt() and 0xFF]
+                    xor this.t1[h7.toInt() shr 8 and 0xFF]
+                    xor this.t2[h6.toInt() shr 16 and 0xFF]
+                    xor this.t3[h5.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h4 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h3 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h2 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h1 shr 56).toInt() and 0xFF]
+                    xor rc[r])
+            t1 = (this.t0[h1.toInt() and 0xFF]
+                    xor this.t1[h0.toInt() shr 8 and 0xFF]
+                    xor this.t2[h7.toInt() shr 16 and 0xFF]
+                    xor this.t3[h6.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h5 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h4 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h3 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h2 shr 56).toInt() and 0xFF])
+            t2 = (this.t0[h2.toInt() and 0xFF]
+                    xor this.t1[h1.toInt() shr 8 and 0xFF]
+                    xor this.t2[h0.toInt() shr 16 and 0xFF]
+                    xor this.t3[h7.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h6 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h5 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h4 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h3 shr 56).toInt() and 0xFF])
+            t3 = (this.t0[h3.toInt() and 0xFF]
+                    xor this.t1[h2.toInt() shr 8 and 0xFF]
+                    xor this.t2[h1.toInt() shr 16 and 0xFF]
+                    xor this.t3[h0.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h7 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h6 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h5 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h4 shr 56).toInt() and 0xFF])
+            t4 = (this.t0[h4.toInt() and 0xFF]
+                    xor this.t1[h3.toInt() shr 8 and 0xFF]
+                    xor this.t2[h2.toInt() shr 16 and 0xFF]
+                    xor this.t3[h1.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h0 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h7 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h6 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h5 shr 56).toInt() and 0xFF])
+            t5 = (this.t0[h5.toInt() and 0xFF]
+                    xor this.t1[h4.toInt() shr 8 and 0xFF]
+                    xor this.t2[h3.toInt() shr 16 and 0xFF]
+                    xor this.t3[h2.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h1 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h0 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h7 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h6 shr 56).toInt() and 0xFF])
+            t6 = (this.t0[h6.toInt() and 0xFF]
+                    xor this.t1[h5.toInt() shr 8 and 0xFF]
+                    xor this.t2[h4.toInt() shr 16 and 0xFF]
+                    xor this.t3[h3.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h2 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h1 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h0 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h7 shr 56).toInt() and 0xFF])
+            t7 = (this.t0[h7.toInt() and 0xFF]
+                    xor this.t1[h6.toInt() shr 8 and 0xFF]
+                    xor this.t2[h5.toInt() shr 16 and 0xFF]
+                    xor this.t3[h4.toInt() shr 24 and 0xFF]
+                    xor this.t4[(h3 shr 32).toInt() and 0xFF]
+                    xor this.t5[(h2 shr 40).toInt() and 0xFF]
+                    xor this.t6[(h1 shr 48).toInt() and 0xFF]
+                    xor this.t7[(h0 shr 56).toInt() and 0xFF])
             h0 = t0
             h1 = t1
             h2 = t2
@@ -219,77 +219,77 @@ internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
             h5 = t5
             h6 = t6
             h7 = t7
-            t0 = (T0[n0.toInt() and 0xFF]
-                    xor T1[n7.toInt() shr 8 and 0xFF]
-                    xor T2[n6.toInt() shr 16 and 0xFF]
-                    xor T3[n5.toInt() shr 24 and 0xFF]
-                    xor T4[(n4 shr 32).toInt() and 0xFF]
-                    xor T5[(n3 shr 40).toInt() and 0xFF]
-                    xor T6[(n2 shr 48).toInt() and 0xFF]
-                    xor T7[(n1 shr 56).toInt() and 0xFF]
+            t0 = (this.t0[n0.toInt() and 0xFF]
+                    xor this.t1[n7.toInt() shr 8 and 0xFF]
+                    xor this.t2[n6.toInt() shr 16 and 0xFF]
+                    xor this.t3[n5.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n4 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n3 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n2 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n1 shr 56).toInt() and 0xFF]
                     xor h0)
-            t1 = (T0[n1.toInt() and 0xFF]
-                    xor T1[n0.toInt() shr 8 and 0xFF]
-                    xor T2[n7.toInt() shr 16 and 0xFF]
-                    xor T3[n6.toInt() shr 24 and 0xFF]
-                    xor T4[(n5 shr 32).toInt() and 0xFF]
-                    xor T5[(n4 shr 40).toInt() and 0xFF]
-                    xor T6[(n3 shr 48).toInt() and 0xFF]
-                    xor T7[(n2 shr 56).toInt() and 0xFF]
+            t1 = (this.t0[n1.toInt() and 0xFF]
+                    xor this.t1[n0.toInt() shr 8 and 0xFF]
+                    xor this.t2[n7.toInt() shr 16 and 0xFF]
+                    xor this.t3[n6.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n5 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n4 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n3 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n2 shr 56).toInt() and 0xFF]
                     xor h1)
-            t2 = (T0[n2.toInt() and 0xFF]
-                    xor T1[n1.toInt() shr 8 and 0xFF]
-                    xor T2[n0.toInt() shr 16 and 0xFF]
-                    xor T3[n7.toInt() shr 24 and 0xFF]
-                    xor T4[(n6 shr 32).toInt() and 0xFF]
-                    xor T5[(n5 shr 40).toInt() and 0xFF]
-                    xor T6[(n4 shr 48).toInt() and 0xFF]
-                    xor T7[(n3 shr 56).toInt() and 0xFF]
+            t2 = (this.t0[n2.toInt() and 0xFF]
+                    xor this.t1[n1.toInt() shr 8 and 0xFF]
+                    xor this.t2[n0.toInt() shr 16 and 0xFF]
+                    xor this.t3[n7.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n6 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n5 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n4 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n3 shr 56).toInt() and 0xFF]
                     xor h2)
-            t3 = (T0[n3.toInt() and 0xFF]
-                    xor T1[n2.toInt() shr 8 and 0xFF]
-                    xor T2[n1.toInt() shr 16 and 0xFF]
-                    xor T3[n0.toInt() shr 24 and 0xFF]
-                    xor T4[(n7 shr 32).toInt() and 0xFF]
-                    xor T5[(n6 shr 40).toInt() and 0xFF]
-                    xor T6[(n5 shr 48).toInt() and 0xFF]
-                    xor T7[(n4 shr 56).toInt() and 0xFF]
+            t3 = (this.t0[n3.toInt() and 0xFF]
+                    xor this.t1[n2.toInt() shr 8 and 0xFF]
+                    xor this.t2[n1.toInt() shr 16 and 0xFF]
+                    xor this.t3[n0.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n7 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n6 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n5 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n4 shr 56).toInt() and 0xFF]
                     xor h3)
-            t4 = (T0[n4.toInt() and 0xFF]
-                    xor T1[n3.toInt() shr 8 and 0xFF]
-                    xor T2[n2.toInt() shr 16 and 0xFF]
-                    xor T3[n1.toInt() shr 24 and 0xFF]
-                    xor T4[(n0 shr 32).toInt() and 0xFF]
-                    xor T5[(n7 shr 40).toInt() and 0xFF]
-                    xor T6[(n6 shr 48).toInt() and 0xFF]
-                    xor T7[(n5 shr 56).toInt() and 0xFF]
+            t4 = (this.t0[n4.toInt() and 0xFF]
+                    xor this.t1[n3.toInt() shr 8 and 0xFF]
+                    xor this.t2[n2.toInt() shr 16 and 0xFF]
+                    xor this.t3[n1.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n0 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n7 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n6 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n5 shr 56).toInt() and 0xFF]
                     xor h4)
-            t5 = (T0[n5.toInt() and 0xFF]
-                    xor T1[n4.toInt() shr 8 and 0xFF]
-                    xor T2[n3.toInt() shr 16 and 0xFF]
-                    xor T3[n2.toInt() shr 24 and 0xFF]
-                    xor T4[(n1 shr 32).toInt() and 0xFF]
-                    xor T5[(n0 shr 40).toInt() and 0xFF]
-                    xor T6[(n7 shr 48).toInt() and 0xFF]
-                    xor T7[(n6 shr 56).toInt() and 0xFF]
+            t5 = (this.t0[n5.toInt() and 0xFF]
+                    xor this.t1[n4.toInt() shr 8 and 0xFF]
+                    xor this.t2[n3.toInt() shr 16 and 0xFF]
+                    xor this.t3[n2.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n1 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n0 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n7 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n6 shr 56).toInt() and 0xFF]
                     xor h5)
-            t6 = (T0[n6.toInt() and 0xFF]
-                    xor T1[n5.toInt() shr 8 and 0xFF]
-                    xor T2[n4.toInt() shr 16 and 0xFF]
-                    xor T3[n3.toInt() shr 24 and 0xFF]
-                    xor T4[(n2 shr 32).toInt() and 0xFF]
-                    xor T5[(n1 shr 40).toInt() and 0xFF]
-                    xor T6[(n0 shr 48).toInt() and 0xFF]
-                    xor T7[(n7 shr 56).toInt() and 0xFF]
+            t6 = (this.t0[n6.toInt() and 0xFF]
+                    xor this.t1[n5.toInt() shr 8 and 0xFF]
+                    xor this.t2[n4.toInt() shr 16 and 0xFF]
+                    xor this.t3[n3.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n2 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n1 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n0 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n7 shr 56).toInt() and 0xFF]
                     xor h6)
-            t7 = (T0[n7.toInt() and 0xFF]
-                    xor T1[n6.toInt() shr 8 and 0xFF]
-                    xor T2[n5.toInt() shr 16 and 0xFF]
-                    xor T3[n4.toInt() shr 24 and 0xFF]
-                    xor T4[(n3 shr 32).toInt() and 0xFF]
-                    xor T5[(n2 shr 40).toInt() and 0xFF]
-                    xor T6[(n1 shr 48).toInt() and 0xFF]
-                    xor T7[(n0 shr 56).toInt() and 0xFF]
+            t7 = (this.t0[n7.toInt() and 0xFF]
+                    xor this.t1[n6.toInt() shr 8 and 0xFF]
+                    xor this.t2[n5.toInt() shr 16 and 0xFF]
+                    xor this.t3[n4.toInt() shr 24 and 0xFF]
+                    xor this.t4[(n3 shr 32).toInt() and 0xFF]
+                    xor this.t5[(n2 shr 40).toInt() and 0xFF]
+                    xor this.t6[(n1 shr 48).toInt() and 0xFF]
+                    xor this.t7[(n0 shr 56).toInt() and 0xFF]
                     xor h7)
             n0 = t0
             n1 = t1

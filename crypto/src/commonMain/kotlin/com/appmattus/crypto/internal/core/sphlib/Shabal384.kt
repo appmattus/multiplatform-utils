@@ -28,8 +28,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * This class implements the Shabal-384 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 213 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 213 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Shabal384 : ShabalGeneric<Shabal384>(384) {
 

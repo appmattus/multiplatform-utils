@@ -27,8 +27,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * This class implements the Groestl-384 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 198 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 198 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Groestl384 : GroestlBigCore<Groestl384>() {
 

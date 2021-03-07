@@ -16,7 +16,7 @@
 
 package com.appmattus.crypto
 
-@Suppress("EnumEntryName")
+@Suppress("EnumEntryName", "MagicNumber")
 enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     MD2("MD2", 16),
     MD4("MD4", 64),

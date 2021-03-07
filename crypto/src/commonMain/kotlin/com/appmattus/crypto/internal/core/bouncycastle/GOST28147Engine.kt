@@ -32,7 +32,7 @@ import com.appmattus.crypto.internal.core.encodeLEInt
 internal class GOST28147Engine {
     private var workingKey: IntArray? = null
     private var forEncryption = false
-    private var S: ByteArray = byteArrayOf(
+    private var s: ByteArray = byteArrayOf(
         0x4, 0xA, 0x9, 0x2, 0xD, 0x8, 0x0, 0xE, 0x6, 0xB, 0x1, 0xC, 0x7, 0xF, 0x5, 0x3,
         0xE, 0xB, 0x4, 0xC, 0x6, 0xD, 0xF, 0xA, 0x2, 0x3, 0x8, 0x1, 0x0, 0x7, 0x5, 0x9,
         0x5, 0x8, 0x1, 0xD, 0xA, 0x3, 0x4, 0x2, 0xE, 0xF, 0xC, 0x7, 0x6, 0x0, 0x9, 0xB,
@@ -44,7 +44,7 @@ internal class GOST28147Engine {
     )
 
     companion object {
-        val blockSize = 8
+        const val blockSize = 8
     }
 
     /**
@@ -61,7 +61,7 @@ internal class GOST28147Engine {
         //
         // Set the S-Box
         //
-        S = sBox.copyOf()
+        s = sBox.copyOf()
     }
 
     /**
@@ -85,8 +85,9 @@ internal class GOST28147Engine {
     val algorithmName: String
         get() = "GOST28147"
 
+    @Suppress("ThrowsCount")
     fun processBlock(
-        `in`: ByteArray,
+        input: ByteArray,
         inOff: Int,
         out: ByteArray,
         outOff: Int
@@ -94,17 +95,15 @@ internal class GOST28147Engine {
         if (workingKey == null) {
             throw IllegalStateException("GOST28147 engine not initialised")
         }
-        if (inOff + blockSize > `in`.size) {
+        if (inOff + blockSize > input.size) {
             throw IllegalStateException("input buffer too short")
         }
         if (outOff + blockSize > out.size) {
             throw IllegalStateException("output buffer too short")
         }
-        GOST28147Func(workingKey!!, `in`, inOff, out, outOff)
+        gost28147(workingKey!!, input, inOff, out, outOff)
         return blockSize
     }
-
-    fun reset() {}
 
     private fun generateWorkingKey(
         forEncryption: Boolean,
@@ -117,71 +116,71 @@ internal class GOST28147Engine {
         return IntArray(8) { decodeLEInt(userKey, it * 4) }
     }
 
-    private fun GOST28147_mainStep(n1: Int, key: Int): Int {
+    private fun mainStep(n1: Int, key: Int): Int {
         val cm = key + n1 // CM1
 
         // S-box replacing
-        var om: Int = S[0 + (cm shr 0 * 4 and 0xF)].toInt() shl 0 * 4
-        om += S[16 + (cm shr 1 * 4 and 0xF)].toInt() shl 1 * 4
-        om += S[32 + (cm shr 2 * 4 and 0xF)].toInt() shl 2 * 4
-        om += S[48 + (cm shr 3 * 4 and 0xF)].toInt() shl 3 * 4
-        om += S[64 + (cm shr 4 * 4 and 0xF)].toInt() shl 4 * 4
-        om += S[80 + (cm shr 5 * 4 and 0xF)].toInt() shl 5 * 4
-        om += S[96 + (cm shr 6 * 4 and 0xF)].toInt() shl 6 * 4
-        om += S[112 + (cm shr 7 * 4 and 0xF)].toInt() shl 7 * 4
+        var om: Int = s[0 + (cm shr 0 * 4 and 0xF)].toInt() shl 0 * 4
+        om += s[16 + (cm shr 1 * 4 and 0xF)].toInt() shl 1 * 4
+        om += s[32 + (cm shr 2 * 4 and 0xF)].toInt() shl 2 * 4
+        om += s[48 + (cm shr 3 * 4 and 0xF)].toInt() shl 3 * 4
+        om += s[64 + (cm shr 4 * 4 and 0xF)].toInt() shl 4 * 4
+        om += s[80 + (cm shr 5 * 4 and 0xF)].toInt() shl 5 * 4
+        om += s[96 + (cm shr 6 * 4 and 0xF)].toInt() shl 6 * 4
+        om += s[112 + (cm shr 7 * 4 and 0xF)].toInt() shl 7 * 4
 
         return circularLeftInt(om, 11)
     }
 
-    private fun GOST28147Func(
+    private fun gost28147(
         workingKey: IntArray,
-        `in`: ByteArray,
+        input: ByteArray,
         inOff: Int,
         out: ByteArray,
         outOff: Int
     ) {
-        var N1: Int
-        var N2: Int
-        var tmp: Int //tmp -> for saving N1
-        N1 = decodeLEInt(`in`, inOff)
-        N2 = decodeLEInt(`in`, inOff + 4)
+        var n1: Int
+        var n2: Int
+        var tmp: Int // tmp -> for saving N1
+        n1 = decodeLEInt(input, inOff)
+        n2 = decodeLEInt(input, inOff + 4)
         if (forEncryption) {
-            for (k in 0 until 3)  // 1-24 steps
+            for (k in 0 until 3) // 1-24 steps
             {
                 for (j in 0 until 8) {
-                    tmp = N1
-                    N1 = N2 xor GOST28147_mainStep(N1, workingKey[j]) // CM2
-                    N2 = tmp
+                    tmp = n1
+                    n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
+                    n2 = tmp
                 }
             }
-            for (j in 7 downTo 1)  // 25-31 steps
+            for (j in 7 downTo 1) // 25-31 steps
             {
-                tmp = N1
-                N1 = N2 xor GOST28147_mainStep(N1, workingKey[j]) // CM2
-                N2 = tmp
+                tmp = n1
+                n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
+                n2 = tmp
             }
-        } else  //decrypt
+        } else // decrypt
         {
-            for (j in 0 until 8)  // 1-8 steps
+            for (j in 0 until 8) // 1-8 steps
             {
-                tmp = N1
-                N1 = N2 xor GOST28147_mainStep(N1, workingKey[j]) // CM2
-                N2 = tmp
+                tmp = n1
+                n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
+                n2 = tmp
             }
-            for (k in 0 until 3)  //9-31 steps
+            for (k in 0 until 3) // 9-31 steps
             {
                 for (j in 7 downTo 0) {
                     if (k == 2 && j == 0) {
                         break // break 32 step
                     }
-                    tmp = N1
-                    N1 = N2 xor GOST28147_mainStep(N1, workingKey[j]) // CM2
-                    N2 = tmp
+                    tmp = n1
+                    n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
+                    n2 = tmp
                 }
             }
         }
-        N2 = N2 xor GOST28147_mainStep(N1, workingKey[0]) // 32 step (N1=N1)
-        encodeLEInt(N1, out, outOff)
-        encodeLEInt(N2, out, outOff + 4)
+        n2 = n2 xor mainStep(n1, workingKey[0]) // 32 step (N1=N1)
+        encodeLEInt(n1, out, outOff)
+        encodeLEInt(n2, out, outOff + 4)
     }
 }

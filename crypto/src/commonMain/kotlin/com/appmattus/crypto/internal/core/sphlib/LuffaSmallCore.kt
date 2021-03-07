@@ -29,8 +29,8 @@ import com.appmattus.crypto.internal.core.encodeBEInt
 /**
  * This class implements Luffa-224 and Luffa-256.
  *
- * @version   $Revision: 240 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 240 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class LuffaSmallCore<D : LuffaSmallCore<D>> : DigestEngine<D>() {
     private var v00 = 0

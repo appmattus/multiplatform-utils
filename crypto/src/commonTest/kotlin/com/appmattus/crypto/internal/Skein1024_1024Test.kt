@@ -395,46 +395,46 @@ abstract class Skein1024_1024Test {
         testKatHex(
             digest(),
             "",
-            "0fff9563bb3279289227ac77d319b6fff8d7e9f09da1247b72a0a265cd6d2a62"
-                    + "645ad547ed8193db48cff847c06494a03f55666d3b47eb4c20456c9373c86297"
-                    + "d630d5578ebd34cb40991578f9f52b18003efa35d3da6553ff35db91b81ab890"
-                    + "bec1b189b7f52cb2a783ebb7d823d725b0b4a71f6824e88f68f982eefc6d19c6"
+            "0fff9563bb3279289227ac77d319b6fff8d7e9f09da1247b72a0a265cd6d2a62" +
+                    "645ad547ed8193db48cff847c06494a03f55666d3b47eb4c20456c9373c86297" +
+                    "d630d5578ebd34cb40991578f9f52b18003efa35d3da6553ff35db91b81ab890" +
+                    "bec1b189b7f52cb2a783ebb7d823d725b0b4a71f6824e88f68f982eefc6d19c6"
         )
         testKatHex(
             digest(),
             "fb",
-            "6426bdc57b2771a6ef1b0dd39f8096a9a07554565743ac3de851d28258fcff22"
-                    + "9993e11c4e6bebc8b6ecb0ad1b140276081aa390ec3875960336119427827473"
-                    + "4770671b79f076771e2cfdaaf5adc9b10cbae43d8e6cd2b1c1f5d6c82dc96618"
-                    + "00ddc476f25865b8748253173187d81da971c027d91d32fb390301c2110d2db2"
+            "6426bdc57b2771a6ef1b0dd39f8096a9a07554565743ac3de851d28258fcff22" +
+                    "9993e11c4e6bebc8b6ecb0ad1b140276081aa390ec3875960336119427827473" +
+                    "4770671b79f076771e2cfdaaf5adc9b10cbae43d8e6cd2b1c1f5d6c82dc96618" +
+                    "00ddc476f25865b8748253173187d81da971c027d91d32fb390301c2110d2db2"
         )
         testKatHex(
             digest(),
             "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8",
-            "140e93726ab0b0467c0b8a834ad8cda4d1769d273661902b70db0dcb5ee692ac"
-                    + "b3f852d03b11f857850f2428432811309c1dcbe5724f00267ea3667e89fadb4e"
-                    + "4911da6b0ba8a7eddf87c1c67152ef0f07b7fead3557318478bdef5ad1e5926d"
-                    + "7071fdd4bfa5076d4b3253f8de479ebdf5357676f1641b2f097e9b785e9e528e"
+            "140e93726ab0b0467c0b8a834ad8cda4d1769d273661902b70db0dcb5ee692ac" +
+                    "b3f852d03b11f857850f2428432811309c1dcbe5724f00267ea3667e89fadb4e" +
+                    "4911da6b0ba8a7eddf87c1c67152ef0f07b7fead3557318478bdef5ad1e5926d" +
+                    "7071fdd4bfa5076d4b3253f8de479ebdf5357676f1641b2f097e9b785e9e528e"
         )
         testKatHex(
             digest(),
-            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8"
-                    + "78bb393a1a5f79bef30995a85a129233",
-            "31105e1ef042c30b95b16e0f6e6a1a19172bb7d54a0597dd0c711194888efe1d"
-                    + "bce82d47416df9577ca387219f06e45cd10964ff36f6711edbbea0e9595b0f66"
-                    + "f72b755d70a46857e0aec98561a743d49370d8e572e212811273125f66cc30bf"
-                    + "117d3221894c48012bf6e2219de91e064b01523517420a1e00f71c4cc04bab62"
+            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8" +
+                    "78bb393a1a5f79bef30995a85a129233",
+            "31105e1ef042c30b95b16e0f6e6a1a19172bb7d54a0597dd0c711194888efe1d" +
+                    "bce82d47416df9577ca387219f06e45cd10964ff36f6711edbbea0e9595b0f66" +
+                    "f72b755d70a46857e0aec98561a743d49370d8e572e212811273125f66cc30bf" +
+                    "117d3221894c48012bf6e2219de91e064b01523517420a1e00f71c4cc04bab62"
         )
         testKatHex(
             digest(),
-            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8"
-                    + "78bb393a1a5f79bef30995a85a12923339ba8ab7d8fc6dc5fec6f4ed22c122bb"
-                    + "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a"
-                    + "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
-            "96ca81f586c825d0360aef5acaec49ad55289e1797072eee198b64f349ce65b6"
-                    + "e6ed804fe38f05135fe769cc56240ddda5098f620865ce4a4278c77fa2ec6bc3"
-                    + "1c0f354ca78c7ca81665bfcc5dc54258c3b8310ed421d9157f36c093814d9b25"
-                    + "103d83e0ddd89c52d0050e13a64c6140e6388431961685734b1f138fe2243086"
+            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8" +
+                    "78bb393a1a5f79bef30995a85a12923339ba8ab7d8fc6dc5fec6f4ed22c122bb" +
+                    "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a" +
+                    "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
+            "96ca81f586c825d0360aef5acaec49ad55289e1797072eee198b64f349ce65b6" +
+                    "e6ed804fe38f05135fe769cc56240ddda5098f620865ce4a4278c77fa2ec6bc3" +
+                    "1c0f354ca78c7ca81665bfcc5dc54258c3b8310ed421d9157f36c093814d9b25" +
+                    "103d83e0ddd89c52d0050e13a64c6140e6388431961685734b1f138fe2243086"
         )
     }
 }

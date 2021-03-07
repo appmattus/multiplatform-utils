@@ -30,8 +30,8 @@ import com.appmattus.crypto.internal.core.encodeBELong
 /**
  * This class implements Groestl-384 and Groestl-512.
  *
- * @version   $Revision: 256 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 256 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class GroestlBigCore<D : GroestlBigCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray

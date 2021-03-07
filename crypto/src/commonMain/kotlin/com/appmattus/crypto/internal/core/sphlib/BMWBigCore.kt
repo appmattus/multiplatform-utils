@@ -30,8 +30,8 @@ import com.appmattus.crypto.internal.core.encodeLELong
 /**
  * This class implements BMW-384 and BMW-512.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class BMWBigCore<D : BMWBigCore<D>> : DigestEngine<D>() {
 
@@ -93,94 +93,94 @@ internal abstract class BMWBigCore<D : BMWBigCore<D>> : DigestEngine<D>() {
             }
         }
         q[15] = (((w[15] ushr 1) xor (w[15] shl 3)
-                xor circularLeftLong(w[15], 4) xor circularLeftLong(w[15], 37))
-                + h[0])
+                xor circularLeftLong(w[15], 4) xor circularLeftLong(w[15], 37)) +
+                h[0])
         for (u in 16..17) {
             q[u] = (((q[u - 16] ushr 1) xor (q[u - 16] shl 2)
                     xor circularLeftLong(q[u - 16], 13)
-                    xor circularLeftLong(q[u - 16], 43))
-                    + ((q[u - 15] ushr 2) xor (q[u - 15] shl 1)
+                    xor circularLeftLong(q[u - 16], 43)) +
+                    ((q[u - 15] ushr 2) xor (q[u - 15] shl 1)
                     xor circularLeftLong(q[u - 15], 19)
-                    xor circularLeftLong(q[u - 15], 53))
-                    + ((q[u - 14] ushr 2) xor (q[u - 14] shl 2)
+                    xor circularLeftLong(q[u - 15], 53)) +
+                    ((q[u - 14] ushr 2) xor (q[u - 14] shl 2)
                     xor circularLeftLong(q[u - 14], 28)
-                    xor circularLeftLong(q[u - 14], 59))
-                    + ((q[u - 13] ushr 1) xor (q[u - 13] shl 3)
+                    xor circularLeftLong(q[u - 14], 59)) +
+                    ((q[u - 13] ushr 1) xor (q[u - 13] shl 3)
                     xor circularLeftLong(q[u - 13], 4)
-                    xor circularLeftLong(q[u - 13], 37))
-                    + ((q[u - 12] ushr 1) xor (q[u - 12] shl 2)
+                    xor circularLeftLong(q[u - 13], 37)) +
+                    ((q[u - 12] ushr 1) xor (q[u - 12] shl 2)
                     xor circularLeftLong(q[u - 12], 13)
-                    xor circularLeftLong(q[u - 12], 43))
-                    + ((q[u - 11] ushr 2) xor (q[u - 11] shl 1)
+                    xor circularLeftLong(q[u - 12], 43)) +
+                    ((q[u - 11] ushr 2) xor (q[u - 11] shl 1)
                     xor circularLeftLong(q[u - 11], 19)
-                    xor circularLeftLong(q[u - 11], 53))
-                    + ((q[u - 10] ushr 2) xor (q[u - 10] shl 2)
+                    xor circularLeftLong(q[u - 11], 53)) +
+                    ((q[u - 10] ushr 2) xor (q[u - 10] shl 2)
                     xor circularLeftLong(q[u - 10], 28)
-                    xor circularLeftLong(q[u - 10], 59))
-                    + ((q[u - 9] ushr 1) xor (q[u - 9] shl 3)
+                    xor circularLeftLong(q[u - 10], 59)) +
+                    ((q[u - 9] ushr 1) xor (q[u - 9] shl 3)
                     xor circularLeftLong(q[u - 9], 4)
-                    xor circularLeftLong(q[u - 9], 37))
-                    + ((q[u - 8] ushr 1) xor (q[u - 8] shl 2)
+                    xor circularLeftLong(q[u - 9], 37)) +
+                    ((q[u - 8] ushr 1) xor (q[u - 8] shl 2)
                     xor circularLeftLong(q[u - 8], 13)
-                    xor circularLeftLong(q[u - 8], 43))
-                    + ((q[u - 7] ushr 2) xor (q[u - 7] shl 1)
+                    xor circularLeftLong(q[u - 8], 43)) +
+                    ((q[u - 7] ushr 2) xor (q[u - 7] shl 1)
                     xor circularLeftLong(q[u - 7], 19)
-                    xor circularLeftLong(q[u - 7], 53))
-                    + ((q[u - 6] ushr 2) xor (q[u - 6] shl 2)
+                    xor circularLeftLong(q[u - 7], 53)) +
+                    ((q[u - 6] ushr 2) xor (q[u - 6] shl 2)
                     xor circularLeftLong(q[u - 6], 28)
-                    xor circularLeftLong(q[u - 6], 59))
-                    + ((q[u - 5] ushr 1) xor (q[u - 5] shl 3)
+                    xor circularLeftLong(q[u - 6], 59)) +
+                    ((q[u - 5] ushr 1) xor (q[u - 5] shl 3)
                     xor circularLeftLong(q[u - 5], 4)
-                    xor circularLeftLong(q[u - 5], 37))
-                    + ((q[u - 4] ushr 1) xor (q[u - 4] shl 2)
+                    xor circularLeftLong(q[u - 5], 37)) +
+                    ((q[u - 4] ushr 1) xor (q[u - 4] shl 2)
                     xor circularLeftLong(q[u - 4], 13)
-                    xor circularLeftLong(q[u - 4], 43))
-                    + ((q[u - 3] ushr 2) xor (q[u - 3] shl 1)
+                    xor circularLeftLong(q[u - 4], 43)) +
+                    ((q[u - 3] ushr 2) xor (q[u - 3] shl 1)
                     xor circularLeftLong(q[u - 3], 19)
-                    xor circularLeftLong(q[u - 3], 53))
-                    + ((q[u - 2] ushr 2) xor (q[u - 2] shl 2)
+                    xor circularLeftLong(q[u - 3], 53)) +
+                    ((q[u - 2] ushr 2) xor (q[u - 2] shl 2)
                     xor circularLeftLong(q[u - 2], 28)
-                    xor circularLeftLong(q[u - 2], 59))
-                    + ((q[u - 1] ushr 1) xor (q[u - 1] shl 3)
+                    xor circularLeftLong(q[u - 2], 59)) +
+                    ((q[u - 1] ushr 1) xor (q[u - 1] shl 3)
                     xor circularLeftLong(q[u - 1], 4)
-                    xor circularLeftLong(q[u - 1], 37))
-                    + ((circularLeftLong(
+                    xor circularLeftLong(q[u - 1], 37)) +
+                    ((circularLeftLong(
                 m[u - 16 + 0 and 15],
                 (u - 16 + 0 and 15) + 1
-            )
-                    + circularLeftLong(
+            ) +
+                    circularLeftLong(
                 m[u - 16 + 3 and 15],
                 (u - 16 + 3 and 15) + 1
-            )
-                    - circularLeftLong(
+            ) -
+                    circularLeftLong(
                 m[u - 16 + 10 and 15],
                 (u - 16 + 10 and 15) + 1
-            )
-                    + K[u - 16]) xor h[u - 16 + 7 and 15]))
+            ) +
+                    K[u - 16]) xor h[u - 16 + 7 and 15]))
         }
         for (u in 18..31) {
-            q[u] = (q[u - 16] + circularLeftLong(q[u - 15], 5)
-                    + q[u - 14] + circularLeftLong(q[u - 13], 11)
-                    + q[u - 12] + circularLeftLong(q[u - 11], 27)
-                    + q[u - 10] + circularLeftLong(q[u - 9], 32)
-                    + q[u - 8] + circularLeftLong(q[u - 7], 37)
-                    + q[u - 6] + circularLeftLong(q[u - 5], 43)
-                    + q[u - 4] + circularLeftLong(q[u - 3], 53)
-                    + ((q[u - 2] ushr 1) xor q[u - 2])
-                    + ((q[u - 1] ushr 2) xor q[u - 1])
-                    + ((circularLeftLong(
+            q[u] = (q[u - 16] + circularLeftLong(q[u - 15], 5) +
+                    q[u - 14] + circularLeftLong(q[u - 13], 11) +
+                    q[u - 12] + circularLeftLong(q[u - 11], 27) +
+                    q[u - 10] + circularLeftLong(q[u - 9], 32) +
+                    q[u - 8] + circularLeftLong(q[u - 7], 37) +
+                    q[u - 6] + circularLeftLong(q[u - 5], 43) +
+                    q[u - 4] + circularLeftLong(q[u - 3], 53) +
+                    ((q[u - 2] ushr 1) xor q[u - 2]) +
+                    ((q[u - 1] ushr 2) xor q[u - 1]) +
+                    ((circularLeftLong(
                 m[u - 16 + 0 and 15],
                 (u - 16 + 0 and 15) + 1
-            )
-                    + circularLeftLong(
+            ) +
+                    circularLeftLong(
                 m[u - 16 + 3 and 15],
                 (u - 16 + 3 and 15) + 1
-            )
-                    - circularLeftLong(
+            ) -
+                    circularLeftLong(
                 m[u - 16 + 10 and 15],
                 (u - 16 + 10 and 15) + 1
-            )
-                    + K[u - 16]) xor h[u - 16 + 7 and 15]))
+            ) +
+                    K[u - 16]) xor h[u - 16 + 7 and 15]))
         }
         val xl = (q[16] xor q[17] xor q[18] xor q[19]
                 xor q[20] xor q[21] xor q[22] xor q[23])
@@ -193,24 +193,24 @@ internal abstract class BMWBigCore<D : BMWBigCore<D>> : DigestEngine<D>() {
         h[4] = ((xh ushr 3) xor (q[20] shl 0) xor m[4]) + (xl xor q[28] xor q[4])
         h[5] = ((xh shl 6) xor (q[21] ushr 6) xor m[5]) + (xl xor q[29] xor q[5])
         h[6] = ((xh ushr 4) xor (q[22] shl 6) xor m[6]) + (xl xor q[30] xor q[6])
-        h[7] = (((xh ushr 11) xor (q[23] shl 2) xor m[7])
-                + (xl xor q[31] xor q[7]))
-        h[8] = (circularLeftLong(h[4], 9) + (xh xor q[24] xor m[8])
-                + ((xl shl 8) xor q[23] xor q[8]))
-        h[9] = (circularLeftLong(h[5], 10) + (xh xor q[25] xor m[9])
-                + ((xl ushr 6) xor q[16] xor q[9]))
-        h[10] = (circularLeftLong(h[6], 11) + (xh xor q[26] xor m[10])
-                + ((xl shl 6) xor q[17] xor q[10]))
-        h[11] = (circularLeftLong(h[7], 12) + (xh xor q[27] xor m[11])
-                + ((xl shl 4) xor q[18] xor q[11]))
-        h[12] = (circularLeftLong(h[0], 13) + (xh xor q[28] xor m[12])
-                + ((xl ushr 3) xor q[19] xor q[12]))
-        h[13] = (circularLeftLong(h[1], 14) + (xh xor q[29] xor m[13])
-                + ((xl ushr 4) xor q[20] xor q[13]))
-        h[14] = (circularLeftLong(h[2], 15) + (xh xor q[30] xor m[14])
-                + ((xl ushr 7) xor q[21] xor q[14]))
-        h[15] = (circularLeftLong(h[3], 16) + (xh xor q[31] xor m[15])
-                + ((xl ushr 2) xor q[22] xor q[15]))
+        h[7] = (((xh ushr 11) xor (q[23] shl 2) xor m[7]) +
+                (xl xor q[31] xor q[7]))
+        h[8] = (circularLeftLong(h[4], 9) + (xh xor q[24] xor m[8]) +
+                ((xl shl 8) xor q[23] xor q[8]))
+        h[9] = (circularLeftLong(h[5], 10) + (xh xor q[25] xor m[9]) +
+                ((xl ushr 6) xor q[16] xor q[9]))
+        h[10] = (circularLeftLong(h[6], 11) + (xh xor q[26] xor m[10]) +
+                ((xl shl 6) xor q[17] xor q[10]))
+        h[11] = (circularLeftLong(h[7], 12) + (xh xor q[27] xor m[11]) +
+                ((xl shl 4) xor q[18] xor q[11]))
+        h[12] = (circularLeftLong(h[0], 13) + (xh xor q[28] xor m[12]) +
+                ((xl ushr 3) xor q[19] xor q[12]))
+        h[13] = (circularLeftLong(h[1], 14) + (xh xor q[29] xor m[13]) +
+                ((xl ushr 4) xor q[20] xor q[13]))
+        h[14] = (circularLeftLong(h[2], 15) + (xh xor q[30] xor m[14]) +
+                ((xl ushr 7) xor q[21] xor q[14]))
+        h[15] = (circularLeftLong(h[3], 16) + (xh xor q[31] xor m[15]) +
+                ((xl ushr 2) xor q[22] xor q[15]))
     }
 
     override fun doPadding(output: ByteArray, outputOffset: Int) {

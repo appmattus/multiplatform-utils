@@ -28,8 +28,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * This class implements the Fugue-224 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 159 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 159 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Fugue224 : Fugue2Core<Fugue224>() {
 

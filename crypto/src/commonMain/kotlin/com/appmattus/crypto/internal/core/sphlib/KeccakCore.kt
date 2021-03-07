@@ -30,8 +30,8 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * This class implements the core operations for the Keccak digest
  * algorithm.
  *
- * @version   $Revision: 258 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 258 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class KeccakCore<D : KeccakCore<D>>(private val markByte: Byte = 0x01) : DigestEngine<D>() {
     private lateinit var a: LongArray

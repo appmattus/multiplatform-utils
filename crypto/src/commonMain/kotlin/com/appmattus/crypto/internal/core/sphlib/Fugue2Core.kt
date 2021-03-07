@@ -28,10 +28,10 @@ import com.appmattus.crypto.internal.core.encodeBEInt
 /**
  * This class is the base class for Fugue-224 and Fugue-256.
  *
- * @version   $Revision: 159 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 159 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class Fugue2Core<D : Fugue2Core<D>>() : FugueCore<D>() {
+internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
 
     @Suppress("NAME_SHADOWING")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
@@ -460,12 +460,12 @@ internal abstract class Fugue2Core<D : Fugue2Core<D>>() : FugueCore<D>() {
 
     override fun processFinal(out: ByteArray?) {
         ror(6 * rshift, 30)
-        for (i in 0..9) {
+        repeat(10) {
             ror(3, 30)
             cmix30()
             smix(0, 1, 2, 3)
         }
-        for (i in 0..12) {
+        repeat(13) {
             s[4] = s[4] xor s[0]
             s[15] = s[15] xor s[0]
             ror(15, 30)

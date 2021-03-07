@@ -118,6 +118,7 @@ import com.appmattus.crypto.internal.core.sphlib.Whirlpool
 import com.appmattus.crypto.internal.core.sphlib.Whirlpool0
 import com.appmattus.crypto.internal.core.sphlib.WhirlpoolT
 
+@Suppress("MagicNumber")
 internal object CoreDigest {
     fun create(algorithm: Algorithm): Digest<*> {
         return when (algorithm) {

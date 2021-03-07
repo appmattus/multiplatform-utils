@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.bouncycastle.skein
 
+import com.appmattus.crypto.internal.core.decodeLELong
+import com.appmattus.crypto.internal.core.encodeLELong
 import kotlin.math.min
 
 /**
@@ -88,13 +90,14 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
             bytes[5] = 0
 
             // 8..15 = output length
-            ThreefishEngine.wordToBytes(outputSizeBits, bytes, 8)
+            encodeLELong(outputSizeBits, bytes, 8)
         }
     }
 
     class Parameter(val type: Int, val value: ByteArray)
 
     companion object {
+        @Suppress("ReturnCount")
         fun arraysClone(data: ByteArray?, existing: ByteArray?): ByteArray? {
             if (data == null) {
                 return null
@@ -106,6 +109,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
             return existing
         }
 
+        @Suppress("ReturnCount")
         fun arraysClone(data: LongArray?, existing: LongArray?): LongArray? {
             if (data == null) {
                 return null
@@ -461,7 +465,6 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
     /**
      * The Unique Block Iteration chaining mode.
      */
-    // TODO: This might be better as methods...
     private inner class UBI(blockSize: Int) {
         private val tweak = UbiTweak()
 
@@ -515,7 +518,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         private fun processBlock(output: LongArray) {
             threefish.init(true, chain, tweak.words)
             for (i in message.indices) {
-                message[i] = ThreefishEngine.bytesToWord(currentBlock, i * 8)
+                message[i] = decodeLELong(currentBlock, i * 8)
             }
             threefish.processBlock(message, output)
             for (i in output.indices) {
@@ -715,13 +718,13 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         ubi.doFinal(chain!!)
     }
 
-    fun update(`in`: Byte) {
-        singleByte[0] = `in`
+    fun update(input: Byte) {
+        singleByte[0] = input
         update(singleByte, 0, 1)
     }
 
-    fun update(`in`: ByteArray, inOff: Int, len: Int) {
-        ubi.update(`in`, inOff, len, chain!!)
+    fun update(input: ByteArray, inOff: Int, len: Int) {
+        ubi.update(input, inOff, len, chain!!)
     }
 
     fun doFinal(out: ByteArray, outOff: Int): Int {
@@ -753,7 +756,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
 
     private fun output(outputSequence: Long, out: ByteArray, outOff: Int, outputBytes: Int) {
         val currentBytes = ByteArray(8)
-        ThreefishEngine.wordToBytes(outputSequence, currentBytes, 0)
+        encodeLELong(outputSequence, currentBytes, 0)
 
         // Output is a sequence of UBI invocations all of which use and preserve the pre-output
         // state
@@ -765,9 +768,9 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         for (i in 0 until wordsRequired) {
             val toWrite: Int = min(8, outputBytes - i * 8)
             if (toWrite == 8) {
-                ThreefishEngine.wordToBytes(outputWords[i], out, outOff + i * 8)
+                encodeLELong(outputWords[i], out, outOff + i * 8)
             } else {
-                ThreefishEngine.wordToBytes(outputWords[i], currentBytes, 0)
+                encodeLELong(outputWords[i], currentBytes, 0)
                 currentBytes.copyInto(out, outOff + i * 8, 0, toWrite)
             }
         }
@@ -777,7 +780,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         if (outputSizeBits % 8 != 0) {
             throw IllegalArgumentException("Output size must be a multiple of 8 bits. :$outputSizeBits")
         }
-        // TODO: Prevent digest sizes > block size?
+        // Prevent digest sizes > block size?
         outputSize = outputSizeBits / 8
         threefish = ThreefishEngine(blockSizeBits)
         ubi = UBI(threefish.blockSize)

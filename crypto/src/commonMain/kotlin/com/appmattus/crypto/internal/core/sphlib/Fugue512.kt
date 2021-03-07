@@ -29,8 +29,8 @@ import com.appmattus.crypto.internal.core.encodeBEInt
  * This class implements the Fugue-512 hash function under the
  * [Digest] API.
  *
- * @version   $Revision: 159 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 159 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Fugue512 : FugueCore<Fugue512>() {
 
@@ -317,12 +317,12 @@ internal class Fugue512 : FugueCore<Fugue512>() {
 
     override fun processFinal(out: ByteArray?) {
         ror(12 * rshift, 36)
-        for (i in 0..31) {
+        repeat(32) {
             ror(3, 36)
             cmix36()
             smix(0, 1, 2, 3)
         }
-        for (i in 0..12) {
+        repeat(13) {
             s[4] = s[4] xor s[0]
             s[9] = s[9] xor s[0]
             s[18] = s[18] xor s[0]

@@ -33,13 +33,13 @@ class HMACTest {
             strtobin("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
         )
         testKat(
-            hmac, "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD"
-                    + "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD"
-                    + "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD"
-                    + "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD"
-                    + "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD"
-                    + "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD"
-                    + "\u00DD\u00DD\u00DD",
+            hmac, "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD" +
+                    "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD" +
+                    "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD" +
+                    "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD" +
+                    "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD" +
+                    "\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD\u00DD" +
+                    "\u00DD\u00DD\u00DD",
             "56BE34521D144C88DBB8C733F0E8B3F6"
         )
     }
@@ -56,10 +56,10 @@ class HMACTest {
 		 */hmac = HMAC(
             SHA1(),
             strtobin(
-                "000102030405060708090A0B0C0D0E0F101112131"
-                        + "415161718191A1B1C1D1E1F20212223242526272"
-                        + "8292A2B2C2D2E2F303132333435363738393A3B3"
-                        + "C3D3E3F"
+                "000102030405060708090A0B0C0D0E0F101112131" +
+                        "415161718191A1B1C1D1E1F20212223242526272" +
+                        "8292A2B2C2D2E2F303132333435363738393A3B3" +
+                        "C3D3E3F"
             )
         )
         testKat(
@@ -77,11 +77,11 @@ class HMACTest {
         hmac = HMAC(
             SHA1(),
             strtobin(
-                ("505152535455565758595A5B5C5D5E5F606162636"
-                        + "465666768696A6B6C6D6E6F70717273747576777"
-                        + "8797A7B7C7D7E7F808182838485868788898A8B8"
-                        + "C8D8E8F909192939495969798999A9B9C9D9E9FA"
-                        + "0A1A2A3A4A5A6A7A8A9AAABACADAEAFB0B1B2B3")
+                ("505152535455565758595A5B5C5D5E5F606162636" +
+                        "465666768696A6B6C6D6E6F70717273747576777" +
+                        "8797A7B7C7D7E7F808182838485868788898A8B8" +
+                        "C8D8E8F909192939495969798999A9B9C9D9E9FA" +
+                        "0A1A2A3A4A5A6A7A8A9AAABACADAEAFB0B1B2B3")
             )
         )
         testKat(
@@ -91,9 +91,9 @@ class HMACTest {
         hmac = HMAC(
             SHA1(),
             strtobin(
-                ("707172737475767778797A7B7C7D7E7F808182838"
-                        + "485868788898A8B8C8D8E8F90919293949596979"
-                        + "8999A9B9C9D9E9FA0")
+                ("707172737475767778797A7B7C7D7E7F808182838" +
+                        "485868788898A8B8C8D8E8F90919293949596979" +
+                        "8999A9B9C9D9E9FA0")
             ), 12
         )
         testKat(

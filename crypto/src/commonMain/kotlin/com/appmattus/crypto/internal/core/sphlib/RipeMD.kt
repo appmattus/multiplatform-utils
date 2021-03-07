@@ -33,8 +33,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * strengthened variants RipeMD-128 or RipeMD-160. A collision for this
  * RipeMD has been published in 2004.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class RipeMD : MDHelper<RipeMD>(true, 8) {
 

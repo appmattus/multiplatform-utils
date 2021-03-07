@@ -29,8 +29,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
 /**
  * This class implements SHAvite-384 and SHAvite-512.
  *
- * @version   $Revision: 222 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 222 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>() {
     private lateinit var h: IntArray
@@ -51,7 +51,7 @@ internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>(
     /**
      * Get the initial value for this algorithm.
      *
-     * @return  the initial value
+     * @return the initial value
      */
     protected abstract val initVal: IntArray
 
@@ -153,7 +153,7 @@ internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>(
             u += 4
         }
         while (true) {
-            for (s in 0..3) {
+            repeat(4) {
                 var x0: Int
                 var x1: Int
                 var x2: Int
@@ -229,14 +229,14 @@ internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>(
                     rk[167] = rk[167] xor cnt0.inv()
                 } else if (u == 316) {
                     rk[316] = rk[316] xor cnt2
-                    //rk[317] ^= 0;
+                    // rk[317] ^= 0;
                     rk[318] = rk[318] xor cnt0
                     rk[319] = rk[319] xor cnt1.inv()
                 }
                 u += 4
             }
             if (u == 448) break
-            for (s in 0..7) {
+            repeat(8) {
                 rk[u + 0] = rk[u - 32] xor rk[u - 7]
                 rk[u + 1] = rk[u - 31] xor rk[u - 6]
                 rk[u + 2] = rk[u - 30] xor rk[u - 5]
@@ -261,7 +261,7 @@ internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>(
         pE = h[0xE]
         pF = h[0xF]
         u = 0
-        for (r in 0..13) {
+        repeat(14) {
             var x0: Int
             var x1: Int
             var x2: Int

@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.bouncycastle.skein
 
+import com.appmattus.crypto.internal.core.decodeLELong
+import com.appmattus.crypto.internal.core.encodeLELong
+
 /**
  * Implementation of the Threefish tweakable large block cipher in 256, 512 and 1024 bit block
  * sizes.
@@ -102,48 +105,6 @@ internal class ThreefishEngine(blocksizeBits: Int) {
         private val MOD3 = IntArray(MOD9.size)
 
         /**
-         * Read a single 64 bit word from input in LSB first order.
-         */
-        // At least package protected for efficient access from inner class
-        fun bytesToWord(bytes: ByteArray?, off: Int): Long {
-            if (off + 8 > bytes!!.size) {
-                // Help the JIT avoid index checks
-                throw IllegalArgumentException()
-            }
-            var word: Long
-            var index = off
-            word = bytes[index++].toLong() and 0xffL
-            word = word or (bytes[index++].toLong() and 0xffL shl 8)
-            word = word or (bytes[index++].toLong() and 0xffL shl 16)
-            word = word or (bytes[index++].toLong() and 0xffL shl 24)
-            word = word or (bytes[index++].toLong() and 0xffL shl 32)
-            word = word or (bytes[index++].toLong() and 0xffL shl 40)
-            word = word or (bytes[index++].toLong() and 0xffL shl 48)
-            word = word or (bytes[index].toLong() and 0xffL shl 56)
-            return word
-        }
-
-        /**
-         * Write a 64 bit word to output in LSB first order.
-         */
-        // At least package protected for efficient access from inner class
-        fun wordToBytes(word: Long, bytes: ByteArray, off: Int) {
-            if (off + 8 > bytes.size) {
-                // Help the JIT avoid index checks
-                throw IllegalArgumentException()
-            }
-            var index = off
-            bytes[index++] = word.toByte()
-            bytes[index++] = (word shr 8).toByte()
-            bytes[index++] = (word shr 16).toByte()
-            bytes[index++] = (word shr 24).toByte()
-            bytes[index++] = (word shr 32).toByte()
-            bytes[index++] = (word shr 40).toByte()
-            bytes[index++] = (word shr 48).toByte()
-            bytes[index] = (word shr 56).toByte()
-        }
-
-        /**
          * Rotate left + xor part of the mix operation.
          */
         // Package protected for efficient access from inner class
@@ -219,27 +180,27 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             tweakBytes = null
         } else {
             throw IllegalArgumentException(
-                "Invalid parameter passed to Threefish init - "
-                        + params::class.simpleName
+                "Invalid parameter passed to Threefish init - " +
+                        params::class.simpleName
             )
         }
         var keyWords: LongArray?
         var tweakWords: LongArray? = null
         if (keyBytes.size != blockSize) {
             throw IllegalArgumentException(
-                "Threefish key must be same size as block (" + blockSize
-                        + " bytes)"
+                "Threefish key must be same size as block (" + blockSize +
+                        " bytes)"
             )
         }
         keyWords = LongArray(blocksizeWords)
         for (i in keyWords.indices) {
-            keyWords[i] = bytesToWord(keyBytes, i * 8)
+            keyWords[i] = decodeLELong(keyBytes, i * 8)
         }
         if (tweakBytes != null) {
             if (tweakBytes.size != TWEAK_SIZE_BYTES) {
                 throw IllegalArgumentException("Threefish tweak must be " + TWEAK_SIZE_BYTES + " bytes")
             }
-            tweakWords = longArrayOf(bytesToWord(tweakBytes, 0), bytesToWord(tweakBytes, 8))
+            tweakWords = longArrayOf(decodeLELong(tweakBytes, 0), decodeLELong(tweakBytes, 8))
         }
         init(forEncryption, keyWords, tweakWords)
     }
@@ -260,8 +221,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     private fun setKey(key: LongArray) {
         if (key.size != blocksizeWords) {
             throw IllegalArgumentException(
-                "Threefish key must be same size as block (" + blocksizeWords
-                        + " words)"
+                "Threefish key must be same size as block (" + blocksizeWords +
+                        " words)"
             )
         }
 
@@ -298,11 +259,9 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     val algorithmName: String
         get() = "Threefish-" + blockSize * 8
 
-    fun reset() {}
-
     @Throws(DataLengthException::class, IllegalStateException::class)
-    fun processBlock(`in`: ByteArray, inOff: Int, out: ByteArray, outOff: Int): Int {
-        if (inOff + blockSize > `in`.size) {
+    fun processBlock(input: ByteArray, inOff: Int, out: ByteArray, outOff: Int): Int {
+        if (inOff + blockSize > input.size) {
             throw DataLengthException("Input buffer too short")
         }
         if (outOff + blockSize > out.size) {
@@ -311,14 +270,14 @@ internal class ThreefishEngine(blocksizeBits: Int) {
         run {
             var i = 0
             while (i < this.blockSize) {
-                currentBlock[i shr 3] = bytesToWord(`in`, inOff + i)
+                currentBlock[i shr 3] = decodeLELong(input, inOff + i)
                 i += 8
             }
         }
         processBlock(currentBlock, currentBlock)
         var i = 0
         while (i < blockSize) {
-            wordToBytes(currentBlock[i shr 3], out, outOff + i)
+            encodeLELong(currentBlock[i shr 3], out, outOff + i)
             i += 8
         }
         return blockSize
@@ -327,27 +286,27 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     /**
      * Process a block of data represented as 64 bit words.
      *
-     * @param in  a block sized buffer of words to process.
+     * @param input a block sized buffer of words to process.
      * @param out a block sized buffer of words to receive the output of the operation.
      * @return the number of 8 byte words processed (which will be the same as the block size).
      * @throws DataLengthException if either the input or output is not block sized.
      * @throws IllegalStateException if this engine is not initialised.
      */
     @Throws(DataLengthException::class, IllegalStateException::class)
-    fun processBlock(`in`: LongArray, out: LongArray): Int {
+    fun processBlock(input: LongArray, out: LongArray): Int {
         if (kw[blocksizeWords] == 0L) {
             throw IllegalStateException("Threefish engine not initialised")
         }
-        if (`in`.size != blocksizeWords) {
+        if (input.size != blocksizeWords) {
             throw DataLengthException("Input buffer too short")
         }
         if (out.size != blocksizeWords) {
             throw OutputLengthException("Output buffer too short")
         }
         if (forEncryption) {
-            cipher!!.encryptBlock(`in`, out)
+            cipher!!.encryptBlock(input, out)
         } else {
-            cipher!!.decryptBlock(`in`, out)
+            cipher!!.decryptBlock(input, out)
         }
         return blocksizeWords
     }

@@ -31,8 +31,8 @@ import com.appmattus.crypto.internal.core.encodeBEInt
  * This class implements SHA-224 and SHA-256, which differ only by the IV
  * and the output length.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
     private lateinit var currentVal: IntArray
@@ -53,7 +53,7 @@ internal abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
     /**
      * Get the initial value for this algorithm.
      *
-     * @return  the initial value (eight 32-bit words)
+     * @return the initial value (eight 32-bit words)
      */
     protected abstract val initVal: IntArray
 
@@ -88,20 +88,20 @@ internal abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
         for (i in 16..63) {
             w[i] = ((circularLeftInt(w[i - 2], 15)
                     xor circularLeftInt(w[i - 2], 13)
-                    xor (w[i - 2] ushr 10))
-                    + w[i - 7]
-                    + (circularLeftInt(w[i - 15], 25)
+                    xor (w[i - 2] ushr 10)) +
+                    w[i - 7] +
+                    (circularLeftInt(w[i - 15], 25)
                     xor circularLeftInt(w[i - 15], 14)
-                    xor (w[i - 15] ushr 3))
-                    + w[i - 16])
+                    xor (w[i - 15] ushr 3)) +
+                    w[i - 16])
         }
         for (i in 0..63) {
             val t1 = (h + (circularLeftInt(e, 26) xor circularLeftInt(e, 21)
-                    xor circularLeftInt(e, 7)) + (f and e xor (g and e.inv()))
-                    + K[i] + w[i])
+                    xor circularLeftInt(e, 7)) + (f and e xor (g and e.inv())) +
+                    K[i] + w[i])
             val t2 = ((circularLeftInt(a, 30) xor circularLeftInt(a, 19)
-                    xor circularLeftInt(a, 10))
-                    + (a and b xor (a and c) xor (b and c)))
+                    xor circularLeftInt(a, 10)) +
+                    (a and b xor (a and c) xor (b and c)))
             h = g
             g = f
             f = e

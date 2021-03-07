@@ -31,8 +31,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * This class implements the HAVAL digest algorithm, which accepts 15
  * variants based on the number of passes and digest output.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  *
  * @param outputLength   output length (in bits)
  * @param passes         number of passes (3, 4 or 5)
@@ -104,13 +104,6 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         for (i in dataLen + 1 until endLen - 10) update(0.toByte())
         update(padBuf)
 
-        /*
-		 * This code is used only for debugging purposes.
-		 *
-		if (flush() != 0)
-			throw new Error("panic: buffering went astray");
-		 *
-		 */
         writeOutput(output, outputOffset)
     }
 
@@ -171,22 +164,22 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f1(x1, x0, x3, x5, x6, x2, x4), 25)
-                    + circularLeftInt(x7, 21) + inw[i + 0])
-            x6 = (circularLeftInt(f1(x0, x7, x2, x4, x5, x1, x3), 25)
-                    + circularLeftInt(x6, 21) + inw[i + 1])
-            x5 = (circularLeftInt(f1(x7, x6, x1, x3, x4, x0, x2), 25)
-                    + circularLeftInt(x5, 21) + inw[i + 2])
-            x4 = (circularLeftInt(f1(x6, x5, x0, x2, x3, x7, x1), 25)
-                    + circularLeftInt(x4, 21) + inw[i + 3])
-            x3 = (circularLeftInt(f1(x5, x4, x7, x1, x2, x6, x0), 25)
-                    + circularLeftInt(x3, 21) + inw[i + 4])
-            x2 = (circularLeftInt(f1(x4, x3, x6, x0, x1, x5, x7), 25)
-                    + circularLeftInt(x2, 21) + inw[i + 5])
-            x1 = (circularLeftInt(f1(x3, x2, x5, x7, x0, x4, x6), 25)
-                    + circularLeftInt(x1, 21) + inw[i + 6])
-            x0 = (circularLeftInt(f1(x2, x1, x4, x6, x7, x3, x5), 25)
-                    + circularLeftInt(x0, 21) + inw[i + 7])
+            x7 = (circularLeftInt(f1(x1, x0, x3, x5, x6, x2, x4), 25) +
+                    circularLeftInt(x7, 21) + inw[i + 0])
+            x6 = (circularLeftInt(f1(x0, x7, x2, x4, x5, x1, x3), 25) +
+                    circularLeftInt(x6, 21) + inw[i + 1])
+            x5 = (circularLeftInt(f1(x7, x6, x1, x3, x4, x0, x2), 25) +
+                    circularLeftInt(x5, 21) + inw[i + 2])
+            x4 = (circularLeftInt(f1(x6, x5, x0, x2, x3, x7, x1), 25) +
+                    circularLeftInt(x4, 21) + inw[i + 3])
+            x3 = (circularLeftInt(f1(x5, x4, x7, x1, x2, x6, x0), 25) +
+                    circularLeftInt(x3, 21) + inw[i + 4])
+            x2 = (circularLeftInt(f1(x4, x3, x6, x0, x1, x5, x7), 25) +
+                    circularLeftInt(x2, 21) + inw[i + 5])
+            x1 = (circularLeftInt(f1(x3, x2, x5, x7, x0, x4, x6), 25) +
+                    circularLeftInt(x1, 21) + inw[i + 6])
+            x0 = (circularLeftInt(f1(x2, x1, x4, x6, x7, x3, x5), 25) +
+                    circularLeftInt(x0, 21) + inw[i + 7])
             i += 8
         }
         s0 = x0
@@ -210,30 +203,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f2(x4, x2, x1, x0, x5, x3, x6), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp2[i + 0]] + K2[i + 0])
-            x6 = (circularLeftInt(f2(x3, x1, x0, x7, x4, x2, x5), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp2[i + 1]] + K2[i + 1])
-            x5 = (circularLeftInt(f2(x2, x0, x7, x6, x3, x1, x4), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp2[i + 2]] + K2[i + 2])
-            x4 = (circularLeftInt(f2(x1, x7, x6, x5, x2, x0, x3), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp2[i + 3]] + K2[i + 3])
-            x3 = (circularLeftInt(f2(x0, x6, x5, x4, x1, x7, x2), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp2[i + 4]] + K2[i + 4])
-            x2 = (circularLeftInt(f2(x7, x5, x4, x3, x0, x6, x1), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp2[i + 5]] + K2[i + 5])
-            x1 = (circularLeftInt(f2(x6, x4, x3, x2, x7, x5, x0), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp2[i + 6]] + K2[i + 6])
-            x0 = (circularLeftInt(f2(x5, x3, x2, x1, x6, x4, x7), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp2[i + 7]] + K2[i + 7])
+            x7 = (circularLeftInt(f2(x4, x2, x1, x0, x5, x3, x6), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp2[i + 0]] + K2[i + 0])
+            x6 = (circularLeftInt(f2(x3, x1, x0, x7, x4, x2, x5), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp2[i + 1]] + K2[i + 1])
+            x5 = (circularLeftInt(f2(x2, x0, x7, x6, x3, x1, x4), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp2[i + 2]] + K2[i + 2])
+            x4 = (circularLeftInt(f2(x1, x7, x6, x5, x2, x0, x3), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp2[i + 3]] + K2[i + 3])
+            x3 = (circularLeftInt(f2(x0, x6, x5, x4, x1, x7, x2), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp2[i + 4]] + K2[i + 4])
+            x2 = (circularLeftInt(f2(x7, x5, x4, x3, x0, x6, x1), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp2[i + 5]] + K2[i + 5])
+            x1 = (circularLeftInt(f2(x6, x4, x3, x2, x7, x5, x0), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp2[i + 6]] + K2[i + 6])
+            x0 = (circularLeftInt(f2(x5, x3, x2, x1, x6, x4, x7), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp2[i + 7]] + K2[i + 7])
             i += 8
         }
         s0 = x0
@@ -257,30 +250,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f3(x6, x1, x2, x3, x4, x5, x0), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp3[i + 0]] + K3[i + 0])
-            x6 = (circularLeftInt(f3(x5, x0, x1, x2, x3, x4, x7), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp3[i + 1]] + K3[i + 1])
-            x5 = (circularLeftInt(f3(x4, x7, x0, x1, x2, x3, x6), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp3[i + 2]] + K3[i + 2])
-            x4 = (circularLeftInt(f3(x3, x6, x7, x0, x1, x2, x5), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp3[i + 3]] + K3[i + 3])
-            x3 = (circularLeftInt(f3(x2, x5, x6, x7, x0, x1, x4), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp3[i + 4]] + K3[i + 4])
-            x2 = (circularLeftInt(f3(x1, x4, x5, x6, x7, x0, x3), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp3[i + 5]] + K3[i + 5])
-            x1 = (circularLeftInt(f3(x0, x3, x4, x5, x6, x7, x2), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp3[i + 6]] + K3[i + 6])
-            x0 = (circularLeftInt(f3(x7, x2, x3, x4, x5, x6, x1), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp3[i + 7]] + K3[i + 7])
+            x7 = (circularLeftInt(f3(x6, x1, x2, x3, x4, x5, x0), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp3[i + 0]] + K3[i + 0])
+            x6 = (circularLeftInt(f3(x5, x0, x1, x2, x3, x4, x7), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp3[i + 1]] + K3[i + 1])
+            x5 = (circularLeftInt(f3(x4, x7, x0, x1, x2, x3, x6), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp3[i + 2]] + K3[i + 2])
+            x4 = (circularLeftInt(f3(x3, x6, x7, x0, x1, x2, x5), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp3[i + 3]] + K3[i + 3])
+            x3 = (circularLeftInt(f3(x2, x5, x6, x7, x0, x1, x4), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp3[i + 4]] + K3[i + 4])
+            x2 = (circularLeftInt(f3(x1, x4, x5, x6, x7, x0, x3), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp3[i + 5]] + K3[i + 5])
+            x1 = (circularLeftInt(f3(x0, x3, x4, x5, x6, x7, x2), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp3[i + 6]] + K3[i + 6])
+            x0 = (circularLeftInt(f3(x7, x2, x3, x4, x5, x6, x1), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp3[i + 7]] + K3[i + 7])
             i += 8
         }
         s0 = x0
@@ -304,22 +297,22 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f1(x2, x6, x1, x4, x5, x3, x0), 25)
-                    + circularLeftInt(x7, 21) + inw[i + 0])
-            x6 = (circularLeftInt(f1(x1, x5, x0, x3, x4, x2, x7), 25)
-                    + circularLeftInt(x6, 21) + inw[i + 1])
-            x5 = (circularLeftInt(f1(x0, x4, x7, x2, x3, x1, x6), 25)
-                    + circularLeftInt(x5, 21) + inw[i + 2])
-            x4 = (circularLeftInt(f1(x7, x3, x6, x1, x2, x0, x5), 25)
-                    + circularLeftInt(x4, 21) + inw[i + 3])
-            x3 = (circularLeftInt(f1(x6, x2, x5, x0, x1, x7, x4), 25)
-                    + circularLeftInt(x3, 21) + inw[i + 4])
-            x2 = (circularLeftInt(f1(x5, x1, x4, x7, x0, x6, x3), 25)
-                    + circularLeftInt(x2, 21) + inw[i + 5])
-            x1 = (circularLeftInt(f1(x4, x0, x3, x6, x7, x5, x2), 25)
-                    + circularLeftInt(x1, 21) + inw[i + 6])
-            x0 = (circularLeftInt(f1(x3, x7, x2, x5, x6, x4, x1), 25)
-                    + circularLeftInt(x0, 21) + inw[i + 7])
+            x7 = (circularLeftInt(f1(x2, x6, x1, x4, x5, x3, x0), 25) +
+                    circularLeftInt(x7, 21) + inw[i + 0])
+            x6 = (circularLeftInt(f1(x1, x5, x0, x3, x4, x2, x7), 25) +
+                    circularLeftInt(x6, 21) + inw[i + 1])
+            x5 = (circularLeftInt(f1(x0, x4, x7, x2, x3, x1, x6), 25) +
+                    circularLeftInt(x5, 21) + inw[i + 2])
+            x4 = (circularLeftInt(f1(x7, x3, x6, x1, x2, x0, x5), 25) +
+                    circularLeftInt(x4, 21) + inw[i + 3])
+            x3 = (circularLeftInt(f1(x6, x2, x5, x0, x1, x7, x4), 25) +
+                    circularLeftInt(x3, 21) + inw[i + 4])
+            x2 = (circularLeftInt(f1(x5, x1, x4, x7, x0, x6, x3), 25) +
+                    circularLeftInt(x2, 21) + inw[i + 5])
+            x1 = (circularLeftInt(f1(x4, x0, x3, x6, x7, x5, x2), 25) +
+                    circularLeftInt(x1, 21) + inw[i + 6])
+            x0 = (circularLeftInt(f1(x3, x7, x2, x5, x6, x4, x1), 25) +
+                    circularLeftInt(x0, 21) + inw[i + 7])
             i += 8
         }
         s0 = x0
@@ -343,30 +336,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f2(x3, x5, x2, x0, x1, x6, x4), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp2[i + 0]] + K2[i + 0])
-            x6 = (circularLeftInt(f2(x2, x4, x1, x7, x0, x5, x3), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp2[i + 1]] + K2[i + 1])
-            x5 = (circularLeftInt(f2(x1, x3, x0, x6, x7, x4, x2), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp2[i + 2]] + K2[i + 2])
-            x4 = (circularLeftInt(f2(x0, x2, x7, x5, x6, x3, x1), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp2[i + 3]] + K2[i + 3])
-            x3 = (circularLeftInt(f2(x7, x1, x6, x4, x5, x2, x0), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp2[i + 4]] + K2[i + 4])
-            x2 = (circularLeftInt(f2(x6, x0, x5, x3, x4, x1, x7), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp2[i + 5]] + K2[i + 5])
-            x1 = (circularLeftInt(f2(x5, x7, x4, x2, x3, x0, x6), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp2[i + 6]] + K2[i + 6])
-            x0 = (circularLeftInt(f2(x4, x6, x3, x1, x2, x7, x5), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp2[i + 7]] + K2[i + 7])
+            x7 = (circularLeftInt(f2(x3, x5, x2, x0, x1, x6, x4), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp2[i + 0]] + K2[i + 0])
+            x6 = (circularLeftInt(f2(x2, x4, x1, x7, x0, x5, x3), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp2[i + 1]] + K2[i + 1])
+            x5 = (circularLeftInt(f2(x1, x3, x0, x6, x7, x4, x2), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp2[i + 2]] + K2[i + 2])
+            x4 = (circularLeftInt(f2(x0, x2, x7, x5, x6, x3, x1), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp2[i + 3]] + K2[i + 3])
+            x3 = (circularLeftInt(f2(x7, x1, x6, x4, x5, x2, x0), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp2[i + 4]] + K2[i + 4])
+            x2 = (circularLeftInt(f2(x6, x0, x5, x3, x4, x1, x7), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp2[i + 5]] + K2[i + 5])
+            x1 = (circularLeftInt(f2(x5, x7, x4, x2, x3, x0, x6), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp2[i + 6]] + K2[i + 6])
+            x0 = (circularLeftInt(f2(x4, x6, x3, x1, x2, x7, x5), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp2[i + 7]] + K2[i + 7])
             i += 8
         }
         s0 = x0
@@ -390,30 +383,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f3(x1, x4, x3, x6, x0, x2, x5), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp3[i + 0]] + K3[i + 0])
-            x6 = (circularLeftInt(f3(x0, x3, x2, x5, x7, x1, x4), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp3[i + 1]] + K3[i + 1])
-            x5 = (circularLeftInt(f3(x7, x2, x1, x4, x6, x0, x3), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp3[i + 2]] + K3[i + 2])
-            x4 = (circularLeftInt(f3(x6, x1, x0, x3, x5, x7, x2), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp3[i + 3]] + K3[i + 3])
-            x3 = (circularLeftInt(f3(x5, x0, x7, x2, x4, x6, x1), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp3[i + 4]] + K3[i + 4])
-            x2 = (circularLeftInt(f3(x4, x7, x6, x1, x3, x5, x0), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp3[i + 5]] + K3[i + 5])
-            x1 = (circularLeftInt(f3(x3, x6, x5, x0, x2, x4, x7), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp3[i + 6]] + K3[i + 6])
-            x0 = (circularLeftInt(f3(x2, x5, x4, x7, x1, x3, x6), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp3[i + 7]] + K3[i + 7])
+            x7 = (circularLeftInt(f3(x1, x4, x3, x6, x0, x2, x5), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp3[i + 0]] + K3[i + 0])
+            x6 = (circularLeftInt(f3(x0, x3, x2, x5, x7, x1, x4), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp3[i + 1]] + K3[i + 1])
+            x5 = (circularLeftInt(f3(x7, x2, x1, x4, x6, x0, x3), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp3[i + 2]] + K3[i + 2])
+            x4 = (circularLeftInt(f3(x6, x1, x0, x3, x5, x7, x2), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp3[i + 3]] + K3[i + 3])
+            x3 = (circularLeftInt(f3(x5, x0, x7, x2, x4, x6, x1), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp3[i + 4]] + K3[i + 4])
+            x2 = (circularLeftInt(f3(x4, x7, x6, x1, x3, x5, x0), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp3[i + 5]] + K3[i + 5])
+            x1 = (circularLeftInt(f3(x3, x6, x5, x0, x2, x4, x7), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp3[i + 6]] + K3[i + 6])
+            x0 = (circularLeftInt(f3(x2, x5, x4, x7, x1, x3, x6), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp3[i + 7]] + K3[i + 7])
             i += 8
         }
         s0 = x0
@@ -437,30 +430,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f4(x6, x4, x0, x5, x2, x1, x3), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp4[i + 0]] + K4[i + 0])
-            x6 = (circularLeftInt(f4(x5, x3, x7, x4, x1, x0, x2), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp4[i + 1]] + K4[i + 1])
-            x5 = (circularLeftInt(f4(x4, x2, x6, x3, x0, x7, x1), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp4[i + 2]] + K4[i + 2])
-            x4 = (circularLeftInt(f4(x3, x1, x5, x2, x7, x6, x0), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp4[i + 3]] + K4[i + 3])
-            x3 = (circularLeftInt(f4(x2, x0, x4, x1, x6, x5, x7), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp4[i + 4]] + K4[i + 4])
-            x2 = (circularLeftInt(f4(x1, x7, x3, x0, x5, x4, x6), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp4[i + 5]] + K4[i + 5])
-            x1 = (circularLeftInt(f4(x0, x6, x2, x7, x4, x3, x5), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp4[i + 6]] + K4[i + 6])
-            x0 = (circularLeftInt(f4(x7, x5, x1, x6, x3, x2, x4), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp4[i + 7]] + K4[i + 7])
+            x7 = (circularLeftInt(f4(x6, x4, x0, x5, x2, x1, x3), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp4[i + 0]] + K4[i + 0])
+            x6 = (circularLeftInt(f4(x5, x3, x7, x4, x1, x0, x2), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp4[i + 1]] + K4[i + 1])
+            x5 = (circularLeftInt(f4(x4, x2, x6, x3, x0, x7, x1), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp4[i + 2]] + K4[i + 2])
+            x4 = (circularLeftInt(f4(x3, x1, x5, x2, x7, x6, x0), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp4[i + 3]] + K4[i + 3])
+            x3 = (circularLeftInt(f4(x2, x0, x4, x1, x6, x5, x7), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp4[i + 4]] + K4[i + 4])
+            x2 = (circularLeftInt(f4(x1, x7, x3, x0, x5, x4, x6), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp4[i + 5]] + K4[i + 5])
+            x1 = (circularLeftInt(f4(x0, x6, x2, x7, x4, x3, x5), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp4[i + 6]] + K4[i + 6])
+            x0 = (circularLeftInt(f4(x7, x5, x1, x6, x3, x2, x4), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp4[i + 7]] + K4[i + 7])
             i += 8
         }
         s0 = x0
@@ -484,22 +477,22 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f1(x3, x4, x1, x0, x5, x2, x6), 25)
-                    + circularLeftInt(x7, 21) + inw[i + 0])
-            x6 = (circularLeftInt(f1(x2, x3, x0, x7, x4, x1, x5), 25)
-                    + circularLeftInt(x6, 21) + inw[i + 1])
-            x5 = (circularLeftInt(f1(x1, x2, x7, x6, x3, x0, x4), 25)
-                    + circularLeftInt(x5, 21) + inw[i + 2])
-            x4 = (circularLeftInt(f1(x0, x1, x6, x5, x2, x7, x3), 25)
-                    + circularLeftInt(x4, 21) + inw[i + 3])
-            x3 = (circularLeftInt(f1(x7, x0, x5, x4, x1, x6, x2), 25)
-                    + circularLeftInt(x3, 21) + inw[i + 4])
-            x2 = (circularLeftInt(f1(x6, x7, x4, x3, x0, x5, x1), 25)
-                    + circularLeftInt(x2, 21) + inw[i + 5])
-            x1 = (circularLeftInt(f1(x5, x6, x3, x2, x7, x4, x0), 25)
-                    + circularLeftInt(x1, 21) + inw[i + 6])
-            x0 = (circularLeftInt(f1(x4, x5, x2, x1, x6, x3, x7), 25)
-                    + circularLeftInt(x0, 21) + inw[i + 7])
+            x7 = (circularLeftInt(f1(x3, x4, x1, x0, x5, x2, x6), 25) +
+                    circularLeftInt(x7, 21) + inw[i + 0])
+            x6 = (circularLeftInt(f1(x2, x3, x0, x7, x4, x1, x5), 25) +
+                    circularLeftInt(x6, 21) + inw[i + 1])
+            x5 = (circularLeftInt(f1(x1, x2, x7, x6, x3, x0, x4), 25) +
+                    circularLeftInt(x5, 21) + inw[i + 2])
+            x4 = (circularLeftInt(f1(x0, x1, x6, x5, x2, x7, x3), 25) +
+                    circularLeftInt(x4, 21) + inw[i + 3])
+            x3 = (circularLeftInt(f1(x7, x0, x5, x4, x1, x6, x2), 25) +
+                    circularLeftInt(x3, 21) + inw[i + 4])
+            x2 = (circularLeftInt(f1(x6, x7, x4, x3, x0, x5, x1), 25) +
+                    circularLeftInt(x2, 21) + inw[i + 5])
+            x1 = (circularLeftInt(f1(x5, x6, x3, x2, x7, x4, x0), 25) +
+                    circularLeftInt(x1, 21) + inw[i + 6])
+            x0 = (circularLeftInt(f1(x4, x5, x2, x1, x6, x3, x7), 25) +
+                    circularLeftInt(x0, 21) + inw[i + 7])
             i += 8
         }
         s0 = x0
@@ -523,30 +516,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f2(x6, x2, x1, x0, x3, x4, x5), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp2[i + 0]] + K2[i + 0])
-            x6 = (circularLeftInt(f2(x5, x1, x0, x7, x2, x3, x4), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp2[i + 1]] + K2[i + 1])
-            x5 = (circularLeftInt(f2(x4, x0, x7, x6, x1, x2, x3), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp2[i + 2]] + K2[i + 2])
-            x4 = (circularLeftInt(f2(x3, x7, x6, x5, x0, x1, x2), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp2[i + 3]] + K2[i + 3])
-            x3 = (circularLeftInt(f2(x2, x6, x5, x4, x7, x0, x1), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp2[i + 4]] + K2[i + 4])
-            x2 = (circularLeftInt(f2(x1, x5, x4, x3, x6, x7, x0), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp2[i + 5]] + K2[i + 5])
-            x1 = (circularLeftInt(f2(x0, x4, x3, x2, x5, x6, x7), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp2[i + 6]] + K2[i + 6])
-            x0 = (circularLeftInt(f2(x7, x3, x2, x1, x4, x5, x6), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp2[i + 7]] + K2[i + 7])
+            x7 = (circularLeftInt(f2(x6, x2, x1, x0, x3, x4, x5), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp2[i + 0]] + K2[i + 0])
+            x6 = (circularLeftInt(f2(x5, x1, x0, x7, x2, x3, x4), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp2[i + 1]] + K2[i + 1])
+            x5 = (circularLeftInt(f2(x4, x0, x7, x6, x1, x2, x3), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp2[i + 2]] + K2[i + 2])
+            x4 = (circularLeftInt(f2(x3, x7, x6, x5, x0, x1, x2), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp2[i + 3]] + K2[i + 3])
+            x3 = (circularLeftInt(f2(x2, x6, x5, x4, x7, x0, x1), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp2[i + 4]] + K2[i + 4])
+            x2 = (circularLeftInt(f2(x1, x5, x4, x3, x6, x7, x0), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp2[i + 5]] + K2[i + 5])
+            x1 = (circularLeftInt(f2(x0, x4, x3, x2, x5, x6, x7), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp2[i + 6]] + K2[i + 6])
+            x0 = (circularLeftInt(f2(x7, x3, x2, x1, x4, x5, x6), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp2[i + 7]] + K2[i + 7])
             i += 8
         }
         s0 = x0
@@ -570,30 +563,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f3(x2, x6, x0, x4, x3, x1, x5), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp3[i + 0]] + K3[i + 0])
-            x6 = (circularLeftInt(f3(x1, x5, x7, x3, x2, x0, x4), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp3[i + 1]] + K3[i + 1])
-            x5 = (circularLeftInt(f3(x0, x4, x6, x2, x1, x7, x3), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp3[i + 2]] + K3[i + 2])
-            x4 = (circularLeftInt(f3(x7, x3, x5, x1, x0, x6, x2), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp3[i + 3]] + K3[i + 3])
-            x3 = (circularLeftInt(f3(x6, x2, x4, x0, x7, x5, x1), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp3[i + 4]] + K3[i + 4])
-            x2 = (circularLeftInt(f3(x5, x1, x3, x7, x6, x4, x0), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp3[i + 5]] + K3[i + 5])
-            x1 = (circularLeftInt(f3(x4, x0, x2, x6, x5, x3, x7), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp3[i + 6]] + K3[i + 6])
-            x0 = (circularLeftInt(f3(x3, x7, x1, x5, x4, x2, x6), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp3[i + 7]] + K3[i + 7])
+            x7 = (circularLeftInt(f3(x2, x6, x0, x4, x3, x1, x5), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp3[i + 0]] + K3[i + 0])
+            x6 = (circularLeftInt(f3(x1, x5, x7, x3, x2, x0, x4), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp3[i + 1]] + K3[i + 1])
+            x5 = (circularLeftInt(f3(x0, x4, x6, x2, x1, x7, x3), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp3[i + 2]] + K3[i + 2])
+            x4 = (circularLeftInt(f3(x7, x3, x5, x1, x0, x6, x2), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp3[i + 3]] + K3[i + 3])
+            x3 = (circularLeftInt(f3(x6, x2, x4, x0, x7, x5, x1), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp3[i + 4]] + K3[i + 4])
+            x2 = (circularLeftInt(f3(x5, x1, x3, x7, x6, x4, x0), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp3[i + 5]] + K3[i + 5])
+            x1 = (circularLeftInt(f3(x4, x0, x2, x6, x5, x3, x7), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp3[i + 6]] + K3[i + 6])
+            x0 = (circularLeftInt(f3(x3, x7, x1, x5, x4, x2, x6), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp3[i + 7]] + K3[i + 7])
             i += 8
         }
         s0 = x0
@@ -617,30 +610,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f4(x1, x5, x3, x2, x0, x4, x6), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp4[i + 0]] + K4[i + 0])
-            x6 = (circularLeftInt(f4(x0, x4, x2, x1, x7, x3, x5), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp4[i + 1]] + K4[i + 1])
-            x5 = (circularLeftInt(f4(x7, x3, x1, x0, x6, x2, x4), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp4[i + 2]] + K4[i + 2])
-            x4 = (circularLeftInt(f4(x6, x2, x0, x7, x5, x1, x3), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp4[i + 3]] + K4[i + 3])
-            x3 = (circularLeftInt(f4(x5, x1, x7, x6, x4, x0, x2), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp4[i + 4]] + K4[i + 4])
-            x2 = (circularLeftInt(f4(x4, x0, x6, x5, x3, x7, x1), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp4[i + 5]] + K4[i + 5])
-            x1 = (circularLeftInt(f4(x3, x7, x5, x4, x2, x6, x0), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp4[i + 6]] + K4[i + 6])
-            x0 = (circularLeftInt(f4(x2, x6, x4, x3, x1, x5, x7), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp4[i + 7]] + K4[i + 7])
+            x7 = (circularLeftInt(f4(x1, x5, x3, x2, x0, x4, x6), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp4[i + 0]] + K4[i + 0])
+            x6 = (circularLeftInt(f4(x0, x4, x2, x1, x7, x3, x5), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp4[i + 1]] + K4[i + 1])
+            x5 = (circularLeftInt(f4(x7, x3, x1, x0, x6, x2, x4), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp4[i + 2]] + K4[i + 2])
+            x4 = (circularLeftInt(f4(x6, x2, x0, x7, x5, x1, x3), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp4[i + 3]] + K4[i + 3])
+            x3 = (circularLeftInt(f4(x5, x1, x7, x6, x4, x0, x2), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp4[i + 4]] + K4[i + 4])
+            x2 = (circularLeftInt(f4(x4, x0, x6, x5, x3, x7, x1), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp4[i + 5]] + K4[i + 5])
+            x1 = (circularLeftInt(f4(x3, x7, x5, x4, x2, x6, x0), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp4[i + 6]] + K4[i + 6])
+            x0 = (circularLeftInt(f4(x2, x6, x4, x3, x1, x5, x7), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp4[i + 7]] + K4[i + 7])
             i += 8
         }
         s0 = x0
@@ -664,30 +657,30 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         var x7 = s7
         var i = 0
         while (i < 32) {
-            x7 = (circularLeftInt(f5(x2, x5, x0, x6, x4, x3, x1), 25)
-                    + circularLeftInt(x7, 21)
-                    + inw[wp5[i + 0]] + K5[i + 0])
-            x6 = (circularLeftInt(f5(x1, x4, x7, x5, x3, x2, x0), 25)
-                    + circularLeftInt(x6, 21)
-                    + inw[wp5[i + 1]] + K5[i + 1])
-            x5 = (circularLeftInt(f5(x0, x3, x6, x4, x2, x1, x7), 25)
-                    + circularLeftInt(x5, 21)
-                    + inw[wp5[i + 2]] + K5[i + 2])
-            x4 = (circularLeftInt(f5(x7, x2, x5, x3, x1, x0, x6), 25)
-                    + circularLeftInt(x4, 21)
-                    + inw[wp5[i + 3]] + K5[i + 3])
-            x3 = (circularLeftInt(f5(x6, x1, x4, x2, x0, x7, x5), 25)
-                    + circularLeftInt(x3, 21)
-                    + inw[wp5[i + 4]] + K5[i + 4])
-            x2 = (circularLeftInt(f5(x5, x0, x3, x1, x7, x6, x4), 25)
-                    + circularLeftInt(x2, 21)
-                    + inw[wp5[i + 5]] + K5[i + 5])
-            x1 = (circularLeftInt(f5(x4, x7, x2, x0, x6, x5, x3), 25)
-                    + circularLeftInt(x1, 21)
-                    + inw[wp5[i + 6]] + K5[i + 6])
-            x0 = (circularLeftInt(f5(x3, x6, x1, x7, x5, x4, x2), 25)
-                    + circularLeftInt(x0, 21)
-                    + inw[wp5[i + 7]] + K5[i + 7])
+            x7 = (circularLeftInt(f5(x2, x5, x0, x6, x4, x3, x1), 25) +
+                    circularLeftInt(x7, 21) +
+                    inw[wp5[i + 0]] + K5[i + 0])
+            x6 = (circularLeftInt(f5(x1, x4, x7, x5, x3, x2, x0), 25) +
+                    circularLeftInt(x6, 21) +
+                    inw[wp5[i + 1]] + K5[i + 1])
+            x5 = (circularLeftInt(f5(x0, x3, x6, x4, x2, x1, x7), 25) +
+                    circularLeftInt(x5, 21) +
+                    inw[wp5[i + 2]] + K5[i + 2])
+            x4 = (circularLeftInt(f5(x7, x2, x5, x3, x1, x0, x6), 25) +
+                    circularLeftInt(x4, 21) +
+                    inw[wp5[i + 3]] + K5[i + 3])
+            x3 = (circularLeftInt(f5(x6, x1, x4, x2, x0, x7, x5), 25) +
+                    circularLeftInt(x3, 21) +
+                    inw[wp5[i + 4]] + K5[i + 4])
+            x2 = (circularLeftInt(f5(x5, x0, x3, x1, x7, x6, x4), 25) +
+                    circularLeftInt(x2, 21) +
+                    inw[wp5[i + 5]] + K5[i + 5])
+            x1 = (circularLeftInt(f5(x4, x7, x2, x0, x6, x5, x3), 25) +
+                    circularLeftInt(x1, 21) +
+                    inw[wp5[i + 6]] + K5[i + 6])
+            x0 = (circularLeftInt(f5(x3, x6, x1, x7, x5, x4, x2), 25) +
+                    circularLeftInt(x0, 21) +
+                    inw[wp5[i + 7]] + K5[i + 7])
             i += 8
         }
         s0 = x0
@@ -818,39 +811,64 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
         )
 
         private fun f1(
-            x6: Int, x5: Int, x4: Int,
-            x3: Int, x2: Int, x1: Int, x0: Int
+            x6: Int,
+            x5: Int,
+            x4: Int,
+            x3: Int,
+            x2: Int,
+            x1: Int,
+            x0: Int
         ): Int {
             return x1 and x4 xor (x2 and x5) xor (x3 and x6) xor (x0 and x1) xor x0
         }
 
         private fun f2(
-            x6: Int, x5: Int, x4: Int,
-            x3: Int, x2: Int, x1: Int, x0: Int
+            x6: Int,
+            x5: Int,
+            x4: Int,
+            x3: Int,
+            x2: Int,
+            x1: Int,
+            x0: Int
         ): Int {
             return (x2 and (x1 and x3.inv() xor (x4 and x5) xor x6 xor x0)
                     xor (x4 and (x1 xor x5)) xor (x3 and x5 xor x0))
         }
 
         private fun f3(
-            x6: Int, x5: Int, x4: Int,
-            x3: Int, x2: Int, x1: Int, x0: Int
+            x6: Int,
+            x5: Int,
+            x4: Int,
+            x3: Int,
+            x2: Int,
+            x1: Int,
+            x0: Int
         ): Int {
             return (x3 and (x1 and x2 xor x6 xor x0)
                     xor (x1 and x4) xor (x2 and x5) xor x0)
         }
 
         private fun f4(
-            x6: Int, x5: Int, x4: Int,
-            x3: Int, x2: Int, x1: Int, x0: Int
+            x6: Int,
+            x5: Int,
+            x4: Int,
+            x3: Int,
+            x2: Int,
+            x1: Int,
+            x0: Int
         ): Int {
             return (x3 and (x1 and x2 xor (x4 or x6) xor x5)
                     xor (x4 and (x2.inv() and x5 xor x1 xor x6 xor x0)) xor (x2 and x6) xor x0)
         }
 
         private fun f5(
-            x6: Int, x5: Int, x4: Int,
-            x3: Int, x2: Int, x1: Int, x0: Int
+            x6: Int,
+            x5: Int,
+            x4: Int,
+            x3: Int,
+            x2: Int,
+            x1: Int,
+            x0: Int
         ): Int {
             return (x0 and (x1 and x2 and x3 xor x5).inv()
                     xor (x1 and x4) xor (x2 and x5) xor (x3 and x6))

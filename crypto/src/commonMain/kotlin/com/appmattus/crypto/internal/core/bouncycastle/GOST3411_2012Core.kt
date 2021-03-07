@@ -54,7 +54,7 @@ import kotlin.experimental.xor
  * Base class for GOST3411-2012 256-bit and GOST3411-2012 512-bit digests.
  */
 @Suppress("ClassName")
-internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArray) : Digest<D> {
+internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(iv: ByteArray) : Digest<D> {
     private val iv = ByteArray(64)
     private val n = ByteArray(64)
     private val sigma = ByteArray(64)
@@ -159,214 +159,214 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
     }
 
     @Suppress("JoinDeclarationAndAssignment")
-    private fun f(V: ByteArray) {
+    private fun f(v: ByteArray) {
         val res = LongArray(8)
         var r: Long
         r = 0
-        r = r xor T[0][V[56].toInt() and 0xFF]
-        r = r xor T[1][V[48].toInt() and 0xFF]
-        r = r xor T[2][V[40].toInt() and 0xFF]
-        r = r xor T[3][V[32].toInt() and 0xFF]
-        r = r xor T[4][V[24].toInt() and 0xFF]
-        r = r xor T[5][V[16].toInt() and 0xFF]
-        r = r xor T[6][V[8].toInt() and 0xFF]
-        r = r xor T[7][V[0].toInt() and 0xFF]
+        r = r xor T[0][v[56].toInt() and 0xFF]
+        r = r xor T[1][v[48].toInt() and 0xFF]
+        r = r xor T[2][v[40].toInt() and 0xFF]
+        r = r xor T[3][v[32].toInt() and 0xFF]
+        r = r xor T[4][v[24].toInt() and 0xFF]
+        r = r xor T[5][v[16].toInt() and 0xFF]
+        r = r xor T[6][v[8].toInt() and 0xFF]
+        r = r xor T[7][v[0].toInt() and 0xFF]
         res[0] = r
         r = 0
-        r = r xor T[0][V[57].toInt() and 0xFF]
-        r = r xor T[1][V[49].toInt() and 0xFF]
-        r = r xor T[2][V[41].toInt() and 0xFF]
-        r = r xor T[3][V[33].toInt() and 0xFF]
-        r = r xor T[4][V[25].toInt() and 0xFF]
-        r = r xor T[5][V[17].toInt() and 0xFF]
-        r = r xor T[6][V[9].toInt() and 0xFF]
-        r = r xor T[7][V[1].toInt() and 0xFF]
+        r = r xor T[0][v[57].toInt() and 0xFF]
+        r = r xor T[1][v[49].toInt() and 0xFF]
+        r = r xor T[2][v[41].toInt() and 0xFF]
+        r = r xor T[3][v[33].toInt() and 0xFF]
+        r = r xor T[4][v[25].toInt() and 0xFF]
+        r = r xor T[5][v[17].toInt() and 0xFF]
+        r = r xor T[6][v[9].toInt() and 0xFF]
+        r = r xor T[7][v[1].toInt() and 0xFF]
         res[1] = r
         r = 0
-        r = r xor T[0][V[58].toInt() and 0xFF]
-        r = r xor T[1][V[50].toInt() and 0xFF]
-        r = r xor T[2][V[42].toInt() and 0xFF]
-        r = r xor T[3][V[34].toInt() and 0xFF]
-        r = r xor T[4][V[26].toInt() and 0xFF]
-        r = r xor T[5][V[18].toInt() and 0xFF]
-        r = r xor T[6][V[10].toInt() and 0xFF]
-        r = r xor T[7][V[2].toInt() and 0xFF]
+        r = r xor T[0][v[58].toInt() and 0xFF]
+        r = r xor T[1][v[50].toInt() and 0xFF]
+        r = r xor T[2][v[42].toInt() and 0xFF]
+        r = r xor T[3][v[34].toInt() and 0xFF]
+        r = r xor T[4][v[26].toInt() and 0xFF]
+        r = r xor T[5][v[18].toInt() and 0xFF]
+        r = r xor T[6][v[10].toInt() and 0xFF]
+        r = r xor T[7][v[2].toInt() and 0xFF]
         res[2] = r
         r = 0
-        r = r xor T[0][V[59].toInt() and 0xFF]
-        r = r xor T[1][V[51].toInt() and 0xFF]
-        r = r xor T[2][V[43].toInt() and 0xFF]
-        r = r xor T[3][V[35].toInt() and 0xFF]
-        r = r xor T[4][V[27].toInt() and 0xFF]
-        r = r xor T[5][V[19].toInt() and 0xFF]
-        r = r xor T[6][V[11].toInt() and 0xFF]
-        r = r xor T[7][V[3].toInt() and 0xFF]
+        r = r xor T[0][v[59].toInt() and 0xFF]
+        r = r xor T[1][v[51].toInt() and 0xFF]
+        r = r xor T[2][v[43].toInt() and 0xFF]
+        r = r xor T[3][v[35].toInt() and 0xFF]
+        r = r xor T[4][v[27].toInt() and 0xFF]
+        r = r xor T[5][v[19].toInt() and 0xFF]
+        r = r xor T[6][v[11].toInt() and 0xFF]
+        r = r xor T[7][v[3].toInt() and 0xFF]
         res[3] = r
         r = 0
-        r = r xor T[0][V[60].toInt() and 0xFF]
-        r = r xor T[1][V[52].toInt() and 0xFF]
-        r = r xor T[2][V[44].toInt() and 0xFF]
-        r = r xor T[3][V[36].toInt() and 0xFF]
-        r = r xor T[4][V[28].toInt() and 0xFF]
-        r = r xor T[5][V[20].toInt() and 0xFF]
-        r = r xor T[6][V[12].toInt() and 0xFF]
-        r = r xor T[7][V[4].toInt() and 0xFF]
+        r = r xor T[0][v[60].toInt() and 0xFF]
+        r = r xor T[1][v[52].toInt() and 0xFF]
+        r = r xor T[2][v[44].toInt() and 0xFF]
+        r = r xor T[3][v[36].toInt() and 0xFF]
+        r = r xor T[4][v[28].toInt() and 0xFF]
+        r = r xor T[5][v[20].toInt() and 0xFF]
+        r = r xor T[6][v[12].toInt() and 0xFF]
+        r = r xor T[7][v[4].toInt() and 0xFF]
         res[4] = r
         r = 0
-        r = r xor T[0][V[61].toInt() and 0xFF]
-        r = r xor T[1][V[53].toInt() and 0xFF]
-        r = r xor T[2][V[45].toInt() and 0xFF]
-        r = r xor T[3][V[37].toInt() and 0xFF]
-        r = r xor T[4][V[29].toInt() and 0xFF]
-        r = r xor T[5][V[21].toInt() and 0xFF]
-        r = r xor T[6][V[13].toInt() and 0xFF]
-        r = r xor T[7][V[5].toInt() and 0xFF]
+        r = r xor T[0][v[61].toInt() and 0xFF]
+        r = r xor T[1][v[53].toInt() and 0xFF]
+        r = r xor T[2][v[45].toInt() and 0xFF]
+        r = r xor T[3][v[37].toInt() and 0xFF]
+        r = r xor T[4][v[29].toInt() and 0xFF]
+        r = r xor T[5][v[21].toInt() and 0xFF]
+        r = r xor T[6][v[13].toInt() and 0xFF]
+        r = r xor T[7][v[5].toInt() and 0xFF]
         res[5] = r
         r = 0
-        r = r xor T[0][V[62].toInt() and 0xFF]
-        r = r xor T[1][V[54].toInt() and 0xFF]
-        r = r xor T[2][V[46].toInt() and 0xFF]
-        r = r xor T[3][V[38].toInt() and 0xFF]
-        r = r xor T[4][V[30].toInt() and 0xFF]
-        r = r xor T[5][V[22].toInt() and 0xFF]
-        r = r xor T[6][V[14].toInt() and 0xFF]
-        r = r xor T[7][V[6].toInt() and 0xFF]
+        r = r xor T[0][v[62].toInt() and 0xFF]
+        r = r xor T[1][v[54].toInt() and 0xFF]
+        r = r xor T[2][v[46].toInt() and 0xFF]
+        r = r xor T[3][v[38].toInt() and 0xFF]
+        r = r xor T[4][v[30].toInt() and 0xFF]
+        r = r xor T[5][v[22].toInt() and 0xFF]
+        r = r xor T[6][v[14].toInt() and 0xFF]
+        r = r xor T[7][v[6].toInt() and 0xFF]
         res[6] = r
         r = 0
-        r = r xor T[0][V[63].toInt() and 0xFF]
-        r = r xor T[1][V[55].toInt() and 0xFF]
-        r = r xor T[2][V[47].toInt() and 0xFF]
-        r = r xor T[3][V[39].toInt() and 0xFF]
-        r = r xor T[4][V[31].toInt() and 0xFF]
-        r = r xor T[5][V[23].toInt() and 0xFF]
-        r = r xor T[6][V[15].toInt() and 0xFF]
-        r = r xor T[7][V[7].toInt() and 0xFF]
+        r = r xor T[0][v[63].toInt() and 0xFF]
+        r = r xor T[1][v[55].toInt() and 0xFF]
+        r = r xor T[2][v[47].toInt() and 0xFF]
+        r = r xor T[3][v[39].toInt() and 0xFF]
+        r = r xor T[4][v[31].toInt() and 0xFF]
+        r = r xor T[5][v[23].toInt() and 0xFF]
+        r = r xor T[6][v[15].toInt() and 0xFF]
+        r = r xor T[7][v[7].toInt() and 0xFF]
         res[7] = r
         r = res[0]
-        V[7] = (r shr 56).toByte()
-        V[6] = (r shr 48).toByte()
-        V[5] = (r shr 40).toByte()
-        V[4] = (r shr 32).toByte()
-        V[3] = (r shr 24).toByte()
-        V[2] = (r shr 16).toByte()
-        V[1] = (r shr 8).toByte()
-        V[0] = r.toByte()
+        v[7] = (r shr 56).toByte()
+        v[6] = (r shr 48).toByte()
+        v[5] = (r shr 40).toByte()
+        v[4] = (r shr 32).toByte()
+        v[3] = (r shr 24).toByte()
+        v[2] = (r shr 16).toByte()
+        v[1] = (r shr 8).toByte()
+        v[0] = r.toByte()
         r = res[1]
-        V[15] = (r shr 56).toByte()
-        V[14] = (r shr 48).toByte()
-        V[13] = (r shr 40).toByte()
-        V[12] = (r shr 32).toByte()
-        V[11] = (r shr 24).toByte()
-        V[10] = (r shr 16).toByte()
-        V[9] = (r shr 8).toByte()
-        V[8] = r.toByte()
+        v[15] = (r shr 56).toByte()
+        v[14] = (r shr 48).toByte()
+        v[13] = (r shr 40).toByte()
+        v[12] = (r shr 32).toByte()
+        v[11] = (r shr 24).toByte()
+        v[10] = (r shr 16).toByte()
+        v[9] = (r shr 8).toByte()
+        v[8] = r.toByte()
         r = res[2]
-        V[23] = (r shr 56).toByte()
-        V[22] = (r shr 48).toByte()
-        V[21] = (r shr 40).toByte()
-        V[20] = (r shr 32).toByte()
-        V[19] = (r shr 24).toByte()
-        V[18] = (r shr 16).toByte()
-        V[17] = (r shr 8).toByte()
-        V[16] = r.toByte()
+        v[23] = (r shr 56).toByte()
+        v[22] = (r shr 48).toByte()
+        v[21] = (r shr 40).toByte()
+        v[20] = (r shr 32).toByte()
+        v[19] = (r shr 24).toByte()
+        v[18] = (r shr 16).toByte()
+        v[17] = (r shr 8).toByte()
+        v[16] = r.toByte()
         r = res[3]
-        V[31] = (r shr 56).toByte()
-        V[30] = (r shr 48).toByte()
-        V[29] = (r shr 40).toByte()
-        V[28] = (r shr 32).toByte()
-        V[27] = (r shr 24).toByte()
-        V[26] = (r shr 16).toByte()
-        V[25] = (r shr 8).toByte()
-        V[24] = r.toByte()
+        v[31] = (r shr 56).toByte()
+        v[30] = (r shr 48).toByte()
+        v[29] = (r shr 40).toByte()
+        v[28] = (r shr 32).toByte()
+        v[27] = (r shr 24).toByte()
+        v[26] = (r shr 16).toByte()
+        v[25] = (r shr 8).toByte()
+        v[24] = r.toByte()
         r = res[4]
-        V[39] = (r shr 56).toByte()
-        V[38] = (r shr 48).toByte()
-        V[37] = (r shr 40).toByte()
-        V[36] = (r shr 32).toByte()
-        V[35] = (r shr 24).toByte()
-        V[34] = (r shr 16).toByte()
-        V[33] = (r shr 8).toByte()
-        V[32] = r.toByte()
+        v[39] = (r shr 56).toByte()
+        v[38] = (r shr 48).toByte()
+        v[37] = (r shr 40).toByte()
+        v[36] = (r shr 32).toByte()
+        v[35] = (r shr 24).toByte()
+        v[34] = (r shr 16).toByte()
+        v[33] = (r shr 8).toByte()
+        v[32] = r.toByte()
         r = res[5]
-        V[47] = (r shr 56).toByte()
-        V[46] = (r shr 48).toByte()
-        V[45] = (r shr 40).toByte()
-        V[44] = (r shr 32).toByte()
-        V[43] = (r shr 24).toByte()
-        V[42] = (r shr 16).toByte()
-        V[41] = (r shr 8).toByte()
-        V[40] = r.toByte()
+        v[47] = (r shr 56).toByte()
+        v[46] = (r shr 48).toByte()
+        v[45] = (r shr 40).toByte()
+        v[44] = (r shr 32).toByte()
+        v[43] = (r shr 24).toByte()
+        v[42] = (r shr 16).toByte()
+        v[41] = (r shr 8).toByte()
+        v[40] = r.toByte()
         r = res[6]
-        V[55] = (r shr 56).toByte()
-        V[54] = (r shr 48).toByte()
-        V[53] = (r shr 40).toByte()
-        V[52] = (r shr 32).toByte()
-        V[51] = (r shr 24).toByte()
-        V[50] = (r shr 16).toByte()
-        V[49] = (r shr 8).toByte()
-        V[48] = r.toByte()
+        v[55] = (r shr 56).toByte()
+        v[54] = (r shr 48).toByte()
+        v[53] = (r shr 40).toByte()
+        v[52] = (r shr 32).toByte()
+        v[51] = (r shr 24).toByte()
+        v[50] = (r shr 16).toByte()
+        v[49] = (r shr 8).toByte()
+        v[48] = r.toByte()
         r = res[7]
-        V[63] = (r shr 56).toByte()
-        V[62] = (r shr 48).toByte()
-        V[61] = (r shr 40).toByte()
-        V[60] = (r shr 32).toByte()
-        V[59] = (r shr 24).toByte()
-        V[58] = (r shr 16).toByte()
-        V[57] = (r shr 8).toByte()
-        V[56] = r.toByte()
+        v[63] = (r shr 56).toByte()
+        v[62] = (r shr 48).toByte()
+        v[61] = (r shr 40).toByte()
+        v[60] = (r shr 32).toByte()
+        v[59] = (r shr 24).toByte()
+        v[58] = (r shr 16).toByte()
+        v[57] = (r shr 8).toByte()
+        v[56] = r.toByte()
     }
 
-    private fun xor512(A: ByteArray, B: ByteArray) {
+    private fun xor512(a: ByteArray, b: ByteArray) {
         for (i in 0..63) {
-            A[i] = A[i] xor B[i]
+            a[i] = a[i] xor b[i]
         }
     }
 
-    private fun e(K: ByteArray, m: ByteArray) {
-        K.copyInto(ki, 0, 0, 64)
-        xor512(K, m)
-        f(K)
+    private fun e(k: ByteArray, m: ByteArray) {
+        k.copyInto(ki, 0, 0, 64)
+        xor512(k, m)
+        f(k)
         for (i in 0..10) {
             xor512(ki, C[i])
             f(ki)
-            xor512(K, ki)
-            f(K)
+            xor512(k, ki)
+            f(k)
         }
         xor512(ki, C[11])
         f(ki)
-        xor512(K, ki)
+        xor512(k, ki)
     }
 
-    private fun gN(h: ByteArray, N: ByteArray, m: ByteArray) {
+    private fun gN(h: ByteArray, n: ByteArray, m: ByteArray) {
         h.copyInto(tmp, 0, 0, 64)
 
-        xor512(h, N)
+        xor512(h, n)
         f(h)
         e(h, m)
         xor512(h, tmp)
         xor512(h, m)
     }
 
-    private fun addMod512(A: ByteArray, num: Int) {
+    private fun addMod512(a: ByteArray, num: Int) {
         var c: Int
-        c = (A[63].toInt() and 0xFF) + (num and 0xFF)
-        A[63] = c.toByte()
-        c = (A[62].toInt() and 0xFF) + (num shr 8 and 0xFF) + (c shr 8)
-        A[62] = c.toByte()
+        c = (a[63].toInt() and 0xFF) + (num and 0xFF)
+        a[63] = c.toByte()
+        c = (a[62].toInt() and 0xFF) + (num shr 8 and 0xFF) + (c shr 8)
+        a[62] = c.toByte()
         var i = 61
         while (i >= 0 && c > 0) {
-            c = (A[i].toInt() and 0xFF) + (c shr 8)
-            A[i] = c.toByte()
+            c = (a[i].toInt() and 0xFF) + (c shr 8)
+            a[i] = c.toByte()
             --i
         }
     }
 
-    private fun addMod512(A: ByteArray, B: ByteArray) {
+    private fun addMod512(a: ByteArray, b: ByteArray) {
         var c = 0
         var i = 63
         while (i >= 0) {
-            c = (A[i].toInt() and 0xFF) + (B[i].toInt() and 0xFF) + (c shr 8)
-            A[i] = c.toByte()
+            c = (a[i].toInt() and 0xFF) + (b[i].toInt() and 0xFF) + (c shr 8)
+            a[i] = c.toByte()
             --i
         }
     }
@@ -1045,7 +1045,7 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(IV: ByteArra
     }
 
     init {
-        IV.copyInto(this.iv, 0, 0, 64)
-        IV.copyInto(h, 0, 0, 64)
+        iv.copyInto(this.iv, 0, 0, 64)
+        iv.copyInto(h, 0, 0, 64)
     }
 }

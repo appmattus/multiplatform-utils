@@ -28,10 +28,10 @@ import com.appmattus.crypto.Digest
 /**
  * This class implements Hamsi-384 and Hamsi-512.
  *
- * @version   $Revision: 239 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 239 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class HamsiBigCore<D : HamsiBigCore<D>>() : Digest<D> {
+internal abstract class HamsiBigCore<D : HamsiBigCore<D>> : Digest<D> {
     private val h: IntArray = IntArray(16)
     private var bitCount: Long = 0
     private var partial: Long = 0
@@ -178,20 +178,26 @@ internal abstract class HamsiBigCore<D : HamsiBigCore<D>>() : Digest<D> {
     /**
      * Get the IV.
      *
-     * @return  the IV (initial values for the state words)
+     * @return the IV (initial values for the state words)
      */
     protected abstract val iV: IntArray
 
     /**
      * Create a new instance of the same runtime class than this object.
      *
-     * @return  the duplicate
+     * @return the duplicate
      */
     protected abstract fun dup(): D
 
     private fun process(
-        b0: Int, b1: Int, b2: Int, b3: Int,
-        b4: Int, b5: Int, b6: Int, b7: Int
+        b0: Int,
+        b1: Int,
+        b2: Int,
+        b3: Int,
+        b4: Int,
+        b5: Int,
+        b6: Int,
+        b7: Int
     ) {
         var rp = T512_0[b0]
         var m0 = rp[0x0]
@@ -671,8 +677,14 @@ internal abstract class HamsiBigCore<D : HamsiBigCore<D>>() : Digest<D> {
     }
 
     private fun processFinal(
-        b0: Int, b1: Int, b2: Int, b3: Int,
-        b4: Int, b5: Int, b6: Int, b7: Int
+        b0: Int,
+        b1: Int,
+        b2: Int,
+        b3: Int,
+        b4: Int,
+        b5: Int,
+        b6: Int,
+        b7: Int
     ) {
         var rp = T512_0[b0]
         var m0 = rp[0x0]

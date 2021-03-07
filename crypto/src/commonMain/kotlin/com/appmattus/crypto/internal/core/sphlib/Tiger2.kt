@@ -29,8 +29,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * [Digest] API. Tiger2 differs from Tiger by the padding,
  * which is identical to that of MD4/MD5 in Tiger2, but not in Tiger.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Tiger2 : TigerCore<Tiger2>(0x80.toByte()) {
 

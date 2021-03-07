@@ -29,8 +29,8 @@ import com.appmattus.crypto.internal.core.encodeBEInt
  * This class implements the Fugue-384 hash function under the
  * [Digest] API.
  *
- * @version   $Revision: 159 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 159 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Fugue384 : FugueCore<Fugue384>() {
 
@@ -41,7 +41,7 @@ internal class Fugue384 : FugueCore<Fugue384>() {
         return Fugue384()
     }
 
-    @Suppress("NAME_SHADOWING")
+    @Suppress("NAME_SHADOWING", "ReturnCount")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
@@ -411,12 +411,12 @@ internal class Fugue384 : FugueCore<Fugue384>() {
 
     override fun processFinal(out: ByteArray?) {
         ror(9 * rshift, 36)
-        for (i in 0..17) {
+        repeat(18) {
             ror(3, 36)
             cmix36()
             smix(0, 1, 2, 3)
         }
-        for (i in 0..12) {
+        repeat(13) {
             s[4] = s[4] xor s[0]
             s[12] = s[12] xor s[0]
             s[24] = s[24] xor s[0]

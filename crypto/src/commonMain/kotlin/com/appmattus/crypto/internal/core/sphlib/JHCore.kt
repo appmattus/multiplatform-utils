@@ -30,8 +30,8 @@ import com.appmattus.crypto.internal.core.encodeBELong
  * This class implements the core operations for the JH digest
  * algorithm.
  *
- * @version   $Revision: 255 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 255 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class JHCore<D : JHCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray
@@ -294,7 +294,7 @@ internal abstract class JHCore<D : JHCore<D>> : DigestEngine<D>() {
     /**
      * Get the initial values.
      *
-     * @return  the IV
+     * @return the IV
      */
     protected abstract val iV: LongArray
 

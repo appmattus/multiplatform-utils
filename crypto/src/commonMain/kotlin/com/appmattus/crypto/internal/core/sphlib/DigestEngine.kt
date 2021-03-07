@@ -38,10 +38,10 @@ import com.appmattus.crypto.Digest
  * returns 0 while the [.doInit] method has not been called
  * yet.
  *
- * @version   $Revision: 229 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 229 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class DigestEngine<D : DigestEngine<D>>() : Digest<D> {
+internal abstract class DigestEngine<D : DigestEngine<D>> : Digest<D> {
     /**
      * Reset the hash algorithm state.
      */
@@ -88,7 +88,7 @@ internal abstract class DigestEngine<D : DigestEngine<D>>() : Digest<D> {
      * unprocessed. The values of the remaining bytes are
      * undefined and may be altered at will.
      *
-     * @return  a block-sized internal buffer
+     * @return a block-sized internal buffer
      */
     protected val blockBuffer: ByteArray
 
@@ -100,7 +100,7 @@ internal abstract class DigestEngine<D : DigestEngine<D>>() : Digest<D> {
      * current hash operation. That counter is incremented
      * *after* the call to [.processBlock].
      *
-     * @return  the block count
+     * @return the block count
      */
     protected var blockCount: Long
         private set
@@ -181,7 +181,7 @@ internal abstract class DigestEngine<D : DigestEngine<D>>() : Digest<D> {
      * Flush internal buffers, so that less than a block of data
      * may at most be upheld.
      *
-     * @return  the number of bytes still unprocessed after the flush
+     * @return the number of bytes still unprocessed after the flush
      */
     protected fun flush(): Int {
         return inputLen
@@ -195,7 +195,7 @@ internal abstract class DigestEngine<D : DigestEngine<D>>() : Digest<D> {
      * method.
      *
      * @param dest   the copy
-     * @return  the value `dest`
+     * @return the value `dest`
      */
     protected open fun copyState(dest: D): D {
         dest.inputLen = inputLen

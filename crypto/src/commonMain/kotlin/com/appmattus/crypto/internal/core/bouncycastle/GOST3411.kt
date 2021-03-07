@@ -30,11 +30,11 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * implementation of GOST R 34.11-94
  */
 internal class GOST3411() : Digest<GOST3411> {
-    private val H = ByteArray(32)
-    private val L = ByteArray(32)
-    private val M = ByteArray(32)
-    private val Sum = ByteArray(32)
-    private val C = Array(4) { ByteArray(32) }
+    private val h = ByteArray(32)
+    private val l = ByteArray(32)
+    private val m = ByteArray(32)
+    private val sum = ByteArray(32)
+    private val c = Array(4) { ByteArray(32) }
     private val xBuf = ByteArray(32)
     private var xBufOff = 0
     private var byteCount: Long = 0
@@ -82,113 +82,113 @@ internal class GOST3411() : Digest<GOST3411> {
     }
 
     // (i + 1 + 4(k - 1)) = 8i + k      i = 0-3, k = 1-8
-    private val K = ByteArray(32)
+    private val k = ByteArray(32)
 
-    private fun P(`in`: ByteArray): ByteArray {
+    private fun p(input: ByteArray): ByteArray {
         for (k in 0..7) {
-            K[4 * k] = `in`[k]
-            K[1 + 4 * k] = `in`[8 + k]
-            K[2 + 4 * k] = `in`[16 + k]
-            K[3 + 4 * k] = `in`[24 + k]
+            this.k[4 * k] = input[k]
+            this.k[1 + 4 * k] = input[8 + k]
+            this.k[2 + 4 * k] = input[16 + k]
+            this.k[3 + 4 * k] = input[24 + k]
         }
-        return K
+        return k
     }
 
-    //A (x) = (x0 ^ x1) || x3 || x2 || x1
+    // A (x) = (x0 ^ x1) || x3 || x2 || x1
     var a = ByteArray(8)
-    private fun A(`in`: ByteArray): ByteArray {
+    private fun a(input: ByteArray): ByteArray {
         for (j in 0..7) {
-            a[j] = (`in`[j].toInt() xor `in`[j + 8].toInt()).toByte()
+            a[j] = (input[j].toInt() xor input[j + 8].toInt()).toByte()
         }
-        `in`.copyInto(`in`, 0, 8, 8 + 24)
-        a.copyInto(`in`, 24, 0, 8)
-        return `in`
+        input.copyInto(input, 0, 8, 8 + 24)
+        a.copyInto(input, 24, 0, 8)
+        return input
     }
 
-    //Encrypt function, ECB mode
-    private fun E(key: ByteArray, s: ByteArray, sOff: Int, `in`: ByteArray, inOff: Int) {
+    // Encrypt function, ECB mode
+    private fun e(key: ByteArray, s: ByteArray, sOff: Int, input: ByteArray, inOff: Int) {
         cipher.initWithKey(true, key)
-        cipher.processBlock(`in`, inOff, s, sOff)
+        cipher.processBlock(input, inOff, s, sOff)
     }
 
     // (in:) n16||..||n1 ==> (out:) n1^n2^n3^n4^n13^n16||n16||..||n2
     var wS = ShortArray(16)
     var w_S = ShortArray(16)
-    private fun fw(`in`: ByteArray) {
-        cpyBytesToShort(`in`, wS)
+    private fun fw(input: ByteArray) {
+        cpyBytesToShort(input, wS)
         w_S[15] = (wS[0].toInt() xor wS[1].toInt() xor wS[2].toInt() xor wS[3].toInt() xor wS[12].toInt() xor wS[15].toInt()).toShort()
         wS.copyInto(w_S, 0, 1, 1 + 15)
-        cpyShortToBytes(w_S, `in`)
+        cpyShortToBytes(w_S, input)
     }
 
     // block processing
-    var S = ByteArray(32)
-    var U = ByteArray(32)
-    var V = ByteArray(32)
-    var W = ByteArray(32)
-    protected fun processBlock(`in`: ByteArray, inOff: Int) {
-        `in`.copyInto(M, 0, inOff, inOff + 32)
+    var s = ByteArray(32)
+    var u = ByteArray(32)
+    var v = ByteArray(32)
+    var w = ByteArray(32)
+    private fun processBlock(input: ByteArray, inOff: Int) {
+        input.copyInto(m, 0, inOff, inOff + 32)
 
-        //key step 1
+        // key step 1
 
         // H = h3 || h2 || h1 || h0
         // S = s3 || s2 || s1 || s0
-        H.copyInto(U, 0, 0, 32)
-        M.copyInto(V, 0, 0, 32)
+        h.copyInto(u, 0, 0, 32)
+        m.copyInto(v, 0, 0, 32)
         for (j in 0..31) {
-            W[j] = (U[j].toInt() xor V[j].toInt()).toByte()
+            w[j] = (u[j].toInt() xor v[j].toInt()).toByte()
         }
         // Encrypt gost28147-ECB
-        E(P(W), S, 0, H, 0) // s0 = EK0 [h0]
+        e(p(w), s, 0, h, 0) // s0 = EK0 [h0]
 
-        //keys step 2,3,4
+        // keys step 2,3,4
         for (i in 1..3) {
-            val tmpA = A(U)
+            val tmpA = a(u)
             for (j in 0..31) {
-                U[j] = (tmpA[j].toInt() xor C[i][j].toInt()).toByte()
+                u[j] = (tmpA[j].toInt() xor c[i][j].toInt()).toByte()
             }
-            V = A(A(V))
+            v = a(a(v))
             for (j in 0..31) {
-                W[j] = (U[j].toInt() xor V[j].toInt()).toByte()
+                w[j] = (u[j].toInt() xor v[j].toInt()).toByte()
             }
             // Encrypt gost28147-ECB
-            E(P(W), S, i * 8, H, i * 8) // si = EKi [hi]
+            e(p(w), s, i * 8, h, i * 8) // si = EKi [hi]
         }
 
         // x(M, H) = y61(H^y(M^y12(S)))
         for (n in 0..11) {
-            fw(S)
+            fw(s)
         }
         for (n in 0..31) {
-            S[n] = (S[n].toInt() xor M[n].toInt()).toByte()
+            s[n] = (s[n].toInt() xor m[n].toInt()).toByte()
         }
-        fw(S)
+        fw(s)
         for (n in 0..31) {
-            S[n] = (H[n].toInt() xor S[n].toInt()).toByte()
+            s[n] = (h[n].toInt() xor s[n].toInt()).toByte()
         }
         for (n in 0..60) {
-            fw(S)
+            fw(s)
         }
-        S.copyInto(H, 0, 0, H.size)
+        s.copyInto(h, 0, 0, h.size)
     }
 
     private fun finish() {
         // get length into L (byteCount * 8 = bitCount)
-        encodeLELong(byteCount * 8, L, 0)
+        encodeLELong(byteCount * 8, l, 0)
 
         while (xBufOff != 0) {
             update(0.toByte())
         }
-        processBlock(L, 0)
-        processBlock(Sum, 0)
+        processBlock(l, 0)
+        processBlock(sum, 0)
     }
 
-    fun doFinal(
+    private fun doFinal(
         out: ByteArray,
         outOff: Int
     ): Int {
         finish()
-        H.copyInto(out, outOff, 0, H.size)
+        h.copyInto(out, outOff, 0, h.size)
         reset()
         return digestLength
     }
@@ -196,50 +196,50 @@ internal class GOST3411() : Digest<GOST3411> {
     override fun reset() {
         byteCount = 0
         xBufOff = 0
-        for (i in H.indices) {
-            H[i] = 0 // start vector H
+        for (i in h.indices) {
+            h[i] = 0 // start vector H
         }
-        for (i in L.indices) {
-            L[i] = 0
+        for (i in l.indices) {
+            l[i] = 0
         }
-        for (i in M.indices) {
-            M[i] = 0
+        for (i in m.indices) {
+            m[i] = 0
         }
-        for (i in C[1].indices) {
-            C[1][i] = 0 // real index C = +1 because index array with 0.
+        for (i in c[1].indices) {
+            c[1][i] = 0 // real index C = +1 because index array with 0.
         }
-        for (i in C[3].indices) {
-            C[3][i] = 0
+        for (i in c[3].indices) {
+            c[3][i] = 0
         }
-        for (i in Sum.indices) {
-            Sum[i] = 0
+        for (i in sum.indices) {
+            sum[i] = 0
         }
         for (i in xBuf.indices) {
             xBuf[i] = 0
         }
-        C2.copyInto(C[2], 0, 0, C2.size)
+        C2.copyInto(c[2], 0, 0, C2.size)
     }
 
     //  256 bitsblock modul -> (Sum + a mod (2^256))
-    private fun sumByteArray(`in`: ByteArray) {
+    private fun sumByteArray(input: ByteArray) {
         var carry = 0
-        for (i in Sum.indices) {
-            val sum: Int = (Sum[i].toInt() and 0xff) + (`in`[i].toInt() and 0xff) + carry
-            Sum[i] = sum.toByte()
+        for (i in sum.indices) {
+            val sum: Int = (sum[i].toInt() and 0xff) + (input[i].toInt() and 0xff) + carry
+            this.sum[i] = sum.toByte()
             carry = sum ushr 8
         }
     }
 
-    private fun cpyBytesToShort(S: ByteArray, wS: ShortArray) {
-        for (i in 0 until S.size / 2) {
-            wS[i] = (S[i * 2 + 1].toInt() shl 8 and 0xFF00 or (S[i * 2].toInt() and 0xFF)).toShort()
+    private fun cpyBytesToShort(s: ByteArray, wS: ShortArray) {
+        for (i in 0 until s.size / 2) {
+            wS[i] = (s[i * 2 + 1].toInt() shl 8 and 0xFF00 or (s[i * 2].toInt() and 0xFF)).toShort()
         }
     }
 
-    private fun cpyShortToBytes(wS: ShortArray, S: ByteArray) {
-        for (i in 0 until S.size / 2) {
-            S[i * 2 + 1] = (wS[i].toInt() shr 8).toByte()
-            S[i * 2] = wS[i].toByte()
+    private fun cpyShortToBytes(wS: ShortArray, s: ByteArray) {
+        for (i in 0 until s.size / 2) {
+            s[i * 2 + 1] = (wS[i].toInt() shr 8).toByte()
+            s[i * 2] = wS[i].toByte()
         }
     }
 
@@ -317,13 +317,13 @@ internal class GOST3411() : Digest<GOST3411> {
     fun reset(t: GOST3411) {
         cipher.initWithSbox(sBox)
         reset()
-        t.H.copyInto(H, 0, 0, t.H.size)
-        t.L.copyInto(L, 0, 0, t.L.size)
-        t.M.copyInto(M, 0, 0, t.M.size)
-        t.Sum.copyInto(Sum, 0, 0, t.Sum.size)
-        t.C[1].copyInto(C[1], 0, 0, t.C[1].size)
-        t.C[2].copyInto(C[2], 0, 0, t.C[2].size)
-        t.C[3].copyInto(C[3], 0, 0, t.C[3].size)
+        t.h.copyInto(h, 0, 0, t.h.size)
+        t.l.copyInto(l, 0, 0, t.l.size)
+        t.m.copyInto(m, 0, 0, t.m.size)
+        t.sum.copyInto(sum, 0, 0, t.sum.size)
+        t.c[1].copyInto(c[1], 0, 0, t.c[1].size)
+        t.c[2].copyInto(c[2], 0, 0, t.c[2].size)
+        t.c[3].copyInto(c[3], 0, 0, t.c[3].size)
         t.xBuf.copyInto(xBuf, 0, 0, t.xBuf.size)
         xBufOff = t.xBufOff
         byteCount = t.byteCount

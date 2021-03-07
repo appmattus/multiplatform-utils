@@ -29,8 +29,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * [Digest] API (in the SHAvite-3 specification, this function
  * is known as "SHAvite-3 with a 256-bit output").
  *
- * @version   $Revision: 222 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 222 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class SHAvite256 : SHAviteSmallCore<SHAvite256>() {
 

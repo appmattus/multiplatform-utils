@@ -31,8 +31,8 @@ import com.appmattus.crypto.internal.core.encodeBELong
  * This class implements SHA-384 and SHA-512, which differ only by the IV
  * and the output length.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16) {
 
@@ -54,7 +54,7 @@ internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16)
     /**
      * Get the initial value for this algorithm.
      *
-     * @return  the initial value (eight 64-bit words)
+     * @return the initial value (eight 64-bit words)
      */
     protected abstract val initVal: LongArray
 
@@ -89,12 +89,12 @@ internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16)
         for (i in 16..79) {
             w[i] = ((circularLeftLong(w[i - 2], 45)
                     xor circularLeftLong(w[i - 2], 3)
-                    xor (w[i - 2] ushr 6))
-                    + w[i - 7]
-                    + (circularLeftLong(w[i - 15], 63)
+                    xor (w[i - 2] ushr 6)) +
+                    w[i - 7] +
+                    (circularLeftLong(w[i - 15], 63)
                     xor circularLeftLong(w[i - 15], 56)
-                    xor (w[i - 15] ushr 7))
-                    + w[i - 16])
+                    xor (w[i - 15] ushr 7)) +
+                    w[i - 16])
         }
         for (i in 0..79) {
             /*

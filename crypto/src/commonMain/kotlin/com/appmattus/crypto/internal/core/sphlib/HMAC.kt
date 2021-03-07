@@ -33,8 +33,8 @@ import com.appmattus.crypto.Digest
  * uses an underlying digest algorithm, provided as parameter to the
  * constructor.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class HMAC : DigestEngine<HMAC> {
 

@@ -397,31 +397,31 @@ abstract class Skein512_512Test {
         testKatHex(
             digest(),
             "fb",
-            "c49e03d50b4b2cc46bd3b7ef7014c8a45b016399fd1714467b7596c86de98240"
-                    + "e35bf7f9772b7d65465cd4cffab14e6bc154c54fc67b8bc340abf08eff572b9e"
+            "c49e03d50b4b2cc46bd3b7ef7014c8a45b016399fd1714467b7596c86de98240" +
+                    "e35bf7f9772b7d65465cd4cffab14e6bc154c54fc67b8bc340abf08eff572b9e"
         )
 
         testKatHex(
             digest(),
             "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8",
-            "abefb179d52f68f86941acbbe014cc67ec66ad78b7ba9508eb1400ee2cbdb06f"
-                    + "9fe7c2a260a0272d0d80e8ef5e8737c0c6a5f1c02ceb00fb2746f664b85fcef5"
+            "abefb179d52f68f86941acbbe014cc67ec66ad78b7ba9508eb1400ee2cbdb06f" +
+                    "9fe7c2a260a0272d0d80e8ef5e8737c0c6a5f1c02ceb00fb2746f664b85fcef5"
         )
         testKatHex(
             digest(),
-            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8"
-                    + "78bb393a1a5f79bef30995a85a129233",
-            "5c5b7956f9d973c0989aa40a71aa9c48a65af2757590e9a758343c7e23ea2df4"
-                    + "057ce0b49f9514987feff97f648e1dd065926e2c371a0211ca977c213f14149f"
+            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8" +
+                    "78bb393a1a5f79bef30995a85a129233",
+            "5c5b7956f9d973c0989aa40a71aa9c48a65af2757590e9a758343c7e23ea2df4" +
+                    "057ce0b49f9514987feff97f648e1dd065926e2c371a0211ca977c213f14149f"
         )
         testKatHex(
             digest(),
-            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8"
-                    + "78bb393a1a5f79bef30995a85a12923339ba8ab7d8fc6dc5fec6f4ed22c122bb"
-                    + "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a"
-                    + "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
-            "1a0d5abf4432e7c612d658f8dcfa35b0d1ab68b8d6bd4dd115c23cc57b5c5bcd"
-                    + "de9bff0ece4208596e499f211bc07594d0cb6f3c12b0e110174b2a9b4b2cb6a9"
+            "fbd17c26b61a82e12e125f0d459b96c91ab4837dff22b39b78439430cdfc5dc8" +
+                    "78bb393a1a5f79bef30995a85a12923339ba8ab7d8fc6dc5fec6f4ed22c122bb" +
+                    "e7eb61981892966de5cef576f71fc7a80d14dab2d0c03940b95b9fb3a727c66a" +
+                    "6e1ff0dc311b9aa21a3054484802154c1826c2a27a0914152aeb76f1168d4410",
+            "1a0d5abf4432e7c612d658f8dcfa35b0d1ab68b8d6bd4dd115c23cc57b5c5bcd" +
+                    "de9bff0ece4208596e499f211bc07594d0cb6f3c12b0e110174b2a9b4b2cb6a9"
         )
     }
 

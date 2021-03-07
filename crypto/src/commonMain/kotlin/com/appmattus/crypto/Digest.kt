@@ -111,7 +111,7 @@ interface Digest<D : Digest<D>> {
     /**
      * Get the natural hash function output length (in bytes).
      *
-     * @return  the digest output length (in bytes)
+     * @return the digest output length (in bytes)
      */
     val digestLength: Int
 
@@ -124,7 +124,7 @@ interface Digest<D : Digest<D>> {
      * Clone the current state. The returned object evolves independently
      * of this object.
      *
-     * @return  the clone
+     * @return the clone
      */
     fun copy(): D
 
@@ -144,7 +144,7 @@ interface Digest<D : Digest<D>> {
      * virtual block length B is the HMAC key length, rounded up to
      * the next multiple of 4.
      *
-     * @return  the internal block length (in bytes), or `-n`
+     * @return the internal block length (in bytes), or `-n`
      */
     val blockLength: Int
 

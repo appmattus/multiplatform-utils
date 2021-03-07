@@ -29,8 +29,8 @@ import com.appmattus.crypto.Digest
  * This class is the base class for Fugue implementation. It does not
  * use [DigestEngine] since Fugue is not nominally block-based.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class FugueCore<D : FugueCore<D>> : Digest<D> {
     private var bitCount: Long = 0

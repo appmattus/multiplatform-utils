@@ -34,8 +34,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * [Digest] API, using the [DigestEngine] class.
  * MD5 is defined in RFC 1321.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class MD5 : MDHelper<MD5>(true, 8) {
 

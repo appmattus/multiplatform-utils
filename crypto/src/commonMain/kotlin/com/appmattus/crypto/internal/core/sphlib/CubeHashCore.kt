@@ -30,8 +30,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * This class implements the core operations for the CubeHash digest
  * algorithm.
  *
- * @version   $Revision: 232 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 232 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
     private var x0 = 0
@@ -79,7 +79,7 @@ internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
 
     @Suppress("ReplaceWithOperatorAssignment")
     private fun sixteenRounds() {
-        for (i in 0..7) {
+        repeat(8) {
             xg = x0 + xg
             x0 = x0 shl 7 or (x0 ushr 32 - 7)
             xh = x1 + xh
@@ -292,7 +292,7 @@ internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
         inputBlock(buf)
         sixteenRounds()
         xv = xv xor 1
-        for (j in 0..9) sixteenRounds()
+        repeat(10) { sixteenRounds() }
         val dlen = digestLength
         encodeLEInt(x0, output, outputOffset + 0)
         encodeLEInt(x1, output, outputOffset + 4)
@@ -322,7 +322,7 @@ internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
     /**
      * Get the initial values.
      *
-     * @return  the IV
+     * @return the IV
      */
     protected abstract val iV: IntArray
 

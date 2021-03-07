@@ -29,8 +29,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
 /**
  * This class implements ECHO-224 and ECHO-256.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class ECHOSmallCore<D : ECHOSmallCore<D>> : DigestEngine<D>() {
     private lateinit var v: IntArray
@@ -118,10 +118,10 @@ internal abstract class ECHOSmallCore<D : ECHOSmallCore<D>> : DigestEngine<D>() 
         engineReset()
     }
 
-    private fun incrCounter(`val`: Int) {
-        c0 += `val`
+    private fun incrCounter(value: Int) {
+        c0 += value
         @Suppress("ConvertTwoComparisonsToRangeCheck")
-        if (c0 >= 0 && c0 < `val`) {
+        if (c0 >= 0 && c0 < value) {
             if (++c1 == 0) {
                 if (++c2 == 0) {
                     c3++

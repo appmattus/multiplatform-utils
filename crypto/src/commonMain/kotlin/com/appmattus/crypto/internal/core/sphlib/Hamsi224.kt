@@ -28,8 +28,8 @@ package com.appmattus.crypto.internal.core.sphlib
  * This class implements the Hamsi-224 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 236 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 236 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Hamsi224 : HamsiSmallCore<Hamsi224>() {
 

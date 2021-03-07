@@ -31,8 +31,8 @@ import com.appmattus.crypto.Algorithm
  * [Digest] API. This is the current (2003) variant of
  * Whirlpool.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Whirlpool : WhirlpoolCore<Whirlpool>(T0, T1, T2, T3, T4, T5, T6, T7, RC) {
 

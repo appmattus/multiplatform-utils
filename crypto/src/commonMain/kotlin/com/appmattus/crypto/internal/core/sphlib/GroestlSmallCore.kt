@@ -30,10 +30,10 @@ import com.appmattus.crypto.internal.core.encodeBELong
 /**
  * This class implements Groestl-224 and Groestl-256.
  *
- * @version   $Revision: 256 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 256 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class GroestlSmallCore<D : GroestlSmallCore<D>>() : DigestEngine<D>() {
+internal abstract class GroestlSmallCore<D : GroestlSmallCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var g: LongArray
     private lateinit var m: LongArray

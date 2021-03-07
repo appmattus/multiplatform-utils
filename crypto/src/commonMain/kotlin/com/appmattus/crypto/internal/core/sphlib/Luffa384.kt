@@ -31,8 +31,8 @@ import com.appmattus.crypto.internal.core.encodeBEInt
  * This class implements Luffa-384 digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 235 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 235 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class Luffa384 : DigestEngine<Luffa384>() {
     private var v00 = 0

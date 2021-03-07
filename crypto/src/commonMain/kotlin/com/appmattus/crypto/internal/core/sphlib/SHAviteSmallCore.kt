@@ -29,8 +29,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
 /**
  * This class implements SHAvite-224 and SHAvite-256.
  *
- * @version   $Revision: 222 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 222 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine<D>() {
     private lateinit var h: IntArray
@@ -51,7 +51,7 @@ internal abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine
     /**
      * Get the initial value for this algorithm.
      *
-     * @return  the initial value
+     * @return the initial value
      */
     protected abstract val initVal: IntArray
 
@@ -122,8 +122,8 @@ internal abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine
             rk[u + 3] = decodeLEInt(data, (u shl 2) + 12)
             u += 4
         }
-        for (r in 0..3) {
-            for (s in 0..1) {
+        repeat(4) {
+            repeat(2) {
                 var x0: Int
                 var x1: Int
                 var x2: Int
@@ -197,7 +197,7 @@ internal abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine
                 }
                 u += 4
             }
-            for (s in 0..3) {
+            repeat(4) {
                 rk[u + 0] = rk[u - 16] xor rk[u - 3]
                 rk[u + 1] = rk[u - 15] xor rk[u - 2]
                 rk[u + 2] = rk[u - 14] xor rk[u - 1]
@@ -214,7 +214,7 @@ internal abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine
         p6 = h[0x6]
         p7 = h[0x7]
         u = 0
-        for (r in 0..5) {
+        repeat(6) {
             var x0: Int
             var x1: Int
             var x2: Int

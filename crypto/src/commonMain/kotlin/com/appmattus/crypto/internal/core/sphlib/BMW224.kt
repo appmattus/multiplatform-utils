@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the BMW-224 ("Blue Midnight Wish") digest
  * algorithm under the [Digest] API.
  *
- * @version   $Revision: 166 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 166 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class BMW224 : BMWSmallCore<BMW224>() {
 

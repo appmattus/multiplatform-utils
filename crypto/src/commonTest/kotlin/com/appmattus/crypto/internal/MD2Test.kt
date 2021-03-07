@@ -87,13 +87,13 @@ abstract class MD2Test {
             "4e8ddff3650292ab5a4108c3aa47940b"
         )
         testKat(
-            dig, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstu"
-                    + "vwxyz0123456789",
+            dig, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstu" +
+                    "vwxyz0123456789",
             "da33def2a42df13975352846c30338cd"
         )
         testKat(
-            dig, "1234567890123456789012345678901234567890123456789"
-                    + "0123456789012345678901234567890",
+            dig, "1234567890123456789012345678901234567890123456789" +
+                    "0123456789012345678901234567890",
             "d5976f79d83d3a0dc9806c3c66f3efd8"
         )
         testKatMillionA(dig, "8c0a09ff1216ecaf95c8130953c62efd")

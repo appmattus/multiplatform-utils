@@ -32,8 +32,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * and RIPEMD-160. This code works as long as the internal block length
  * is a power of 2, which is the case for all these algorithms.
  *
- * @version   $Revision: 157 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 157 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  *
  * Little-endian padding is for MD4, MD5 and
  * RIPEMD-160; the SHA family uses big-endian padding. The

@@ -32,7 +32,8 @@ internal class TweakableBlockCipherParameters(
      *
      * @return the key to use, or `null` to use the current key.
      */
-    val key: KeyParameter, tweak: ByteArray?
+    val key: KeyParameter,
+    tweak: ByteArray?
 ) : CipherParameters {
 
     /**

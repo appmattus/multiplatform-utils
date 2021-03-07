@@ -31,8 +31,8 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * This class implements the PANAMA digest algorithm under the
  * [Digest] API.
  *
- * @version   $Revision: 214 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 214 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class PANAMA : DigestEngine<PANAMA>() {
     private lateinit var buffer: IntArray

@@ -32,8 +32,8 @@ import kotlin.experimental.or
  * This class implements BLAKE-384 and BLAKE-512, which differ only by
  * the IV, output length, and one bit in the padding.
  *
- * @version   $Revision: 252 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 252 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>> : DigestEngine<D>() {
 
@@ -93,7 +93,7 @@ internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>> : DigestEngine<D>() {
     /**
      * Get the initial value for this algorithm.
      *
-     * @return  the initial value (eight 64-bit words)
+     * @return the initial value (eight 64-bit words)
      */
     protected abstract val initVal: LongArray
 

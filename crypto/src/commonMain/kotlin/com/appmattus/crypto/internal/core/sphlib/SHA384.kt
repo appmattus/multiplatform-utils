@@ -30,8 +30,8 @@ import com.appmattus.crypto.Algorithm
  * This class implements the SHA-384 digest algorithm under the
  * [Digest] API. SHA-384 is specified by FIPS 180-2.
  *
- * @version   $Revision: 156 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 156 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 internal class SHA384 : SHA2BigCore<SHA384>() {
 

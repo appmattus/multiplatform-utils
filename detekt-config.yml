@@ -3,7 +3,7 @@ build:
 
 style:
   MagicNumber:
-    excludes: "**/test/**,**/androidTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/*.gradle.kts"
+    excludes: "**/test/**,**/androidTest/**,**/commonTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/*.gradle.kts,**/internal/core/**"
   MaxLineLength:
     active: false
 
@@ -12,4 +12,4 @@ formatting:
     excludes: "**/*.gradle.kts"
   MaximumLineLength:
     maxLineLength: 145
-    excludes: "**/resources/**"
+    excludes: "**/resources/**,,**/commonTest/**/internal/**"

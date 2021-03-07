@@ -26,8 +26,8 @@ package com.appmattus.crypto.internal.core.sphlib
 /**
  * This class implements HAVAL with 256-bit output and 3 passes.
  *
- * @version   $Revision: 156 $
- * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ * @version $Revision: 156 $
+ * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
 @Suppress("ClassName")
 internal class HAVAL256_3 : HAVALCore<HAVAL256_3>(256, 3) {

@@ -21,7 +21,6 @@ import com.appmattus.crypto.Digest
 import com.appmattus.ignore.IgnoreIos
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatExtremelyLong
-import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
