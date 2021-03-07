@@ -163,7 +163,7 @@ internal fun decodeBELong(buf: ByteArray, off: Int): Long {
  * @return  the rotated value
  */
 internal fun circularLeftInt(x: Int, n: Int): Int {
-    return x shl n or (x ushr 32 - n)
+    return x shl n or (x ushr -n)
 }
 
 /**
@@ -176,7 +176,7 @@ internal fun circularLeftInt(x: Int, n: Int): Int {
  * @return  the rotated value
  */
 internal fun circularRightInt(x: Int, n: Int): Int {
-    return x ushr n or (x shl 32 - n)
+    return x ushr n or (x shl -n)
 }
 
 /**
@@ -189,7 +189,7 @@ internal fun circularRightInt(x: Int, n: Int): Int {
  * @return  the rotated value
  */
 internal fun circularLeftLong(x: Long, n: Int): Long {
-    return (x shl n) or (x ushr 64 - n)
+    return (x shl n) or (x ushr -n)
 }
 
 /**
@@ -202,5 +202,5 @@ internal fun circularLeftLong(x: Long, n: Int): Long {
  * @return  the rotated value
  */
 internal fun circularRightLong(x: Long, n: Int): Long {
-    return x ushr n or (x shl 64 - n)
+    return x ushr n or (x shl -n)
 }
