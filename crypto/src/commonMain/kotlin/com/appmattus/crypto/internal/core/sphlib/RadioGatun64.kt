@@ -24,6 +24,8 @@
 package com.appmattus.crypto.internal.core.sphlib
 
 import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.internal.core.decodeLELong
+import com.appmattus.crypto.internal.core.encodeLELong
 
 /**
  *
@@ -400,45 +402,4 @@ internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
     }
 
     override fun toString() = Algorithm.RadioGatun64.algorithmName
-
-    companion object {
-        /**
-         * Encode the 64-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLELong(`val`: Long, buf: ByteArray, off: Int) {
-            buf[off + 0] = `val`.toByte()
-            buf[off + 1] = (`val` ushr 8).toByte()
-            buf[off + 2] = (`val` ushr 16).toByte()
-            buf[off + 3] = (`val` ushr 24).toByte()
-            buf[off + 4] = (`val` ushr 32).toByte()
-            buf[off + 5] = (`val` ushr 40).toByte()
-            buf[off + 6] = (`val` ushr 48).toByte()
-            buf[off + 7] = (`val` ushr 56).toByte()
-        }
-
-        /**
-         * Decode a 64-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLELong(buf: ByteArray, off: Int): Long {
-            return ((buf[off + 7].toLong() and 0xFF) shl 56
-                    or ((buf[off + 6].toLong() and 0xFF) shl 48)
-                    or ((buf[off + 5].toLong() and 0xFF) shl 40)
-                    or ((buf[off + 4].toLong() and 0xFF) shl 32)
-                    or ((buf[off + 3].toLong() and 0xFF) shl 24)
-                    or ((buf[off + 2].toLong() and 0xFF) shl 16)
-                    or ((buf[off + 1].toLong() and 0xFF) shl 8)
-                    or (buf[off].toLong() and 0xFF))
-        }
-    }
 }

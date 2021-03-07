@@ -129,21 +129,5 @@ internal class Adler32 : Digest<Adler32> {
 
         /** largest prime smaller than 65536  */
         private const val BASE = 65521
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
     }
 }

@@ -24,6 +24,7 @@
 package com.appmattus.crypto.internal.core.sphlib
 
 import com.appmattus.crypto.Digest
+import com.appmattus.crypto.internal.core.decodeLEInt
 
 /**
  * This class implements Shabal for all output sizes from 32 to 512 bits
@@ -167,39 +168,30 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
     private fun getIV(outSizeW32: Int): IntArray {
         //var iv = IVs[outSizeW32 - 1]
         //if (iv == null) {
-            val outSize = outSizeW32 shl 5
+        val outSize = outSizeW32 shl 5
 
-            val state = IntArray(44)
-            val buf = ByteArray(64)
+        val state = IntArray(44)
+        val buf = ByteArray(64)
 
-            for (i in 0..43) state[i] = 0
-            var w = -1L
-            for (i in 0..15) {
-                buf[(i shl 2) + 0] = (outSize + i).toByte()
-                buf[(i shl 2) + 1] = (outSize + i ushr 8).toByte()
-            }
-            w = core(state, w, buf, 0, 1)
-            for (i in 0..15) {
-                buf[(i shl 2) + 0] = (outSize + i + 16).toByte()
-                buf[(i shl 2) + 1] = (outSize + i + 16 ushr 8).toByte()
-            }
-            core(state, w, buf, 0, 1)
-            return state
-            //iv = IVs[outSizeW32 - 1]
+        for (i in 0..43) state[i] = 0
+        var w = -1L
+        for (i in 0..15) {
+            buf[(i shl 2) + 0] = (outSize + i).toByte()
+            buf[(i shl 2) + 1] = (outSize + i ushr 8).toByte()
+        }
+        w = core(state, w, buf, 0, 1)
+        for (i in 0..15) {
+            buf[(i shl 2) + 0] = (outSize + i + 16).toByte()
+            buf[(i shl 2) + 1] = (outSize + i + 16 ushr 8).toByte()
+        }
+        core(state, w, buf, 0, 1)
+        return state
+        //iv = IVs[outSizeW32 - 1]
         //}
         //return iv!!
     }
 
     companion object {
-        private val IVs = arrayOfNulls<IntArray>(16)
-
-        private fun decodeLEInt(data: ByteArray, off: Int): Int {
-            return (data[off + 0].toInt() and 0xFF
-                    or (data[off + 1].toInt() and 0xFF shl 8)
-                    or (data[off + 2].toInt() and 0xFF shl 16)
-                    or (data[off + 3].toInt() and 0xFF shl 24))
-        }
-
         @Suppress("NAME_SHADOWING", "JoinDeclarationAndAssignment")
         /**
          * Returns new w

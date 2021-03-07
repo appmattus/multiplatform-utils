@@ -24,6 +24,8 @@
 package com.appmattus.crypto.internal.core.sphlib
 
 import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.internal.core.decodeLEInt
+import com.appmattus.crypto.internal.core.encodeLEInt
 
 /**
  * This class implements the PANAMA digest algorithm under the
@@ -345,37 +347,4 @@ internal class PANAMA : DigestEngine<PANAMA>() {
     }
 
     override fun toString() = Algorithm.PANAMA.algorithmName
-
-    companion object {
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 3] = (`val` shr 24 and 0xff).toByte()
-            buf[off + 2] = (`val` shr 16 and 0xff).toByte()
-            buf[off + 1] = (`val` shr 8 and 0xff).toByte()
-            buf[off + 0] = (`val` and 0xff).toByte()
-        }
-
-        /**
-         * Decode a 32-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF
-                    or (buf[off + 1].toInt() and 0xFF shl 8)
-                    or (buf[off + 2].toInt() and 0xFF shl 16)
-                    or (buf[off + 3].toInt() and 0xFF shl 24))
-        }
-    }
 }

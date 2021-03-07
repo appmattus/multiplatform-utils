@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.circularRightInt
+import com.appmattus.crypto.internal.core.decodeBEInt
+import com.appmattus.crypto.internal.core.encodeBEInt
 import kotlin.experimental.or
 
 /**
@@ -32,7 +35,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class BLAKESmallCore<D : BLAKESmallCore<D>>() : DigestEngine<D>() {
+internal abstract class BLAKESmallCore<D : BLAKESmallCore<D>> : DigestEngine<D>() {
 
     private var h0 = 0
     private var h1 = 0
@@ -168,83 +171,83 @@ internal abstract class BLAKESmallCore<D : BLAKESmallCore<D>>() : DigestEngine<D
             var o0 = SIGMA[(r shl 4) + 0x0]
             var o1 = SIGMA[(r shl 4) + 0x1]
             v0 += v4 + (m[o0] xor CS[o1])
-            vC = circularRight(vC xor v0, 16)
+            vC = circularRightInt(vC xor v0, 16)
             v8 += vC
-            v4 = circularRight(v4 xor v8, 12)
+            v4 = circularRightInt(v4 xor v8, 12)
             v0 += v4 + (m[o1] xor CS[o0])
-            vC = circularRight(vC xor v0, 8)
+            vC = circularRightInt(vC xor v0, 8)
             v8 += vC
-            v4 = circularRight(v4 xor v8, 7)
+            v4 = circularRightInt(v4 xor v8, 7)
             o0 = SIGMA[(r shl 4) + 0x2]
             o1 = SIGMA[(r shl 4) + 0x3]
             v1 += v5 + (m[o0] xor CS[o1])
-            vD = circularRight(vD xor v1, 16)
+            vD = circularRightInt(vD xor v1, 16)
             v9 += vD
-            v5 = circularRight(v5 xor v9, 12)
+            v5 = circularRightInt(v5 xor v9, 12)
             v1 += v5 + (m[o1] xor CS[o0])
-            vD = circularRight(vD xor v1, 8)
+            vD = circularRightInt(vD xor v1, 8)
             v9 += vD
-            v5 = circularRight(v5 xor v9, 7)
+            v5 = circularRightInt(v5 xor v9, 7)
             o0 = SIGMA[(r shl 4) + 0x4]
             o1 = SIGMA[(r shl 4) + 0x5]
             v2 += v6 + (m[o0] xor CS[o1])
-            vE = circularRight(vE xor v2, 16)
+            vE = circularRightInt(vE xor v2, 16)
             vA += vE
-            v6 = circularRight(v6 xor vA, 12)
+            v6 = circularRightInt(v6 xor vA, 12)
             v2 += v6 + (m[o1] xor CS[o0])
-            vE = circularRight(vE xor v2, 8)
+            vE = circularRightInt(vE xor v2, 8)
             vA += vE
-            v6 = circularRight(v6 xor vA, 7)
+            v6 = circularRightInt(v6 xor vA, 7)
             o0 = SIGMA[(r shl 4) + 0x6]
             o1 = SIGMA[(r shl 4) + 0x7]
             v3 += v7 + (m[o0] xor CS[o1])
-            vF = circularRight(vF xor v3, 16)
+            vF = circularRightInt(vF xor v3, 16)
             vB += vF
-            v7 = circularRight(v7 xor vB, 12)
+            v7 = circularRightInt(v7 xor vB, 12)
             v3 += v7 + (m[o1] xor CS[o0])
-            vF = circularRight(vF xor v3, 8)
+            vF = circularRightInt(vF xor v3, 8)
             vB += vF
-            v7 = circularRight(v7 xor vB, 7)
+            v7 = circularRightInt(v7 xor vB, 7)
             o0 = SIGMA[(r shl 4) + 0x8]
             o1 = SIGMA[(r shl 4) + 0x9]
             v0 += v5 + (m[o0] xor CS[o1])
-            vF = circularRight(vF xor v0, 16)
+            vF = circularRightInt(vF xor v0, 16)
             vA += vF
-            v5 = circularRight(v5 xor vA, 12)
+            v5 = circularRightInt(v5 xor vA, 12)
             v0 += v5 + (m[o1] xor CS[o0])
-            vF = circularRight(vF xor v0, 8)
+            vF = circularRightInt(vF xor v0, 8)
             vA += vF
-            v5 = circularRight(v5 xor vA, 7)
+            v5 = circularRightInt(v5 xor vA, 7)
             o0 = SIGMA[(r shl 4) + 0xA]
             o1 = SIGMA[(r shl 4) + 0xB]
             v1 += v6 + (m[o0] xor CS[o1])
-            vC = circularRight(vC xor v1, 16)
+            vC = circularRightInt(vC xor v1, 16)
             vB += vC
-            v6 = circularRight(v6 xor vB, 12)
+            v6 = circularRightInt(v6 xor vB, 12)
             v1 += v6 + (m[o1] xor CS[o0])
-            vC = circularRight(vC xor v1, 8)
+            vC = circularRightInt(vC xor v1, 8)
             vB += vC
-            v6 = circularRight(v6 xor vB, 7)
+            v6 = circularRightInt(v6 xor vB, 7)
             o0 = SIGMA[(r shl 4) + 0xC]
             o1 = SIGMA[(r shl 4) + 0xD]
             v2 += v7 + (m[o0] xor CS[o1])
-            vD = circularRight(vD xor v2, 16)
+            vD = circularRightInt(vD xor v2, 16)
             v8 += vD
-            v7 = circularRight(v7 xor v8, 12)
+            v7 = circularRightInt(v7 xor v8, 12)
             v2 += v7 + (m[o1] xor CS[o0])
-            vD = circularRight(vD xor v2, 8)
+            vD = circularRightInt(vD xor v2, 8)
             v8 += vD
-            v7 = circularRight(v7 xor v8, 7)
+            v7 = circularRightInt(v7 xor v8, 7)
             o0 = SIGMA[(r shl 4) + 0xE]
             o1 = SIGMA[(r shl 4) + 0xF]
             v3 += v4 + (m[o0] xor CS[o1])
-            vE = circularRight(vE xor v3, 16)
+            vE = circularRightInt(vE xor v3, 16)
             v9 += vE
-            v4 = circularRight(v4 xor v9, 12)
+            v4 = circularRightInt(v4 xor v9, 12)
             v3 += v4 + (m[o1] xor CS[o0])
-            vE = circularRight(vE xor v3, 8)
+            vE = circularRightInt(vE xor v3, 8)
             v9 += vE
-            v4 = circularRight(v4 xor v9, 7)
+            v4 = circularRightInt(v4 xor v9, 7)
         }
         h0 = h0 xor (s0 xor v0 xor v8)
         h1 = h1 xor (s1 xor v1 xor v9)
@@ -279,49 +282,5 @@ internal abstract class BLAKESmallCore<D : BLAKESmallCore<D>>() : DigestEngine<D
             0x452821E6, 0x38D01377, -0x41ab9931, 0x34E90C6C,
             -0x3f53d649, -0x3683af23, 0x3F84D5B5, -0x4ab8f6e9
         )
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 32-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF shl 24
-                    or (buf[off + 1].toInt() and 0xFF shl 16)
-                    or (buf[off + 2].toInt() and 0xFF shl 8)
-                    or (buf[off + 3].toInt() and 0xFF))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the right
-         * of the 32-bit word `x`. The `n` parameter
-         * must lie between 1 and 31 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 31)
-         * @return  the rotated value
-         */
-        private fun circularRight(x: Int, n: Int): Int {
-            return x ushr n or (x shl 32 - n)
-        }
     }
 }

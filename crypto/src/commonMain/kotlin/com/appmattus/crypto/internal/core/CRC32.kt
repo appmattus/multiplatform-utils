@@ -172,21 +172,5 @@ internal class CRC32 : Digest<CRC32> {
             -0x4c9985d2, -0x3b9eb548, 0x5d681b02, 0x2a6f2b94,
             -0x4bf441c9, -0x3cf3715f, 0x5a05df1b, 0x2d02ef8d
         )
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
     }
 }

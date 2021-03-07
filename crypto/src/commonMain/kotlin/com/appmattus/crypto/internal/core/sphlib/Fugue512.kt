@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.encodeBEInt
+
 /**
  * This class implements the Fugue-512 hash function under the
  * [Digest] API.

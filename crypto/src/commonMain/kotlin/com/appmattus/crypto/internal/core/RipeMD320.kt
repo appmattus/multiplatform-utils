@@ -98,277 +98,277 @@ internal class RipeMD320 : MDHelper<RipeMD320>(true, 8) {
         e2 = currentVal[9]
         var j = 0
         while (j < 15) {
-            a = circularLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
-            c = circularLeft(c, 10)
-            e = circularLeft(e + f1(a, b, c) + x[permute[j]], rotate[j++]) + d
-            b = circularLeft(b, 10)
-            d = circularLeft(d + f1(e, a, b) + x[permute[j]], rotate[j++]) + c
-            a = circularLeft(a, 10)
-            c = circularLeft(c + f1(d, e, a) + x[permute[j]], rotate[j++]) + b
-            e = circularLeft(e, 10)
-            b = circularLeft(b + f1(c, d, e) + x[permute[j]], rotate[j++]) + a
-            d = circularLeft(d, 10)
+            a = circularLeftInt(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
+            c = circularLeftInt(c, 10)
+            e = circularLeftInt(e + f1(a, b, c) + x[permute[j]], rotate[j++]) + d
+            b = circularLeftInt(b, 10)
+            d = circularLeftInt(d + f1(e, a, b) + x[permute[j]], rotate[j++]) + c
+            a = circularLeftInt(a, 10)
+            c = circularLeftInt(c + f1(d, e, a) + x[permute[j]], rotate[j++]) + b
+            e = circularLeftInt(e, 10)
+            b = circularLeftInt(b + f1(c, d, e) + x[permute[j]], rotate[j++]) + a
+            d = circularLeftInt(d, 10)
         }
-        a = circularLeft(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
-        c = circularLeft(c, 10)
+        a = circularLeftInt(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e
+        c = circularLeftInt(c, 10)
         while (j < 31) {
-            a2 = circularLeft(
+            a2 = circularLeftInt(
                 a2 + f5(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + e2
-            c2 = circularLeft(c2, 10)
-            e2 = circularLeft(
+            c2 = circularLeftInt(c2, 10)
+            e2 = circularLeftInt(
                 e2 + f5(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + d2
-            b2 = circularLeft(b2, 10)
-            d2 = circularLeft(
+            b2 = circularLeftInt(b2, 10)
+            d2 = circularLeftInt(
                 d2 + f5(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + c2
-            a2 = circularLeft(a2, 10)
-            c2 = circularLeft(
+            a2 = circularLeftInt(a2, 10)
+            c2 = circularLeftInt(
                 c2 + f5(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + b2
-            e2 = circularLeft(e2, 10)
-            b2 = circularLeft(
+            e2 = circularLeftInt(e2, 10)
+            b2 = circularLeftInt(
                 b2 + f5(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m1, rotate[j++]
             ) + a2
-            d2 = circularLeft(d2, 10)
+            d2 = circularLeftInt(d2, 10)
         }
-        a2 = circularLeft(a2 + f5(b2, c2, d2) + x[permute[j]] + m1, rotate[j++]) + e2
-        c2 = circularLeft(c2, 10)
+        a2 = circularLeftInt(a2 + f5(b2, c2, d2) + x[permute[j]] + m1, rotate[j++]) + e2
+        c2 = circularLeftInt(c2, 10)
         temp = a2
         a2 = a
         a = temp
         while (j < 47) {
-            e = circularLeft(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
-            b = circularLeft(b, 10)
-            d = circularLeft(d + f2(e, a, b) + x[permute[j]] + m2, rotate[j++]) + c
-            a = circularLeft(a, 10)
-            c = circularLeft(c + f2(d, e, a) + x[permute[j]] + m2, rotate[j++]) + b
-            e = circularLeft(e, 10)
-            b = circularLeft(b + f2(c, d, e) + x[permute[j]] + m2, rotate[j++]) + a
-            d = circularLeft(d, 10)
-            a = circularLeft(a + f2(b, c, d) + x[permute[j]] + m2, rotate[j++]) + e
-            c = circularLeft(c, 10)
+            e = circularLeftInt(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
+            b = circularLeftInt(b, 10)
+            d = circularLeftInt(d + f2(e, a, b) + x[permute[j]] + m2, rotate[j++]) + c
+            a = circularLeftInt(a, 10)
+            c = circularLeftInt(c + f2(d, e, a) + x[permute[j]] + m2, rotate[j++]) + b
+            e = circularLeftInt(e, 10)
+            b = circularLeftInt(b + f2(c, d, e) + x[permute[j]] + m2, rotate[j++]) + a
+            d = circularLeftInt(d, 10)
+            a = circularLeftInt(a + f2(b, c, d) + x[permute[j]] + m2, rotate[j++]) + e
+            c = circularLeftInt(c, 10)
         }
-        e = circularLeft(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
-        b = circularLeft(b, 10)
+        e = circularLeftInt(e + f2(a, b, c) + x[permute[j]] + m2, rotate[j++]) + d
+        b = circularLeftInt(b, 10)
         while (j < 63) {
-            e2 = circularLeft(
+            e2 = circularLeftInt(
                 e2 + f4(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + d2
-            b2 = circularLeft(b2, 10)
-            d2 = circularLeft(
+            b2 = circularLeftInt(b2, 10)
+            d2 = circularLeftInt(
                 d2 + f4(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + c2
-            a2 = circularLeft(a2, 10)
-            c2 = circularLeft(
+            a2 = circularLeftInt(a2, 10)
+            c2 = circularLeftInt(
                 c2 + f4(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + b2
-            e2 = circularLeft(e2, 10)
-            b2 = circularLeft(
+            e2 = circularLeftInt(e2, 10)
+            b2 = circularLeftInt(
                 b2 + f4(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + a2
-            d2 = circularLeft(d2, 10)
-            a2 = circularLeft(
+            d2 = circularLeftInt(d2, 10)
+            a2 = circularLeftInt(
                 a2 + f4(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m3, rotate[j++]
             ) + e2
-            c2 = circularLeft(c2, 10)
+            c2 = circularLeftInt(c2, 10)
         }
-        e2 = circularLeft(e2 + f4(a2, b2, c2) + x[permute[j]] + m3, rotate[j++]) + d2
-        b2 = circularLeft(b2, 10)
+        e2 = circularLeftInt(e2 + f4(a2, b2, c2) + x[permute[j]] + m3, rotate[j++]) + d2
+        b2 = circularLeftInt(b2, 10)
         temp = b2
         b2 = b
         b = temp
         while (j < 79) {
-            d = circularLeft(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
-            a = circularLeft(a, 10)
-            c = circularLeft(c + f3(d, e, a) + x[permute[j]] + m4, rotate[j++]) + b
-            e = circularLeft(e, 10)
-            b = circularLeft(b + f3(c, d, e) + x[permute[j]] + m4, rotate[j++]) + a
-            d = circularLeft(d, 10)
-            a = circularLeft(a + f3(b, c, d) + x[permute[j]] + m4, rotate[j++]) + e
-            c = circularLeft(c, 10)
-            e = circularLeft(e + f3(a, b, c) + x[permute[j]] + m4, rotate[j++]) + d
-            b = circularLeft(b, 10)
+            d = circularLeftInt(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
+            a = circularLeftInt(a, 10)
+            c = circularLeftInt(c + f3(d, e, a) + x[permute[j]] + m4, rotate[j++]) + b
+            e = circularLeftInt(e, 10)
+            b = circularLeftInt(b + f3(c, d, e) + x[permute[j]] + m4, rotate[j++]) + a
+            d = circularLeftInt(d, 10)
+            a = circularLeftInt(a + f3(b, c, d) + x[permute[j]] + m4, rotate[j++]) + e
+            c = circularLeftInt(c, 10)
+            e = circularLeftInt(e + f3(a, b, c) + x[permute[j]] + m4, rotate[j++]) + d
+            b = circularLeftInt(b, 10)
         }
-        d = circularLeft(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
-        a = circularLeft(a, 10)
+        d = circularLeftInt(d + f3(e, a, b) + x[permute[j]] + m4, rotate[j++]) + c
+        a = circularLeftInt(a, 10)
         while (j < 95) {
-            d2 = circularLeft(
+            d2 = circularLeftInt(
                 d2 + f3(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + c2
-            a2 = circularLeft(a2, 10)
-            c2 = circularLeft(
+            a2 = circularLeftInt(a2, 10)
+            c2 = circularLeftInt(
                 c2 + f3(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + b2
-            e2 = circularLeft(e2, 10)
-            b2 = circularLeft(
+            e2 = circularLeftInt(e2, 10)
+            b2 = circularLeftInt(
                 b2 + f3(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + a2
-            d2 = circularLeft(d2, 10)
-            a2 = circularLeft(
+            d2 = circularLeftInt(d2, 10)
+            a2 = circularLeftInt(
                 a2 + f3(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + e2
-            c2 = circularLeft(c2, 10)
-            e2 = circularLeft(
+            c2 = circularLeftInt(c2, 10)
+            e2 = circularLeftInt(
                 e2 + f3(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m5, rotate[j++]
             ) + d2
-            b2 = circularLeft(b2, 10)
+            b2 = circularLeftInt(b2, 10)
         }
-        d2 = circularLeft(d2 + f3(e2, a2, b2) + x[permute[j]] + m5, rotate[j++]) + c2
-        a2 = circularLeft(a2, 10)
+        d2 = circularLeftInt(d2 + f3(e2, a2, b2) + x[permute[j]] + m5, rotate[j++]) + c2
+        a2 = circularLeftInt(a2, 10)
         temp = c2
         c2 = c
         c = temp
         while (j < 111) {
-            c = circularLeft(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
-            e = circularLeft(e, 10)
-            b = circularLeft(b + f4(c, d, e) + x[permute[j]] + m6, rotate[j++]) + a
-            d = circularLeft(d, 10)
-            a = circularLeft(a + f4(b, c, d) + x[permute[j]] + m6, rotate[j++]) + e
-            c = circularLeft(c, 10)
-            e = circularLeft(e + f4(a, b, c) + x[permute[j]] + m6, rotate[j++]) + d
-            b = circularLeft(b, 10)
-            d = circularLeft(d + f4(e, a, b) + x[permute[j]] + m6, rotate[j++]) + c
-            a = circularLeft(a, 10)
+            c = circularLeftInt(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
+            e = circularLeftInt(e, 10)
+            b = circularLeftInt(b + f4(c, d, e) + x[permute[j]] + m6, rotate[j++]) + a
+            d = circularLeftInt(d, 10)
+            a = circularLeftInt(a + f4(b, c, d) + x[permute[j]] + m6, rotate[j++]) + e
+            c = circularLeftInt(c, 10)
+            e = circularLeftInt(e + f4(a, b, c) + x[permute[j]] + m6, rotate[j++]) + d
+            b = circularLeftInt(b, 10)
+            d = circularLeftInt(d + f4(e, a, b) + x[permute[j]] + m6, rotate[j++]) + c
+            a = circularLeftInt(a, 10)
         }
-        c = circularLeft(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
-        e = circularLeft(e, 10)
+        c = circularLeftInt(c + f4(d, e, a) + x[permute[j]] + m6, rotate[j++]) + b
+        e = circularLeftInt(e, 10)
         while (j < 127) {
-            c2 = circularLeft(
+            c2 = circularLeftInt(
                 c2 + f2(
                     d2,
                     e2,
                     a2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + b2
-            e2 = circularLeft(e2, 10)
-            b2 = circularLeft(
+            e2 = circularLeftInt(e2, 10)
+            b2 = circularLeftInt(
                 b2 + f2(
                     c2,
                     d2,
                     e2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + a2
-            d2 = circularLeft(d2, 10)
-            a2 = circularLeft(
+            d2 = circularLeftInt(d2, 10)
+            a2 = circularLeftInt(
                 a2 + f2(
                     b2,
                     c2,
                     d2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + e2
-            c2 = circularLeft(c2, 10)
-            e2 = circularLeft(
+            c2 = circularLeftInt(c2, 10)
+            e2 = circularLeftInt(
                 e2 + f2(
                     a2,
                     b2,
                     c2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + d2
-            b2 = circularLeft(b2, 10)
-            d2 = circularLeft(
+            b2 = circularLeftInt(b2, 10)
+            d2 = circularLeftInt(
                 d2 + f2(
                     e2,
                     a2,
                     b2
                 ) + x[permute[j]] + m7, rotate[j++]
             ) + c2
-            a2 = circularLeft(a2, 10)
+            a2 = circularLeftInt(a2, 10)
         }
-        c2 = circularLeft(c2 + f2(d2, e2, a2) + x[permute[j]] + m7, rotate[j++]) + b2
-        e2 = circularLeft(e2, 10)
+        c2 = circularLeftInt(c2 + f2(d2, e2, a2) + x[permute[j]] + m7, rotate[j++]) + b2
+        e2 = circularLeftInt(e2, 10)
         temp = d2
         d2 = d
         d = temp
         while (j < 143) {
-            b = circularLeft(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
-            d = circularLeft(d, 10)
-            a = circularLeft(a + f5(b, c, d) + x[permute[j]] + m8, rotate[j++]) + e
-            c = circularLeft(c, 10)
-            e = circularLeft(e + f5(a, b, c) + x[permute[j]] + m8, rotate[j++]) + d
-            b = circularLeft(b, 10)
-            d = circularLeft(d + f5(e, a, b) + x[permute[j]] + m8, rotate[j++]) + c
-            a = circularLeft(a, 10)
-            c = circularLeft(c + f5(d, e, a) + x[permute[j]] + m8, rotate[j++]) + b
-            e = circularLeft(e, 10)
+            b = circularLeftInt(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
+            d = circularLeftInt(d, 10)
+            a = circularLeftInt(a + f5(b, c, d) + x[permute[j]] + m8, rotate[j++]) + e
+            c = circularLeftInt(c, 10)
+            e = circularLeftInt(e + f5(a, b, c) + x[permute[j]] + m8, rotate[j++]) + d
+            b = circularLeftInt(b, 10)
+            d = circularLeftInt(d + f5(e, a, b) + x[permute[j]] + m8, rotate[j++]) + c
+            a = circularLeftInt(a, 10)
+            c = circularLeftInt(c + f5(d, e, a) + x[permute[j]] + m8, rotate[j++]) + b
+            e = circularLeftInt(e, 10)
         }
-        b = circularLeft(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
-        d = circularLeft(d, 10)
+        b = circularLeftInt(b + f5(c, d, e) + x[permute[j]] + m8, rotate[j++]) + a
+        d = circularLeftInt(d, 10)
         while (j < 159) {
-            b2 = circularLeft(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j++]) + a2
-            d2 = circularLeft(d2, 10)
-            a2 = circularLeft(a2 + f1(b2, c2, d2) + x[permute[j]], rotate[j++]) + e2
-            c2 = circularLeft(c2, 10)
-            e2 = circularLeft(e2 + f1(a2, b2, c2) + x[permute[j]], rotate[j++]) + d2
-            b2 = circularLeft(b2, 10)
-            d2 = circularLeft(d2 + f1(e2, a2, b2) + x[permute[j]], rotate[j++]) + c2
-            a2 = circularLeft(a2, 10)
-            c2 = circularLeft(c2 + f1(d2, e2, a2) + x[permute[j]], rotate[j++]) + b2
-            e2 = circularLeft(e2, 10)
+            b2 = circularLeftInt(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j++]) + a2
+            d2 = circularLeftInt(d2, 10)
+            a2 = circularLeftInt(a2 + f1(b2, c2, d2) + x[permute[j]], rotate[j++]) + e2
+            c2 = circularLeftInt(c2, 10)
+            e2 = circularLeftInt(e2 + f1(a2, b2, c2) + x[permute[j]], rotate[j++]) + d2
+            b2 = circularLeftInt(b2, 10)
+            d2 = circularLeftInt(d2 + f1(e2, a2, b2) + x[permute[j]], rotate[j++]) + c2
+            a2 = circularLeftInt(a2, 10)
+            c2 = circularLeftInt(c2 + f1(d2, e2, a2) + x[permute[j]], rotate[j++]) + b2
+            e2 = circularLeftInt(e2, 10)
         }
-        b2 = circularLeft(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j]) + a2
-        d2 = circularLeft(d2, 10)
+        b2 = circularLeftInt(b2 + f1(c2, d2, e2) + x[permute[j]], rotate[j]) + a2
+        d2 = circularLeftInt(d2, 10)
         currentVal[0] += a
         currentVal[1] += b
         currentVal[2] += c
@@ -436,50 +436,6 @@ internal class RipeMD320 : MDHelper<RipeMD320>(true, 8) {
 
         private fun f5(a: Int, b: Int, c: Int): Int {
             return a xor (b or c.inv())
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 32-bit word `x`. The `n` parameter
-         * must lie between 1 and 31 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 31)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Int, n: Int): Int {
-            return x shl n or (x ushr 32 - n)
-        }
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = `val`.toByte()
-            buf[off + 1] = (`val` ushr 8).toByte()
-            buf[off + 2] = (`val` ushr 16).toByte()
-            buf[off + 3] = (`val` ushr 24).toByte()
-        }
-
-        /**
-         * Decode a 32-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off + 0].toInt() and 0xFF
-                    or (buf[off + 1].toInt() and 0xFF shl 8)
-                    or (buf[off + 2].toInt() and 0xFF shl 16)
-                    or (buf[off + 3].toInt() and 0xFF shl 24))
         }
     }
 }

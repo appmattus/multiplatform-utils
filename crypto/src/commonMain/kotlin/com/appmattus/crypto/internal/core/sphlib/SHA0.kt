@@ -24,6 +24,8 @@
 package com.appmattus.crypto.internal.core.sphlib
 
 import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.internal.core.decodeBEInt
+import com.appmattus.crypto.internal.core.encodeBEInt
 
 /**
  * This class implements the SHA-0 digest algorithm under the [Digest] API. SHA-0 was defined by FIPS 180 (the original standard,
@@ -402,37 +404,4 @@ internal class SHA0 : MDHelper<SHA0>(false, 8) {
     }
 
     override fun toString() = Algorithm.SHA_0.algorithmName
-
-    companion object {
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 32-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF shl 24
-                    or (buf[off + 1].toInt() and 0xFF shl 16)
-                    or (buf[off + 2].toInt() and 0xFF shl 8)
-                    or (buf[off + 3].toInt() and 0xFF))
-        }
-    }
 }

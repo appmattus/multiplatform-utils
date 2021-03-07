@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.encodeBEInt
+
 /**
  * This class implements the Fugue-384 hash function under the
  * [Digest] API.

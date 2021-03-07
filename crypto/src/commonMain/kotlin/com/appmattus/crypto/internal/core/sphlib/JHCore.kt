@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.decodeBELong
+import com.appmattus.crypto.internal.core.encodeBELong
+
 /**
  * This class implements the core operations for the JH digest
  * algorithm.
@@ -30,7 +33,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version   $Revision: 255 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class JHCore<D : JHCore<D>>() : DigestEngine<D>() {
+internal abstract class JHCore<D : JHCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var tmpBuf: ByteArray
 
@@ -394,44 +397,5 @@ internal abstract class JHCore<D : JHCore<D>>() : DigestEngine<D>() {
             0x35b49831db411570L, -0x15e1f0441232ab65L,
             -0x652f9c5eae68bf8eL, -0x98a62406eb8901eL
         )
-
-        /**
-         * Encode the 64-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBELong(`val`: Long, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 56).toByte()
-            buf[off + 1] = (`val` ushr 48).toByte()
-            buf[off + 2] = (`val` ushr 40).toByte()
-            buf[off + 3] = (`val` ushr 32).toByte()
-            buf[off + 4] = (`val` ushr 24).toByte()
-            buf[off + 5] = (`val` ushr 16).toByte()
-            buf[off + 6] = (`val` ushr 8).toByte()
-            buf[off + 7] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 64-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBELong(buf: ByteArray, off: Int): Long {
-            return (buf[off + 0].toLong() and 0xFFL shl 56
-                    or (buf[off + 1].toLong() and 0xFFL shl 48)
-                    or (buf[off + 2].toLong() and 0xFFL shl 40)
-                    or (buf[off + 3].toLong() and 0xFFL shl 32)
-                    or (buf[off + 4].toLong() and 0xFFL shl 24)
-                    or (buf[off + 5].toLong() and 0xFFL shl 16)
-                    or (buf[off + 6].toLong() and 0xFFL shl 8)
-                    or (buf[off + 7].toLong() and 0xFFL))
-        }
     }
 }

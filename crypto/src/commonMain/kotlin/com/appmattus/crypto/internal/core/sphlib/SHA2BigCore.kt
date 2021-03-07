@@ -23,6 +23,10 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.circularLeftLong
+import com.appmattus.crypto.internal.core.decodeBELong
+import com.appmattus.crypto.internal.core.encodeBELong
+
 /**
  * This class implements SHA-384 and SHA-512, which differ only by the IV
  * and the output length.
@@ -83,12 +87,12 @@ internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16)
         var h = currentVal[7]
         for (i in 0..15) w[i] = decodeBELong(data, 8 * i)
         for (i in 16..79) {
-            w[i] = ((circularLeft(w[i - 2], 45)
-                    xor circularLeft(w[i - 2], 3)
+            w[i] = ((circularLeftLong(w[i - 2], 45)
+                    xor circularLeftLong(w[i - 2], 3)
                     xor (w[i - 2] ushr 6))
                     + w[i - 7]
-                    + (circularLeft(w[i - 15], 63)
-                    xor circularLeft(w[i - 15], 56)
+                    + (circularLeftLong(w[i - 15], 63)
+                    xor circularLeftLong(w[i - 15], 56)
                     xor (w[i - 15] ushr 7))
                     + w[i - 16])
         }
@@ -100,16 +104,16 @@ internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16)
 			 * simpler elementary expressions. Such a split
 			 * should not harm recent JDK optimizers.
 			 */
-            var t1 = circularLeft(e, 50)
-            t1 = t1 xor circularLeft(e, 46)
-            t1 = t1 xor circularLeft(e, 23)
+            var t1 = circularLeftLong(e, 50)
+            t1 = t1 xor circularLeftLong(e, 46)
+            t1 = t1 xor circularLeftLong(e, 23)
             t1 += h
             t1 += f and e xor (g and e.inv())
             t1 += K[i]
             t1 += w[i]
-            var t2 = circularLeft(a, 36)
-            t2 = t2 xor circularLeft(a, 30)
-            t2 = t2 xor circularLeft(a, 25)
+            var t2 = circularLeftLong(a, 36)
+            t2 = t2 xor circularLeftLong(a, 30)
+            t2 = t2 xor circularLeftLong(a, 25)
             t2 += a and b xor (a and c) xor (b and c)
             h = g
             g = f
@@ -161,57 +165,5 @@ internal abstract class SHA2BigCore<D : SHA2BigCore<D>> : MDHelper<D>(false, 16)
             0x431D67C49C100D4CL, 0x4CC5D4BECB3E42B6L, 0x597F299CFC657E2AL,
             0x5FCB6FAB3AD6FAECL, 0x6C44198C4A475817L
         )
-
-        /**
-         * Encode the 64-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBELong(`val`: Long, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 56).toByte()
-            buf[off + 1] = (`val` ushr 48).toByte()
-            buf[off + 2] = (`val` ushr 40).toByte()
-            buf[off + 3] = (`val` ushr 32).toByte()
-            buf[off + 4] = (`val` ushr 24).toByte()
-            buf[off + 5] = (`val` ushr 16).toByte()
-            buf[off + 6] = (`val` ushr 8).toByte()
-            buf[off + 7] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 64-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBELong(buf: ByteArray, off: Int): Long {
-            return ((buf[off].toLong() and 0xFF) shl 56
-                    or ((buf[off + 1].toLong() and 0xFF) shl 48)
-                    or ((buf[off + 2].toLong() and 0xFF) shl 40)
-                    or ((buf[off + 3].toLong() and 0xFF) shl 32)
-                    or ((buf[off + 4].toLong() and 0xFF) shl 24)
-                    or ((buf[off + 5].toLong() and 0xFF) shl 16)
-                    or ((buf[off + 6].toLong() and 0xFF) shl 8)
-                    or (buf[off + 7].toLong() and 0xFF))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 64-bit word `x`. The `n` parameter
-         * must lie between 1 and 63 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 63)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Long, n: Int): Long {
-            return x shl n or (x ushr 64 - n)
-        }
     }
 }

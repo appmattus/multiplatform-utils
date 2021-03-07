@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.decodeLELong
+import com.appmattus.crypto.internal.core.encodeLELong
+
 /**
  * This class implements the core operations for the Keccak digest
  * algorithm.
@@ -516,44 +519,5 @@ internal abstract class KeccakCore<D : KeccakCore<D>>(private val markByte: Byte
             -0x7fffffff7fff7f7fL, -0x7fffffffffff7f80L,
             0x0000000080000001L, -0x7fffffff7fff7ff8L
         )
-
-        /**
-         * Encode the 64-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLELong(`val`: Long, buf: ByteArray, off: Int) {
-            buf[off + 0] = `val`.toByte()
-            buf[off + 1] = (`val` ushr 8).toByte()
-            buf[off + 2] = (`val` ushr 16).toByte()
-            buf[off + 3] = (`val` ushr 24).toByte()
-            buf[off + 4] = (`val` ushr 32).toByte()
-            buf[off + 5] = (`val` ushr 40).toByte()
-            buf[off + 6] = (`val` ushr 48).toByte()
-            buf[off + 7] = (`val` ushr 56).toByte()
-        }
-
-        /**
-         * Decode a 64-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLELong(buf: ByteArray, off: Int): Long {
-            return (buf[off + 0].toLong() and 0xFFL
-                    or (buf[off + 1].toLong() and 0xFFL shl 8)
-                    or (buf[off + 2].toLong() and 0xFFL shl 16)
-                    or (buf[off + 3].toLong() and 0xFFL shl 24)
-                    or (buf[off + 4].toLong() and 0xFFL shl 32)
-                    or (buf[off + 5].toLong() and 0xFFL shl 40)
-                    or (buf[off + 6].toLong() and 0xFFL shl 48)
-                    or (buf[off + 7].toLong() and 0xFFL shl 56))
-        }
     }
 }

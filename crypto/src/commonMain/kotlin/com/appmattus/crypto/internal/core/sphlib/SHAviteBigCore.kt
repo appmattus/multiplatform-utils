@@ -23,13 +23,16 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.decodeLEInt
+import com.appmattus.crypto.internal.core.encodeLEInt
+
 /**
  * This class implements SHAvite-384 and SHAvite-512.
  *
  * @version   $Revision: 222 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>>() : DigestEngine<D>() {
+internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>() {
     private lateinit var h: IntArray
     private lateinit var rk: IntArray
 
@@ -743,36 +746,5 @@ internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>>() : DigestEngine<D
             -0x7d3cbebf, 0x29B09999, 0x5A772D2D, 0x1E110F0F,
             0x7BCBB0B0, -0x5703abac, 0x6DD6BBBB, 0x2C3A1616
         )
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = `val`.toByte()
-            buf[off + 1] = (`val` ushr 8).toByte()
-            buf[off + 2] = (`val` ushr 16).toByte()
-            buf[off + 3] = (`val` ushr 24).toByte()
-        }
-
-        /**
-         * Decode a 32-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF
-                    or (buf[off + 1].toInt() and 0xFF shl 8)
-                    or (buf[off + 2].toInt() and 0xFF shl 16)
-                    or (buf[off + 3].toInt() and 0xFF shl 24))
-        }
     }
 }

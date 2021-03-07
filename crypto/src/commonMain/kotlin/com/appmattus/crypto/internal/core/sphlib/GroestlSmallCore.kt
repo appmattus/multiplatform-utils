@@ -23,6 +23,10 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.circularLeftLong
+import com.appmattus.crypto.internal.core.decodeBELong
+import com.appmattus.crypto.internal.core.encodeBELong
+
 /**
  * This class implements Groestl-224 and Groestl-256.
  *
@@ -173,68 +177,16 @@ internal abstract class GroestlSmallCore<D : GroestlSmallCore<D>>() : DigestEngi
         private val T6 = LongArray(T0.size)
         private val T7 = LongArray(T0.size)
 
-        /**
-         * Encode the 64-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBELong(`val`: Long, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 56).toByte()
-            buf[off + 1] = (`val` ushr 48).toByte()
-            buf[off + 2] = (`val` ushr 40).toByte()
-            buf[off + 3] = (`val` ushr 32).toByte()
-            buf[off + 4] = (`val` ushr 24).toByte()
-            buf[off + 5] = (`val` ushr 16).toByte()
-            buf[off + 6] = (`val` ushr 8).toByte()
-            buf[off + 7] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 64-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBELong(buf: ByteArray, off: Int): Long {
-            return ((buf[off].toLong() and 0xFF) shl 56
-                    or ((buf[off + 1].toLong() and 0xFF) shl 48)
-                    or ((buf[off + 2].toLong() and 0xFF) shl 40)
-                    or ((buf[off + 3].toLong() and 0xFF) shl 32)
-                    or ((buf[off + 4].toLong() and 0xFF) shl 24)
-                    or ((buf[off + 5].toLong() and 0xFF) shl 16)
-                    or ((buf[off + 6].toLong() and 0xFF) shl 8)
-                    or (buf[off + 7].toLong() and 0xFF))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 64-bit word `x`. The `n` parameter
-         * must lie between 1 and 63 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 63)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Long, n: Int): Long {
-            return x shl n or (x ushr 64 - n)
-        }
-
         init {
             for (i in T0.indices) {
                 val v = T0[i]
-                T1[i] = circularLeft(v, 56)
-                T2[i] = circularLeft(v, 48)
-                T3[i] = circularLeft(v, 40)
-                T4[i] = circularLeft(v, 32)
-                T5[i] = circularLeft(v, 24)
-                T6[i] = circularLeft(v, 16)
-                T7[i] = circularLeft(v, 8)
+                T1[i] = circularLeftLong(v, 56)
+                T2[i] = circularLeftLong(v, 48)
+                T3[i] = circularLeftLong(v, 40)
+                T4[i] = circularLeftLong(v, 32)
+                T5[i] = circularLeftLong(v, 24)
+                T6[i] = circularLeftLong(v, 16)
+                T7[i] = circularLeftLong(v, 8)
             }
         }
     }

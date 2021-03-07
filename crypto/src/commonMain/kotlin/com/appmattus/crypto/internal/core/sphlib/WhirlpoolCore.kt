@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.decodeLELong
+import com.appmattus.crypto.internal.core.encodeLELong
+
 /**
  *
  * This class implements the core operations for the Whirlpool digest
@@ -306,43 +309,5 @@ internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
         state5 = state5 xor (n5 xor sn5)
         state6 = state6 xor (n6 xor sn6)
         state7 = state7 xor (n7 xor sn7)
-    }
-
-    companion object {
-        /**
-         * Decode a 64-bit little-endian integer.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded integer
-         */
-        private fun decodeLELong(buf: ByteArray, off: Int): Long {
-            return (buf[off + 0].toLong() and 0xFF
-                    or ((buf[off + 1].toLong() and 0xFF) shl 8)
-                    or ((buf[off + 2].toLong() and 0xFF) shl 16)
-                    or ((buf[off + 3].toLong() and 0xFF) shl 24)
-                    or ((buf[off + 4].toLong() and 0xFF) shl 32)
-                    or ((buf[off + 5].toLong() and 0xFF) shl 40)
-                    or ((buf[off + 6].toLong() and 0xFF) shl 48)
-                    or ((buf[off + 7].toLong() and 0xFF) shl 56))
-        }
-
-        /**
-         * Encode a 64-bit integer with little-endian convention.
-         *
-         * @param val   the integer to encode
-         * @param dst   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLELong(`val`: Long, dst: ByteArray, off: Int) {
-            dst[off + 0] = `val`.toByte()
-            dst[off + 1] = (`val`.toInt() ushr 8).toByte()
-            dst[off + 2] = (`val`.toInt() ushr 16).toByte()
-            dst[off + 3] = (`val`.toInt() ushr 24).toByte()
-            dst[off + 4] = (`val` ushr 32).toByte()
-            dst[off + 5] = (`val` ushr 40).toByte()
-            dst[off + 6] = (`val` ushr 48).toByte()
-            dst[off + 7] = (`val` ushr 56).toByte()
-        }
     }
 }

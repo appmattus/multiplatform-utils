@@ -23,6 +23,10 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.circularLeftInt
+import com.appmattus.crypto.internal.core.decodeBEInt
+import com.appmattus.crypto.internal.core.encodeBEInt
+
 /**
  * This class implements SHA-224 and SHA-256, which differ only by the IV
  * and the output length.
@@ -82,21 +86,21 @@ internal abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
         var h = currentVal[7]
         for (i in 0..15) w[i] = decodeBEInt(data, 4 * i)
         for (i in 16..63) {
-            w[i] = ((circularLeft(w[i - 2], 15)
-                    xor circularLeft(w[i - 2], 13)
+            w[i] = ((circularLeftInt(w[i - 2], 15)
+                    xor circularLeftInt(w[i - 2], 13)
                     xor (w[i - 2] ushr 10))
                     + w[i - 7]
-                    + (circularLeft(w[i - 15], 25)
-                    xor circularLeft(w[i - 15], 14)
+                    + (circularLeftInt(w[i - 15], 25)
+                    xor circularLeftInt(w[i - 15], 14)
                     xor (w[i - 15] ushr 3))
                     + w[i - 16])
         }
         for (i in 0..63) {
-            val t1 = (h + (circularLeft(e, 26) xor circularLeft(e, 21)
-                    xor circularLeft(e, 7)) + (f and e xor (g and e.inv()))
+            val t1 = (h + (circularLeftInt(e, 26) xor circularLeftInt(e, 21)
+                    xor circularLeftInt(e, 7)) + (f and e xor (g and e.inv()))
                     + K[i] + w[i])
-            val t2 = ((circularLeft(a, 30) xor circularLeft(a, 19)
-                    xor circularLeft(a, 10))
+            val t2 = ((circularLeftInt(a, 30) xor circularLeftInt(a, 19)
+                    xor circularLeftInt(a, 10))
                     + (a and b xor (a and c) xor (b and c)))
             h = g
             g = f
@@ -556,49 +560,5 @@ internal abstract class SHA2Core<D : SHA2Core<D>> : MDHelper<D>(false, 8) {
             0x748F82EE, 0x78A5636F, -0x7b3787ec, -0x7338fdf8,
             -0x6f410006, -0x5baf9315, -0x41065c09, -0x398e870e
         )
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 32-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF shl 24
-                    or (buf[off + 1].toInt() and 0xFF shl 16)
-                    or (buf[off + 2].toInt() and 0xFF shl 8)
-                    or (buf[off + 3].toInt() and 0xFF))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 32-bit word `x`. The `n` parameter
-         * must lie between 1 and 31 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 31)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Int, n: Int): Int {
-            return x shl n or (x ushr 32 - n)
-        }
     }
 }

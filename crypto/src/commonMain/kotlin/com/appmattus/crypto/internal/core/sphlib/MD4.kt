@@ -24,6 +24,7 @@
 package com.appmattus.crypto.internal.core.sphlib
 
 import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.internal.core.encodeLEInt
 
 /**
  *
@@ -253,22 +254,4 @@ internal class MD4 : MDHelper<MD4>(true, 8) {
     }
 
     override fun toString() = Algorithm.MD4.algorithmName
-
-    companion object {
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 3] = (`val` shr 24 and 0xff).toByte()
-            buf[off + 2] = (`val` shr 16 and 0xff).toByte()
-            buf[off + 1] = (`val` shr 8 and 0xff).toByte()
-            buf[off + 0] = (`val` and 0xff).toByte()
-        }
-    }
 }

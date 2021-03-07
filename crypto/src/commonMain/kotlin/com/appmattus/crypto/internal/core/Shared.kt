@@ -54,7 +54,7 @@ internal fun decodeLEInt(buf: ByteArray, off: Int): Int {
  * @param off   the source offset
  * @return  the decoded integer
  */
-fun decodeLELong(buf: ByteArray, off: Int): Long {
+internal fun decodeLELong(buf: ByteArray, off: Int): Long {
     return (buf[off + 0].toLong() and 0xFF
             or ((buf[off + 1].toLong() and 0xFF) shl 8)
             or ((buf[off + 2].toLong() and 0xFF) shl 16)
@@ -72,7 +72,7 @@ fun decodeLELong(buf: ByteArray, off: Int): Long {
  * @param dst   the destination buffer
  * @param off   the destination offset
  */
-fun encodeLELong(`val`: Long, dst: ByteArray, off: Int) {
+internal fun encodeLELong(`val`: Long, dst: ByteArray, off: Int) {
     dst[off + 0] = `val`.toByte()
     dst[off + 1] = (`val`.toInt() ushr 8).toByte()
     dst[off + 2] = (`val`.toInt() ushr 16).toByte()
@@ -164,4 +164,43 @@ internal fun decodeBELong(buf: ByteArray, off: Int): Long {
  */
 internal fun circularLeftInt(x: Int, n: Int): Int {
     return x shl n or (x ushr 32 - n)
+}
+
+/**
+ * Perform a circular rotation by `n` to the right
+ * of the 32-bit word `x`. The `n` parameter
+ * must lie between 1 and 31 (inclusive).
+ *
+ * @param x   the value to rotate
+ * @param n   the rotation count (between 1 and 31)
+ * @return  the rotated value
+ */
+internal fun circularRightInt(x: Int, n: Int): Int {
+    return x ushr n or (x shl 32 - n)
+}
+
+/**
+ * Perform a circular rotation by `n` to the left
+ * of the 64-bit word `x`. The `n` parameter
+ * must lie between 1 and 63 (inclusive).
+ *
+ * @param x   the value to rotate
+ * @param n   the rotation count (between 1 and 63)
+ * @return  the rotated value
+ */
+internal fun circularLeftLong(x: Long, n: Int): Long {
+    return (x shl n) or (x ushr 64 - n)
+}
+
+/**
+ * Perform a circular rotation by `n` to the right
+ * of the 64-bit word `x`. The `n` parameter
+ * must lie between 1 and 63 (inclusive).
+ *
+ * @param x   the value to rotate
+ * @param n   the rotation count (between 1 and 63)
+ * @return  the rotated value
+ */
+internal fun circularRightLong(x: Long, n: Int): Long {
+    return x ushr n or (x shl 64 - n)
 }

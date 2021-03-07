@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.decodeBEInt
+import com.appmattus.crypto.internal.core.encodeBEInt
+
 /**
  *
  * This class implements Luffa-512 digest algorithm under the
@@ -927,36 +930,5 @@ internal class Luffa512 : DigestEngine<Luffa512>() {
             0x5090d577, 0x2d1925ab, -0x4b9b6954, -0x2e6da550,
             0x29131ab6, 0x0fc053c3, 0x3f014f0c, -0x3fac3cf
         )
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 32-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF shl 24
-                    or (buf[off + 1].toInt() and 0xFF shl 16)
-                    or (buf[off + 2].toInt() and 0xFF shl 8)
-                    or (buf[off + 3].toInt() and 0xFF))
-        }
     }
 }

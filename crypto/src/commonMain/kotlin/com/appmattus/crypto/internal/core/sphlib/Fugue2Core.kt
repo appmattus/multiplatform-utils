@@ -23,6 +23,8 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.encodeBEInt
+
 /**
  * This class is the base class for Fugue-224 and Fugue-256.
  *

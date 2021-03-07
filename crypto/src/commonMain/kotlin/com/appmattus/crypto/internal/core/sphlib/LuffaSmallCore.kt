@@ -23,13 +23,16 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.decodeBEInt
+import com.appmattus.crypto.internal.core.encodeBEInt
+
 /**
  * This class implements Luffa-224 and Luffa-256.
  *
  * @version   $Revision: 240 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class LuffaSmallCore<D : LuffaSmallCore<D>>() : DigestEngine<D>() {
+internal abstract class LuffaSmallCore<D : LuffaSmallCore<D>> : DigestEngine<D>() {
     private var v00 = 0
     private var v01 = 0
     private var v02 = 0
@@ -473,36 +476,5 @@ internal abstract class LuffaSmallCore<D : LuffaSmallCore<D>>() : DigestEngine<D
             -0x1da18d3f, -0x19dc448e, 0x5c58a4a4, 0x1e38e2e7,
             0x78e38b9d, 0x27586719, 0x36eda57f, 0x703aace7
         )
-
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 32-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off].toInt() and 0xFF shl 24
-                    or (buf[off + 1].toInt() and 0xFF shl 16)
-                    or (buf[off + 2].toInt() and 0xFF shl 8)
-                    or (buf[off + 3].toInt() and 0xFF))
-        }
     }
 }

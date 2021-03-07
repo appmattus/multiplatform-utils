@@ -23,13 +23,17 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.circularLeftInt
+import com.appmattus.crypto.internal.core.decodeLEInt
+import com.appmattus.crypto.internal.core.encodeLEInt
+
 /**
  * This class implements SIMD-224 and SIMD-256.
  *
  * @version   $Revision: 241 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>() {
+internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() {
     private lateinit var state: IntArray
     private lateinit var q: IntArray
     private lateinit var w: IntArray
@@ -293,143 +297,143 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
     @Suppress("JoinDeclarationAndAssignment")
     private fun oneRound(isp: Int, p0: Int, p1: Int, p2: Int, p3: Int) {
         var tmp: Int
-        tA[0] = circularLeft(state[0], p0)
-        tA[1] = circularLeft(state[1], p0)
-        tA[2] = circularLeft(state[2], p0)
-        tA[3] = circularLeft(state[3], p0)
+        tA[0] = circularLeftInt(state[0], p0)
+        tA[1] = circularLeftInt(state[1], p0)
+        tA[2] = circularLeftInt(state[2], p0)
+        tA[3] = circularLeftInt(state[3], p0)
         tmp = (state[12] + w[0]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 0]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 0] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[1]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 1]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 0] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[2]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 2]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 0] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[3]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 0] xor 3]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 0] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p1)
-        tA[1] = circularLeft(state[1], p1)
-        tA[2] = circularLeft(state[2], p1)
-        tA[3] = circularLeft(state[3], p1)
+        tA[0] = circularLeftInt(state[0], p1)
+        tA[1] = circularLeftInt(state[1], p1)
+        tA[2] = circularLeftInt(state[2], p1)
+        tA[3] = circularLeftInt(state[3], p1)
         tmp = (state[12] + w[4]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 0]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 1] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[5]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 1]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 1] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[6]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 2]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 1] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[7]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 1] xor 3]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 1] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p2)
-        tA[1] = circularLeft(state[1], p2)
-        tA[2] = circularLeft(state[2], p2)
-        tA[3] = circularLeft(state[3], p2)
+        tA[0] = circularLeftInt(state[0], p2)
+        tA[1] = circularLeftInt(state[1], p2)
+        tA[2] = circularLeftInt(state[2], p2)
+        tA[3] = circularLeftInt(state[3], p2)
         tmp = (state[12] + w[8]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 0]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 2] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[9]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 1]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 2] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[10]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 2]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 2] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[11]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 2] xor 3]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 2] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p3)
-        tA[1] = circularLeft(state[1], p3)
-        tA[2] = circularLeft(state[2], p3)
-        tA[3] = circularLeft(state[3], p3)
+        tA[0] = circularLeftInt(state[0], p3)
+        tA[1] = circularLeftInt(state[1], p3)
+        tA[2] = circularLeftInt(state[2], p3)
+        tA[3] = circularLeftInt(state[3], p3)
         tmp = (state[12] + w[12]
                 + (state[4] xor state[8] and state[0] xor state[8]))
         state[0] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 0]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 3] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
         tmp = (state[13] + w[13]
                 + (state[5] xor state[9] and state[1] xor state[9]))
         state[1] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 1]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 3] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
         tmp = (state[14] + w[14]
                 + (state[6] xor state[10] and state[2] xor state[10]))
         state[2] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 2]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 3] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
         tmp = (state[15] + w[15]
                 + (state[7] xor state[11] and state[3] xor state[11]))
         state[3] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 3] xor 3]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 3] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p0)
-        tA[1] = circularLeft(state[1], p0)
-        tA[2] = circularLeft(state[2], p0)
-        tA[3] = circularLeft(state[3], p0)
+        tA[0] = circularLeftInt(state[0], p0)
+        tA[1] = circularLeftInt(state[1], p0)
+        tA[2] = circularLeftInt(state[2], p0)
+        tA[3] = circularLeftInt(state[3], p0)
         tmp = (state[12] + w[16]
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 0]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -437,7 +441,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 1]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -445,7 +449,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 2]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -453,19 +457,19 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p1) + tA[pp4k[isp + 4] xor 3]
+            circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p1)
-        tA[1] = circularLeft(state[1], p1)
-        tA[2] = circularLeft(state[2], p1)
-        tA[3] = circularLeft(state[3], p1)
+        tA[0] = circularLeftInt(state[0], p1)
+        tA[1] = circularLeftInt(state[1], p1)
+        tA[2] = circularLeftInt(state[2], p1)
+        tA[3] = circularLeftInt(state[3], p1)
         tmp = (state[12] + w[20]
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 0]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -473,7 +477,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 1]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -481,7 +485,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 2]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -489,19 +493,19 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p2) + tA[pp4k[isp + 5] xor 3]
+            circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p2)
-        tA[1] = circularLeft(state[1], p2)
-        tA[2] = circularLeft(state[2], p2)
-        tA[3] = circularLeft(state[3], p2)
+        tA[0] = circularLeftInt(state[0], p2)
+        tA[1] = circularLeftInt(state[1], p2)
+        tA[2] = circularLeftInt(state[2], p2)
+        tA[3] = circularLeftInt(state[3], p2)
         tmp = (state[12] + w[24]
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 0]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -509,7 +513,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 1]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -517,7 +521,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 2]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -525,19 +529,19 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p3) + tA[pp4k[isp + 6] xor 3]
+            circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
-        tA[0] = circularLeft(state[0], p3)
-        tA[1] = circularLeft(state[1], p3)
-        tA[2] = circularLeft(state[2], p3)
-        tA[3] = circularLeft(state[3], p3)
+        tA[0] = circularLeftInt(state[0], p3)
+        tA[1] = circularLeftInt(state[1], p3)
+        tA[2] = circularLeftInt(state[2], p3)
+        tA[3] = circularLeftInt(state[3], p3)
         tmp = (state[12] + w[28]
                 + (state[0] and state[4]
                 or (state[0] or state[4] and state[8])))
         state[0] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 0]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 0]
         state[12] = state[8]
         state[8] = state[4]
         state[4] = tA[0]
@@ -545,7 +549,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[1] and state[5]
                 or (state[1] or state[5] and state[9])))
         state[1] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 1]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 1]
         state[13] = state[9]
         state[9] = state[5]
         state[5] = tA[1]
@@ -553,7 +557,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[2] and state[6]
                 or (state[2] or state[6] and state[10])))
         state[2] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 2]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 2]
         state[14] = state[10]
         state[10] = state[6]
         state[6] = tA[2]
@@ -561,7 +565,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
                 + (state[3] and state[7]
                 or (state[3] or state[7] and state[11])))
         state[3] =
-            circularLeft(tmp, p0) + tA[pp4k[isp + 7] xor 3]
+            circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 3]
         state[15] = state[11]
         state[11] = state[7]
         state[7] = tA[3]
@@ -781,125 +785,125 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
         }
         oneRound(0, 4, 13, 10, 25)
         run {
-            val tA0: Int = circularLeft(state[0], 4)
-            val tA1: Int = circularLeft(state[1], 4)
-            val tA2: Int = circularLeft(state[2], 4)
-            val tA3: Int = circularLeft(state[3], 4)
+            val tA0: Int = circularLeftInt(state[0], 4)
+            val tA1: Int = circularLeftInt(state[1], 4)
+            val tA2: Int = circularLeftInt(state[2], 4)
+            val tA3: Int = circularLeftInt(state[3], 4)
             var tmp: Int
             tmp = state[12] + tmpState[0] + ((state[4]
                     xor state[8]) and state[0] xor state[8])
-            state[0] = circularLeft(tmp, 13) + tA3
+            state[0] = circularLeftInt(tmp, 13) + tA3
             state[12] = state[8]
             state[8] = state[4]
             state[4] = tA0
             tmp = state[13] + tmpState[1] + ((state[5]
                     xor state[9]) and state[1] xor state[9])
-            state[1] = circularLeft(tmp, 13) + tA2
+            state[1] = circularLeftInt(tmp, 13) + tA2
             state[13] = state[9]
             state[9] = state[5]
             state[5] = tA1
             tmp = state[14] + tmpState[2] + ((state[6]
                     xor state[10]) and state[2] xor state[10])
-            state[2] = circularLeft(tmp, 13) + tA1
+            state[2] = circularLeftInt(tmp, 13) + tA1
             state[14] = state[10]
             state[10] = state[6]
             state[6] = tA2
             tmp = state[15] + tmpState[3] + ((state[7]
                     xor state[11]) and state[3] xor state[11])
-            state[3] = circularLeft(tmp, 13) + tA0
+            state[3] = circularLeftInt(tmp, 13) + tA0
             state[15] = state[11]
             state[11] = state[7]
             state[7] = tA3
         }
         run {
-            val tA0: Int = circularLeft(state[0], 13)
-            val tA1: Int = circularLeft(state[1], 13)
-            val tA2: Int = circularLeft(state[2], 13)
-            val tA3: Int = circularLeft(state[3], 13)
+            val tA0: Int = circularLeftInt(state[0], 13)
+            val tA1: Int = circularLeftInt(state[1], 13)
+            val tA2: Int = circularLeftInt(state[2], 13)
+            val tA3: Int = circularLeftInt(state[3], 13)
             var tmp: Int
             tmp = state[12] + tmpState[4] + ((state[4]
                     xor state[8]) and state[0] xor state[8])
-            state[0] = circularLeft(tmp, 10) + tA1
+            state[0] = circularLeftInt(tmp, 10) + tA1
             state[12] = state[8]
             state[8] = state[4]
             state[4] = tA0
             tmp = state[13] + tmpState[5] + ((state[5]
                     xor state[9]) and state[1] xor state[9])
-            state[1] = circularLeft(tmp, 10) + tA0
+            state[1] = circularLeftInt(tmp, 10) + tA0
             state[13] = state[9]
             state[9] = state[5]
             state[5] = tA1
             tmp = state[14] + tmpState[6] + ((state[6]
                     xor state[10]) and state[2] xor state[10])
-            state[2] = circularLeft(tmp, 10) + tA3
+            state[2] = circularLeftInt(tmp, 10) + tA3
             state[14] = state[10]
             state[10] = state[6]
             state[6] = tA2
             tmp = state[15] + tmpState[7] + ((state[7]
                     xor state[11]) and state[3] xor state[11])
-            state[3] = circularLeft(tmp, 10) + tA2
+            state[3] = circularLeftInt(tmp, 10) + tA2
             state[15] = state[11]
             state[11] = state[7]
             state[7] = tA3
         }
         run {
-            val tA0: Int = circularLeft(state[0], 10)
-            val tA1: Int = circularLeft(state[1], 10)
-            val tA2: Int = circularLeft(state[2], 10)
-            val tA3: Int = circularLeft(state[3], 10)
+            val tA0: Int = circularLeftInt(state[0], 10)
+            val tA1: Int = circularLeftInt(state[1], 10)
+            val tA2: Int = circularLeftInt(state[2], 10)
+            val tA3: Int = circularLeftInt(state[3], 10)
             var tmp: Int
             tmp = state[12] + tmpState[8] + ((state[4]
                     xor state[8]) and state[0] xor state[8])
-            state[0] = circularLeft(tmp, 25) + tA2
+            state[0] = circularLeftInt(tmp, 25) + tA2
             state[12] = state[8]
             state[8] = state[4]
             state[4] = tA0
             tmp = state[13] + tmpState[9] + ((state[5]
                     xor state[9]) and state[1] xor state[9])
-            state[1] = circularLeft(tmp, 25) + tA3
+            state[1] = circularLeftInt(tmp, 25) + tA3
             state[13] = state[9]
             state[9] = state[5]
             state[5] = tA1
             tmp = state[14] + tmpState[10] + ((state[6]
                     xor state[10]) and state[2] xor state[10])
-            state[2] = circularLeft(tmp, 25) + tA0
+            state[2] = circularLeftInt(tmp, 25) + tA0
             state[14] = state[10]
             state[10] = state[6]
             state[6] = tA2
             tmp = state[15] + tmpState[11] + ((state[7]
                     xor state[11]) and state[3] xor state[11])
-            state[3] = circularLeft(tmp, 25) + tA1
+            state[3] = circularLeftInt(tmp, 25) + tA1
             state[15] = state[11]
             state[11] = state[7]
             state[7] = tA3
         }
         run {
-            val tA0: Int = circularLeft(state[0], 25)
-            val tA1: Int = circularLeft(state[1], 25)
-            val tA2: Int = circularLeft(state[2], 25)
-            val tA3: Int = circularLeft(state[3], 25)
+            val tA0: Int = circularLeftInt(state[0], 25)
+            val tA1: Int = circularLeftInt(state[1], 25)
+            val tA2: Int = circularLeftInt(state[2], 25)
+            val tA3: Int = circularLeftInt(state[3], 25)
             var tmp: Int
             tmp = state[12] + tmpState[12] + ((state[4]
                     xor state[8]) and state[0] xor state[8])
-            state[0] = circularLeft(tmp, 4) + tA3
+            state[0] = circularLeftInt(tmp, 4) + tA3
             state[12] = state[8]
             state[8] = state[4]
             state[4] = tA0
             tmp = state[13] + tmpState[13] + ((state[5]
                     xor state[9]) and state[1] xor state[9])
-            state[1] = circularLeft(tmp, 4) + tA2
+            state[1] = circularLeftInt(tmp, 4) + tA2
             state[13] = state[9]
             state[9] = state[5]
             state[5] = tA1
             tmp = state[14] + tmpState[14] + ((state[6]
                     xor state[10]) and state[2] xor state[10])
-            state[2] = circularLeft(tmp, 4) + tA1
+            state[2] = circularLeftInt(tmp, 4) + tA1
             state[14] = state[10]
             state[10] = state[6]
             state[6] = tA2
             tmp = state[15] + tmpState[15] + ((state[7]
                     xor state[11]) and state[3] xor state[11])
-            state[3] = circularLeft(tmp, 4) + tA0
+            state[3] = circularLeftInt(tmp, 4) + tA0
             state[15] = state[11]
             state[11] = state[7]
             state[7] = tA3
@@ -911,49 +915,6 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>>() : DigestEngine<D>(
     }
 
     companion object {
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = `val`.toByte()
-            buf[off + 1] = (`val` ushr 8).toByte()
-            buf[off + 2] = (`val` ushr 16).toByte()
-            buf[off + 3] = (`val` ushr 24).toByte()
-        }
-
-        /**
-         * Decode a 32-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off + 3].toInt() and 0xFF shl 24
-                    or (buf[off + 2].toInt() and 0xFF shl 16)
-                    or (buf[off + 1].toInt() and 0xFF shl 8)
-                    or (buf[off].toInt() and 0xFF))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the left
-         * of the 32-bit word `x`. The `n` parameter
-         * must lie between 1 and 31 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 31)
-         * @return  the rotated value
-         */
-        private fun circularLeft(x: Int, n: Int): Int {
-            return x ushr 32 - n or (x shl n)
-        }
 
         private val alphaTab = intArrayOf(
             1, 41, 139, 45, 46, 87, 226, 14, 60, 147, 116, 130,

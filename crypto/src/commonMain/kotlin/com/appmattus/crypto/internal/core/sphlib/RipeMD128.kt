@@ -24,6 +24,8 @@
 package com.appmattus.crypto.internal.core.sphlib
 
 import com.appmattus.crypto.Algorithm
+import com.appmattus.crypto.internal.core.decodeLEInt
+import com.appmattus.crypto.internal.core.encodeLEInt
 
 /**
  *
@@ -257,36 +259,6 @@ internal class RipeMD128 : MDHelper<RipeMD128>(true, 8) {
     override fun toString() = Algorithm.RipeMD128.algorithmName
 
     companion object {
-        /**
-         * Encode the 32-bit word `val` into the array
-         * `buf` at offset `off`, in little-endian
-         * convention (least significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeLEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = `val`.toByte()
-            buf[off + 1] = (`val` ushr 8).toByte()
-            buf[off + 2] = (`val` ushr 16).toByte()
-            buf[off + 3] = (`val` ushr 24).toByte()
-        }
-
-        /**
-         * Decode a 32-bit little-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeLEInt(buf: ByteArray, off: Int): Int {
-            return (buf[off + 0].toInt() and 0xFF
-                    or (buf[off + 1].toInt() and 0xFF shl 8)
-                    or (buf[off + 2].toInt() and 0xFF shl 16)
-                    or (buf[off + 3].toInt() and 0xFF shl 24))
-        }
 
         private val r1 = intArrayOf(
             0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,

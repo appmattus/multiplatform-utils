@@ -32,7 +32,7 @@ import com.appmattus.crypto.Digest
  * @version   $Revision: 214 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class FugueCore<D : FugueCore<D>>() : Digest<D> {
+internal abstract class FugueCore<D : FugueCore<D>> : Digest<D> {
     private var bitCount: Long = 0
     private var partial = 0
     private var partialLen = 0
@@ -545,12 +545,5 @@ internal abstract class FugueCore<D : FugueCore<D>>() : Digest<D> {
             0x41dc1f41, -0x661dad67, 0x2dc3b42d, 0x0f2d3c0f,
             -0x4fc20950, 0x54b74b54, -0x44f32545, 0x16625816
         )
-
-        fun encodeBEInt(`val`: Int, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 24).toByte()
-            buf[off + 1] = (`val` ushr 16).toByte()
-            buf[off + 2] = (`val` ushr 8).toByte()
-            buf[off + 3] = `val`.toByte()
-        }
     }
 }

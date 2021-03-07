@@ -23,6 +23,9 @@
 
 package com.appmattus.crypto.internal.core.sphlib
 
+import com.appmattus.crypto.internal.core.circularRightLong
+import com.appmattus.crypto.internal.core.decodeBELong
+import com.appmattus.crypto.internal.core.encodeBELong
 import kotlin.experimental.or
 
 /**
@@ -32,7 +35,7 @@ import kotlin.experimental.or
  * @version   $Revision: 252 $
  * @author    Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>>() : DigestEngine<D>() {
+internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>> : DigestEngine<D>() {
 
     private var h0: Long = 0
     private var h1: Long = 0
@@ -169,83 +172,83 @@ internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>>() : DigestEngine<D>() 
             var o0 = SIGMA[(r shl 4) + 0x0]
             var o1 = SIGMA[(r shl 4) + 0x1]
             v0 += v4 + (m[o0] xor CB[o1])
-            vC = circularRight(vC xor v0, 32)
+            vC = circularRightLong(vC xor v0, 32)
             v8 += vC
-            v4 = circularRight(v4 xor v8, 25)
+            v4 = circularRightLong(v4 xor v8, 25)
             v0 += v4 + (m[o1] xor CB[o0])
-            vC = circularRight(vC xor v0, 16)
+            vC = circularRightLong(vC xor v0, 16)
             v8 += vC
-            v4 = circularRight(v4 xor v8, 11)
+            v4 = circularRightLong(v4 xor v8, 11)
             o0 = SIGMA[(r shl 4) + 0x2]
             o1 = SIGMA[(r shl 4) + 0x3]
             v1 += v5 + (m[o0] xor CB[o1])
-            vD = circularRight(vD xor v1, 32)
+            vD = circularRightLong(vD xor v1, 32)
             v9 += vD
-            v5 = circularRight(v5 xor v9, 25)
+            v5 = circularRightLong(v5 xor v9, 25)
             v1 += v5 + (m[o1] xor CB[o0])
-            vD = circularRight(vD xor v1, 16)
+            vD = circularRightLong(vD xor v1, 16)
             v9 += vD
-            v5 = circularRight(v5 xor v9, 11)
+            v5 = circularRightLong(v5 xor v9, 11)
             o0 = SIGMA[(r shl 4) + 0x4]
             o1 = SIGMA[(r shl 4) + 0x5]
             v2 += v6 + (m[o0] xor CB[o1])
-            vE = circularRight(vE xor v2, 32)
+            vE = circularRightLong(vE xor v2, 32)
             vA += vE
-            v6 = circularRight(v6 xor vA, 25)
+            v6 = circularRightLong(v6 xor vA, 25)
             v2 += v6 + (m[o1] xor CB[o0])
-            vE = circularRight(vE xor v2, 16)
+            vE = circularRightLong(vE xor v2, 16)
             vA += vE
-            v6 = circularRight(v6 xor vA, 11)
+            v6 = circularRightLong(v6 xor vA, 11)
             o0 = SIGMA[(r shl 4) + 0x6]
             o1 = SIGMA[(r shl 4) + 0x7]
             v3 += v7 + (m[o0] xor CB[o1])
-            vF = circularRight(vF xor v3, 32)
+            vF = circularRightLong(vF xor v3, 32)
             vB += vF
-            v7 = circularRight(v7 xor vB, 25)
+            v7 = circularRightLong(v7 xor vB, 25)
             v3 += v7 + (m[o1] xor CB[o0])
-            vF = circularRight(vF xor v3, 16)
+            vF = circularRightLong(vF xor v3, 16)
             vB += vF
-            v7 = circularRight(v7 xor vB, 11)
+            v7 = circularRightLong(v7 xor vB, 11)
             o0 = SIGMA[(r shl 4) + 0x8]
             o1 = SIGMA[(r shl 4) + 0x9]
             v0 += v5 + (m[o0] xor CB[o1])
-            vF = circularRight(vF xor v0, 32)
+            vF = circularRightLong(vF xor v0, 32)
             vA += vF
-            v5 = circularRight(v5 xor vA, 25)
+            v5 = circularRightLong(v5 xor vA, 25)
             v0 += v5 + (m[o1] xor CB[o0])
-            vF = circularRight(vF xor v0, 16)
+            vF = circularRightLong(vF xor v0, 16)
             vA += vF
-            v5 = circularRight(v5 xor vA, 11)
+            v5 = circularRightLong(v5 xor vA, 11)
             o0 = SIGMA[(r shl 4) + 0xA]
             o1 = SIGMA[(r shl 4) + 0xB]
             v1 += v6 + (m[o0] xor CB[o1])
-            vC = circularRight(vC xor v1, 32)
+            vC = circularRightLong(vC xor v1, 32)
             vB += vC
-            v6 = circularRight(v6 xor vB, 25)
+            v6 = circularRightLong(v6 xor vB, 25)
             v1 += v6 + (m[o1] xor CB[o0])
-            vC = circularRight(vC xor v1, 16)
+            vC = circularRightLong(vC xor v1, 16)
             vB += vC
-            v6 = circularRight(v6 xor vB, 11)
+            v6 = circularRightLong(v6 xor vB, 11)
             o0 = SIGMA[(r shl 4) + 0xC]
             o1 = SIGMA[(r shl 4) + 0xD]
             v2 += v7 + (m[o0] xor CB[o1])
-            vD = circularRight(vD xor v2, 32)
+            vD = circularRightLong(vD xor v2, 32)
             v8 += vD
-            v7 = circularRight(v7 xor v8, 25)
+            v7 = circularRightLong(v7 xor v8, 25)
             v2 += v7 + (m[o1] xor CB[o0])
-            vD = circularRight(vD xor v2, 16)
+            vD = circularRightLong(vD xor v2, 16)
             v8 += vD
-            v7 = circularRight(v7 xor v8, 11)
+            v7 = circularRightLong(v7 xor v8, 11)
             o0 = SIGMA[(r shl 4) + 0xE]
             o1 = SIGMA[(r shl 4) + 0xF]
             v3 += v4 + (m[o0] xor CB[o1])
-            vE = circularRight(vE xor v3, 32)
+            vE = circularRightLong(vE xor v3, 32)
             v9 += vE
-            v4 = circularRight(v4 xor v9, 25)
+            v4 = circularRightLong(v4 xor v9, 25)
             v3 += v4 + (m[o1] xor CB[o0])
-            vE = circularRight(vE xor v3, 16)
+            vE = circularRightLong(vE xor v3, 16)
             v9 += vE
-            v4 = circularRight(v4 xor v9, 11)
+            v4 = circularRightLong(v4 xor v9, 11)
         }
         h0 = h0 xor (s0 xor v0 xor v8)
         h1 = h1 xor (s1 xor v1 xor v9)
@@ -286,57 +289,5 @@ internal abstract class BLAKEBigCore<D : BLAKEBigCore<D>>() : DigestEngine<D>() 
             -0x45836fba0ed38067L, 0x24A19947B3916CF7L,
             0x0801F2E2858EFC16L, 0x636920D871574E69L
         )
-
-        /**
-         * Encode the 64-bit word `val` into the array
-         * `buf` at offset `off`, in big-endian
-         * convention (most significant byte first).
-         *
-         * @param val   the value to encode
-         * @param buf   the destination buffer
-         * @param off   the destination offset
-         */
-        private fun encodeBELong(`val`: Long, buf: ByteArray, off: Int) {
-            buf[off + 0] = (`val` ushr 56).toByte()
-            buf[off + 1] = (`val` ushr 48).toByte()
-            buf[off + 2] = (`val` ushr 40).toByte()
-            buf[off + 3] = (`val` ushr 32).toByte()
-            buf[off + 4] = (`val` ushr 24).toByte()
-            buf[off + 5] = (`val` ushr 16).toByte()
-            buf[off + 6] = (`val` ushr 8).toByte()
-            buf[off + 7] = `val`.toByte()
-        }
-
-        /**
-         * Decode a 64-bit big-endian word from the array `buf`
-         * at offset `off`.
-         *
-         * @param buf   the source buffer
-         * @param off   the source offset
-         * @return  the decoded value
-         */
-        private fun decodeBELong(buf: ByteArray, off: Int): Long {
-            return ((buf[off].toLong() and 0xFF) shl 56
-                    or ((buf[off + 1].toLong() and 0xFF) shl 48)
-                    or ((buf[off + 2].toLong() and 0xFF) shl 40)
-                    or ((buf[off + 3].toLong() and 0xFF) shl 32)
-                    or ((buf[off + 4].toLong() and 0xFF) shl 24)
-                    or ((buf[off + 5].toLong() and 0xFF) shl 16)
-                    or ((buf[off + 6].toLong() and 0xFF) shl 8)
-                    or (buf[off + 7].toLong() and 0xFF))
-        }
-
-        /**
-         * Perform a circular rotation by `n` to the right
-         * of the 64-bit word `x`. The `n` parameter
-         * must lie between 1 and 63 (inclusive).
-         *
-         * @param x   the value to rotate
-         * @param n   the rotation count (between 1 and 63)
-         * @return  the rotated value
-         */
-        private fun circularRight(x: Long, n: Int): Long {
-            return x ushr n or (x shl 64 - n)
-        }
     }
 }
