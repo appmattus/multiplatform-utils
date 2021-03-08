@@ -37,7 +37,7 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * @param outputLength   output length (in bits)
  * @param passes         number of passes (3, 4 or 5)
  */
-@Suppress("TooManyFunctions", "MagicNumber")
+@Suppress("TooManyFunctions", "MagicNumber", "LargeClass")
 internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private val passes: Int) : DigestEngine<D>() {
 
     /**

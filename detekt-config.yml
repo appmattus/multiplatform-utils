@@ -16,7 +16,7 @@ formatting:
 
 complexity:
     LargeClass:
-        excludes: "**/internal/core/**,**/commonTest/**/internal/**"
+        excludes: "**/commonTest/**/internal/**"
     LongMethod:
         excludes: "**/commonTest/**/internal/**"
     TooManyFunctions:
