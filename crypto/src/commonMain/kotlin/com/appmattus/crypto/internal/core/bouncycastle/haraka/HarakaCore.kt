@@ -28,6 +28,7 @@ import com.appmattus.crypto.Digest
 /**
  * Base class for Haraka v2, https://eprint.iacr.org/2016/098.pdf
  */
+@Suppress("MagicNumber")
 internal abstract class HarakaCore<D : HarakaCore<D>> : Digest<D> {
 
     abstract fun doFinal(out: ByteArray, outOff: Int): Int

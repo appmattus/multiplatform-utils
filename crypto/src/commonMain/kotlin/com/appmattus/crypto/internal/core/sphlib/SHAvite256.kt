@@ -32,6 +32,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version $Revision: 222 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class SHAvite256 : SHAviteSmallCore<SHAvite256>() {
 
     override val initVal: IntArray

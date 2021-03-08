@@ -21,7 +21,7 @@ import com.appmattus.crypto.Algorithm
 /**
  * This class implements the Skein-512-512 digest algorithm
  */
-@Suppress("ClassName")
+@Suppress("ClassName", "MagicNumber")
 internal class Skein512_512 : SkeinBouncycastleCore<Skein512_512>(512, 512) {
 
     override val blockLength: Int

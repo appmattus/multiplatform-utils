@@ -20,7 +20,7 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.SHA2BigCore
 
-@Suppress("ClassName")
+@Suppress("ClassName", "MagicNumber")
 internal class SHA512_224 : Digest<SHA512_224> {
     private var delegate = Hash()
 

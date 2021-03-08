@@ -19,6 +19,7 @@ package com.appmattus.crypto.internal.core
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.bouncycastle.skein.SkeinEngine
 
+@Suppress("MagicNumber")
 internal abstract class SkeinBouncycastleCore<D : SkeinBouncycastleCore<D>>(blockSizeBits: Int, private val outputSizeBits: Int) : Digest<D> {
 
     private var engine = SkeinEngine(blockSizeBits, outputSizeBits).apply {

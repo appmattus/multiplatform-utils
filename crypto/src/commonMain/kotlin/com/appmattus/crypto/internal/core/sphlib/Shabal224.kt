@@ -31,6 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version $Revision: 213 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class Shabal224 : ShabalGeneric<Shabal224>(224) {
 
     override fun dup(): Shabal224 {

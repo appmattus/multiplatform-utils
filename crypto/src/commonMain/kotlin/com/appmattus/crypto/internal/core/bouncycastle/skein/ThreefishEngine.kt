@@ -50,6 +50,7 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * @param blocksizeBits the block size in bits, one of [.BLOCKSIZE_256], [.BLOCKSIZE_512],
  * [.BLOCKSIZE_1024].
  */
+@Suppress("MagicNumber")
 internal class ThreefishEngine(blocksizeBits: Int) {
     companion object {
         /**

@@ -33,6 +33,7 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * @version $Revision: 232 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
     private var x0 = 0
     private var x1 = 0

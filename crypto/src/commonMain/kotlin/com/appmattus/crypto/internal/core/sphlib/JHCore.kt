@@ -33,6 +33,7 @@ import com.appmattus.crypto.internal.core.encodeBELong
  * @version $Revision: 255 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal abstract class JHCore<D : JHCore<D>> : DigestEngine<D>() {
     private lateinit var h: LongArray
     private lateinit var tmpBuf: ByteArray

@@ -34,7 +34,7 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * Thanks to Roman Oliynykov' native C implementation:
  * https://github.com/Roman-Oliynykov/Kupyna-reference
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "MagicNumber")
 internal class DSTU7564 : Digest<DSTU7564> {
     override var digestLength = 0
         private set

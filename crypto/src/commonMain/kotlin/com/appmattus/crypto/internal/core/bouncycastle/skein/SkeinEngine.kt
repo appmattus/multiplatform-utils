@@ -73,7 +73,7 @@ import kotlin.math.min
  * @param outputSizeBits the output/digest size to produce in bits, which must be an integral number of
  * bytes.
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "MagicNumber")
 internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
     // Minimal at present, but more complex when tree hashing is implemented
     private class Configuration(outputSizeBits: Long) {

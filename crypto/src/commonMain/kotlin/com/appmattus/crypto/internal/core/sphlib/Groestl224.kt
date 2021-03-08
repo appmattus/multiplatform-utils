@@ -31,6 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version $Revision: 198 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class Groestl224 : GroestlSmallCore<Groestl224>() {
 
     override val digestLength: Int

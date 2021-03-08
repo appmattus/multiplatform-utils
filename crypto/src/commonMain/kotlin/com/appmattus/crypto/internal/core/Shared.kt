@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("TooManyFunctions")
+@file:Suppress("TooManyFunctions", "MagicNumber")
 
 package com.appmattus.crypto.internal.core
 

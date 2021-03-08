@@ -31,6 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version $Revision: 236 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class Hamsi224 : HamsiSmallCore<Hamsi224>() {
 
     override val digestLength: Int

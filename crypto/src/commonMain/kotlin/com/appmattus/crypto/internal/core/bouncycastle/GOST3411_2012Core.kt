@@ -53,7 +53,7 @@ import kotlin.experimental.xor
 /**
  * Base class for GOST3411-2012 256-bit and GOST3411-2012 512-bit digests.
  */
-@Suppress("ClassName", "TooManyFunctions")
+@Suppress("ClassName", "TooManyFunctions", "MagicNumber")
 internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(iv: ByteArray) : Digest<D> {
     private val iv = ByteArray(64)
     private val n = ByteArray(64)

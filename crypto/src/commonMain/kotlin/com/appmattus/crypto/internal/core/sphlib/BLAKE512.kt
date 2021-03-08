@@ -33,6 +33,7 @@ import com.appmattus.crypto.Algorithm
  * @version $Revision: 252 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class BLAKE512 : BLAKEBigCore<BLAKE512>() {
 
     override val initVal: LongArray

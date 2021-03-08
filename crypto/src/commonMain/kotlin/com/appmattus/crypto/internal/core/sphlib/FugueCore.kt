@@ -32,7 +32,7 @@ import com.appmattus.crypto.Digest
  * @version $Revision: 214 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "MagicNumber")
 internal abstract class FugueCore<D : FugueCore<D>> : Digest<D> {
     private var bitCount: Long = 0
     private var partial = 0

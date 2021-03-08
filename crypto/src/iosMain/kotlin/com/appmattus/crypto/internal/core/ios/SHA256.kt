@@ -33,7 +33,7 @@ import platform.CoreCrypto.CC_SHA256_Final
 import platform.CoreCrypto.CC_SHA256_Init
 import platform.CoreCrypto.CC_SHA256_Update
 
-@Suppress("EXPERIMENTAL_API_USAGE")
+@Suppress("EXPERIMENTAL_API_USAGE", "MagicNumber")
 internal class SHA256 : Digest<SHA256> {
 
     private var hashObject: CC_SHA256_CTX? = null

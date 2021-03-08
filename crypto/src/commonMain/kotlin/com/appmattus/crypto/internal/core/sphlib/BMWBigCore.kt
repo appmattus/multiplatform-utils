@@ -33,6 +33,7 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * @version $Revision: 214 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal abstract class BMWBigCore<D : BMWBigCore<D>> : DigestEngine<D>() {
 
     private lateinit var m: LongArray

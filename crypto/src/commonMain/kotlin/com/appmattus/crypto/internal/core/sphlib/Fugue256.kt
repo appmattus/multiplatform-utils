@@ -31,6 +31,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version $Revision: 159 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class Fugue256 : Fugue2Core<Fugue256>() {
 
     override val digestLength: Int

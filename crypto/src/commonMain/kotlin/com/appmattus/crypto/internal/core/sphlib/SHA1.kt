@@ -35,6 +35,7 @@ import com.appmattus.crypto.internal.core.encodeBEInt
  * @version $Revision: 214 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class SHA1 : MDHelper<SHA1>(false, 8) {
     private lateinit var currentVal: IntArray
 

@@ -35,6 +35,7 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * @version $Revision: 232 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
     private lateinit var a: LongArray
     private lateinit var b: LongArray

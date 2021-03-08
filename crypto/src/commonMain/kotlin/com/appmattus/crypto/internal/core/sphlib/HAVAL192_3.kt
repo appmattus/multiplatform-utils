@@ -29,7 +29,7 @@ package com.appmattus.crypto.internal.core.sphlib
  * @version $Revision: 156 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
-@Suppress("ClassName")
+@Suppress("ClassName", "MagicNumber")
 internal class HAVAL192_3 : HAVALCore<HAVAL192_3>(192, 3) {
 
     override val digestLength: Int

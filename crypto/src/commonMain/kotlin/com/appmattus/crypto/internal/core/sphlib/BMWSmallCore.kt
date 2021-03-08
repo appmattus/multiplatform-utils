@@ -33,6 +33,7 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * @version $Revision: 214 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("MagicNumber")
 internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
 
     private lateinit var m: IntArray
@@ -256,71 +257,71 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
         q[16] = ((q[0] ushr 1 xor (q[0] shl 2)
                 xor circularLeftInt(q[0], 8) xor circularLeftInt(q[0], 23)) +
                 (q[1] ushr 2 xor (q[1] shl 1)
-                xor circularLeftInt(q[1], 12) xor circularLeftInt(q[1], 25)) +
+                        xor circularLeftInt(q[1], 12) xor circularLeftInt(q[1], 25)) +
                 (q[2] ushr 2 xor (q[2] shl 2)
-                xor circularLeftInt(q[2], 15) xor circularLeftInt(q[2], 29)) +
+                        xor circularLeftInt(q[2], 15) xor circularLeftInt(q[2], 29)) +
                 (q[3] ushr 1 xor (q[3] shl 3)
-                xor circularLeftInt(q[3], 4) xor circularLeftInt(q[3], 19)) +
+                        xor circularLeftInt(q[3], 4) xor circularLeftInt(q[3], 19)) +
                 (q[4] ushr 1 xor (q[4] shl 2)
-                xor circularLeftInt(q[4], 8) xor circularLeftInt(q[4], 23)) +
+                        xor circularLeftInt(q[4], 8) xor circularLeftInt(q[4], 23)) +
                 (q[5] ushr 2 xor (q[5] shl 1)
-                xor circularLeftInt(q[5], 12) xor circularLeftInt(q[5], 25)) +
+                        xor circularLeftInt(q[5], 12) xor circularLeftInt(q[5], 25)) +
                 (q[6] ushr 2 xor (q[6] shl 2)
-                xor circularLeftInt(q[6], 15) xor circularLeftInt(q[6], 29)) +
+                        xor circularLeftInt(q[6], 15) xor circularLeftInt(q[6], 29)) +
                 (q[7] ushr 1 xor (q[7] shl 3)
-                xor circularLeftInt(q[7], 4) xor circularLeftInt(q[7], 19)) +
+                        xor circularLeftInt(q[7], 4) xor circularLeftInt(q[7], 19)) +
                 (q[8] ushr 1 xor (q[8] shl 2)
-                xor circularLeftInt(q[8], 8) xor circularLeftInt(q[8], 23)) +
+                        xor circularLeftInt(q[8], 8) xor circularLeftInt(q[8], 23)) +
                 (q[9] ushr 2 xor (q[9] shl 1)
-                xor circularLeftInt(q[9], 12) xor circularLeftInt(q[9], 25)) +
+                        xor circularLeftInt(q[9], 12) xor circularLeftInt(q[9], 25)) +
                 (q[10] ushr 2 xor (q[10] shl 2)
-                xor circularLeftInt(q[10], 15) xor circularLeftInt(q[10], 29)) +
+                        xor circularLeftInt(q[10], 15) xor circularLeftInt(q[10], 29)) +
                 (q[11] ushr 1 xor (q[11] shl 3)
-                xor circularLeftInt(q[11], 4) xor circularLeftInt(q[11], 19)) +
+                        xor circularLeftInt(q[11], 4) xor circularLeftInt(q[11], 19)) +
                 (q[12] ushr 1 xor (q[12] shl 2)
-                xor circularLeftInt(q[12], 8) xor circularLeftInt(q[12], 23)) +
+                        xor circularLeftInt(q[12], 8) xor circularLeftInt(q[12], 23)) +
                 (q[13] ushr 2 xor (q[13] shl 1)
-                xor circularLeftInt(q[13], 12) xor circularLeftInt(q[13], 25)) +
+                        xor circularLeftInt(q[13], 12) xor circularLeftInt(q[13], 25)) +
                 (q[14] ushr 2 xor (q[14] shl 2)
-                xor circularLeftInt(q[14], 15) xor circularLeftInt(q[14], 29)) +
+                        xor circularLeftInt(q[14], 15) xor circularLeftInt(q[14], 29)) +
                 (q[15] ushr 1 xor (q[15] shl 3)
-                xor circularLeftInt(q[15], 4) xor circularLeftInt(q[15], 19)) +
+                        xor circularLeftInt(q[15], 4) xor circularLeftInt(q[15], 19)) +
                 ((circularLeftInt(m[0], 1) + circularLeftInt(m[3], 4) -
-                circularLeftInt(m[10], 11) + 16 * 0x05555555) xor h[7]))
+                        circularLeftInt(m[10], 11) + 16 * 0x05555555) xor h[7]))
         q[17] = ((q[1] ushr 1 xor (q[1] shl 2)
                 xor circularLeftInt(q[1], 8) xor circularLeftInt(q[1], 23)) +
                 (q[2] ushr 2 xor (q[2] shl 1)
-                xor circularLeftInt(q[2], 12) xor circularLeftInt(q[2], 25)) +
+                        xor circularLeftInt(q[2], 12) xor circularLeftInt(q[2], 25)) +
                 (q[3] ushr 2 xor (q[3] shl 2)
-                xor circularLeftInt(q[3], 15) xor circularLeftInt(q[3], 29)) +
+                        xor circularLeftInt(q[3], 15) xor circularLeftInt(q[3], 29)) +
                 (q[4] ushr 1 xor (q[4] shl 3)
-                xor circularLeftInt(q[4], 4) xor circularLeftInt(q[4], 19)) +
+                        xor circularLeftInt(q[4], 4) xor circularLeftInt(q[4], 19)) +
                 (q[5] ushr 1 xor (q[5] shl 2)
-                xor circularLeftInt(q[5], 8) xor circularLeftInt(q[5], 23)) +
+                        xor circularLeftInt(q[5], 8) xor circularLeftInt(q[5], 23)) +
                 (q[6] ushr 2 xor (q[6] shl 1)
-                xor circularLeftInt(q[6], 12) xor circularLeftInt(q[6], 25)) +
+                        xor circularLeftInt(q[6], 12) xor circularLeftInt(q[6], 25)) +
                 (q[7] ushr 2 xor (q[7] shl 2)
-                xor circularLeftInt(q[7], 15) xor circularLeftInt(q[7], 29)) +
+                        xor circularLeftInt(q[7], 15) xor circularLeftInt(q[7], 29)) +
                 (q[8] ushr 1 xor (q[8] shl 3)
-                xor circularLeftInt(q[8], 4) xor circularLeftInt(q[8], 19)) +
+                        xor circularLeftInt(q[8], 4) xor circularLeftInt(q[8], 19)) +
                 (q[9] ushr 1 xor (q[9] shl 2)
-                xor circularLeftInt(q[9], 8) xor circularLeftInt(q[9], 23)) +
+                        xor circularLeftInt(q[9], 8) xor circularLeftInt(q[9], 23)) +
                 (q[10] ushr 2 xor (q[10] shl 1)
-                xor circularLeftInt(q[10], 12) xor circularLeftInt(q[10], 25)) +
+                        xor circularLeftInt(q[10], 12) xor circularLeftInt(q[10], 25)) +
                 (q[11] ushr 2 xor (q[11] shl 2)
-                xor circularLeftInt(q[11], 15) xor circularLeftInt(q[11], 29)) +
+                        xor circularLeftInt(q[11], 15) xor circularLeftInt(q[11], 29)) +
                 (q[12] ushr 1 xor (q[12] shl 3)
-                xor circularLeftInt(q[12], 4) xor circularLeftInt(q[12], 19)) +
+                        xor circularLeftInt(q[12], 4) xor circularLeftInt(q[12], 19)) +
                 (q[13] ushr 1 xor (q[13] shl 2)
-                xor circularLeftInt(q[13], 8) xor circularLeftInt(q[13], 23)) +
+                        xor circularLeftInt(q[13], 8) xor circularLeftInt(q[13], 23)) +
                 (q[14] ushr 2 xor (q[14] shl 1)
-                xor circularLeftInt(q[14], 12) xor circularLeftInt(q[14], 25)) +
+                        xor circularLeftInt(q[14], 12) xor circularLeftInt(q[14], 25)) +
                 (q[15] ushr 2 xor (q[15] shl 2)
-                xor circularLeftInt(q[15], 15) xor circularLeftInt(q[15], 29)) +
+                        xor circularLeftInt(q[15], 15) xor circularLeftInt(q[15], 29)) +
                 (q[16] ushr 1 xor (q[16] shl 3)
-                xor circularLeftInt(q[16], 4) xor circularLeftInt(q[16], 19)) +
+                        xor circularLeftInt(q[16], 4) xor circularLeftInt(q[16], 19)) +
                 ((circularLeftInt(m[1], 2) + circularLeftInt(m[4], 5) -
-                circularLeftInt(m[11], 12) + 17 * 0x05555555) xor h[8]))
+                        circularLeftInt(m[11], 12) + 17 * 0x05555555) xor h[8]))
         q[18] = (q[2] + circularLeftInt(q[3], 3) +
                 q[4] + circularLeftInt(q[5], 7) +
                 q[6] + circularLeftInt(q[7], 13) +
@@ -330,8 +331,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[14] + circularLeftInt(q[15], 27) +
                 (q[16] ushr 1 xor q[16]) + (q[17] ushr 2 xor q[17]) +
                 ((circularLeftInt(m[2], 3) + circularLeftInt(m[5], 6) -
-                circularLeftInt(m[12], 13) +
-                18 * 0x05555555) xor h[9]))
+                        circularLeftInt(m[12], 13) +
+                        18 * 0x05555555) xor h[9]))
         q[19] = (q[3] + circularLeftInt(q[4], 3) +
                 q[5] + circularLeftInt(q[6], 7) +
                 q[7] + circularLeftInt(q[8], 13) +
@@ -341,8 +342,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[15] + circularLeftInt(q[16], 27) +
                 (q[17] ushr 1 xor q[17]) + (q[18] ushr 2 xor q[18]) +
                 ((circularLeftInt(m[3], 4) + circularLeftInt(m[6], 7) -
-                circularLeftInt(m[13], 14) +
-                19 * 0x05555555) xor h[10]))
+                        circularLeftInt(m[13], 14) +
+                        19 * 0x05555555) xor h[10]))
         q[20] = (q[4] + circularLeftInt(q[5], 3) +
                 q[6] + circularLeftInt(q[7], 7) +
                 q[8] + circularLeftInt(q[9], 13) +
@@ -352,8 +353,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[16] + circularLeftInt(q[17], 27) +
                 (q[18] ushr 1 xor q[18]) + (q[19] ushr 2 xor q[19]) +
                 ((circularLeftInt(m[4], 5) + circularLeftInt(m[7], 8) -
-                circularLeftInt(m[14], 15) +
-                20 * 0x05555555) xor h[11]))
+                        circularLeftInt(m[14], 15) +
+                        20 * 0x05555555) xor h[11]))
         q[21] = (q[5] + circularLeftInt(q[6], 3) +
                 q[7] + circularLeftInt(q[8], 7) +
                 q[9] + circularLeftInt(q[10], 13) +
@@ -363,8 +364,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[17] + circularLeftInt(q[18], 27) +
                 (q[19] ushr 1 xor q[19]) + (q[20] ushr 2 xor q[20]) +
                 ((circularLeftInt(m[5], 6) + circularLeftInt(m[8], 9) -
-                circularLeftInt(m[15], 16) +
-                21 * 0x05555555) xor h[12]))
+                        circularLeftInt(m[15], 16) +
+                        21 * 0x05555555) xor h[12]))
         q[22] = (q[6] + circularLeftInt(q[7], 3) +
                 q[8] + circularLeftInt(q[9], 7) +
                 q[10] + circularLeftInt(q[11], 13) +
@@ -374,8 +375,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[18] + circularLeftInt(q[19], 27) +
                 (q[20] ushr 1 xor q[20]) + (q[21] ushr 2 xor q[21]) +
                 ((circularLeftInt(m[6], 7) + circularLeftInt(m[9], 10) -
-                circularLeftInt(m[0], 1) +
-                22 * 0x05555555) xor h[13]))
+                        circularLeftInt(m[0], 1) +
+                        22 * 0x05555555) xor h[13]))
         q[23] = (q[7] + circularLeftInt(q[8], 3) +
                 q[9] + circularLeftInt(q[10], 7) +
                 q[11] + circularLeftInt(q[12], 13) +
@@ -385,8 +386,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[19] + circularLeftInt(q[20], 27) +
                 (q[21] ushr 1 xor q[21]) + (q[22] ushr 2 xor q[22]) +
                 ((circularLeftInt(m[7], 8) + circularLeftInt(m[10], 11) -
-                circularLeftInt(m[1], 2) +
-                23 * 0x05555555) xor h[14]))
+                        circularLeftInt(m[1], 2) +
+                        23 * 0x05555555) xor h[14]))
         q[24] = (q[8] + circularLeftInt(q[9], 3) +
                 q[10] + circularLeftInt(q[11], 7) +
                 q[12] + circularLeftInt(q[13], 13) +
@@ -396,8 +397,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[20] + circularLeftInt(q[21], 27) +
                 (q[22] ushr 1 xor q[22]) + (q[23] ushr 2 xor q[23]) +
                 ((circularLeftInt(m[8], 9) + circularLeftInt(m[11], 12) -
-                circularLeftInt(m[2], 3) +
-                24 * 0x05555555) xor h[15]))
+                        circularLeftInt(m[2], 3) +
+                        24 * 0x05555555) xor h[15]))
         q[25] = (q[9] + circularLeftInt(q[10], 3) +
                 q[11] + circularLeftInt(q[12], 7) +
                 q[13] + circularLeftInt(q[14], 13) +
@@ -407,8 +408,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[21] + circularLeftInt(q[22], 27) +
                 (q[23] ushr 1 xor q[23]) + (q[24] ushr 2 xor q[24]) +
                 ((circularLeftInt(m[9], 10) + circularLeftInt(m[12], 13) -
-                circularLeftInt(m[3], 4) +
-                25 * 0x05555555) xor h[0]))
+                        circularLeftInt(m[3], 4) +
+                        25 * 0x05555555) xor h[0]))
         q[26] = (q[10] + circularLeftInt(q[11], 3) +
                 q[12] + circularLeftInt(q[13], 7) +
                 q[14] + circularLeftInt(q[15], 13) +
@@ -418,8 +419,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[22] + circularLeftInt(q[23], 27) +
                 (q[24] ushr 1 xor q[24]) + (q[25] ushr 2 xor q[25]) +
                 ((circularLeftInt(m[10], 11) + circularLeftInt(m[13], 14) -
-                circularLeftInt(m[4], 5) +
-                26 * 0x05555555) xor h[1]))
+                        circularLeftInt(m[4], 5) +
+                        26 * 0x05555555) xor h[1]))
         q[27] = (q[11] + circularLeftInt(q[12], 3) +
                 q[13] + circularLeftInt(q[14], 7) +
                 q[15] + circularLeftInt(q[16], 13) +
@@ -429,8 +430,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[23] + circularLeftInt(q[24], 27) +
                 (q[25] ushr 1 xor q[25]) + (q[26] ushr 2 xor q[26]) +
                 ((circularLeftInt(m[11], 12) + circularLeftInt(m[14], 15) -
-                circularLeftInt(m[5], 6) +
-                27 * 0x05555555) xor h[2]))
+                        circularLeftInt(m[5], 6) +
+                        27 * 0x05555555) xor h[2]))
         q[28] = (q[12] + circularLeftInt(q[13], 3) +
                 q[14] + circularLeftInt(q[15], 7) +
                 q[16] + circularLeftInt(q[17], 13) +
@@ -440,8 +441,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[24] + circularLeftInt(q[25], 27) +
                 (q[26] ushr 1 xor q[26]) + (q[27] ushr 2 xor q[27]) +
                 ((circularLeftInt(m[12], 13) + circularLeftInt(m[15], 16) -
-                circularLeftInt(m[6], 7) +
-                28 * 0x05555555) xor h[3]))
+                        circularLeftInt(m[6], 7) +
+                        28 * 0x05555555) xor h[3]))
         q[29] = (q[13] + circularLeftInt(q[14], 3) +
                 q[15] + circularLeftInt(q[16], 7) +
                 q[17] + circularLeftInt(q[18], 13) +
@@ -451,8 +452,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[25] + circularLeftInt(q[26], 27) +
                 (q[27] ushr 1 xor q[27]) + (q[28] ushr 2 xor q[28]) +
                 ((circularLeftInt(m[13], 14) + circularLeftInt(m[0], 1) -
-                circularLeftInt(m[7], 8) +
-                29 * 0x05555555) xor h[4]))
+                        circularLeftInt(m[7], 8) +
+                        29 * 0x05555555) xor h[4]))
         q[30] = (q[14] + circularLeftInt(q[15], 3) +
                 q[16] + circularLeftInt(q[17], 7) +
                 q[18] + circularLeftInt(q[19], 13) +
@@ -462,8 +463,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[26] + circularLeftInt(q[27], 27) +
                 (q[28] ushr 1 xor q[28]) + (q[29] ushr 2 xor q[29]) +
                 ((circularLeftInt(m[14], 15) + circularLeftInt(m[1], 2) -
-                circularLeftInt(m[8], 9) +
-                30 * 0x05555555) xor h[5]))
+                        circularLeftInt(m[8], 9) +
+                        30 * 0x05555555) xor h[5]))
         q[31] = (q[15] + circularLeftInt(q[16], 3) +
                 q[17] + circularLeftInt(q[18], 7) +
                 q[19] + circularLeftInt(q[20], 13) +
@@ -473,8 +474,8 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
                 q[27] + circularLeftInt(q[28], 27) +
                 (q[29] ushr 1 xor q[29]) + (q[30] ushr 2 xor q[30]) +
                 ((circularLeftInt(m[15], 16) + circularLeftInt(m[2], 3) -
-                circularLeftInt(m[9], 10) +
-                31 * 0x05555555) xor h[6]))
+                        circularLeftInt(m[9], 10) +
+                        31 * 0x05555555) xor h[6]))
         val xl = (q[16] xor q[17] xor q[18] xor q[19]
                 xor q[20] xor q[21] xor q[22] xor q[23])
         val xh = (xl xor q[24] xor q[25] xor q[26] xor q[27]
