@@ -113,6 +113,7 @@ import com.appmattus.crypto.internal.core.sphlib.SIMD224
 import com.appmattus.crypto.internal.core.sphlib.SIMD256
 import com.appmattus.crypto.internal.core.sphlib.SIMD384
 import com.appmattus.crypto.internal.core.sphlib.SIMD512
+import com.appmattus.crypto.internal.core.sphlib.ShabalGeneric
 import com.appmattus.crypto.internal.core.sphlib.Tiger
 import com.appmattus.crypto.internal.core.sphlib.Tiger2
 import com.appmattus.crypto.internal.core.sphlib.Whirlpool
@@ -235,7 +236,11 @@ internal object CoreDigest {
             Algorithm.SHA3_384 -> SHA3_384()
             Algorithm.SHA3_512 -> SHA3_512()
 
-            // Shabal
+            Algorithm.Shabal192 -> ShabalGeneric(192)
+            Algorithm.Shabal224 -> ShabalGeneric(224)
+            Algorithm.Shabal256 -> ShabalGeneric(256)
+            Algorithm.Shabal384 -> ShabalGeneric(384)
+            Algorithm.Shabal512 -> ShabalGeneric(512)
 
             Algorithm.SHAvite224 -> SHAvite224()
             Algorithm.SHAvite256 -> SHAvite256()

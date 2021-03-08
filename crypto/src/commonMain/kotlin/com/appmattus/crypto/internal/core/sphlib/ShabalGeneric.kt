@@ -36,26 +36,25 @@ import com.appmattus.crypto.internal.core.decodeLEInt
  *
  * @version $Revision: 231 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
+ *
+ * Create the object. The output size must be a multiple of 32,
+ * between 32 and 512 (inclusive).
+ *
+ * @param outSize   the intended output size
  */
 @Suppress("TooManyFunctions", "MagicNumber")
-internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Digest<D> {
-    private var outSizeW32 = 0
+internal class ShabalGeneric(private val outSize: Int) : Digest<ShabalGeneric> {
+
+    private var outSizeW32 = outSize ushr 5
     private val buf: ByteArray = ByteArray(64)
     private var ptr = 0
     private val state: IntArray = IntArray(44)
     private var w: Long = 0
 
-    /**
-     * Create the object. The output size must be a multiple of 32,
-     * between 32 and 512 (inclusive).
-     *
-     * @param outSize   the intended output size
-     */
-    constructor(outSize: Int) : this() {
+    init {
         if (outSize < 32 || outSize > 512 || outSize and 31 != 0) throw IllegalArgumentException(
             "invalid Shabal output size: $outSize"
         )
-        outSizeW32 = outSize ushr 5
         reset()
     }
 
@@ -135,14 +134,14 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
         return len
     }
 
-    final override fun reset() {
+    override fun reset() {
         getIV(outSizeW32).copyInto(state, 0, 0, 44)
         w = 1
         ptr = 0
     }
 
-    override fun copy(): D {
-        val d = dup()
+    override fun copy(): ShabalGeneric {
+        val d = ShabalGeneric(outSize)
         d.outSizeW32 = outSizeW32
         buf.copyInto(d.buf, 0, 0, ptr)
         d.ptr = ptr
@@ -150,14 +149,6 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
         d.w = w
         return d
     }
-
-    /**
-     * Create a new instance with the same parameters. This method
-     * is invoked from [.copy].
-     *
-     * @return the new instance
-     */
-    protected abstract fun dup(): D
 
     override val blockLength: Int
         get() = 64

@@ -129,7 +129,11 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     SHA3_384("SHA3-384", 104),
     SHA3_512("SHA3-512", 72),
 
-    // Shabal
+    Shabal192("Shabal-192", 64),
+    Shabal224("Shabal-224", 64),
+    Shabal256("Shabal-256", 64),
+    Shabal384("Shabal-384", 64),
+    Shabal512("Shabal-512", 64),
 
     SHAvite224("SHAvite-224", 64),
     SHAvite256("SHAvite-256", 64),
