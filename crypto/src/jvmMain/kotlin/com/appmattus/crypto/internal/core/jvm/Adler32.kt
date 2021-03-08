@@ -22,24 +22,24 @@ import com.appmattus.crypto.internal.core.encodeBEInt
 
 internal class Adler32 : Digest<Adler32> {
 
-    private var adler32 = java.util.zip.Adler32()
+    private var adler = java.util.zip.Adler32()
 
     override fun update(input: Byte) {
-        adler32.update(input.toInt())
+        adler.update(input.toInt())
     }
 
     override fun update(input: ByteArray) {
-        adler32.update(input)
+        adler.update(input)
     }
 
     override fun update(input: ByteArray, offset: Int, length: Int) {
-        adler32.update(input, offset, length)
+        adler.update(input, offset, length)
     }
 
     override fun digest(): ByteArray {
         val digest = ByteArray(digestLength)
 
-        encodeBEInt(adler32.value.toInt(), digest, 0)
+        encodeBEInt(adler.value.toInt(), digest, 0)
 
         reset()
 
@@ -84,16 +84,16 @@ internal class Adler32 : Digest<Adler32> {
         get() = 4
 
     override fun reset() {
-        adler32.reset()
+        adler.reset()
     }
 
     override fun copy(): Adler32 {
         val digest = Adler32()
 
         val internalAdler = java.util.zip.Adler32()
-        adlerValueField.setInt(internalAdler, adler32.value.toInt())
+        adlerValueField.setInt(internalAdler, adler.value.toInt())
 
-        digest.adler32 = internalAdler
+        digest.adler = internalAdler
         return digest
     }
 

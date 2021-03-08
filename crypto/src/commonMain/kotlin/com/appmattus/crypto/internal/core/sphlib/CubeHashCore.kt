@@ -284,6 +284,7 @@ internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
         sixteenRounds()
     }
 
+    @Suppress("ReturnCount")
     override fun doPadding(output: ByteArray, outputOffset: Int) {
         var ptr = flush()
         val buf = blockBuffer

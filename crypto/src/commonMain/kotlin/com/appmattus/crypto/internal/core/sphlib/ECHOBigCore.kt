@@ -179,12 +179,8 @@ internal abstract class ECHOBigCore<D : ECHOBigCore<D>> : DigestEngine<D>() {
                     xor AES1[y0 ushr 8 and 0xFF]
                     xor AES2[y1 ushr 16 and 0xFF]
                     xor AES3[y2 ushr 24 and 0xFF])
-            if (++k0 == 0) {
-                if (++k1 == 0) {
-                    if (++k2 == 0) {
-                        k3++
-                    }
-                }
+            if (++k0 == 0 && ++k1 == 0 && ++k2 == 0) {
+                k3++
             }
         }
     }

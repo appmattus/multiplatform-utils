@@ -1,15 +1,27 @@
 build:
-  maxIssues: 0
+    maxIssues: 0
 
 style:
-  MagicNumber:
-    excludes: "**/test/**,**/androidTest/**,**/commonTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/*.gradle.kts,**/internal/core/**"
-  MaxLineLength:
-    active: false
+    MagicNumber:
+        excludes: "**/test/**,**/androidTest/**,**/commonTest/**,**/*.Test.kt,**/*.Spec.kt,**/*.Spek.kt,**/*.gradle.kts,**/internal/core/**"
+    MaxLineLength:
+        active: false
 
 formatting:
-  StringTemplate:
-    excludes: "**/*.gradle.kts"
-  MaximumLineLength:
-    maxLineLength: 145
-    excludes: "**/resources/**,,**/commonTest/**/internal/**"
+    StringTemplate:
+        excludes: "**/*.gradle.kts"
+    MaximumLineLength:
+        maxLineLength: 145
+        excludes: "**/resources/**,**/commonTest/**/internal/**"
+
+complexity:
+    LargeClass:
+        excludes: "**/internal/core/**,**/commonTest/**/internal/**"
+    LongMethod:
+        excludes: "**/internal/core/**,**/commonTest/**/internal/**"
+    ComplexMethod:
+        excludes: "**/internal/core/**"
+    TooManyFunctions:
+        excludes: "**/internal/core/**,**/commonTest/**/internal/**"
+    LongParameterList:
+        excludes: "**/internal/core/**"

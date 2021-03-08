@@ -168,7 +168,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
      * @param params an instance of [TweakableBlockCipherParameters], or [KeyParameter] (to
      * use a 0 tweak)
      */
-    @Throws(IllegalArgumentException::class)
+    @Suppress("ThrowsCount")
     fun init(forEncryption: Boolean, params: CipherParameters) {
         val keyBytes: ByteArray
         val tweakBytes: ByteArray?
@@ -292,7 +292,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
      * @throws DataLengthException if either the input or output is not block sized.
      * @throws IllegalStateException if this engine is not initialised.
      */
-    @Throws(DataLengthException::class, IllegalStateException::class)
+    @Suppress("ThrowsCount")
     fun processBlock(input: LongArray, out: LongArray): Int {
         if (kw[blocksizeWords] == 0L) {
             throw IllegalStateException("Threefish engine not initialised")
@@ -332,11 +332,12 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             val mod5 = MOD5
             val mod3 = MOD3
 
-            /* Help the JIT avoid index bounds checks */if (kw.size != 9) {
-                throw IllegalArgumentException()
+            /* Help the JIT avoid index bounds checks */
+            if (kw.size != 9) {
+                throw IllegalArgumentException("Incorrect kw size, should be 9 but is ${kw.size}")
             }
             if (t.size != 5) {
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("Incorrect t size, should be 5 but is ${t.size}")
             }
 
             /*
@@ -349,7 +350,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * First subkey injection.
-             */b0 += kw[0]
+             */
+            b0 += kw[0]
             b1 += kw[1] + t[0]
             b2 += kw[2] + t[1]
             b3 += kw[3]
@@ -374,7 +376,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                  *
                  * Permute schedule has a 2 round cycle, so permutes are inlined in the mix
                  * operations in each 4 round block.
-                 */b1 = rotlXor(b1, ROTATION_0_0, b1.let { b0 += it; b0 })
+                 */
+                b1 = rotlXor(b1, ROTATION_0_0, b1.let { b0 += it; b0 })
                 b3 = rotlXor(b3, ROTATION_0_1, b3.let { b2 += it; b2 })
                 b3 = rotlXor(b3, ROTATION_1_0, b3.let { b0 += it; b0 })
                 b1 = rotlXor(b1, ROTATION_1_1, b1.let { b2 += it; b2 })
@@ -385,14 +388,16 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * Subkey injection for first 4 rounds.
-                 */b0 += kw[dm5]
+                 */
+                b0 += kw[dm5]
                 b1 += kw[dm5 + 1] + t[dm3]
                 b2 += kw[dm5 + 2] + t[dm3 + 1]
                 b3 += kw[dm5 + 3] + d
 
                 /*
                  * 4 more rounds of mix/permute
-                 */b1 = rotlXor(b1, ROTATION_4_0, b1.let { b0 += it; b0 })
+                 */
+                b1 = rotlXor(b1, ROTATION_4_0, b1.let { b0 += it; b0 })
                 b3 = rotlXor(b3, ROTATION_4_1, b3.let { b2 += it; b2 })
                 b3 = rotlXor(b3, ROTATION_5_0, b3.let { b0 += it; b0 })
                 b1 = rotlXor(b1, ROTATION_5_1, b1.let { b2 += it; b2 })
@@ -403,7 +408,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * Subkey injection for next 4 rounds.
-                 */b0 += kw[dm5 + 1]
+                 */
+                b0 += kw[dm5 + 1]
                 b1 += kw[dm5 + 2] + t[dm3 + 1]
                 b2 += kw[dm5 + 3] + t[dm3 + 2]
                 b3 += kw[dm5 + 4] + d + 1
@@ -412,7 +418,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * Output cipher state.
-             */out[0] = b0
+             */
+            out[0] = b0
             out[1] = b1
             out[2] = b2
             out[3] = b3
@@ -424,11 +431,12 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             val mod5 = MOD5
             val mod3 = MOD3
 
-            /* Help the JIT avoid index bounds checks */if (kw.size != 9) {
-                throw IllegalArgumentException()
+            /* Help the JIT avoid index bounds checks */
+            if (kw.size != 9) {
+                throw IllegalArgumentException("Incorrect kw size, should be 9 but is ${kw.size}")
             }
             if (t.size != 5) {
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("Incorrect t size, should be 5 but is ${t.size}")
             }
             var b0 = block[0]
             var b1 = block[1]
@@ -530,11 +538,12 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             val mod9 = MOD9
             val mod3 = MOD3
 
-            /* Help the JIT avoid index bounds checks */if (kw.size != 17) {
-                throw IllegalArgumentException()
+            /* Help the JIT avoid index bounds checks */
+            if (kw.size != 17) {
+                throw IllegalArgumentException("Incorrect kw size, should be 17 but is ${kw.size}")
             }
             if (t.size != 5) {
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("Incorrect t size, should be 5 but is ${t.size}")
             }
 
             /*
@@ -658,11 +667,12 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             val mod9 = MOD9
             val mod3 = MOD3
 
-            /* Help the JIT avoid index bounds checks */if (kw.size != 17) {
-                throw IllegalArgumentException()
+            /* Help the JIT avoid index bounds checks */
+            if (kw.size != 17) {
+                throw IllegalArgumentException("Incorrect kw size, should be 17 but is ${t.size}")
             }
             if (t.size != 5) {
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("Incorrect t size, should be 5 but is ${t.size}")
             }
             var b0 = block[0]
             var b1 = block[1]
@@ -832,11 +842,12 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             val mod17 = MOD17
             val mod3 = MOD3
 
-            /* Help the JIT avoid index bounds checks */if (kw.size != 33) {
-                throw IllegalArgumentException()
+            /* Help the JIT avoid index bounds checks */
+            if (kw.size != 33) {
+                throw IllegalArgumentException("Incorrect kw size, should be 33 but is ${kw.size}")
             }
             if (t.size != 5) {
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("Incorrect t size, should be 5 but is ${t.size}")
             }
 
             /*
@@ -1032,11 +1043,12 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             val mod17 = MOD17
             val mod3 = MOD3
 
-            /* Help the JIT avoid index bounds checks */if (kw.size != 33) {
-                throw IllegalArgumentException()
+            /* Help the JIT avoid index bounds checks */
+            if (kw.size != 33) {
+                throw IllegalArgumentException("Incorrect kw size, should be 33 but is ${kw.size}")
             }
             if (t.size != 5) {
-                throw IllegalArgumentException()
+                throw IllegalArgumentException("Incorrect t size, should be 5 but is ${t.size}")
             }
             var b0 = block[0]
             var b1 = block[1]

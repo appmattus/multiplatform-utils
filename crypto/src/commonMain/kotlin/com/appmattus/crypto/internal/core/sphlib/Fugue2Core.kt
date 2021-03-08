@@ -33,7 +33,7 @@ import com.appmattus.crypto.internal.core.encodeBEInt
  */
 internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
 
-    @Suppress("NAME_SHADOWING")
+    @Suppress("NAME_SHADOWING", "ReturnCount")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
