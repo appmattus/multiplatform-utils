@@ -37,6 +37,7 @@ import com.appmattus.crypto.internal.core.decodeLEInt
  * @version $Revision: 231 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("TooManyFunctions")
 internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor() : Digest<D> {
     private var outSizeW32 = 0
     private val buf: ByteArray = ByteArray(64)

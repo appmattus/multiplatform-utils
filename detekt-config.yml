@@ -22,4 +22,4 @@ complexity:
     ComplexMethod:
         excludes: "**/internal/core/**"
     TooManyFunctions:
-        excludes: "**/internal/core/**,**/commonTest/**/internal/**"
+        excludes: "**/commonTest/**/internal/**"

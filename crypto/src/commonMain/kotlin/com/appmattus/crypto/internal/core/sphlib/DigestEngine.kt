@@ -41,6 +41,7 @@ import com.appmattus.crypto.Digest
  * @version $Revision: 229 $
  * @author Thomas Pornin &lt;thomas.pornin@cryptolog.com&gt;
  */
+@Suppress("TooManyFunctions")
 internal abstract class DigestEngine<D : DigestEngine<D>> : Digest<D> {
     /**
      * Reset the hash algorithm state.

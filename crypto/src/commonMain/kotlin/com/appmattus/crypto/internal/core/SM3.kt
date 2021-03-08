@@ -22,6 +22,7 @@ import com.appmattus.crypto.internal.core.sphlib.MDHelper
 /**
  * This class implements the SM3 digest algorithm.
  */
+@Suppress("TooManyFunctions")
 internal class SM3 : MDHelper<SM3>(false, 8) {
 
     private lateinit var currentVal: IntArray
