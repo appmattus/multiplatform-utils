@@ -34,7 +34,7 @@ import com.appmattus.crypto.internal.core.encodeBEInt
 @Suppress("MagicNumber")
 internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
 
-    @Suppress("NAME_SHADOWING", "ReturnCount")
+    @Suppress("NAME_SHADOWING", "ReturnCount", "ComplexMethod")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
@@ -321,7 +321,8 @@ internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
         }
         while (true) {
 
-            /* ================ */s[10] = s[10] xor s[0]
+            /* ================ */
+            s[10] = s[10] xor s[0]
             s[0] = w
             s[8] = s[8] xor s[0]
             s[1] = s[1] xor s[24]
@@ -348,7 +349,8 @@ internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[4] = s[4] xor s[24]
+            /* ================ */
+            s[4] = s[4] xor s[24]
             s[24] = w
             s[2] = s[2] xor s[24]
             s[25] = s[25] xor s[18]
@@ -375,7 +377,8 @@ internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[28] = s[28] xor s[18]
+            /* ================ */
+            s[28] = s[28] xor s[18]
             s[18] = w
             s[26] = s[26] xor s[18]
             s[19] = s[19] xor s[12]
@@ -402,7 +405,8 @@ internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[22] = s[22] xor s[12]
+            /* ================ */
+            s[22] = s[22] xor s[12]
             s[12] = w
             s[20] = s[20] xor s[12]
             s[13] = s[13] xor s[6]
@@ -429,7 +433,8 @@ internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[16] = s[16] xor s[6]
+            /* ================ */
+            s[16] = s[16] xor s[6]
             s[6] = w
             s[14] = s[14] xor s[6]
             s[7] = s[7] xor s[0]

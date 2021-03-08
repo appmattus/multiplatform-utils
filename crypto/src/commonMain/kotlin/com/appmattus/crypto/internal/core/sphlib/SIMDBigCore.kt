@@ -90,7 +90,7 @@ internal abstract class SIMDBigCore<D : SIMDBigCore<D>> : DigestEngine<D>() {
         compress(data, false)
     }
 
-    @Suppress("LocalVariableName", "VariableNaming")
+    @Suppress("LocalVariableName", "VariableNaming", "ComplexMethod")
     private fun fft64(x: ByteArray, xb: Int, xs: Int, qoff: Int) {
         val xd = xs shl 1
         run {
@@ -1023,6 +1023,7 @@ internal abstract class SIMDBigCore<D : SIMDBigCore<D>> : DigestEngine<D>() {
         state[15] = tA[7]
     }
 
+    @Suppress("ComplexMethod")
     private fun compress(x: ByteArray, last: Boolean) {
         var tmp: Int
         fft64(x, 0 + 1 * 0, 1 shl 2, 0 + 0)

@@ -12,7 +12,8 @@ fun testKat(dig: Digest<*>, data: ByteArray, ref: String) {
 
     /*
      * Now the update() API; this also exercises auto-reset.
-     */for (i in data.indices) dig.update(data[i])
+     */
+    for (i in data.indices) dig.update(data[i])
     kotlin.test.assertEquals(ref.toLowerCase(), dig.digest().toHexString().toLowerCase())
 
     /*

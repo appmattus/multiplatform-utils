@@ -250,7 +250,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
         /*
          * Tweak schedule partially repeated to avoid mod computations during cipher operation
-         */t[0] = tweak[0]
+         */
+        t[0] = tweak[0]
         t[1] = tweak[1]
         t[2] = t[0] xor t[1]
         t[3] = t[0]
@@ -327,6 +328,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     }
 
     private class Threefish256Cipher(kw: LongArray, t: LongArray) : ThreefishCipher(kw, t) {
+        @Suppress("ComplexMethod")
         override fun encryptBlock(block: LongArray, out: LongArray) {
             val kw = kw
             val t = t
@@ -448,12 +450,14 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 val dm5 = mod5[d]
                 val dm3 = mod3[d]
 
-                /* Reverse key injection for second 4 rounds */b0 -= kw[dm5 + 1]
+                /* Reverse key injection for second 4 rounds */
+                b0 -= kw[dm5 + 1]
                 b1 -= kw[dm5 + 2] + t[dm3 + 1]
                 b2 -= kw[dm5 + 3] + t[dm3 + 2]
                 b3 -= kw[dm5 + 4] + d + 1
 
-                /* Reverse second 4 mix/permute rounds */b3 = xorRotr(b3, ROTATION_7_0, b0)
+                /* Reverse second 4 mix/permute rounds */
+                b3 = xorRotr(b3, ROTATION_7_0, b0)
                 b0 -= b3
                 b1 = xorRotr(b1, ROTATION_7_1, b2)
                 b2 -= b1
@@ -470,12 +474,14 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b3 = xorRotr(b3, ROTATION_4_1, b2)
                 b2 -= b3
 
-                /* Reverse key injection for first 4 rounds */b0 -= kw[dm5]
+                /* Reverse key injection for first 4 rounds */
+                b0 -= kw[dm5]
                 b1 -= kw[dm5 + 1] + t[dm3]
                 b2 -= kw[dm5 + 2] + t[dm3 + 1]
                 b3 -= kw[dm5 + 3] + d
 
-                /* Reverse first 4 mix/permute rounds */b3 = xorRotr(b3, ROTATION_3_0, b0)
+                /* Reverse first 4 mix/permute rounds */
+                b3 = xorRotr(b3, ROTATION_3_0, b0)
                 b0 -= b3
                 b1 = xorRotr(b1, ROTATION_3_1, b2)
                 b2 -= b1
@@ -496,14 +502,16 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * First subkey uninjection.
-             */b0 -= kw[0]
+             */
+            b0 -= kw[0]
             b1 -= kw[1] + t[0]
             b2 -= kw[2] + t[1]
             b3 -= kw[3]
 
             /*
              * Output cipher state.
-             */state[0] = b0
+             */
+            state[0] = b0
             state[1] = b1
             state[2] = b2
             state[3] = b3
@@ -533,6 +541,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     }
 
     private class Threefish512Cipher(kw: LongArray, t: LongArray) : ThreefishCipher(kw, t) {
+        @Suppress("ComplexMethod")
         override fun encryptBlock(block: LongArray, out: LongArray) {
             val kw = kw
             val t = t
@@ -561,7 +570,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * First subkey injection.
-             */b0 += kw[0]
+             */
+            b0 += kw[0]
             b1 += kw[1]
             b2 += kw[2]
             b3 += kw[3]
@@ -590,7 +600,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                  *
                  * Permute schedule has a 4 round cycle, so permutes are inlined in the mix
                  * operations in each 4 round block.
-                 */b1 = rotlXor(b1, ROTATION_0_0, b1.let { b0 += it; b0 })
+                 */
+                b1 = rotlXor(b1, ROTATION_0_0, b1.let { b0 += it; b0 })
                 b3 = rotlXor(b3, ROTATION_0_1, b3.let { b2 += it; b2 })
                 b5 = rotlXor(b5, ROTATION_0_2, b5.let { b4 += it; b4 })
                 b7 = rotlXor(b7, ROTATION_0_3, b7.let { b6 += it; b6 })
@@ -609,7 +620,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * Subkey injection for first 4 rounds.
-                 */b0 += kw[dm9]
+                 */
+                b0 += kw[dm9]
                 b1 += kw[dm9 + 1]
                 b2 += kw[dm9 + 2]
                 b3 += kw[dm9 + 3]
@@ -620,7 +632,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * 4 more rounds of mix/permute
-                 */b1 = rotlXor(b1, ROTATION_4_0, b1.let { b0 += it; b0 })
+                 */
+                b1 = rotlXor(b1, ROTATION_4_0, b1.let { b0 += it; b0 })
                 b3 = rotlXor(b3, ROTATION_4_1, b3.let { b2 += it; b2 })
                 b5 = rotlXor(b5, ROTATION_4_2, b5.let { b4 += it; b4 })
                 b7 = rotlXor(b7, ROTATION_4_3, b7.let { b6 += it; b6 })
@@ -639,7 +652,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * Subkey injection for next 4 rounds.
-                 */b0 += kw[dm9 + 1]
+                 */
+                b0 += kw[dm9 + 1]
                 b1 += kw[dm9 + 2]
                 b2 += kw[dm9 + 3]
                 b3 += kw[dm9 + 4]
@@ -652,7 +666,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * Output cipher state.
-             */out[0] = b0
+             */
+            out[0] = b0
             out[1] = b1
             out[2] = b2
             out[3] = b3
@@ -688,7 +703,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 val dm9 = mod9[d]
                 val dm3 = mod3[d]
 
-                /* Reverse key injection for second 4 rounds */b0 -= kw[dm9 + 1]
+                /* Reverse key injection for second 4 rounds */
+                b0 -= kw[dm9 + 1]
                 b1 -= kw[dm9 + 2]
                 b2 -= kw[dm9 + 3]
                 b3 -= kw[dm9 + 4]
@@ -697,7 +713,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b6 -= kw[dm9 + 7] + t[dm3 + 2]
                 b7 -= kw[dm9 + 8] + d + 1
 
-                /* Reverse second 4 mix/permute rounds */b1 = xorRotr(b1, ROTATION_7_0, b6)
+                /* Reverse second 4 mix/permute rounds */
+                b1 = xorRotr(b1, ROTATION_7_0, b6)
                 b6 -= b1
                 b7 = xorRotr(b7, ROTATION_7_1, b0)
                 b0 -= b7
@@ -730,7 +747,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b7 = xorRotr(b7, ROTATION_4_3, b6)
                 b6 -= b7
 
-                /* Reverse key injection for first 4 rounds */b0 -= kw[dm9]
+                /* Reverse key injection for first 4 rounds */
+                b0 -= kw[dm9]
                 b1 -= kw[dm9 + 1]
                 b2 -= kw[dm9 + 2]
                 b3 -= kw[dm9 + 3]
@@ -739,7 +757,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b6 -= kw[dm9 + 6] + t[dm3 + 1]
                 b7 -= kw[dm9 + 7] + d
 
-                /* Reverse first 4 mix/permute rounds */b1 = xorRotr(b1, ROTATION_3_0, b6)
+                /* Reverse first 4 mix/permute rounds */
+                b1 = xorRotr(b1, ROTATION_3_0, b6)
                 b6 -= b1
                 b7 = xorRotr(b7, ROTATION_3_1, b0)
                 b0 -= b7
@@ -776,7 +795,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * First subkey uninjection.
-             */b0 -= kw[0]
+             */
+            b0 -= kw[0]
             b1 -= kw[1]
             b2 -= kw[2]
             b3 -= kw[3]
@@ -787,7 +807,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * Output cipher state.
-             */state[0] = b0
+             */
+            state[0] = b0
             state[1] = b1
             state[2] = b2
             state[3] = b3
@@ -837,6 +858,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     }
 
     private class Threefish1024Cipher(kw: LongArray, t: LongArray) : ThreefishCipher(kw, t) {
+        @Suppress("ComplexMethod")
         override fun encryptBlock(block: LongArray, out: LongArray) {
             val kw = kw
             val t = t
@@ -873,7 +895,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * First subkey injection.
-             */b0 += kw[0]
+             */
+            b0 += kw[0]
             b1 += kw[1]
             b2 += kw[2]
             b3 += kw[3]
@@ -910,7 +933,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                  *
                  * Permute schedule has a 4 round cycle, so permutes are inlined in the mix
                  * operations in each 4 round block.
-                 */b1 = rotlXor(b1, ROTATION_0_0, b1.let { b0 += it; b0 })
+                 */
+                b1 = rotlXor(b1, ROTATION_0_0, b1.let { b0 += it; b0 })
                 b3 = rotlXor(b3, ROTATION_0_1, b3.let { b2 += it; b2 })
                 b5 = rotlXor(b5, ROTATION_0_2, b5.let { b4 += it; b4 })
                 b7 = rotlXor(b7, ROTATION_0_3, b7.let { b6 += it; b6 })
@@ -945,7 +969,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * Subkey injection for first 4 rounds.
-                 */b0 += kw[dm17]
+                 */
+                b0 += kw[dm17]
                 b1 += kw[dm17 + 1]
                 b2 += kw[dm17 + 2]
                 b3 += kw[dm17 + 3]
@@ -964,7 +989,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * 4 more rounds of mix/permute
-                 */b1 = rotlXor(b1, ROTATION_4_0, b1.let { b0 += it; b0 })
+                 */
+                b1 = rotlXor(b1, ROTATION_4_0, b1.let { b0 += it; b0 })
                 b3 = rotlXor(b3, ROTATION_4_1, b3.let { b2 += it; b2 })
                 b5 = rotlXor(b5, ROTATION_4_2, b5.let { b4 += it; b4 })
                 b7 = rotlXor(b7, ROTATION_4_3, b7.let { b6 += it; b6 })
@@ -999,7 +1025,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
                 /*
                  * Subkey injection for next 4 rounds.
-                 */b0 += kw[dm17 + 1]
+                 */
+                b0 += kw[dm17 + 1]
                 b1 += kw[dm17 + 2]
                 b2 += kw[dm17 + 3]
                 b3 += kw[dm17 + 4]
@@ -1020,7 +1047,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * Output cipher state.
-             */out[0] = b0
+             */
+            out[0] = b0
             out[1] = b1
             out[2] = b2
             out[3] = b3
@@ -1072,7 +1100,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 val dm17 = mod17[d]
                 val dm3 = mod3[d]
 
-                /* Reverse key injection for second 4 rounds */b0 -= kw[dm17 + 1]
+                /* Reverse key injection for second 4 rounds */
+                b0 -= kw[dm17 + 1]
                 b1 -= kw[dm17 + 2]
                 b2 -= kw[dm17 + 3]
                 b3 -= kw[dm17 + 4]
@@ -1089,7 +1118,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b14 -= kw[dm17 + 15] + t[dm3 + 2]
                 b15 -= kw[dm17 + 16] + d + 1
 
-                /* Reverse second 4 mix/permute rounds */b15 = xorRotr(b15, ROTATION_7_0, b0)
+                /* Reverse second 4 mix/permute rounds */
+                b15 = xorRotr(b15, ROTATION_7_0, b0)
                 b0 -= b15
                 b11 = xorRotr(b11, ROTATION_7_1, b2)
                 b2 -= b11
@@ -1154,7 +1184,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b15 = xorRotr(b15, ROTATION_4_7, b14)
                 b14 -= b15
 
-                /* Reverse key injection for first 4 rounds */b0 -= kw[dm17]
+                /* Reverse key injection for first 4 rounds */
+                b0 -= kw[dm17]
                 b1 -= kw[dm17 + 1]
                 b2 -= kw[dm17 + 2]
                 b3 -= kw[dm17 + 3]
@@ -1171,7 +1202,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
                 b14 -= kw[dm17 + 14] + t[dm3 + 1]
                 b15 -= kw[dm17 + 15] + d
 
-                /* Reverse first 4 mix/permute rounds */b15 = xorRotr(b15, ROTATION_3_0, b0)
+                /* Reverse first 4 mix/permute rounds */
+                b15 = xorRotr(b15, ROTATION_3_0, b0)
                 b0 -= b15
                 b11 = xorRotr(b11, ROTATION_3_1, b2)
                 b2 -= b11
@@ -1240,7 +1272,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * First subkey uninjection.
-             */b0 -= kw[0]
+             */
+            b0 -= kw[0]
             b1 -= kw[1]
             b2 -= kw[2]
             b3 -= kw[3]
@@ -1259,7 +1292,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
 
             /*
              * Output cipher state.
-             */state[0] = b0
+             */
+            state[0] = b0
             state[1] = b1
             state[2] = b2
             state[3] = b3
@@ -1356,7 +1390,8 @@ internal class ThreefishEngine(blocksizeBits: Int) {
         /*
          * Provide room for original key words, extended key word and repeat of key words for modulo
          * free lookup of key schedule words.
-         */kw = LongArray(2 * blocksizeWords + 1)
+         */
+        kw = LongArray(2 * blocksizeWords + 1)
         cipher = when (blocksizeBits) {
             BLOCKSIZE_256 -> Threefish256Cipher(
                 kw,

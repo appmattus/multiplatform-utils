@@ -15,7 +15,8 @@ class HMACTest {
 
         /*
 		 * From RFC 2104.
-		 */hmac = HMAC(
+		 */
+        hmac = HMAC(
             MD5(),
             strtobin("0B0B0B0B0B0B0B0B0B0B0B0B0B0B0B0B")
         )
@@ -53,7 +54,8 @@ class HMACTest {
 
         /*
 		 * From FIPS 198a.
-		 */hmac = HMAC(
+		 */
+        hmac = HMAC(
             SHA1(),
             strtobin(
                 "000102030405060708090A0B0C0D0E0F101112131" +
@@ -111,7 +113,8 @@ class HMACTest {
 
         /*
 		 * From Blue Midnight Wish specification.
-		 */hmac = HMAC(
+		 */
+        hmac = HMAC(
             BMW224(),
             strtobin("000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F")
         )

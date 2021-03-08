@@ -19,7 +19,5 @@ complexity:
         excludes: "**/internal/core/**,**/commonTest/**/internal/**"
     LongMethod:
         excludes: "**/internal/core/**,**/commonTest/**/internal/**"
-    ComplexMethod:
-        excludes: "**/internal/core/**"
     TooManyFunctions:
         excludes: "**/commonTest/**/internal/**"

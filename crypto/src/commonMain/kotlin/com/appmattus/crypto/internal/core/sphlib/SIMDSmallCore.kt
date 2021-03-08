@@ -432,7 +432,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         tA[3] = circularLeftInt(state[3], p0)
         tmp = (state[12] + w[16] +
                 (state[0] and state[4]
-                or (state[0] or state[4] and state[8])))
+                        or (state[0] or state[4] and state[8])))
         state[0] =
             circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 0]
         state[12] = state[8]
@@ -440,7 +440,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[4] = tA[0]
         tmp = (state[13] + w[17] +
                 (state[1] and state[5]
-                or (state[1] or state[5] and state[9])))
+                        or (state[1] or state[5] and state[9])))
         state[1] =
             circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 1]
         state[13] = state[9]
@@ -448,7 +448,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[5] = tA[1]
         tmp = (state[14] + w[18] +
                 (state[2] and state[6]
-                or (state[2] or state[6] and state[10])))
+                        or (state[2] or state[6] and state[10])))
         state[2] =
             circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 2]
         state[14] = state[10]
@@ -456,7 +456,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[6] = tA[2]
         tmp = (state[15] + w[19] +
                 (state[3] and state[7]
-                or (state[3] or state[7] and state[11])))
+                        or (state[3] or state[7] and state[11])))
         state[3] =
             circularLeftInt(tmp, p1) + tA[pp4k[isp + 4] xor 3]
         state[15] = state[11]
@@ -468,7 +468,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         tA[3] = circularLeftInt(state[3], p1)
         tmp = (state[12] + w[20] +
                 (state[0] and state[4]
-                or (state[0] or state[4] and state[8])))
+                        or (state[0] or state[4] and state[8])))
         state[0] =
             circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 0]
         state[12] = state[8]
@@ -476,7 +476,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[4] = tA[0]
         tmp = (state[13] + w[21] +
                 (state[1] and state[5]
-                or (state[1] or state[5] and state[9])))
+                        or (state[1] or state[5] and state[9])))
         state[1] =
             circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 1]
         state[13] = state[9]
@@ -484,7 +484,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[5] = tA[1]
         tmp = (state[14] + w[22] +
                 (state[2] and state[6]
-                or (state[2] or state[6] and state[10])))
+                        or (state[2] or state[6] and state[10])))
         state[2] =
             circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 2]
         state[14] = state[10]
@@ -492,7 +492,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[6] = tA[2]
         tmp = (state[15] + w[23] +
                 (state[3] and state[7]
-                or (state[3] or state[7] and state[11])))
+                        or (state[3] or state[7] and state[11])))
         state[3] =
             circularLeftInt(tmp, p2) + tA[pp4k[isp + 5] xor 3]
         state[15] = state[11]
@@ -504,7 +504,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         tA[3] = circularLeftInt(state[3], p2)
         tmp = (state[12] + w[24] +
                 (state[0] and state[4]
-                or (state[0] or state[4] and state[8])))
+                        or (state[0] or state[4] and state[8])))
         state[0] =
             circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 0]
         state[12] = state[8]
@@ -512,7 +512,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[4] = tA[0]
         tmp = (state[13] + w[25] +
                 (state[1] and state[5]
-                or (state[1] or state[5] and state[9])))
+                        or (state[1] or state[5] and state[9])))
         state[1] =
             circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 1]
         state[13] = state[9]
@@ -520,7 +520,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[5] = tA[1]
         tmp = (state[14] + w[26] +
                 (state[2] and state[6]
-                or (state[2] or state[6] and state[10])))
+                        or (state[2] or state[6] and state[10])))
         state[2] =
             circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 2]
         state[14] = state[10]
@@ -528,7 +528,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[6] = tA[2]
         tmp = (state[15] + w[27] +
                 (state[3] and state[7]
-                or (state[3] or state[7] and state[11])))
+                        or (state[3] or state[7] and state[11])))
         state[3] =
             circularLeftInt(tmp, p3) + tA[pp4k[isp + 6] xor 3]
         state[15] = state[11]
@@ -540,7 +540,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         tA[3] = circularLeftInt(state[3], p3)
         tmp = (state[12] + w[28] +
                 (state[0] and state[4]
-                or (state[0] or state[4] and state[8])))
+                        or (state[0] or state[4] and state[8])))
         state[0] =
             circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 0]
         state[12] = state[8]
@@ -548,7 +548,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[4] = tA[0]
         tmp = (state[13] + w[29] +
                 (state[1] and state[5]
-                or (state[1] or state[5] and state[9])))
+                        or (state[1] or state[5] and state[9])))
         state[1] =
             circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 1]
         state[13] = state[9]
@@ -556,7 +556,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[5] = tA[1]
         tmp = (state[14] + w[30] +
                 (state[2] and state[6]
-                or (state[2] or state[6] and state[10])))
+                        or (state[2] or state[6] and state[10])))
         state[2] =
             circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 2]
         state[14] = state[10]
@@ -564,7 +564,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[6] = tA[2]
         tmp = (state[15] + w[31] +
                 (state[3] and state[7]
-                or (state[3] or state[7] and state[11])))
+                        or (state[3] or state[7] and state[11])))
         state[3] =
             circularLeftInt(tmp, p0) + tA[pp4k[isp + 7] xor 3]
         state[15] = state[11]
@@ -572,7 +572,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[7] = tA[3]
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "ComplexMethod")
     private fun compress(x: ByteArray, last: Boolean) {
         fft32(x, 0 + 1 * 0, 1 shl 2, 0 + 0)
         fft32(x, 0 + 1 * 2, 1 shl 2, 0 + 32)

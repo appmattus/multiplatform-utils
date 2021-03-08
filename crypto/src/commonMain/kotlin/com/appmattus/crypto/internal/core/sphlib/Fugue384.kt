@@ -42,7 +42,7 @@ internal class Fugue384 : FugueCore<Fugue384>() {
         return Fugue384()
     }
 
-    @Suppress("NAME_SHADOWING", "ReturnCount")
+    @Suppress("NAME_SHADOWING", "ReturnCount", "ComplexMethod")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
@@ -267,7 +267,8 @@ internal class Fugue384 : FugueCore<Fugue384>() {
         }
         while (true) {
 
-            /* ================ */s[16] = s[16] xor s[0]
+            /* ================ */
+                s[16] = s[16] xor s[0]
             s[0] = w
             s[8] = s[8] xor s[0]
             s[1] = s[1] xor s[27]
@@ -302,7 +303,8 @@ internal class Fugue384 : FugueCore<Fugue384>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[7] = s[7] xor s[27]
+            /* ================ */
+            s[7] = s[7] xor s[27]
             s[27] = w
             s[35] = s[35] xor s[27]
             s[28] = s[28] xor s[18]
@@ -337,7 +339,8 @@ internal class Fugue384 : FugueCore<Fugue384>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[34] = s[34] xor s[18]
+            /* ================ */
+            s[34] = s[34] xor s[18]
             s[18] = w
             s[26] = s[26] xor s[18]
             s[19] = s[19] xor s[9]
@@ -372,7 +375,8 @@ internal class Fugue384 : FugueCore<Fugue384>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[25] = s[25] xor s[9]
+            /* ================ */
+            s[25] = s[25] xor s[9]
             s[9] = w
             s[17] = s[17] xor s[9]
             s[10] = s[10] xor s[0]

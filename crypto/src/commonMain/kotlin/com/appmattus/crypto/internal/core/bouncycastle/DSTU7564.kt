@@ -192,7 +192,8 @@ internal class DSTU7564 : Digest<DSTU7564> {
         for (round in 0 until rounds) {
             var rc = round.toLong()
 
-            /* AddRoundConstants */for (col in 0 until columns) {
+            /* AddRoundConstants */
+            for (col in 0 until columns) {
                 s[col] = s[col] xor rc
                 rc += 0x10L
             }

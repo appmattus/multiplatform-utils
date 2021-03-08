@@ -73,7 +73,8 @@ internal class HMAC : DigestEngine<HMAC> {
         /*
 		 * Newly created arrays are guaranteed filled with zeroes,
 		 * hence the key padding is already done.
-		 */processKey(keyB)
+		 */
+        processKey(keyB)
         outputLength = -1
         tmpOut = ByteArray(dig.digestLength)
         reset()

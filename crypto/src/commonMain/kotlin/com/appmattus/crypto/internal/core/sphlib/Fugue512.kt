@@ -184,7 +184,8 @@ internal class Fugue512 : FugueCore<Fugue512>() {
         }
         while (true) {
 
-            /* ================ */s[22] = s[22] xor s[0]
+            /* ================ */
+            s[22] = s[22] xor s[0]
             s[0] = w
             s[8] = s[8] xor s[0]
             s[1] = s[1] xor s[24]
@@ -227,7 +228,8 @@ internal class Fugue512 : FugueCore<Fugue512>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[10] = s[10] xor s[24]
+            /* ================ */
+            s[10] = s[10] xor s[24]
             s[24] = w
             s[32] = s[32] xor s[24]
             s[25] = s[25] xor s[12]
@@ -270,7 +272,8 @@ internal class Fugue512 : FugueCore<Fugue512>() {
                     or (buf[off + 2].toInt() and 0xFF shl 8)
                     or (buf[off + 3].toInt() and 0xFF))
             off += 4
-            /* ================ */s[34] = s[34] xor s[12]
+            /* ================ */
+            s[34] = s[34] xor s[12]
             s[12] = w
             s[20] = s[20] xor s[12]
             s[13] = s[13] xor s[0]

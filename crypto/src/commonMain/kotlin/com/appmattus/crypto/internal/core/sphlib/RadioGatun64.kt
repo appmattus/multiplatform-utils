@@ -79,6 +79,7 @@ internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
         engineReset()
     }
 
+    @Suppress("ComplexMethod")
     override fun processBlock(data: ByteArray) {
         var a00 = a[0]
         var a01 = a[1]
