@@ -123,11 +123,88 @@ internal object CoreDigest {
     @Suppress("MagicNumber", "LongMethod", "ComplexMethod")
     fun create(algorithm: Algorithm): Digest<*> {
         return when (algorithm) {
+            Algorithm.Adler32 -> Adler32()
+
+            Algorithm.BLAKE224 -> BLAKE224()
+            Algorithm.BLAKE256 -> BLAKE256()
+            Algorithm.BLAKE384 -> BLAKE384()
+            Algorithm.BLAKE512 -> BLAKE512()
+
+            Algorithm.BMW224 -> BMW224()
+            Algorithm.BMW256 -> BMW256()
+            Algorithm.BMW384 -> BMW384()
+            Algorithm.BMW512 -> BMW512()
+
+            Algorithm.CRC32 -> CRC32()
+
+            Algorithm.CubeHash224 -> CubeHash224()
+            Algorithm.CubeHash256 -> CubeHash256()
+            Algorithm.CubeHash384 -> CubeHash384()
+            Algorithm.CubeHash512 -> CubeHash512()
+
+            Algorithm.DSTU7564_256 -> DSTU7564(256)
+            Algorithm.DSTU7564_384 -> DSTU7564(384)
+            Algorithm.DSTU7564_512 -> DSTU7564(512)
+
+            Algorithm.ECHO224 -> ECHO224()
+            Algorithm.ECHO256 -> ECHO256()
+            Algorithm.ECHO384 -> ECHO384()
+            Algorithm.ECHO512 -> ECHO512()
+
+            Algorithm.Fugue224 -> Fugue224()
+            Algorithm.Fugue256 -> Fugue256()
+            Algorithm.Fugue384 -> Fugue384()
+            Algorithm.Fugue512 -> Fugue512()
+
+            Algorithm.GOST3411_94 -> GOST3411()
+            Algorithm.GOST3411_2012_256 -> GOST3411_2012_256()
+            Algorithm.GOST3411_2012_512 -> GOST3411_2012_512()
+
+            Algorithm.Groestl224 -> Groestl224()
+            Algorithm.Groestl256 -> Groestl256()
+            Algorithm.Groestl384 -> Groestl384()
+            Algorithm.Groestl512 -> Groestl512()
+
+            Algorithm.Hamsi224 -> Hamsi224()
+            Algorithm.Hamsi256 -> Hamsi256()
+            Algorithm.Hamsi384 -> Hamsi384()
+            Algorithm.Hamsi512 -> Hamsi512()
+
+            Algorithm.Haraka256_256 -> Haraka256_256()
+            Algorithm.Haraka512_256 -> Haraka512_256()
+
+            // Haval
+
+            Algorithm.JH224 -> JH224()
+            Algorithm.JH256 -> JH256()
+            Algorithm.JH384 -> JH384()
+            Algorithm.JH512 -> JH512()
+
+            Algorithm.Keccak224 -> Keccak224()
+            Algorithm.Keccak256 -> Keccak256()
+            Algorithm.Keccak288 -> Keccak288()
+            Algorithm.Keccak384 -> Keccak384()
+            Algorithm.Keccak512 -> Keccak512()
+
+            Algorithm.Luffa224 -> Luffa224()
+            Algorithm.Luffa256 -> Luffa256()
+            Algorithm.Luffa384 -> Luffa384()
+            Algorithm.Luffa512 -> Luffa512()
+
             Algorithm.MD2 -> MD2()
             Algorithm.MD4 -> MD4()
             Algorithm.MD5 -> MD5()
 
-            Algorithm.SM3 -> SM3()
+            Algorithm.PANAMA -> PANAMA()
+
+            Algorithm.RadioGatun32 -> RadioGatun32()
+            Algorithm.RadioGatun64 -> RadioGatun64()
+
+            Algorithm.RipeMD -> RipeMD()
+            Algorithm.RipeMD128 -> RipeMD128()
+            Algorithm.RipeMD160 -> RipeMD160()
+            Algorithm.RipeMD256 -> RipeMD256()
+            Algorithm.RipeMD320 -> RipeMD320()
 
             Algorithm.SHA_0 -> SHA0()
             Algorithm.SHA_1 -> SHA1()
@@ -143,51 +220,7 @@ internal object CoreDigest {
             Algorithm.SHA3_384 -> SHA3_384()
             Algorithm.SHA3_512 -> SHA3_512()
 
-            Algorithm.Keccak224 -> Keccak224()
-            Algorithm.Keccak256 -> Keccak256()
-            Algorithm.Keccak288 -> Keccak288()
-            Algorithm.Keccak384 -> Keccak384()
-            Algorithm.Keccak512 -> Keccak512()
-
-            Algorithm.BLAKE224 -> BLAKE224()
-            Algorithm.BLAKE256 -> BLAKE256()
-            Algorithm.BLAKE384 -> BLAKE384()
-            Algorithm.BLAKE512 -> BLAKE512()
-
-            Algorithm.BMW224 -> BMW224()
-            Algorithm.BMW256 -> BMW256()
-            Algorithm.BMW384 -> BMW384()
-            Algorithm.BMW512 -> BMW512()
-
-            Algorithm.CubeHash224 -> CubeHash224()
-            Algorithm.CubeHash256 -> CubeHash256()
-            Algorithm.CubeHash384 -> CubeHash384()
-            Algorithm.CubeHash512 -> CubeHash512()
-
-            Algorithm.ECHO224 -> ECHO224()
-            Algorithm.ECHO256 -> ECHO256()
-            Algorithm.ECHO384 -> ECHO384()
-            Algorithm.ECHO512 -> ECHO512()
-
-            Algorithm.Fugue224 -> Fugue224()
-            Algorithm.Fugue256 -> Fugue256()
-            Algorithm.Fugue384 -> Fugue384()
-            Algorithm.Fugue512 -> Fugue512()
-
-            Algorithm.Groestl224 -> Groestl224()
-            Algorithm.Groestl256 -> Groestl256()
-            Algorithm.Groestl384 -> Groestl384()
-            Algorithm.Groestl512 -> Groestl512()
-
-            Algorithm.Hamsi224 -> Hamsi224()
-            Algorithm.Hamsi256 -> Hamsi256()
-            Algorithm.Hamsi384 -> Hamsi384()
-            Algorithm.Hamsi512 -> Hamsi512()
-
-            Algorithm.Luffa224 -> Luffa224()
-            Algorithm.Luffa256 -> Luffa256()
-            Algorithm.Luffa384 -> Luffa384()
-            Algorithm.Luffa512 -> Luffa512()
+            // Shabal
 
             Algorithm.SHAvite224 -> SHAvite224()
             Algorithm.SHAvite256 -> SHAvite256()
@@ -198,36 +231,6 @@ internal object CoreDigest {
             Algorithm.SIMD256 -> SIMD256()
             Algorithm.SIMD384 -> SIMD384()
             Algorithm.SIMD512 -> SIMD512()
-
-            Algorithm.JH224 -> JH224()
-            Algorithm.JH256 -> JH256()
-            Algorithm.JH384 -> JH384()
-            Algorithm.JH512 -> JH512()
-
-            Algorithm.RadioGatun32 -> RadioGatun32()
-            Algorithm.RadioGatun64 -> RadioGatun64()
-
-            Algorithm.PANAMA -> PANAMA()
-
-            Algorithm.RipeMD -> RipeMD()
-            Algorithm.RipeMD128 -> RipeMD128()
-            Algorithm.RipeMD160 -> RipeMD160()
-            Algorithm.RipeMD256 -> RipeMD256()
-            Algorithm.RipeMD320 -> RipeMD320()
-
-            Algorithm.Tiger -> Tiger()
-            Algorithm.Tiger2 -> Tiger2()
-
-            Algorithm.Adler32 -> Adler32()
-            Algorithm.CRC32 -> CRC32()
-
-            Algorithm.GOST3411_94 -> GOST3411()
-            Algorithm.GOST3411_2012_256 -> GOST3411_2012_256()
-            Algorithm.GOST3411_2012_512 -> GOST3411_2012_512()
-
-            Algorithm.Whirlpool -> Whirlpool()
-            Algorithm.Whirlpool0 -> Whirlpool0()
-            Algorithm.WhirlpoolT -> WhirlpoolT()
 
             Algorithm.Skein256_128 -> Skein256_128()
             Algorithm.Skein256_160 -> Skein256_160()
@@ -243,12 +246,14 @@ internal object CoreDigest {
             Algorithm.Skein1024_512 -> Skein1024_512()
             Algorithm.Skein1024_1024 -> Skein1024_1024()
 
-            Algorithm.Haraka256_256 -> Haraka256_256()
-            Algorithm.Haraka512_256 -> Haraka512_256()
+            Algorithm.SM3 -> SM3()
 
-            Algorithm.DSTU7564_256 -> DSTU7564(256)
-            Algorithm.DSTU7564_384 -> DSTU7564(384)
-            Algorithm.DSTU7564_512 -> DSTU7564(512)
+            Algorithm.Tiger -> Tiger()
+            Algorithm.Tiger2 -> Tiger2()
+
+            Algorithm.Whirlpool -> Whirlpool()
+            Algorithm.Whirlpool0 -> Whirlpool0()
+            Algorithm.WhirlpoolT -> WhirlpoolT()
         }
     }
 }
