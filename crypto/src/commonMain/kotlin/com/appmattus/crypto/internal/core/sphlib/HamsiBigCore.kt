@@ -189,16 +189,8 @@ internal abstract class HamsiBigCore<D : HamsiBigCore<D>> : Digest<D> {
      */
     protected abstract fun dup(): D
 
-    private fun process(
-        b0: Int,
-        b1: Int,
-        b2: Int,
-        b3: Int,
-        b4: Int,
-        b5: Int,
-        b6: Int,
-        b7: Int
-    ) {
+    @Suppress("LongParameterList")
+    private fun process(b0: Int, b1: Int, b2: Int, b3: Int, b4: Int, b5: Int, b6: Int, b7: Int) {
         var rp = T512_0[b0]
         var m0 = rp[0x0]
         var m1 = rp[0x1]
@@ -676,16 +668,8 @@ internal abstract class HamsiBigCore<D : HamsiBigCore<D>> : Digest<D> {
         h[0x0] = h[0x0] xor m0
     }
 
-    private fun processFinal(
-        b0: Int,
-        b1: Int,
-        b2: Int,
-        b3: Int,
-        b4: Int,
-        b5: Int,
-        b6: Int,
-        b7: Int
-    ) {
+    @Suppress("LongParameterList")
+    private fun processFinal(b0: Int, b1: Int, b2: Int, b3: Int, b4: Int, b5: Int, b6: Int, b7: Int) {
         var rp = T512_0[b0]
         var m0 = rp[0x0]
         var m1 = rp[0x1]

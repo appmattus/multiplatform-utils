@@ -23,5 +23,3 @@ complexity:
         excludes: "**/internal/core/**"
     TooManyFunctions:
         excludes: "**/internal/core/**,**/commonTest/**/internal/**"
-    LongParameterList:
-        excludes: "**/internal/core/**"

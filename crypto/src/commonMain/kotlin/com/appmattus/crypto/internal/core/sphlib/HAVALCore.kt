@@ -810,66 +810,31 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
             5, 9, 14, 30, 18, 6, 28, 24, 2, 23, 16, 22, 4, 1, 25, 15
         )
 
-        private fun f1(
-            x6: Int,
-            x5: Int,
-            x4: Int,
-            x3: Int,
-            x2: Int,
-            x1: Int,
-            x0: Int
-        ): Int {
+        @Suppress("LongParameterList")
+        private fun f1(x6: Int, x5: Int, x4: Int, x3: Int, x2: Int, x1: Int, x0: Int): Int {
             return x1 and x4 xor (x2 and x5) xor (x3 and x6) xor (x0 and x1) xor x0
         }
 
-        private fun f2(
-            x6: Int,
-            x5: Int,
-            x4: Int,
-            x3: Int,
-            x2: Int,
-            x1: Int,
-            x0: Int
-        ): Int {
+        @Suppress("LongParameterList")
+        private fun f2(x6: Int, x5: Int, x4: Int, x3: Int, x2: Int, x1: Int, x0: Int): Int {
             return (x2 and (x1 and x3.inv() xor (x4 and x5) xor x6 xor x0)
                     xor (x4 and (x1 xor x5)) xor (x3 and x5 xor x0))
         }
 
-        private fun f3(
-            x6: Int,
-            x5: Int,
-            x4: Int,
-            x3: Int,
-            x2: Int,
-            x1: Int,
-            x0: Int
-        ): Int {
+        @Suppress("LongParameterList")
+        private fun f3(x6: Int, x5: Int, x4: Int, x3: Int, x2: Int, x1: Int, x0: Int): Int {
             return (x3 and (x1 and x2 xor x6 xor x0)
                     xor (x1 and x4) xor (x2 and x5) xor x0)
         }
 
-        private fun f4(
-            x6: Int,
-            x5: Int,
-            x4: Int,
-            x3: Int,
-            x2: Int,
-            x1: Int,
-            x0: Int
-        ): Int {
+        @Suppress("LongParameterList")
+        private fun f4(x6: Int, x5: Int, x4: Int, x3: Int, x2: Int, x1: Int, x0: Int): Int {
             return (x3 and (x1 and x2 xor (x4 or x6) xor x5)
                     xor (x4 and (x2.inv() and x5 xor x1 xor x6 xor x0)) xor (x2 and x6) xor x0)
         }
 
-        private fun f5(
-            x6: Int,
-            x5: Int,
-            x4: Int,
-            x3: Int,
-            x2: Int,
-            x1: Int,
-            x0: Int
-        ): Int {
+        @Suppress("LongParameterList")
+        private fun f5(x6: Int, x5: Int, x4: Int, x3: Int, x2: Int, x1: Int, x0: Int): Int {
             return (x0 and (x1 and x2 and x3 xor x5).inv()
                     xor (x1 and x4) xor (x2 and x5) xor (x3 and x6))
         }
