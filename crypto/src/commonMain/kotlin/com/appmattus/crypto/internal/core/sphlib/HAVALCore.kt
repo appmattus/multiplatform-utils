@@ -38,7 +38,12 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * @param passes         number of passes (3, 4 or 5)
  */
 @Suppress("TooManyFunctions", "MagicNumber", "LargeClass")
-internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private val passes: Int) : DigestEngine<D>() {
+internal class HAVALCore(private val outputLength: Int, private val passes: Int) : DigestEngine<HAVALCore>() {
+
+    init {
+        require(outputLength in listOf(128, 160, 192, 224, 256))
+        require(passes in listOf(3, 4, 5))
+    }
 
     /**
      * Output length, in 32-bit words (4, 5, 6, 7, or 8).
@@ -67,7 +72,7 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
      */
     private lateinit var inw: IntArray
 
-    override fun copyState(dest: D): D {
+    override fun copyState(dest: HAVALCore): HAVALCore {
         dest.s0 = s0
         dest.s1 = s1
         dest.s2 = s2
@@ -916,4 +921,9 @@ internal abstract class HAVALCore<D : HAVALCore<D>>(outputLength: Int, private v
             return x6 and 0x03E00000 or (x7 and -0x4000000) ushr 21
         }
     }
+
+    override val digestLength: Int
+        get() = outputLength shr 3
+
+    override fun copy() = copyState(HAVALCore(outputLength, passes))
 }

@@ -73,6 +73,7 @@ import com.appmattus.crypto.internal.core.sphlib.Groestl224
 import com.appmattus.crypto.internal.core.sphlib.Groestl256
 import com.appmattus.crypto.internal.core.sphlib.Groestl384
 import com.appmattus.crypto.internal.core.sphlib.Groestl512
+import com.appmattus.crypto.internal.core.sphlib.HAVALCore
 import com.appmattus.crypto.internal.core.sphlib.Hamsi224
 import com.appmattus.crypto.internal.core.sphlib.Hamsi256
 import com.appmattus.crypto.internal.core.sphlib.Hamsi384
@@ -173,7 +174,21 @@ internal object CoreDigest {
             Algorithm.Haraka256_256 -> Haraka256_256()
             Algorithm.Haraka512_256 -> Haraka512_256()
 
-            // Haval
+            Algorithm.HAVAL_3_128 -> HAVALCore(128, 3)
+            Algorithm.HAVAL_3_160 -> HAVALCore(160, 3)
+            Algorithm.HAVAL_3_192 -> HAVALCore(192, 3)
+            Algorithm.HAVAL_3_224 -> HAVALCore(224, 3)
+            Algorithm.HAVAL_3_256 -> HAVALCore(256, 3)
+            Algorithm.HAVAL_4_128 -> HAVALCore(128, 4)
+            Algorithm.HAVAL_4_160 -> HAVALCore(160, 4)
+            Algorithm.HAVAL_4_192 -> HAVALCore(192, 4)
+            Algorithm.HAVAL_4_224 -> HAVALCore(224, 4)
+            Algorithm.HAVAL_4_256 -> HAVALCore(256, 4)
+            Algorithm.HAVAL_5_128 -> HAVALCore(128, 5)
+            Algorithm.HAVAL_5_160 -> HAVALCore(160, 5)
+            Algorithm.HAVAL_5_192 -> HAVALCore(192, 5)
+            Algorithm.HAVAL_5_224 -> HAVALCore(224, 5)
+            Algorithm.HAVAL_5_256 -> HAVALCore(256, 5)
 
             Algorithm.JH224 -> JH224()
             Algorithm.JH256 -> JH256()

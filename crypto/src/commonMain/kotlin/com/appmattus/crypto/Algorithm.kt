@@ -68,7 +68,21 @@ enum class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     Haraka256_256("Haraka-256", 32),
     Haraka512_256("Haraka-512", 64),
 
-    // Haval
+    HAVAL_3_128("HAVAL-3-128", 128),
+    HAVAL_3_160("HAVAL-3-160", 128),
+    HAVAL_3_192("HAVAL-3-192", 128),
+    HAVAL_3_224("HAVAL-3-224", 128),
+    HAVAL_3_256("HAVAL-3-256", 128),
+    HAVAL_4_128("HAVAL-4-128", 128),
+    HAVAL_4_160("HAVAL-4-160", 128),
+    HAVAL_4_192("HAVAL-4-192", 128),
+    HAVAL_4_224("HAVAL-4-224", 128),
+    HAVAL_4_256("HAVAL-4-256", 128),
+    HAVAL_5_128("HAVAL-5-128", 128),
+    HAVAL_5_160("HAVAL-5-160", 128),
+    HAVAL_5_192("HAVAL-5-192", 128),
+    HAVAL_5_224("HAVAL-5-224", 128),
+    HAVAL_5_256("HAVAL-5-256", 128),
 
     JH224("JH-224", 64),
     JH256("JH-256", 64),
