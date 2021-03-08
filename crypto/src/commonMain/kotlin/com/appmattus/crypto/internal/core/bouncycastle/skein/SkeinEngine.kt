@@ -124,17 +124,17 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         /**
          * 256 bit block size - Skein 256
          */
-        val SKEIN_256: Int = ThreefishEngine.BLOCKSIZE_256
+        private const val SKEIN_256: Int = ThreefishEngine.BLOCKSIZE_256
 
         /**
          * 512 bit block size - Skein 512
          */
-        val SKEIN_512: Int = ThreefishEngine.BLOCKSIZE_512
+        private const val SKEIN_512: Int = ThreefishEngine.BLOCKSIZE_512
 
         /**
          * 1024 bit block size - Skein 1024
          */
-        val SKEIN_1024: Int = ThreefishEngine.BLOCKSIZE_1024
+        private const val SKEIN_1024: Int = ThreefishEngine.BLOCKSIZE_1024
 
         /**
          * The parameter type for the Skein key.
@@ -192,7 +192,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
                 var hole = i
                 while (hole > 0 && param!!.type < params[hole - 1]!!.type) {
                     params[hole] = params[hole - 1]
-                    hole = hole - 1
+                    hole -= 1
                 }
                 params[hole] = param
             }
@@ -549,7 +549,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
     /**
      * Size of the digest output, in bytes
      */
-    val outputSize: Int
+    private val outputSize: Int
 
     /**
      * The current chaining/state value
@@ -613,7 +613,7 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         copyIn(other)
     }
 
-    val blockSize: Int
+    private val blockSize: Int
         get() = threefish.blockSize
 
     /**
@@ -646,12 +646,10 @@ internal class SkeinEngine(blockSizeBits: Int, outputSizeBits: Int) {
         val post = arrayListOf<Parameter>()
         keys.forEach { type ->
             val value = parameters[type] as ByteArray
-            if (type == PARAM_TYPE_KEY) {
-                key = value
-            } else if (type < PARAM_TYPE_MESSAGE) {
-                pre.add(Parameter(type, value))
-            } else {
-                post.add(Parameter(type, value))
+            when {
+                type == PARAM_TYPE_KEY -> key = value
+                type < PARAM_TYPE_MESSAGE -> pre.add(Parameter(type, value))
+                else -> post.add(Parameter(type, value))
             }
         }
         preMessageParameters = pre.toTypedArray()

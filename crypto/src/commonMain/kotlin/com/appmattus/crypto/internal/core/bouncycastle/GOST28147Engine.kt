@@ -132,6 +132,7 @@ internal class GOST28147Engine {
         return circularLeftInt(om, 11)
     }
 
+    @Suppress("NestedBlockDepth")
     private fun gost28147(
         workingKey: IntArray,
         input: ByteArray,
@@ -145,30 +146,30 @@ internal class GOST28147Engine {
         n1 = decodeLEInt(input, inOff)
         n2 = decodeLEInt(input, inOff + 4)
         if (forEncryption) {
-            for (k in 0 until 3) // 1-24 steps
-            {
+            for (k in 0 until 3) {
+                // 1-24 steps
                 for (j in 0 until 8) {
                     tmp = n1
                     n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
                     n2 = tmp
                 }
             }
-            for (j in 7 downTo 1) // 25-31 steps
-            {
+            for (j in 7 downTo 1) {
+                // 25-31 steps
                 tmp = n1
                 n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
                 n2 = tmp
             }
-        } else // decrypt
-        {
-            for (j in 0 until 8) // 1-8 steps
-            {
+        } else {
+            // decrypt
+            for (j in 0 until 8) {
+                // 1-8 steps
                 tmp = n1
                 n1 = n2 xor mainStep(n1, workingKey[j]) // CM2
                 n2 = tmp
             }
-            for (k in 0 until 3) // 9-31 steps
-            {
+            for (k in 0 until 3) {
+                // 9-31 steps
                 for (j in 7 downTo 0) {
                     if (k == 2 && j == 0) {
                         break // break 32 step
@@ -179,7 +180,7 @@ internal class GOST28147Engine {
                 }
             }
         }
-        n2 = n2 xor mainStep(n1, workingKey[0]) // 32 step (N1=N1)
+        n2 = n2 xor mainStep(n1, workingKey[0]) // 32 step (n1=N1)
         encodeLEInt(n1, out, outOff)
         encodeLEInt(n2, out, outOff + 4)
     }

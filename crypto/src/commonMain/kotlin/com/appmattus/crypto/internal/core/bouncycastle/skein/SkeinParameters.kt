@@ -125,7 +125,7 @@ internal class SkeinParameters private constructor(parameters: MutableMap<Int, B
          * @param value the byte sequence of the parameter.
          * @return the current builder instance.
          */
-        @Suppress("ThrowsCount")
+        @Suppress("ThrowsCount", "ComplexCondition")
         fun set(type: Int, value: ByteArray): Builder {
             if (type != PARAM_TYPE_KEY &&
                 (type < PARAM_TYPE_CONFIG || type >= PARAM_TYPE_OUTPUT || type == PARAM_TYPE_MESSAGE)

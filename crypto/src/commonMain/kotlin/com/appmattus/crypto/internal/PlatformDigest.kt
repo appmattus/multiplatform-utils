@@ -19,7 +19,7 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 
-internal expect class PlatformDigest() {
+internal expect class PlatformDigest {
 
     fun create(algorithm: Algorithm): Digest<*>?
 }

@@ -113,12 +113,12 @@ internal class GOST3411() : Digest<GOST3411> {
 
     // (in:) n16||..||n1 ==> (out:) n1^n2^n3^n4^n13^n16||n16||..||n2
     var wS = ShortArray(16)
-    var w_S = ShortArray(16)
+    var wS2 = ShortArray(16)
     private fun fw(input: ByteArray) {
         cpyBytesToShort(input, wS)
-        w_S[15] = (wS[0].toInt() xor wS[1].toInt() xor wS[2].toInt() xor wS[3].toInt() xor wS[12].toInt() xor wS[15].toInt()).toShort()
-        wS.copyInto(w_S, 0, 1, 1 + 15)
-        cpyShortToBytes(w_S, input)
+        wS2[15] = (wS[0].toInt() xor wS[1].toInt() xor wS[2].toInt() xor wS[3].toInt() xor wS[12].toInt() xor wS[15].toInt()).toShort()
+        wS.copyInto(wS2, 0, 1, 1 + 15)
+        cpyShortToBytes(wS2, input)
     }
 
     // block processing

@@ -922,6 +922,7 @@ internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>> : Digest<D> {
             )
         )
 
+        @Suppress("NestedBlockDepth")
         private fun makeT(x: Int): Array<IntArray> {
             val t = Array(256) { IntArray(8) }
             for (y in 0..255) {

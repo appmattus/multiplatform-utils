@@ -120,7 +120,7 @@ import com.appmattus.crypto.internal.core.sphlib.WhirlpoolT
 
 internal object CoreDigest {
 
-    @Suppress("MagicNumber", "LongMethod")
+    @Suppress("MagicNumber", "LongMethod", "ComplexMethod")
     fun create(algorithm: Algorithm): Digest<*> {
         return when (algorithm) {
             Algorithm.MD2 -> MD2()

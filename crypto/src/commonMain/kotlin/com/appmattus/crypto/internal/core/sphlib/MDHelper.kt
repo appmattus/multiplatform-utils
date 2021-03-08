@@ -82,7 +82,9 @@ internal abstract class MDHelper<D : MDHelper<D>>(
         }
         val endLen = dataLen + lenlen + blen and (blen - 1).inv()
         update(fbyte)
-        for (i in dataLen + 1 until endLen - lenlen) update(0.toByte())
+        repeat(endLen - lenlen - dataLen - 1) {
+            update(0.toByte())
+        }
         update(countBuf)
 
         /*
