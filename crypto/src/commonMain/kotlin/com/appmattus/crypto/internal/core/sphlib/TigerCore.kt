@@ -86,6 +86,7 @@ internal abstract class TigerCore<D : TigerCore<D>>(fbyte: Byte) : MDHelper<D>(t
                 xor T1[(x ushr 56).toInt() and 0xFF])
     }
 
+    @Suppress("LongMethod")
     override fun processBlock(data: ByteArray) {
         /*
 		 * Note: we use external methods for the table lookups.

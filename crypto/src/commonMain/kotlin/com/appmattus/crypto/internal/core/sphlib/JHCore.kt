@@ -42,7 +42,7 @@ internal abstract class JHCore<D : JHCore<D>> : DigestEngine<D>() {
         doReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun doS(r: Int) {
         var x0: Long
         var x1: Long

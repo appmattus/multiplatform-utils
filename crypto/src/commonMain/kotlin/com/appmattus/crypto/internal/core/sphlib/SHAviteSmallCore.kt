@@ -104,7 +104,7 @@ internal abstract class SHAviteSmallCore<D : SHAviteSmallCore<D>> : DigestEngine
         process(data, bitLen.toInt(), (bitLen ushr 32).toInt())
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun process(data: ByteArray, cnt0: Int, cnt1: Int) {
         var p0: Int
         var p1: Int

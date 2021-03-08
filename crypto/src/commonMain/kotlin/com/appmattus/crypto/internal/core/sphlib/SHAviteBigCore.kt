@@ -126,7 +126,7 @@ internal abstract class SHAviteBigCore<D : SHAviteBigCore<D>> : DigestEngine<D>(
      * @param cnt1   the second bit count word
      * @param cnt2   the third bit count word
      */
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun process(data: ByteArray, cnt0: Int, cnt1: Int, cnt2: Int) {
         var p0: Int
         var p1: Int

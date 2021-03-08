@@ -53,7 +53,7 @@ internal abstract class BMWSmallCore<D : BMWSmallCore<D>> : DigestEngine<D>() {
 
     protected abstract val initVal: IntArray
 
-    @Suppress("INTEGER_OVERFLOW")
+    @Suppress("INTEGER_OVERFLOW", "LongMethod")
     private fun compress(m: IntArray) {
         val h = h
         val q = q

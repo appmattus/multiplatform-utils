@@ -146,7 +146,7 @@ internal abstract class LuffaSmallCore<D : LuffaSmallCore<D>> : DigestEngine<D>(
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         var tmp: Int
         var a0: Int

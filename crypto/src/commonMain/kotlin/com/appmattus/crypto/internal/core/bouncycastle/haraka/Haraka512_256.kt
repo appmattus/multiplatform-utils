@@ -63,6 +63,7 @@ internal class Haraka512_256 : HarakaCore<Haraka512_256> {
         s1[3].copyInto(s2[3], 12, 8, 12)
     }
 
+    @Suppress("LongMethod")
     private fun haraka512256(msg: ByteArray, out: ByteArray, outOff: Int): Int {
         val s1 = Array(4) { ByteArray(16) }
         val s2 = Array(4) { ByteArray(16) }

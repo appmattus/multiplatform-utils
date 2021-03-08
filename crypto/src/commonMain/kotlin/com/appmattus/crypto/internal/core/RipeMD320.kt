@@ -64,7 +64,7 @@ internal class RipeMD320 : MDHelper<RipeMD320>(true, 8) {
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         run {
             var i = 0
@@ -76,27 +76,18 @@ internal class RipeMD320 : MDHelper<RipeMD320>(true, 8) {
             }
         }
 
-        var a: Int
-        var a2: Int
-        var b: Int
-        var b2: Int
-        var c: Int
-        var c2: Int
-        var d: Int
-        var d2: Int
-        var e: Int
-        var e2: Int
+        var a: Int = currentVal[0]
+        var b: Int = currentVal[1]
+        var c: Int = currentVal[2]
+        var d: Int = currentVal[3]
+        var e: Int = currentVal[4]
+        var a2: Int = currentVal[5]
+        var b2: Int = currentVal[6]
+        var c2: Int = currentVal[7]
+        var d2: Int = currentVal[8]
+        var e2: Int = currentVal[9]
         var temp: Int
-        a = currentVal[0]
-        b = currentVal[1]
-        c = currentVal[2]
-        d = currentVal[3]
-        e = currentVal[4]
-        a2 = currentVal[5]
-        b2 = currentVal[6]
-        c2 = currentVal[7]
-        d2 = currentVal[8]
-        e2 = currentVal[9]
+
         var j = 0
         while (j < 15) {
             a = circularLeftInt(a + f1(b, c, d) + x[permute[j]], rotate[j++]) + e

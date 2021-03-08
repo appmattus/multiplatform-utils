@@ -157,7 +157,7 @@ internal abstract class FugueCore<D : FugueCore<D>> : Digest<D> {
         s[20] = s[20] xor s[6]
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     protected fun smix(i0: Int, i1: Int, i2: Int, i3: Int) {
         var c0 = 0
         var c1 = 0

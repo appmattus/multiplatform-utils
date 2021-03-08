@@ -42,6 +42,7 @@ internal abstract class KeccakCore<D : KeccakCore<D>>(private val markByte: Byte
         doReset()
     }
 
+    @Suppress("LongMethod")
     override fun processBlock(data: ByteArray) {
         /* Input block */
         var i = 0

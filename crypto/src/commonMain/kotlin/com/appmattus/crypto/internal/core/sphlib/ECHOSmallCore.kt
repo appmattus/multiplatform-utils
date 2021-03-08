@@ -199,6 +199,7 @@ internal abstract class ECHOSmallCore<D : ECHOSmallCore<D>> : DigestEngine<D>() 
         }
     }
 
+    @Suppress("LongMethod")
     private fun compress(data: ByteArray) {
         var tmp: Int
         k0 = c0

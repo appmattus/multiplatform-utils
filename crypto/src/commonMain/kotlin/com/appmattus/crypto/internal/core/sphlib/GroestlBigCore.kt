@@ -256,6 +256,7 @@ internal abstract class GroestlBigCore<D : GroestlBigCore<D>> : DigestEngine<D>(
         engineReset()
     }
 
+    @Suppress("LongMethod")
     private fun doPermP(x: LongArray) {
         for (r in 0..13) {
             x[0x0] = x[0x0] xor (r.toLong() shl 56)
@@ -421,6 +422,7 @@ internal abstract class GroestlBigCore<D : GroestlBigCore<D>> : DigestEngine<D>(
         }
     }
 
+    @Suppress("LongMethod")
     private fun doPermQ(x: LongArray) {
         for (r in 0..13) {
             x[0x0] = x[0x0] xor (r.toLong() xor -0x01L)

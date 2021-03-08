@@ -102,7 +102,7 @@ internal abstract class WhirlpoolCore<D : WhirlpoolCore<D>>(
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         var n0 = decodeLELong(data, 0)
         val sn0 = n0

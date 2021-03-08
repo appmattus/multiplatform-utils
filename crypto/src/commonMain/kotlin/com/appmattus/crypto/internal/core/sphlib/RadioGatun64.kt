@@ -79,7 +79,7 @@ internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
         engineReset()
     }
 
-    @Suppress("ComplexMethod")
+    @Suppress("ComplexMethod", "LongMethod")
     override fun processBlock(data: ByteArray) {
         var a00 = a[0]
         var a01 = a[1]
@@ -251,7 +251,7 @@ internal class RadioGatun64 : DigestEngine<RadioGatun64>() {
      * @param out   the output buffer
      * @param off   the output offset
      */
-    @Suppress("NAME_SHADOWING")
+    @Suppress("NAME_SHADOWING", "LongMethod")
     private fun blank(num: Int, out: ByteArray, off: Int) {
         var num = num
         var off = off

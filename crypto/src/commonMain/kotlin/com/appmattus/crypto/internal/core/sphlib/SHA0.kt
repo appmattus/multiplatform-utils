@@ -71,6 +71,7 @@ internal class SHA0 : MDHelper<SHA0>(false, 8) {
         engineReset()
     }
 
+    @Suppress("LongMethod")
     override fun processBlock(data: ByteArray) {
         var a = currentVal[0]
         var b = currentVal[1]

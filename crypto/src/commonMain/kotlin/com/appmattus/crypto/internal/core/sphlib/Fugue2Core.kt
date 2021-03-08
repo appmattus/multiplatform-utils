@@ -34,7 +34,7 @@ import com.appmattus.crypto.internal.core.encodeBEInt
 @Suppress("MagicNumber")
 internal abstract class Fugue2Core<D : Fugue2Core<D>> : FugueCore<D>() {
 
-    @Suppress("NAME_SHADOWING", "ReturnCount", "ComplexMethod")
+    @Suppress("NAME_SHADOWING", "ReturnCount", "ComplexMethod", "LongMethod")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off

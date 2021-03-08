@@ -135,17 +135,17 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     /**
      * Block size in bytes
      */
-    val blockSize: Int
+    val blockSize: Int = blocksizeBits / 8
 
     /**
      * Block size in 64 bit words
      */
-    private val blocksizeWords: Int
+    private val blocksizeWords: Int = blockSize / 8
 
     /**
      * Buffer for byte oriented processBytes to call internal word API
      */
-    private val currentBlock: LongArray
+    private val currentBlock: LongArray = LongArray(blocksizeWords)
 
     /**
      * Tweak bytes (2 byte t1,t2, calculated t3 and repeat of t1,t2 for modulo free lookup
@@ -155,7 +155,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     /**
      * Key schedule words
      */
-    private val kw: LongArray
+    private val kw: LongArray = LongArray(2 * blocksizeWords + 1)
 
     /**
      * The internal cipher implementation (varies by blocksize)
@@ -428,6 +428,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             out[3] = b3
         }
 
+        @Suppress("LongMethod")
         override fun decryptBlock(block: LongArray, state: LongArray) {
             val kw = kw
             val t = t
@@ -541,7 +542,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     }
 
     private class Threefish512Cipher(kw: LongArray, t: LongArray) : ThreefishCipher(kw, t) {
-        @Suppress("ComplexMethod")
+        @Suppress("ComplexMethod", "LongMethod")
         override fun encryptBlock(block: LongArray, out: LongArray) {
             val kw = kw
             val t = t
@@ -677,6 +678,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             out[7] = b7
         }
 
+        @Suppress("LongMethod")
         override fun decryptBlock(block: LongArray, state: LongArray) {
             val kw = kw
             val t = t
@@ -858,7 +860,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     }
 
     private class Threefish1024Cipher(kw: LongArray, t: LongArray) : ThreefishCipher(kw, t) {
-        @Suppress("ComplexMethod")
+        @Suppress("ComplexMethod", "LongMethod")
         override fun encryptBlock(block: LongArray, out: LongArray) {
             val kw = kw
             val t = t
@@ -1066,6 +1068,7 @@ internal class ThreefishEngine(blocksizeBits: Int) {
             out[15] = b15
         }
 
+        @Suppress("LongMethod")
         override fun decryptBlock(block: LongArray, state: LongArray) {
             val kw = kw
             val t = t
@@ -1383,15 +1386,11 @@ internal class ThreefishEngine(blocksizeBits: Int) {
     }
 
     init {
-        blockSize = blocksizeBits / 8
-        blocksizeWords = blockSize / 8
-        currentBlock = LongArray(blocksizeWords)
 
         /*
          * Provide room for original key words, extended key word and repeat of key words for modulo
          * free lookup of key schedule words.
          */
-        kw = LongArray(2 * blocksizeWords + 1)
         cipher = when (blocksizeBits) {
             BLOCKSIZE_256 -> Threefish256Cipher(
                 kw,

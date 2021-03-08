@@ -78,7 +78,7 @@ internal abstract class CubeHashCore<D : CubeHashCore<D>> : DigestEngine<D>() {
         x7 = x7 xor decodeLEInt(data, 28)
     }
 
-    @Suppress("ReplaceWithOperatorAssignment")
+    @Suppress("ReplaceWithOperatorAssignment", "LongMethod")
     private fun sixteenRounds() {
         repeat(8) {
             xg = x0 + xg

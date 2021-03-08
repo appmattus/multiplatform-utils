@@ -158,11 +158,10 @@ internal abstract class GOST3411_2012Core<D : GOST3411_2012Core<D>>(iv: ByteArra
         block.fill(0.toByte())
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("LongMethod")
     private fun f(v: ByteArray) {
         val res = LongArray(8)
-        var r: Long
-        r = 0
+        var r: Long = 0
         r = r xor T[0][v[56].toInt() and 0xFF]
         r = r xor T[1][v[48].toInt() and 0xFF]
         r = r xor T[2][v[40].toInt() and 0xFF]

@@ -75,7 +75,7 @@ internal class RipeMD : MDHelper<RipeMD>(true, 8) {
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         val h0: Int
         val h1: Int

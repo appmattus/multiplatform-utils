@@ -208,6 +208,7 @@ internal abstract class ECHOBigCore<D : ECHOBigCore<D>> : DigestEngine<D>() {
         }
     }
 
+    @Suppress("LongMethod")
     private fun compress(data: ByteArray) {
         var tmp: Int
         k0 = c0

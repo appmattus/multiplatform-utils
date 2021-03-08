@@ -75,6 +75,7 @@ internal class RipeMD160 : MDHelper<RipeMD160>(true, 8) {
         engineReset()
     }
 
+    @Suppress("LongMethod")
     override fun processBlock(data: ByteArray) {
         val h0: Int
         val h1: Int

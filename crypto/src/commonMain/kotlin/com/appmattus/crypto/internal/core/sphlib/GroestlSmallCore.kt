@@ -256,6 +256,7 @@ internal abstract class GroestlSmallCore<D : GroestlSmallCore<D>> : DigestEngine
         engineReset()
     }
 
+    @Suppress("LongMethod")
     private fun doPermP(x: LongArray) {
         var r = 0
         while (r < 10) {
@@ -407,6 +408,7 @@ internal abstract class GroestlSmallCore<D : GroestlSmallCore<D>> : DigestEngine
         }
     }
 
+    @Suppress("LongMethod")
     private fun doPermQ(x: LongArray) {
         var r = 0
         while (r < 10) {

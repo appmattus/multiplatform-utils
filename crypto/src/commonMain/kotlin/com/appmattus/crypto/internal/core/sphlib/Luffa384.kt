@@ -184,7 +184,7 @@ internal class Luffa384 : DigestEngine<Luffa384>() {
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         var tmp: Int
         var a0: Int

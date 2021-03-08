@@ -147,6 +147,7 @@ internal abstract class BLAKESmallCore<D : BLAKESmallCore<D>> : DigestEngine<D>(
         engineReset()
     }
 
+    @Suppress("LongMethod")
     override fun processBlock(data: ByteArray) {
         t0 += 512
         if (t0 and 0x1FF.inv() == 0) t1++

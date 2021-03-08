@@ -223,7 +223,7 @@ internal class DSTU7564 : Digest<DSTU7564> {
         }
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun shiftRows(s: LongArray) {
         when (columns) {
             NB_512 -> {

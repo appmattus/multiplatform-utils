@@ -62,7 +62,7 @@ internal class RipeMD256 : MDHelper<RipeMD256>(true, 8) {
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         run {
             var i = 0

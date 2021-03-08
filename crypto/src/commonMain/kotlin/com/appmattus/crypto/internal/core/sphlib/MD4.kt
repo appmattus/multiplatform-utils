@@ -72,7 +72,7 @@ internal class MD4 : MDHelper<MD4>(true, 8) {
         engineReset()
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     override fun processBlock(data: ByteArray) {
         /*
 		 * This method could have been made simpler by using

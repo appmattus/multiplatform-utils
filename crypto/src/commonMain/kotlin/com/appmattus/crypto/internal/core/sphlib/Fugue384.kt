@@ -42,7 +42,7 @@ internal class Fugue384 : FugueCore<Fugue384>() {
         return Fugue384()
     }
 
-    @Suppress("NAME_SHADOWING", "ReturnCount", "ComplexMethod")
+    @Suppress("NAME_SHADOWING", "ReturnCount", "ComplexMethod", "LongMethod")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off
@@ -268,7 +268,7 @@ internal class Fugue384 : FugueCore<Fugue384>() {
         while (true) {
 
             /* ================ */
-                s[16] = s[16] xor s[0]
+            s[16] = s[16] xor s[0]
             s[0] = w
             s[8] = s[8] xor s[0]
             s[1] = s[1] xor s[27]

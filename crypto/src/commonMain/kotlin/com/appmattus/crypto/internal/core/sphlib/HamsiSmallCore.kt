@@ -175,7 +175,7 @@ internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>> : Digest<D> {
      */
     protected abstract fun dup(): D
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun process(b0: Int, b1: Int, b2: Int, b3: Int) {
         var rp = T256_0[b0]
         var m0 = rp[0]
@@ -628,6 +628,7 @@ internal abstract class HamsiSmallCore<D : HamsiSmallCore<D>> : Digest<D> {
         h[0] = h[0] xor m0
     }
 
+    @Suppress("LongMethod")
     private fun processFinal(b0: Int, b1: Int, b2: Int, b3: Int) {
         var rp = T256_0[b0]
         var m0 = rp[0]

@@ -90,7 +90,7 @@ internal abstract class SIMDBigCore<D : SIMDBigCore<D>> : DigestEngine<D>() {
         compress(data, false)
     }
 
-    @Suppress("LocalVariableName", "VariableNaming", "ComplexMethod")
+    @Suppress("LocalVariableName", "VariableNaming", "ComplexMethod", "LongMethod")
     private fun fft64(x: ByteArray, xb: Int, xs: Int, qoff: Int) {
         val xd = xs shl 1
         run {
@@ -538,7 +538,7 @@ internal abstract class SIMDBigCore<D : SIMDBigCore<D>> : DigestEngine<D>() {
         }
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun oneRound(isp: Int, p0: Int, p1: Int, p2: Int, p3: Int) {
         var tmp: Int
         tA[0] = circularLeftInt(state[0], p0)
@@ -1023,7 +1023,7 @@ internal abstract class SIMDBigCore<D : SIMDBigCore<D>> : DigestEngine<D>() {
         state[15] = tA[7]
     }
 
-    @Suppress("ComplexMethod")
+    @Suppress("ComplexMethod", "LongMethod")
     private fun compress(x: ByteArray, last: Boolean) {
         var tmp: Int
         fft64(x, 0 + 1 * 0, 1 shl 2, 0 + 0)

@@ -42,7 +42,7 @@ internal class Fugue512 : FugueCore<Fugue512>() {
         return Fugue512()
     }
 
-    @Suppress("NAME_SHADOWING", "ReturnCount")
+    @Suppress("NAME_SHADOWING", "ReturnCount", "LongMethod")
     override fun process(w: Int, buf: ByteArray?, off: Int, num: Int) {
         var w = w
         var off = off

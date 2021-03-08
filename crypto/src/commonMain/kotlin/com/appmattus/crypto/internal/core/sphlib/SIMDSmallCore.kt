@@ -89,7 +89,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         compress(data, false)
     }
 
-    @Suppress("LocalVariableName", "VariableNaming")
+    @Suppress("LocalVariableName", "VariableNaming", "LongMethod")
     private fun fft32(x: ByteArray, xb: Int, xs: Int, qoff: Int) {
         val xd = xs shl 1
         run {
@@ -295,7 +295,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         }
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun oneRound(isp: Int, p0: Int, p1: Int, p2: Int, p3: Int) {
         var tmp: Int
         tA[0] = circularLeftInt(state[0], p0)
@@ -572,7 +572,7 @@ internal abstract class SIMDSmallCore<D : SIMDSmallCore<D>> : DigestEngine<D>() 
         state[7] = tA[3]
     }
 
-    @Suppress("JoinDeclarationAndAssignment", "ComplexMethod")
+    @Suppress("JoinDeclarationAndAssignment", "ComplexMethod", "LongMethod")
     private fun compress(x: ByteArray, last: Boolean) {
         fft32(x, 0 + 1 * 0, 1 shl 2, 0 + 0)
         fft32(x, 0 + 1 * 2, 1 shl 2, 0 + 32)

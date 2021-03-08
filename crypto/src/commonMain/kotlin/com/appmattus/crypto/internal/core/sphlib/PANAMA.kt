@@ -153,7 +153,7 @@ internal class PANAMA : DigestEngine<PANAMA>() {
         oneStep(true)
     }
 
-    @Suppress("JoinDeclarationAndAssignment")
+    @Suppress("JoinDeclarationAndAssignment", "LongMethod")
     private fun oneStep(push: Boolean) {
         /*
 		 * Buffer update.

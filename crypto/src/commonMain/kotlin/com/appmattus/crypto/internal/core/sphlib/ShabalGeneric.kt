@@ -193,10 +193,10 @@ internal abstract class ShabalGeneric<D : ShabalGeneric<D>> private constructor(
     }
 
     companion object {
-        @Suppress("NAME_SHADOWING", "JoinDeclarationAndAssignment")
         /**
          * Returns new w
          */
+        @Suppress("NAME_SHADOWING", "JoinDeclarationAndAssignment", "LongMethod")
         private fun core(state: IntArray, w: Long, data: ByteArray, off: Int, num: Int): Long {
             var w = w
             var off = off
