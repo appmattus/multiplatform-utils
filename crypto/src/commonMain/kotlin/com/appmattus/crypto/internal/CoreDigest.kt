@@ -30,19 +30,7 @@ import com.appmattus.crypto.internal.core.SHA3_512
 import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
 import com.appmattus.crypto.internal.core.SM3
-import com.appmattus.crypto.internal.core.Skein1024_1024
-import com.appmattus.crypto.internal.core.Skein1024_384
-import com.appmattus.crypto.internal.core.Skein1024_512
-import com.appmattus.crypto.internal.core.Skein256_128
-import com.appmattus.crypto.internal.core.Skein256_160
-import com.appmattus.crypto.internal.core.Skein256_224
-import com.appmattus.crypto.internal.core.Skein256_256
-import com.appmattus.crypto.internal.core.Skein512_128
-import com.appmattus.crypto.internal.core.Skein512_160
-import com.appmattus.crypto.internal.core.Skein512_224
-import com.appmattus.crypto.internal.core.Skein512_256
-import com.appmattus.crypto.internal.core.Skein512_384
-import com.appmattus.crypto.internal.core.Skein512_512
+import com.appmattus.crypto.internal.core.SkeinBouncycastleCore
 import com.appmattus.crypto.internal.core.bouncycastle.DSTU7564
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
@@ -252,19 +240,19 @@ internal object CoreDigest {
             Algorithm.SIMD384 -> SIMD384()
             Algorithm.SIMD512 -> SIMD512()
 
-            Algorithm.Skein256_128 -> Skein256_128()
-            Algorithm.Skein256_160 -> Skein256_160()
-            Algorithm.Skein256_224 -> Skein256_224()
-            Algorithm.Skein256_256 -> Skein256_256()
-            Algorithm.Skein512_128 -> Skein512_128()
-            Algorithm.Skein512_160 -> Skein512_160()
-            Algorithm.Skein512_224 -> Skein512_224()
-            Algorithm.Skein512_256 -> Skein512_256()
-            Algorithm.Skein512_384 -> Skein512_384()
-            Algorithm.Skein512_512 -> Skein512_512()
-            Algorithm.Skein1024_384 -> Skein1024_384()
-            Algorithm.Skein1024_512 -> Skein1024_512()
-            Algorithm.Skein1024_1024 -> Skein1024_1024()
+            Algorithm.Skein256_128 -> SkeinBouncycastleCore(256, 128)
+            Algorithm.Skein256_160 -> SkeinBouncycastleCore(256, 160)
+            Algorithm.Skein256_224 -> SkeinBouncycastleCore(256, 224)
+            Algorithm.Skein256_256 -> SkeinBouncycastleCore(256, 256)
+            Algorithm.Skein512_128 -> SkeinBouncycastleCore(512, 128)
+            Algorithm.Skein512_160 -> SkeinBouncycastleCore(512, 160)
+            Algorithm.Skein512_224 -> SkeinBouncycastleCore(512, 224)
+            Algorithm.Skein512_256 -> SkeinBouncycastleCore(512, 256)
+            Algorithm.Skein512_384 -> SkeinBouncycastleCore(512, 384)
+            Algorithm.Skein512_512 -> SkeinBouncycastleCore(512, 512)
+            Algorithm.Skein1024_384 -> SkeinBouncycastleCore(1024, 384)
+            Algorithm.Skein1024_512 -> SkeinBouncycastleCore(1024, 512)
+            Algorithm.Skein1024_1024 -> SkeinBouncycastleCore(1024, 1024)
 
             Algorithm.SM3 -> SM3()
 

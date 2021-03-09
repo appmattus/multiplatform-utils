@@ -19,8 +19,18 @@ package com.appmattus.crypto.internal.core
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.bouncycastle.skein.SkeinEngine
 
+/**
+ * This class implements the Skein-XXXX-XXX digest algorithm
+ */
 @Suppress("MagicNumber")
-internal abstract class SkeinBouncycastleCore<D : SkeinBouncycastleCore<D>>(blockSizeBits: Int, private val outputSizeBits: Int) : Digest<D> {
+internal class SkeinBouncycastleCore(private val blockSizeBits: Int, private val outputSizeBits: Int) : Digest<SkeinBouncycastleCore> {
+
+    init {
+        require(blockSizeBits in listOf(256, 512, 1024))
+        require(outputSizeBits in listOf(128, 160, 224, 256, 384, 512, 1024))
+    }
+
+    override fun toString() = "Skein-$blockSizeBits-$outputSizeBits"
 
     private var engine = SkeinEngine(blockSizeBits, outputSizeBits).apply {
         init(null)
@@ -61,16 +71,17 @@ internal abstract class SkeinBouncycastleCore<D : SkeinBouncycastleCore<D>>(bloc
     }
 
     override val digestLength: Int
-        get() = outputSizeBits / 8
+        get() = outputSizeBits shr 3
+
+    override val blockLength: Int
+        get() = blockSizeBits shr 3
 
     override fun reset() {
         engine.reset()
     }
 
-    abstract fun dup(): D
-
-    override fun copy(): D {
-        return dup().also {
+    override fun copy(): SkeinBouncycastleCore {
+        return SkeinBouncycastleCore(blockSizeBits, outputSizeBits).also {
             it.engine = engine.copy()
         }
     }
