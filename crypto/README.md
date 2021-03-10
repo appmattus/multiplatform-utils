@@ -7,6 +7,7 @@ The following hashing algorithms are supported
 
 - Adler32
 - BLAKE-224, BLAKE-256, BLAKE-384, BLAKE-512
+- Blake3
 - BMW-224, BMW-256, BMW-384, BMW-512
 - CRC32
 - CubeHash-224, CubeHash-256, CubeHash-384, CubeHash-512
@@ -28,8 +29,8 @@ The following hashing algorithms are supported
 - PANAMA
 - RadioGatun32, RadioGatun64
 - RIPEMD, RIPEMD-128, RIPEMD-160, RIPEMD-256, RIPEMD-320
-- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256, SHA3-224,
-  SHA3-256, SHA3-384, SHA3-512
+- SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256
+- SHA3-224, SHA3-256, SHA3-384, SHA3-512
 - Shabal-192, Shabal-224, Shabal-256, Shabal-384, Shabal-512
 - SHAvite-224, SHAvite-256, SHAvite-384, SHAvite-512
 - SIMD-224, SIMD-256, SIMD-384, SIMD-512
@@ -41,5 +42,5 @@ The following hashing algorithms are supported
 - Whirlpool, Whirlpool-0, Whirlpool-T
 
 Inspired by the Flutter [crypto](https://pub.dev/packages/crypto)
-package. Pure Kotlin implementations based on [saphir](https://github.com/sfuhrm/saphir-hash)
-and [Bouncy Castle](https://github.com/bcgit/bc-java/).
+package. Pure Kotlin implementations based on [saphir](https://github.com/sfuhrm/saphir-hash),
+[Bouncy Castle](https://github.com/bcgit/bc-java/) and [blake3](https://github.com/rctcwyvrn/blake3).
