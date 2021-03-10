@@ -31,6 +31,7 @@ import com.appmattus.crypto.internal.core.SHA512_224
 import com.appmattus.crypto.internal.core.SHA512_256
 import com.appmattus.crypto.internal.core.SM3
 import com.appmattus.crypto.internal.core.SkeinBouncycastleCore
+import com.appmattus.crypto.internal.core.blake3.Blake3
 import com.appmattus.crypto.internal.core.bouncycastle.DSTU7564
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
@@ -119,6 +120,8 @@ internal object CoreDigest {
             Algorithm.BLAKE256 -> BLAKE256()
             Algorithm.BLAKE384 -> BLAKE384()
             Algorithm.BLAKE512 -> BLAKE512()
+
+            is Algorithm.Blake3 -> Blake3(algorithm)
 
             Algorithm.BMW224 -> BMW224()
             Algorithm.BMW256 -> BMW256()

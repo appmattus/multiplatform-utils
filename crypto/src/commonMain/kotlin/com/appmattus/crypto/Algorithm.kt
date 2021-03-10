@@ -16,6 +16,8 @@
 
 package com.appmattus.crypto
 
+import com.appmattus.crypto.internal.core.blake3.Hasher
+
 @Suppress("MagicNumber", "ClassName")
 sealed class Algorithm(val algorithmName: String, internal val blockLength: Int) {
     object Adler32 : Algorithm("Adler32", 32)
@@ -24,6 +26,11 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object BLAKE256 : Algorithm("BLAKE-256", 64)
     object BLAKE384 : Algorithm("BLAKE-384", 128)
     object BLAKE512 : Algorithm("BLAKE-512", 128)
+
+    open class Blake3(val digestLength: Int = Hasher.DEFAULT_HASH_LEN) : Algorithm("Blake3-${digestLength shl 3}", 64) {
+        class Keyed(digestLength: Int = Hasher.DEFAULT_HASH_LEN, val key: ByteArray) : Blake3(digestLength)
+        class DeriveKey(digestLength: Int = Hasher.DEFAULT_HASH_LEN, val context: ByteArray) : Blake3(digestLength)
+    }
 
     object BMW224 : Algorithm("BMW-224", 64)
     object BMW256 : Algorithm("BMW-256", 64)
