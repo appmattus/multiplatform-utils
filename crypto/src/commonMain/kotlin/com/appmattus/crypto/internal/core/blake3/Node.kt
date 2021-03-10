@@ -46,6 +46,7 @@ import com.appmattus.crypto.internal.core.encodeLEInt
 // Node of the Blake3 hash tree
 // Is either chained into the next node using chainingValue()
 // Or used to calculate the hash digest using rootOutputBytes()
+@Suppress("MagicNumber")
 internal class Node(
     private var inputChainingValue: IntArray,
     private var blockWords: IntArray,
@@ -59,33 +60,7 @@ internal class Node(
         return compress(inputChainingValue, blockWords, counter, blockLen, flags).copyOfRange(0, 8)
     }
 
-    fun rootOutputBytes(outLen: Int): ByteArray {
-        var outputCounter = 0
-        val outputsNeeded = floorDiv(outLen, 2 * OUT_LEN) + 1
-        val hash = ByteArray(outLen)
-        var i = 0
-
-        val buffer = ByteArray(4)
-
-        while (outputCounter < outputsNeeded) {
-            val words = compress(inputChainingValue, blockWords, outputCounter.toLong(), blockLen, flags or ROOT)
-            for (word in words) {
-
-                encodeLEInt(word, buffer, 0)
-
-                for (b in buffer) {
-                    hash[i] = b
-                    i += 1
-                    if (i == outLen) {
-                        return hash
-                    }
-                }
-            }
-            outputCounter += 1
-        }
-        throw IllegalStateException("Uh oh something has gone horribly wrong. Please create an issue on https://github.com/rctcwyvrn/blake3")
-    }
-
+    @Suppress("NestedBlockDepth")
     fun rootOutputBytes(output: ByteArray, offset: Int, length: Int) {
         var outputCounter = 0
         val outputsNeeded = floorDiv(length, 2 * OUT_LEN) + 1

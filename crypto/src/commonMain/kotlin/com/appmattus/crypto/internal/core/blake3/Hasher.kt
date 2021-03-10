@@ -40,7 +40,6 @@ package com.appmattus.crypto.internal.core.blake3
 
 import com.appmattus.crypto.internal.core.circularRightInt
 import com.appmattus.crypto.internal.core.decodeLEInt
-import kotlin.jvm.JvmOverloads
 import kotlin.math.min
 
 /**
@@ -50,6 +49,7 @@ import kotlin.math.min
  *
  * Translated by Appmattus Limited from Java to Kotlin
  */
+@Suppress("MagicNumber", "TooManyFunctions")
 internal class Hasher(
     private val key: IntArray,
     private val flags: Int
@@ -108,26 +108,7 @@ internal class Hasher(
 
     /**
      * Generate the blake3 hash for the current tree with the given byte length
-     *
-     * @param hashLen The number of bytes of hash to return
-     * @return The byte array representing the hash
      */
-    @JvmOverloads
-    fun digest(hashLen: Int = DEFAULT_HASH_LEN): ByteArray {
-        var node = chunkState.createNode()
-        var parentNodesRemaining = cvStackLen
-        while (parentNodesRemaining > 0) {
-            parentNodesRemaining -= 1
-            node = parentNode(
-                cvStack[parentNodesRemaining],
-                node.chainingValue(),
-                key,
-                flags
-            )
-        }
-        return node.rootOutputBytes(hashLen)
-    }
-
     fun digest(output: ByteArray, offset: Int, length: Int) {
         var node = chunkState.createNode()
         var parentNodesRemaining = cvStackLen
@@ -153,6 +134,7 @@ internal class Hasher(
         return cvStack[cvStackLen]
     }
 
+    @Suppress("NAME_SHADOWING")
     private fun addChunkChainingValue(newCV: IntArray, totalChunks: Long) {
         var newCV = newCV
         var totalChunks = totalChunks
@@ -187,6 +169,7 @@ internal class Hasher(
             return a + b
         }
 
+        @Suppress("LongParameterList")
         private fun g(state: IntArray, a: Int, b: Int, c: Int, d: Int, mx: Int, my: Int) {
             state[a] = wrappingAdd((state[a] + state[b]), mx)
             state[d] = circularRightInt(state[d] xor state[a], 16)
@@ -220,6 +203,7 @@ internal class Hasher(
             return permuted
         }
 
+        @Suppress("NAME_SHADOWING")
         fun compress(chainingValue: IntArray, blockWords: IntArray, counter: Long, blockLen: Int, flags: Int): IntArray {
             var blockWords = blockWords
             val counterInt = (counter and 0xffffffffL).toInt()
@@ -314,9 +298,10 @@ internal class Hasher(
          * @param context Context string used to derive keys.
          */
         fun newKeyDerivationHasher(context: ByteArray): Hasher {
-            val contextKey = Hasher(IV, DERIVE_KEY_CONTEXT).apply {
+            val contextKey = ByteArray(KEY_LEN)
+            Hasher(IV, DERIVE_KEY_CONTEXT).apply {
                 update(context, 0, context.size)
-            }.digest(KEY_LEN)
+            }.digest(contextKey, 0, KEY_LEN)
 
             return Hasher(wordsFromLEBytes(contextKey), DERIVE_KEY_MATERIAL)
         }

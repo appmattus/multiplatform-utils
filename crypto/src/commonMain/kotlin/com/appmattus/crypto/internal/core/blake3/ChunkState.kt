@@ -46,6 +46,7 @@ import com.appmattus.crypto.internal.core.blake3.Hasher.Companion.wordsFromLEByt
 import kotlin.math.min
 
 // Helper object for creating new Nodes and chaining them
+@Suppress("MagicNumber")
 internal class ChunkState(var chainingValue: IntArray, var chunkCounter: Long, var flags: Int) {
     var block = ByteArray(BLOCK_LEN)
     var blockLen = 0
