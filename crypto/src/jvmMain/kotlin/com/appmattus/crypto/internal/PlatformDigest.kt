@@ -22,6 +22,8 @@ import com.appmattus.crypto.internal.core.jvm.Adler32
 import com.appmattus.crypto.internal.core.jvm.CRC32
 import org.bouncycastle.crypto.digests.Blake2bDigest
 import org.bouncycastle.crypto.digests.Blake2sDigest
+import org.bouncycastle.crypto.digests.SkeinDigest
+import org.bouncycastle.crypto.params.SkeinParameters
 
 internal actual class PlatformDigest {
 
@@ -53,6 +55,28 @@ internal actual class PlatformDigest {
                     }
                     else -> {
                         val digest = Blake2sDigest(algorithm.digestLength shl 3)
+                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
+                    }
+                }
+            } catch (expected: Exception) {
+                null
+            }
+
+            is Algorithm.Skein -> try {
+                when (algorithm) {
+                    is Algorithm.Skein.Keyed -> {
+                        val digest = SkeinDigest(algorithm.blockSizeBits, algorithm.outputSizeBits)
+                        val parameters = if (algorithm.key.isNotEmpty()) {
+                            SkeinParameters.Builder().setKey(algorithm.key).build()
+                        } else {
+                            null
+                        }
+                        digest.init(parameters)
+                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
+                    }
+                    else -> {
+                        val digest = SkeinDigest(algorithm.blockSizeBits, algorithm.outputSizeBits)
+                        digest.init(null)
                         ExtendedDigestPlatform(algorithm.algorithmName, digest)
                     }
                 }

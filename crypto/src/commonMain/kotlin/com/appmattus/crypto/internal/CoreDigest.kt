@@ -273,6 +273,8 @@ internal object CoreDigest {
             Algorithm.Skein1024_512 -> SkeinBouncycastleCore(1024, 512)
             Algorithm.Skein1024_1024 -> SkeinBouncycastleCore(1024, 1024)
 
+            is Algorithm.Skein -> SkeinBouncycastleCore.create(algorithm)
+
             Algorithm.SM3 -> SM3()
 
             Algorithm.Tiger -> Tiger()

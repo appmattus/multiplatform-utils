@@ -16,14 +16,20 @@
 
 package com.appmattus.crypto.internal.core
 
+import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.bouncycastle.skein.SkeinEngine
+import com.appmattus.crypto.internal.core.bouncycastle.skein.SkeinParameters
 
 /**
  * This class implements the Skein-XXXX-XXX digest algorithm
  */
 @Suppress("MagicNumber")
-internal class SkeinBouncycastleCore(private val blockSizeBits: Int, private val outputSizeBits: Int) : Digest<SkeinBouncycastleCore> {
+internal class SkeinBouncycastleCore(
+    private val blockSizeBits: Int,
+    private val outputSizeBits: Int,
+    private val key: ByteArray? = null
+) : Digest<SkeinBouncycastleCore> {
 
     init {
         require(blockSizeBits in listOf(256, 512, 1024))
@@ -33,7 +39,13 @@ internal class SkeinBouncycastleCore(private val blockSizeBits: Int, private val
     override fun toString() = "Skein-$blockSizeBits-$outputSizeBits"
 
     private var engine = SkeinEngine(blockSizeBits, outputSizeBits).apply {
-        init(null)
+        val params = if (key != null && key.isNotEmpty()) {
+            SkeinParameters.Builder().setKey(key).build()
+        } else {
+            null
+        }
+
+        init(params)
     }
 
     override fun update(input: Byte) {
@@ -83,6 +95,15 @@ internal class SkeinBouncycastleCore(private val blockSizeBits: Int, private val
     override fun copy(): SkeinBouncycastleCore {
         return SkeinBouncycastleCore(blockSizeBits, outputSizeBits).also {
             it.engine = engine.copy()
+        }
+    }
+
+    companion object {
+        fun create(parameters: Algorithm.Skein): SkeinBouncycastleCore {
+            return when (parameters) {
+                is Algorithm.Skein.Keyed -> SkeinBouncycastleCore(parameters.blockSizeBits, parameters.outputSizeBits, parameters.key)
+                else -> SkeinBouncycastleCore(parameters.blockSizeBits, parameters.outputSizeBits, null)
+            }
         }
     }
 }

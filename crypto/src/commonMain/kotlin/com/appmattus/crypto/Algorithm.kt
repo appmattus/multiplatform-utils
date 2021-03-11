@@ -194,6 +194,15 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object Skein1024_512 : Algorithm("Skein-1024-512", 128)
     object Skein1024_1024 : Algorithm("Skein-1024-1024", 128)
 
+    open class Skein(val blockSizeBits: Int, val outputSizeBits: Int) :
+        Algorithm("Skein-${blockSizeBits}-${outputSizeBits}-internal", blockSizeBits shr 3) {
+        class Keyed(
+            blockSizeBits: Int,
+            outputSizeBits: Int,
+            val key: ByteArray,
+        ) : Skein(blockSizeBits, outputSizeBits)
+    }
+
     object SM3 : Algorithm("SM3", 64)
 
     object Tiger : Algorithm("Tiger", 64)
