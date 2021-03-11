@@ -36,6 +36,8 @@ import com.appmattus.crypto.internal.core.bouncycastle.DSTU7564
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_256
 import com.appmattus.crypto.internal.core.bouncycastle.GOST3411_2012_512
+import com.appmattus.crypto.internal.core.bouncycastle.blake2.Blake2b
+import com.appmattus.crypto.internal.core.bouncycastle.blake2.Blake2s
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka256_256
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka512_256
 import com.appmattus.crypto.internal.core.sphlib.BLAKE224
@@ -120,6 +122,20 @@ internal object CoreDigest {
             Algorithm.BLAKE256 -> BLAKE256()
             Algorithm.BLAKE384 -> BLAKE384()
             Algorithm.BLAKE512 -> BLAKE512()
+
+            Algorithm.Blake2b_160 -> Blake2b(160)
+            Algorithm.Blake2b_256 -> Blake2b(256)
+            Algorithm.Blake2b_384 -> Blake2b(384)
+            Algorithm.Blake2b_512 -> Blake2b(512)
+
+            is Algorithm.Blake2b -> Blake2b.create(algorithm)
+
+            Algorithm.Blake2s_128 -> Blake2s(128)
+            Algorithm.Blake2s_160 -> Blake2s(160)
+            Algorithm.Blake2s_224 -> Blake2s(224)
+            Algorithm.Blake2s_256 -> Blake2s(256)
+
+            is Algorithm.Blake2s -> Blake2s.create(algorithm)
 
             is Algorithm.Blake3 -> Blake3(algorithm)
 

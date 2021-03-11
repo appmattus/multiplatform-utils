@@ -19,9 +19,13 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Digest
 import java.security.MessageDigest
 
-internal class MessageDigestPlatform(private val algorithm: String, override val blockLength: Int) : Digest<MessageDigestPlatform> {
+internal class MessageDigestPlatform(
+    private val algorithm: String,
+    override val blockLength: Int,
+    messageDigest: MessageDigest? = null
+) : Digest<MessageDigestPlatform> {
 
-    private var messageDigest = MessageDigest.getInstance(algorithm)
+    private var messageDigest = messageDigest ?: MessageDigest.getInstance(algorithm)
 
     override fun update(input: Byte) {
         messageDigest.update(input)
@@ -49,9 +53,7 @@ internal class MessageDigestPlatform(private val algorithm: String, override val
     }
 
     override fun copy(): MessageDigestPlatform {
-        val clone = MessageDigestPlatform(algorithm, blockLength)
-        clone.messageDigest = messageDigest.clone() as MessageDigest
-        return clone
+        return MessageDigestPlatform(algorithm, blockLength, messageDigest.clone() as MessageDigest)
     }
 
     override fun toString(): String = algorithm

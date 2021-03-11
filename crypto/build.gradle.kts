@@ -35,7 +35,11 @@ kotlin {
                 implementation(project(":ignore-test"))
             }
         }
-        val jvmMain by getting
+        val jvmMain by getting {
+            dependencies {
+                compileOnly("org.bouncycastle:bcprov-jdk15to18:1.68")
+            }
+        }
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))

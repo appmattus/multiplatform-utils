@@ -34,7 +34,7 @@ class Blake3CoreTest : Blake3Test(Algorithm.Blake3(131)) {
     }
 }
 
-class Blake3KeyedTest : Blake3Test(Algorithm.Blake3.Keyed(131, "whats the Elvish word for friend".encodeToByteArray())) {
+class Blake3KeyedTest : Blake3Test(Algorithm.Blake3.Keyed("whats the Elvish word for friend".encodeToByteArray(), 131)) {
     override fun digest(): Digest<*> = CoreDigest.create(algorithm)
 
     @Test
@@ -43,7 +43,7 @@ class Blake3KeyedTest : Blake3Test(Algorithm.Blake3.Keyed(131, "whats the Elvish
     }
 }
 
-class Blake3DeriveKeyTest : Blake3Test(Algorithm.Blake3.DeriveKey(131, "BLAKE3 2019-12-27 16:29:52 test vectors context".encodeToByteArray())) {
+class Blake3DeriveKeyTest : Blake3Test(Algorithm.Blake3.DeriveKey("BLAKE3 2019-12-27 16:29:52 test vectors context".encodeToByteArray(), 131)) {
     override fun digest(): Digest<*> = CoreDigest.create(algorithm)
 
     @Test

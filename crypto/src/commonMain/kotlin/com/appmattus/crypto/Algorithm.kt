@@ -27,9 +27,37 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object BLAKE384 : Algorithm("BLAKE-384", 128)
     object BLAKE512 : Algorithm("BLAKE-512", 128)
 
-    open class Blake3(val digestLength: Int = Hasher.DEFAULT_HASH_LEN) : Algorithm("Blake3-${digestLength shl 3}", 64) {
-        class Keyed(digestLength: Int = Hasher.DEFAULT_HASH_LEN, val key: ByteArray) : Blake3(digestLength)
-        class DeriveKey(digestLength: Int = Hasher.DEFAULT_HASH_LEN, val context: ByteArray) : Blake3(digestLength)
+    object Blake2s_128 : Algorithm("BLAKE2S-128", 64)
+    object Blake2s_160 : Algorithm("BLAKE2S-160", 64)
+    object Blake2s_224 : Algorithm("BLAKE2S-224", 64)
+    object Blake2s_256 : Algorithm("BLAKE2S-256", 64)
+
+    open class Blake2s(val digestLength: Int = 32) : Algorithm("Blake2s-${digestLength shl 3}-internal", 64) {
+        class Keyed(
+            val key: ByteArray,
+            val salt: ByteArray? = null,
+            val personalisation: ByteArray? = null,
+            digestLength: Int = 32
+        ) : Blake2s(digestLength)
+    }
+
+    object Blake2b_160 : Algorithm("BLAKE2B-160", 128)
+    object Blake2b_256 : Algorithm("BLAKE2B-256", 128)
+    object Blake2b_384 : Algorithm("BLAKE2B-384", 128)
+    object Blake2b_512 : Algorithm("BLAKE2B-512", 128)
+
+    open class Blake2b(val digestLength: Int = 64) : Algorithm("Blake2b-${digestLength shl 3}-internal", 128) {
+        class Keyed(
+            val key: ByteArray,
+            val salt: ByteArray? = null,
+            val personalisation: ByteArray? = null,
+            digestLength: Int = 64
+        ) : Blake2b(digestLength)
+    }
+
+    open class Blake3(val digestLength: Int = Hasher.DEFAULT_HASH_LEN) : Algorithm("Blake3-${digestLength shl 3}-internal", 64) {
+        class Keyed(val key: ByteArray, digestLength: Int = Hasher.DEFAULT_HASH_LEN) : Blake3(digestLength)
+        class DeriveKey(val context: ByteArray, digestLength: Int = Hasher.DEFAULT_HASH_LEN) : Blake3(digestLength)
     }
 
     object BMW224 : Algorithm("BMW-224", 64)

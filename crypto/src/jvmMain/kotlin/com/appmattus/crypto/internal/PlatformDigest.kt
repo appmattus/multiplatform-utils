@@ -20,6 +20,8 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.jvm.Adler32
 import com.appmattus.crypto.internal.core.jvm.CRC32
+import org.bouncycastle.crypto.digests.Blake2bDigest
+import org.bouncycastle.crypto.digests.Blake2sDigest
 
 internal actual class PlatformDigest {
 
@@ -27,6 +29,36 @@ internal actual class PlatformDigest {
         return when (algorithm) {
             Algorithm.Adler32 -> Adler32()
             Algorithm.CRC32 -> CRC32()
+
+            is Algorithm.Blake2b -> try {
+                when (algorithm) {
+                    is Algorithm.Blake2b.Keyed -> {
+                        val digest = Blake2bDigest(algorithm.key, algorithm.digestLength, algorithm.salt, algorithm.personalisation)
+                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
+                    }
+                    else -> {
+                        val digest = Blake2bDigest(algorithm.digestLength shl 3)
+                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
+                    }
+                }
+            } catch (expected: Exception) {
+                null
+            }
+
+            is Algorithm.Blake2s -> try {
+                when (algorithm) {
+                    is Algorithm.Blake2s.Keyed -> {
+                        val digest = Blake2sDigest(algorithm.key, algorithm.digestLength, algorithm.salt, algorithm.personalisation)
+                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
+                    }
+                    else -> {
+                        val digest = Blake2sDigest(algorithm.digestLength shl 3)
+                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
+                    }
+                }
+            } catch (expected: Exception) {
+                null
+            }
 
             else -> try {
                 MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)

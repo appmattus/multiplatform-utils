@@ -1,12 +1,14 @@
 # crypto
 
-A Kotlin Multiplatform Mobile library to provide a set of cryptographic hashing
-functions.
+A Kotlin Multiplatform Mobile library to provide a set of cryptographic (and
+not so cryptographic) hashing functions.
 
 The following hashing algorithms are supported
 
 - Adler32
 - BLAKE-224, BLAKE-256, BLAKE-384, BLAKE-512
+- Blake2b-160, Blake2b-256, Blake2b-384, Blake2b-512, Blake2s-128, Blake2s-160,
+  Blake2s-224, Blake2s-256
 - Blake3
 - BMW-224, BMW-256, BMW-384, BMW-512
 - CRC32
