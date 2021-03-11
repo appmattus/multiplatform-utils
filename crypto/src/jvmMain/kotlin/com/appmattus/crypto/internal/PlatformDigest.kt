@@ -25,6 +25,7 @@ import org.bouncycastle.crypto.digests.Blake2sDigest
 import org.bouncycastle.crypto.digests.SkeinDigest
 import org.bouncycastle.crypto.params.SkeinParameters
 
+@Suppress("MagicNumber", "NestedBlockDepth", "ComplexMethod", "LongMethod")
 internal actual class PlatformDigest {
 
     actual fun create(algorithm: Algorithm): Digest<*>? {
@@ -35,11 +36,11 @@ internal actual class PlatformDigest {
             is Algorithm.Blake2b -> try {
                 when (algorithm) {
                     is Algorithm.Blake2b.Keyed -> {
-                        val digest = Blake2bDigest(algorithm.key, algorithm.digestLength, algorithm.salt, algorithm.personalisation)
+                        val digest = Blake2bDigest(algorithm.key, algorithm.outputSizeBits shr 3, algorithm.salt, algorithm.personalisation)
                         ExtendedDigestPlatform(algorithm.algorithmName, digest)
                     }
                     else -> {
-                        val digest = Blake2bDigest(algorithm.digestLength shl 3)
+                        val digest = Blake2bDigest(algorithm.outputSizeBits)
                         ExtendedDigestPlatform(algorithm.algorithmName, digest)
                     }
                 }
@@ -50,11 +51,11 @@ internal actual class PlatformDigest {
             is Algorithm.Blake2s -> try {
                 when (algorithm) {
                     is Algorithm.Blake2s.Keyed -> {
-                        val digest = Blake2sDigest(algorithm.key, algorithm.digestLength, algorithm.salt, algorithm.personalisation)
+                        val digest = Blake2sDigest(algorithm.key, algorithm.outputSizeBits shr 3, algorithm.salt, algorithm.personalisation)
                         ExtendedDigestPlatform(algorithm.algorithmName, digest)
                     }
                     else -> {
-                        val digest = Blake2sDigest(algorithm.digestLength shl 3)
+                        val digest = Blake2sDigest(algorithm.outputSizeBits)
                         ExtendedDigestPlatform(algorithm.algorithmName, digest)
                     }
                 }

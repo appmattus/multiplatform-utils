@@ -119,10 +119,6 @@ abstract class SkeinTest {
                     "6A91E6DE6881E32A60858468C17B520D"
         )
 
-
-
-
-
         testSkeinKat(
             256,
             160,

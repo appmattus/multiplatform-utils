@@ -78,6 +78,7 @@ import com.appmattus.crypto.internal.core.encodeLELong
  * BLAKE2b is optimized for 64-bit platforms and produces digests of any size
  * between 1 and 64 bytes.
  */
+@Suppress("MagicNumber", "LongParameterList", "TooManyFunctions")
 class Blake2b : Digest<Blake2b> {
     /**
      * return the size, in bytes, of the digest produced by this message digest.
@@ -494,8 +495,13 @@ class Blake2b : Digest<Blake2b> {
 
         fun create(parameters: Algorithm.Blake2b): Blake2b {
             return when (parameters) {
-                is Algorithm.Blake2b.Keyed -> Blake2b(parameters.key, parameters.digestLength, parameters.salt, parameters.personalisation)
-                else -> Blake2b(parameters.digestLength shl 3)
+                is Algorithm.Blake2b.Keyed -> Blake2b(
+                    parameters.key,
+                    parameters.outputSizeBits shr 3,
+                    parameters.salt,
+                    parameters.personalisation
+                )
+                else -> Blake2b(parameters.outputSizeBits)
             }
         }
     }

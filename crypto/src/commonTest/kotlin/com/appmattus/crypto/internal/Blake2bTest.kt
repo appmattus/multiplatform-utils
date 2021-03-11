@@ -393,6 +393,7 @@ abstract class Blake2bTest {
         )
     }
 
+    @Suppress("LongParameterList")
     private fun testBlakeKat(message: String, key: String, salt: String, personalisation: String, outputLength: Int, output: String) {
         testKatHex(
             digest(Algorithm.Blake2b.Keyed(strtobin(key), strtobin(salt), strtobin(personalisation), outputLength)),

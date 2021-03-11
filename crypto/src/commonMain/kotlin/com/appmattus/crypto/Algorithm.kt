@@ -32,13 +32,13 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object Blake2s_224 : Algorithm("BLAKE2S-224", 64)
     object Blake2s_256 : Algorithm("BLAKE2S-256", 64)
 
-    open class Blake2s(val digestLength: Int = 32) : Algorithm("Blake2s-${digestLength shl 3}-internal", 64) {
+    open class Blake2s(val outputSizeBits: Int = 256) : Algorithm("Blake2s-$outputSizeBits-internal", 64) {
         class Keyed(
             val key: ByteArray,
             val salt: ByteArray? = null,
             val personalisation: ByteArray? = null,
-            digestLength: Int = 32
-        ) : Blake2s(digestLength)
+            outputSizeBits: Int = 256
+        ) : Blake2s(outputSizeBits)
     }
 
     object Blake2b_160 : Algorithm("BLAKE2B-160", 128)
@@ -46,13 +46,13 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object Blake2b_384 : Algorithm("BLAKE2B-384", 128)
     object Blake2b_512 : Algorithm("BLAKE2B-512", 128)
 
-    open class Blake2b(val digestLength: Int = 64) : Algorithm("Blake2b-${digestLength shl 3}-internal", 128) {
+    open class Blake2b(val outputSizeBits: Int = 512) : Algorithm("Blake2b-$outputSizeBits-internal", 128) {
         class Keyed(
             val key: ByteArray,
             val salt: ByteArray? = null,
             val personalisation: ByteArray? = null,
-            digestLength: Int = 64
-        ) : Blake2b(digestLength)
+            outputSizeBits: Int = 512
+        ) : Blake2b(outputSizeBits)
     }
 
     open class Blake3(val digestLength: Int = Hasher.DEFAULT_HASH_LEN) : Algorithm("Blake3-${digestLength shl 3}-internal", 64) {
@@ -195,7 +195,7 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object Skein1024_1024 : Algorithm("Skein-1024-1024", 128)
 
     open class Skein(val blockSizeBits: Int, val outputSizeBits: Int) :
-        Algorithm("Skein-${blockSizeBits}-${outputSizeBits}-internal", blockSizeBits shr 3) {
+        Algorithm("Skein-$blockSizeBits-$outputSizeBits-internal", blockSizeBits shr 3) {
         class Keyed(
             blockSizeBits: Int,
             outputSizeBits: Int,

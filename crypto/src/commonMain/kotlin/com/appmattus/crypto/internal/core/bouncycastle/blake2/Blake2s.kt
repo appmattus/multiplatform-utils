@@ -78,6 +78,7 @@ import com.appmattus.crypto.internal.core.encodeLEInt
  * BLAKE2s is optimized for 32-bit platforms and produces digests of any size
  * between 1 and 32 bytes.
  */
+@Suppress("MagicNumber", "ThrowsCount", "LongParameterList", "TooManyFunctions")
 class Blake2s : Digest<Blake2s> {
 
     /**
@@ -207,7 +208,9 @@ class Blake2s : Digest<Blake2s> {
      * @param personalization 8 bytes or null
      */
     constructor(
-        key: ByteArray?, digestBytes: Int, salt: ByteArray?,
+        key: ByteArray?,
+        digestBytes: Int,
+        salt: ByteArray?,
         personalization: ByteArray?
     ) {
         if (digestBytes < 1 || digestBytes > 32) {
@@ -525,8 +528,13 @@ class Blake2s : Digest<Blake2s> {
 
         fun create(parameters: Algorithm.Blake2s): Blake2s {
             return when (parameters) {
-                is Algorithm.Blake2s.Keyed -> Blake2s(parameters.key, parameters.digestLength, parameters.salt, parameters.personalisation)
-                else -> Blake2s(parameters.digestLength shl 3)
+                is Algorithm.Blake2s.Keyed -> Blake2s(
+                    parameters.key,
+                    parameters.outputSizeBits shr 3,
+                    parameters.salt,
+                    parameters.personalisation
+                )
+                else -> Blake2s(parameters.outputSizeBits)
             }
         }
     }
