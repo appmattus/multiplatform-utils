@@ -79,7 +79,7 @@ abstract class Blake2b_256Test {
     private val mainAlgorithm = Algorithm.Blake2b_256
     private val keyedAlgorithm = Algorithm.Blake2b.Keyed(
         "hello".encodeToByteArray(),
-        digestLength = 32
+        outputSizeBits = 256
     )
 
     @Test

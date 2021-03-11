@@ -80,7 +80,7 @@ abstract class Blake2s_256Test {
     private val mainAlgorithm = Algorithm.Blake2s_256
     private val keyedAlgorithm = Algorithm.Blake2s.Keyed(
         strtobin("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"),
-        digestLength = 32
+        outputSizeBits = 256
     )
 
     @Test
