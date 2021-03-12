@@ -50,7 +50,8 @@ import kotlin.math.min
  *
  * Following the naming conventions used in the C source code to enable easy review of the implementation.
  */
-abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
+@Suppress("MagicNumber", "TooManyFunctions")
+internal abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
     protected var state = LongArray(25)
     protected var dataQueue = ByteArray(192)
     protected var rate = 0
@@ -145,7 +146,7 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
         }
         dataQueue[bitsInQueue ushr 3] = data
         if (8.let { bitsInQueue += it; bitsInQueue } == rate) {
-            KeccakAbsorb(dataQueue, 0)
+            keccakAbsorb(dataQueue, 0)
             bitsInQueue = 0
         }
     }
@@ -169,11 +170,11 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
         if (bytesInQueue > 0) {
             data.copyInto(dataQueue, bytesInQueue, off, off + available)
             count += available
-            KeccakAbsorb(dataQueue, 0)
+            keccakAbsorb(dataQueue, 0)
         }
         var remaining: Int
         while ((len - count).also { remaining = it } >= rateBytes) {
-            KeccakAbsorb(data, off + count)
+            keccakAbsorb(data, off + count)
             count += rateBytes
         }
         data.copyInto(dataQueue, 0, off + count, off + count + remaining)
@@ -181,15 +182,10 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
     }
 
     protected fun absorbBits(data: Int, bits: Int) {
-        if (bits < 1 || bits > 7) {
-            throw IllegalArgumentException("'bits' must be in the range 1 to 7")
-        }
-        if (bitsInQueue % 8 != 0) {
-            throw IllegalStateException("attempt to absorb with odd length queue")
-        }
-        if (squeezing) {
-            throw IllegalStateException("attempt to absorb while squeezing")
-        }
+        require(bits in 1..7) { "'bits' must be in the range 1 to 7" }
+        require(bitsInQueue % 8 == 0) { "attempt to absorb with odd length queue" }
+        require(!squeezing) { "attempt to absorb while squeezing" }
+
         val mask = (1 shl bits) - 1
         dataQueue[bitsInQueue ushr 3] = (data and mask).toByte()
 
@@ -200,7 +196,7 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
     private fun padAndSwitchToSqueezingPhase() {
         dataQueue[bitsInQueue ushr 3] = (dataQueue[bitsInQueue ushr 3].toInt() or (1 shl (bitsInQueue and 7))).toByte()
         if (++bitsInQueue == rate) {
-            KeccakAbsorb(dataQueue, 0)
+            keccakAbsorb(dataQueue, 0)
         } else {
             val full = bitsInQueue ushr 6
             val partial = bitsInQueue and 63
@@ -229,7 +225,7 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
         var i: Long = 0
         while (i < outputLength) {
             if (bitsInQueue == 0) {
-                KeccakExtract()
+                keccakExtract()
             }
             val partialBlock = min(bitsInQueue.toLong(), outputLength - i).toInt()
             dataQueue.copyInto(output, offset + (i / 8).toInt(), (rate - bitsInQueue) / 8, ((rate - bitsInQueue) / 8) + (partialBlock / 8))
@@ -238,20 +234,20 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
         }
     }
 
-    private fun KeccakAbsorb(data: ByteArray, off: Int) {
+    private fun keccakAbsorb(data: ByteArray, off: Int) {
 //        assert 0 == bitsInQueue || (dataQueue == data && 0 == off);
-        var off = off
+        @Suppress("NAME_SHADOWING") var off = off
         val count = rate ushr 6
         for (i in 0 until count) {
             state[i] = state[i] xor decodeLELong(data, off)
             off += 8
         }
-        KeccakPermutation()
+        keccakPermutation()
     }
 
-    private fun KeccakExtract() {
+    private fun keccakExtract() {
 //        assert 0 == bitsInQueue;
-        KeccakPermutation()
+        keccakPermutation()
 
         var bsOff = 0
         for (i in 0 until (rate ushr 6)) {
@@ -262,33 +258,34 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
         bitsInQueue = rate
     }
 
-    private fun KeccakPermutation() {
-        val A = state
-        var a00 = A[0]
-        var a01 = A[1]
-        var a02 = A[2]
-        var a03 = A[3]
-        var a04 = A[4]
-        var a05 = A[5]
-        var a06 = A[6]
-        var a07 = A[7]
-        var a08 = A[8]
-        var a09 = A[9]
-        var a10 = A[10]
-        var a11 = A[11]
-        var a12 = A[12]
-        var a13 = A[13]
-        var a14 = A[14]
-        var a15 = A[15]
-        var a16 = A[16]
-        var a17 = A[17]
-        var a18 = A[18]
-        var a19 = A[19]
-        var a20 = A[20]
-        var a21 = A[21]
-        var a22 = A[22]
-        var a23 = A[23]
-        var a24 = A[24]
+    @Suppress("LongMethod")
+    private fun keccakPermutation() {
+        val a = state
+        var a00 = a[0]
+        var a01 = a[1]
+        var a02 = a[2]
+        var a03 = a[3]
+        var a04 = a[4]
+        var a05 = a[5]
+        var a06 = a[6]
+        var a07 = a[7]
+        var a08 = a[8]
+        var a09 = a[9]
+        var a10 = a[10]
+        var a11 = a[11]
+        var a12 = a[12]
+        var a13 = a[13]
+        var a14 = a[14]
+        var a15 = a[15]
+        var a16 = a[16]
+        var a17 = a[17]
+        var a18 = a[18]
+        var a19 = a[19]
+        var a20 = a[20]
+        var a21 = a[21]
+        var a22 = a[22]
+        var a23 = a[23]
+        var a24 = a[24]
         for (i in 0..23) {
             // theta
             var c0 = a00 xor a05 xor a10 xor a15 xor a20
@@ -394,31 +391,31 @@ abstract class KeccakDigest<D : KeccakDigest<D>> : Digest<D> {
             // iota
             a00 = a00 xor KeccakRoundConstants[i]
         }
-        A[0] = a00
-        A[1] = a01
-        A[2] = a02
-        A[3] = a03
-        A[4] = a04
-        A[5] = a05
-        A[6] = a06
-        A[7] = a07
-        A[8] = a08
-        A[9] = a09
-        A[10] = a10
-        A[11] = a11
-        A[12] = a12
-        A[13] = a13
-        A[14] = a14
-        A[15] = a15
-        A[16] = a16
-        A[17] = a17
-        A[18] = a18
-        A[19] = a19
-        A[20] = a20
-        A[21] = a21
-        A[22] = a22
-        A[23] = a23
-        A[24] = a24
+        a[0] = a00
+        a[1] = a01
+        a[2] = a02
+        a[3] = a03
+        a[4] = a04
+        a[5] = a05
+        a[6] = a06
+        a[7] = a07
+        a[8] = a08
+        a[9] = a09
+        a[10] = a10
+        a[11] = a11
+        a[12] = a12
+        a[13] = a13
+        a[14] = a14
+        a[15] = a15
+        a[16] = a16
+        a[17] = a17
+        a[18] = a18
+        a[19] = a19
+        a[20] = a20
+        a[21] = a21
+        a[22] = a22
+        a[23] = a23
+        a[24] = a24
     }
 
     override fun update(input: ByteArray) {

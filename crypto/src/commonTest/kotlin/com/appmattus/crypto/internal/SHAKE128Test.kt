@@ -22,14 +22,11 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.encodeLatin1
 import com.appmattus.crypto.internal.core.sphlib.toHexString
-import com.appmattus.ignore.IgnoreIos
-import com.appmattus.ignore.IgnoreJunit4
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class SHAKE128CoreTest : SHAKE128Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SHAKE128)
@@ -40,19 +37,8 @@ class SHAKE128CoreTest : SHAKE128Test() {
     }
 }
 
-// No built-in support
-class SHAKE128PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.SHAKE128))
-    }
-}
-
 // Bouncy castle v1.68 implementation broken but issue already fixed
-@IgnoreIos
-@IgnoreJunit4
-class SHAKE128InstalledProviderTest : SHAKE128Test() {
+class SHAKE128InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -64,11 +50,9 @@ class SHAKE128InstalledProviderTest : SHAKE128Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHAKE128) ?: fail()
-
     @Test
     fun hasImplementation() {
-        assertNotNull(digest())
+        assertNull(PlatformDigest().create(Algorithm.SHAKE128))
     }
 }
 

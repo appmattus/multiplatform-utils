@@ -40,6 +40,7 @@ import com.appmattus.crypto.internal.core.bouncycastle.blake2.Blake2b
 import com.appmattus.crypto.internal.core.bouncycastle.blake2.Blake2s
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka256_256
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka512_256
+import com.appmattus.crypto.internal.core.bouncycastle.shake.CSHAKEDigest
 import com.appmattus.crypto.internal.core.bouncycastle.shake.SHAKEDigest
 import com.appmattus.crypto.internal.core.sphlib.BLAKE224
 import com.appmattus.crypto.internal.core.sphlib.BLAKE256
@@ -146,6 +147,13 @@ internal object CoreDigest {
             Algorithm.BMW512 -> BMW512()
 
             Algorithm.CRC32 -> CRC32()
+
+            is Algorithm.cSHAKE128 -> {
+                CSHAKEDigest(128, algorithm.functionName, algorithm.customisation)
+            }
+            is Algorithm.cSHAKE256 -> {
+                CSHAKEDigest(256, algorithm.functionName, algorithm.customisation)
+            }
 
             Algorithm.CubeHash224 -> CubeHash224()
             Algorithm.CubeHash256 -> CubeHash256()

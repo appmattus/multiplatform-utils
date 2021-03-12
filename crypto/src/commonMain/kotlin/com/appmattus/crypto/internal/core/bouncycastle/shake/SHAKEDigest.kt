@@ -45,12 +45,12 @@ package com.appmattus.crypto.internal.core.bouncycastle.shake
  *
  * Following the naming conventions used in the C source code to enable easy review of the implementation.
  */
-class SHAKEDigest : KeccakDigest<SHAKEDigest> {
+@Suppress("MagicNumber")
+internal open class SHAKEDigest : KeccakDigest<SHAKEDigest> {
 
-    constructor(bitLength: Int = 128) : super(checkBitLength(bitLength)) {
-    }
+    constructor(bitLength: Int = 128) : super(checkBitLength(bitLength))
 
-    constructor(source: SHAKEDigest) : super(source) {}
+    constructor(source: SHAKEDigest) : super(source)
 
     override val algorithmName: String
         get() = "SHAKE$fixedOutputLength"
@@ -68,7 +68,7 @@ class SHAKEDigest : KeccakDigest<SHAKEDigest> {
         return length
     }
 
-    fun doOutput(out: ByteArray, outOff: Int, outLen: Int): Int {
+    open fun doOutput(out: ByteArray, outOff: Int, outLen: Int): Int {
         if (!squeezing) {
             absorbBits(0x0F, 4)
         }

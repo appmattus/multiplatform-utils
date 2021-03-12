@@ -24,7 +24,6 @@ import org.bouncycastle.crypto.digests.Blake2bDigest
 import org.bouncycastle.crypto.digests.Blake2sDigest
 import org.bouncycastle.crypto.digests.SkeinDigest
 import org.bouncycastle.crypto.params.SkeinParameters
-import org.bouncycastle.jce.provider.BouncyCastleProvider
 
 @Suppress("MagicNumber", "NestedBlockDepth", "ComplexMethod", "LongMethod")
 internal actual class PlatformDigest {
@@ -86,7 +85,11 @@ internal actual class PlatformDigest {
                 null
             }
 
+            // Bouncycastle contains a bug in its implementation so we are defaulting to the built-in implementation
             is Algorithm.SHAKE128,
+            is Algorithm.SHAKE256 -> null
+
+            /*is Algorithm.SHAKE128,
             is Algorithm.SHAKE256 -> {
                 try {
                     val (major, minor, patch) = BouncyCastleProvider::class.java.`package`.implementationVersion
@@ -101,7 +104,20 @@ internal actual class PlatformDigest {
                 } catch (expected: Exception) {
                     null
                 }
+            }*/
+
+            // Bouncycastle contains a bug in its implementation so we are defaulting to the built-in implementation
+            is Algorithm.cSHAKE128,
+            is Algorithm.cSHAKE256 -> null
+
+            /*is Algorithm.cSHAKE128 -> {
+                val digest = CSHAKEDigest(128, algorithm.functionName, algorithm.customisation)
+                ExtendedDigestPlatform(algorithm.algorithmName, digest)
             }
+            is Algorithm.cSHAKE256 -> {
+                val digest = CSHAKEDigest(256, algorithm.functionName, algorithm.customisation)
+                ExtendedDigestPlatform(algorithm.algorithmName, digest)
+            }*/
 
             else -> try {
                 MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)

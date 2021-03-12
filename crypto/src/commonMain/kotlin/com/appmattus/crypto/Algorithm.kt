@@ -67,6 +67,16 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
 
     object CRC32 : Algorithm("CRC32", 32)
 
+    class cSHAKE128(
+        val customisation: ByteArray? = null,
+        val functionName: ByteArray? = null
+    ) : Algorithm("CRC32", 64)
+
+    class cSHAKE256(
+        val customisation: ByteArray? = null,
+        val functionName: ByteArray? = null
+    ) : Algorithm("CRC32", 128)
+
     object CubeHash224 : Algorithm("CubeHash-224", 32)
     object CubeHash256 : Algorithm("CubeHash-256", 32)
     object CubeHash384 : Algorithm("CubeHash-384", 32)
