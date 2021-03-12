@@ -87,7 +87,6 @@ class Blake2b : Digest<Blake2b> {
      */
     // General parameters:
     private var digestSize = 64 // 1- 64 bytes
-        private set
     private var keyLength = 0 // 0 - 64 bytes for keyed hashing for MAC
     private var salt: ByteArray? = null // new byte[16];
     private var personalization: ByteArray? = null // new byte[16];
@@ -187,18 +186,19 @@ class Blake2b : Digest<Blake2b> {
      * can be overwritten using the clearSalt() method.
      *
      * @param key             A key up to 64 bytes or null
-     * @param digestLength    from 1 up to 64 bytes
+     * @param digestSize      size of the digest in bits
      * @param salt            16 bytes or null
      * @param personalization 16 bytes or null
      */
-    constructor(key: ByteArray?, digestLength: Int, salt: ByteArray?, personalization: ByteArray?) {
-        buffer = ByteArray(blockLength)
-        if (digestLength < 1 || digestLength > 64) {
+    constructor(key: ByteArray?, digestSize: Int, salt: ByteArray?, personalization: ByteArray?) {
+        if (digestSize < 8 || digestSize > 512 || digestSize % 8 != 0) {
             throw IllegalArgumentException(
-                "Invalid digest length (required: 1 - 64)"
+                "BLAKE2b digest bit length must be a multiple of 8 and not greater than 512"
             )
         }
-        digestSize = digestLength
+        this.digestSize = digestSize / 8
+
+        buffer = ByteArray(blockLength)
         if (salt != null) {
             if (salt.size != 16) {
                 throw IllegalArgumentException(
@@ -497,7 +497,7 @@ class Blake2b : Digest<Blake2b> {
             return when (parameters) {
                 is Algorithm.Blake2b.Keyed -> Blake2b(
                     parameters.key,
-                    parameters.outputSizeBits shr 3,
+                    parameters.outputSizeBits,
                     parameters.salt,
                     parameters.personalisation
                 )

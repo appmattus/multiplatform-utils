@@ -21,13 +21,11 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKat
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class Blake2b_384CoreTest : Blake2b_384Test() {
 
@@ -39,17 +37,8 @@ class Blake2b_384CoreTest : Blake2b_384Test() {
     }
 }
 
-class Blake2b_384PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Blake2b_384))
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
-class Blake2b_384InstalledProviderTest : Blake2b_384Test() {
+// No built-in support
+class Blake2b_384InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -61,11 +50,9 @@ class Blake2b_384InstalledProviderTest : Blake2b_384Test() {
         removePlatformProvider()
     }
 
-    override fun digest(algorithm: Algorithm): Digest<*> = PlatformDigest().create(algorithm) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest(Algorithm.Blake2b_384))
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Blake2b_384))
     }
 }
 

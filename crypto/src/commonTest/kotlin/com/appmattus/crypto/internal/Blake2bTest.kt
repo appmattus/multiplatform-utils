@@ -22,12 +22,11 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.strtobin
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
-import kotlin.test.fail
+import kotlin.test.assertNull
 
 class Blake2bCoreTest : Blake2bTest() {
 
@@ -39,9 +38,8 @@ class Blake2bCoreTest : Blake2bTest() {
     }
 }
 
-// No built-in iOS support
-@IgnoreIos
-class Blake2bInstalledProviderTest : Blake2bTest() {
+// No built-in support
+class Blake2bInstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -53,11 +51,9 @@ class Blake2bInstalledProviderTest : Blake2bTest() {
         removePlatformProvider()
     }
 
-    override fun digest(algorithm: Algorithm): Digest<*> = PlatformDigest().create(algorithm) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest(Algorithm.Blake2b()))
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Blake2b()))
     }
 }
 
@@ -396,7 +392,7 @@ abstract class Blake2bTest {
     @Suppress("LongParameterList")
     private fun testBlakeKat(message: String, key: String, salt: String, personalisation: String, outputLength: Int, output: String) {
         testKatHex(
-            digest(Algorithm.Blake2b.Keyed(strtobin(key), strtobin(salt), strtobin(personalisation), outputLength)),
+            digest(Algorithm.Blake2b.Keyed(strtobin(key), strtobin(salt), strtobin(personalisation), outputLength shl 3)),
             message,
             output
         )

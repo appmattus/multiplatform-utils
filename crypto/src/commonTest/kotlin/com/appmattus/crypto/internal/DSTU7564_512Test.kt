@@ -28,7 +28,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class DSTU7564_512CoreTest : DSTU7564_512Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.DSTU7564_512)
@@ -39,17 +38,9 @@ class DSTU7564_512CoreTest : DSTU7564_512Test() {
     }
 }
 
-class DSTU7564_512PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.DSTU7564_512))
-    }
-}
-
-// No built-in iOS support
+// No built-in support
 @IgnoreIos
-class DSTU7564_512InstalledProviderTest : DSTU7564_512Test() {
+class DSTU7564_512InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -61,11 +52,9 @@ class DSTU7564_512InstalledProviderTest : DSTU7564_512Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.DSTU7564_512) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.DSTU7564_512))
     }
 }
 

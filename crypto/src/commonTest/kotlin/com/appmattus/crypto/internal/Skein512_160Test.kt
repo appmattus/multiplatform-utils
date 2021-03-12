@@ -22,13 +22,11 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class Skein512_160CoreTest : Skein512_160Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.Skein512_160)
@@ -39,17 +37,8 @@ class Skein512_160CoreTest : Skein512_160Test() {
     }
 }
 
-class Skein512_160PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Skein512_160))
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
-class Skein512_160InstalledProviderTest : Skein512_160Test() {
+// No built-in support
+class Skein512_160InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -61,11 +50,9 @@ class Skein512_160InstalledProviderTest : Skein512_160Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.Skein512_160) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Skein512_160))
     }
 }
 

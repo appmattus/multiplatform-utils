@@ -20,13 +20,12 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import com.appmattus.ignore.IgnoreIos
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
-import kotlin.test.fail
+import kotlin.test.assertNull
 
 class Keccak224CoreTest : Keccak224Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.Keccak224)
@@ -37,9 +36,8 @@ class Keccak224CoreTest : Keccak224Test() {
     }
 }
 
-// No built-in iOS support
-@IgnoreIos
-class Keccak224InstalledProviderTest : Keccak224Test() {
+// No built-in support
+class Keccak224InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -51,11 +49,9 @@ class Keccak224InstalledProviderTest : Keccak224Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.Keccak224) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Keccak224))
     }
 }
 

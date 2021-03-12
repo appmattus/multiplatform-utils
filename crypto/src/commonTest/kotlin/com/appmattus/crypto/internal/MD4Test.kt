@@ -18,15 +18,16 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import com.appmattus.ignore.IgnoreJunit4
 import com.appmattus.crypto.internal.core.sphlib.testCollision
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
+import com.appmattus.ignore.IgnoreIos
+import com.appmattus.ignore.IgnoreJunit4
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
-import kotlin.test.fail
+import kotlin.test.assertNull
 
 class MD4CoreTest : MD4Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.MD4)
@@ -37,19 +38,7 @@ class MD4CoreTest : MD4Test() {
     }
 }
 
-// Java does not implement MD4
-@IgnoreJunit4
-class MD4PlatformTest : MD4Test() {
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.MD4) ?: fail()
-
-    @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
-    }
-}
-
-// On iOS this test is equivalent to the "...PlatformTest"
-class MD4InstalledProviderTest : MD4Test() {
+class MD4InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -61,11 +50,16 @@ class MD4InstalledProviderTest : MD4Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.MD4) ?: fail()
+    @Test
+    @IgnoreJunit4
+    fun hasImplementation() {
+        assertNotNull(PlatformDigest().create(Algorithm.MD4))
+    }
 
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    @IgnoreIos
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.MD4))
     }
 }
 

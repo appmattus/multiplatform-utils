@@ -20,13 +20,11 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class SM3CoreTest : SM3Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.SM3)
@@ -37,17 +35,8 @@ class SM3CoreTest : SM3Test() {
     }
 }
 
-class SM3PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.SM3))
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
-class SM3InstalledProviderTest : SM3Test() {
+// No built-in support
+class SM3InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -59,11 +48,9 @@ class SM3InstalledProviderTest : SM3Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SM3) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.SM3))
     }
 }
 

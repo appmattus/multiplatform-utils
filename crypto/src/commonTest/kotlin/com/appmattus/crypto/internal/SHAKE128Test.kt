@@ -21,6 +21,7 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.encodeLatin1
+import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.toHexString
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
@@ -142,6 +143,15 @@ abstract class SHAKE128Test {
                     "A9FF00DD4E1300B9B2153D2041D205B4" +
                     "43E41B45A653F2A5C4492C1ADD544512" +
                     "DDA2529833462B71A41A45BE97290B6F"
+        )
+    }
+
+    @Test
+    fun abc() {
+        testKat(
+            dig = digest(),
+            data = "abc",
+            ref = "5881092dd818bf5cf8a3ddb793fbcba74097d5c526a6d35f97b83351940f2cc8"
         )
     }
 

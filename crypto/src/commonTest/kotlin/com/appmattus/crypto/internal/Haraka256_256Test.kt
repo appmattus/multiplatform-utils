@@ -21,13 +21,11 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKatHex
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class Haraka256_256CoreTest : Haraka256_256Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.Haraka256_256)
@@ -38,17 +36,8 @@ class Haraka256_256CoreTest : Haraka256_256Test() {
     }
 }
 
-class Haraka256_256PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Haraka256_256))
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
-class Haraka256_256InstalledProviderTest : Haraka256_256Test() {
+// No built-in support
+class Haraka256_256InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -60,11 +49,9 @@ class Haraka256_256InstalledProviderTest : Haraka256_256Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.Haraka256_256) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Haraka256_256))
     }
 }
 

@@ -28,7 +28,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class GOST3411_2012_512CoreTest : GOST3411_2012_512Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.GOST3411_2012_512)
@@ -40,17 +39,8 @@ class GOST3411_2012_512CoreTest : GOST3411_2012_512Test() {
 }
 
 // No built-in support
-class GOST3411_2012_512PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.GOST3411_2012_512))
-    }
-}
-
-// No built-in iOS support
 @IgnoreIos
-class GOST3411_2012_51InstalledProviderTest : GOST3411_2012_512Test() {
+class GOST3411_2012_51InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -62,11 +52,9 @@ class GOST3411_2012_51InstalledProviderTest : GOST3411_2012_512Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.GOST3411_2012_512) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.GOST3411_2012_512))
     }
 }
 

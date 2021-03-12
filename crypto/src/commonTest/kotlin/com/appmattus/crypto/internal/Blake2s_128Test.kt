@@ -27,7 +27,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class Blake2s_128CoreTest : Blake2s_128Test() {
 
@@ -39,17 +38,9 @@ class Blake2s_128CoreTest : Blake2s_128Test() {
     }
 }
 
-class Blake2s_128PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Blake2s_128))
-    }
-}
-
-// No built-in iOS support
+// No built-in support
 @IgnoreIos
-class Blake2s_128InstalledProviderTest : Blake2s_128Test() {
+class Blake2s_128InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -61,11 +52,9 @@ class Blake2s_128InstalledProviderTest : Blake2s_128Test() {
         removePlatformProvider()
     }
 
-    override fun digest(algorithm: Algorithm): Digest<*> = PlatformDigest().create(algorithm) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest(Algorithm.Blake2s_128))
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Blake2s_128))
     }
 }
 

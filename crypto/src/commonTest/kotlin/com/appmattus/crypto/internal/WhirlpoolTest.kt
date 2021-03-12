@@ -20,13 +20,11 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class WhirlpoolCoreTest : WhirlpoolTest() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.Whirlpool)
@@ -37,18 +35,8 @@ class WhirlpoolCoreTest : WhirlpoolTest() {
     }
 }
 
-class WhirlpoolPlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Whirlpool))
-    }
-}
-
-// On iOS this test is equivalent to the "...PlatformTest"
-// No built-in iOS support
-@IgnoreIos
-class WhirlpoolInstalledProviderTest : WhirlpoolTest() {
+// No built-in support
+class WhirlpoolInstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -60,11 +48,9 @@ class WhirlpoolInstalledProviderTest : WhirlpoolTest() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.Whirlpool) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Whirlpool))
     }
 }
 

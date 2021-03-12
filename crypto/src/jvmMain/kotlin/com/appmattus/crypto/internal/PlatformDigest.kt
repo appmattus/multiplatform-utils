@@ -20,108 +20,32 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.jvm.Adler32
 import com.appmattus.crypto.internal.core.jvm.CRC32
-import org.bouncycastle.crypto.digests.Blake2bDigest
-import org.bouncycastle.crypto.digests.Blake2sDigest
-import org.bouncycastle.crypto.digests.SkeinDigest
-import org.bouncycastle.crypto.params.SkeinParameters
+import java.security.Security
 
 @Suppress("MagicNumber", "NestedBlockDepth", "ComplexMethod", "LongMethod")
 internal actual class PlatformDigest {
 
+    private val messageDigestRegex = "MessageDigest\\.([^\\s]*)$".toRegex()
+
+    private val installedAlgorithms by lazy {
+        Security.getProvider("SUN")
+            .keys
+            .filterIsInstance<String>()
+            .mapNotNull {
+                messageDigestRegex.find(it)?.groupValues?.get(1)
+            }
+    }
+
     actual fun create(algorithm: Algorithm): Digest<*>? {
+
         return when (algorithm) {
             Algorithm.Adler32 -> Adler32()
             Algorithm.CRC32 -> CRC32()
 
-            is Algorithm.Blake2b -> try {
-                when (algorithm) {
-                    is Algorithm.Blake2b.Keyed -> {
-                        val digest = Blake2bDigest(algorithm.key, algorithm.outputSizeBits shr 3, algorithm.salt, algorithm.personalisation)
-                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
-                    }
-                    else -> {
-                        val digest = Blake2bDigest(algorithm.outputSizeBits)
-                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
-                    }
-                }
-            } catch (expected: Exception) {
-                null
-            }
-
-            is Algorithm.Blake2s -> try {
-                when (algorithm) {
-                    is Algorithm.Blake2s.Keyed -> {
-                        val digest = Blake2sDigest(algorithm.key, algorithm.outputSizeBits shr 3, algorithm.salt, algorithm.personalisation)
-                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
-                    }
-                    else -> {
-                        val digest = Blake2sDigest(algorithm.outputSizeBits)
-                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
-                    }
-                }
-            } catch (expected: Exception) {
-                null
-            }
-
-            is Algorithm.Skein -> try {
-                when (algorithm) {
-                    is Algorithm.Skein.Keyed -> {
-                        val digest = SkeinDigest(algorithm.blockSizeBits, algorithm.outputSizeBits)
-                        val parameters = if (algorithm.key.isNotEmpty()) {
-                            SkeinParameters.Builder().setKey(algorithm.key).build()
-                        } else {
-                            null
-                        }
-                        digest.init(parameters)
-                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
-                    }
-                    else -> {
-                        val digest = SkeinDigest(algorithm.blockSizeBits, algorithm.outputSizeBits)
-                        digest.init(null)
-                        ExtendedDigestPlatform(algorithm.algorithmName, digest)
-                    }
-                }
-            } catch (expected: Exception) {
-                null
-            }
-
-            // Bouncycastle contains a bug in its implementation so we are defaulting to the built-in implementation
-            is Algorithm.SHAKE128,
-            is Algorithm.SHAKE256 -> null
-
-            /*is Algorithm.SHAKE128,
-            is Algorithm.SHAKE256 -> {
-                try {
-                    val (major, minor, patch) = BouncyCastleProvider::class.java.`package`.implementationVersion
-                        .split(",")
-                        .map { it.toInt() }
-
-                    if (major > 1 || (major == 1 && minor > 68) || (major == 1 && minor == 68 && patch > 0)) {
-                        MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)
-                    } else {
-                        null
-                    }
-                } catch (expected: Exception) {
-                    null
-                }
-            }*/
-
-            // Bouncycastle contains a bug in its implementation so we are defaulting to the built-in implementation
-            is Algorithm.cSHAKE128,
-            is Algorithm.cSHAKE256 -> null
-
-            /*is Algorithm.cSHAKE128 -> {
-                val digest = CSHAKEDigest(128, algorithm.functionName, algorithm.customisation)
-                ExtendedDigestPlatform(algorithm.algorithmName, digest)
-            }
-            is Algorithm.cSHAKE256 -> {
-                val digest = CSHAKEDigest(256, algorithm.functionName, algorithm.customisation)
-                ExtendedDigestPlatform(algorithm.algorithmName, digest)
-            }*/
-
-            else -> try {
+            // We only use platform installed algorithms
+            else -> if (algorithm.algorithmName in installedAlgorithms) {
                 MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)
-            } catch (expected: Exception) {
+            } else {
                 null
             }
         }

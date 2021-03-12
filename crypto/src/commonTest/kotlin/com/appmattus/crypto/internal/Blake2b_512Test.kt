@@ -28,7 +28,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class Blake2b_512CoreTest : Blake2b_512Test() {
 
@@ -40,17 +39,9 @@ class Blake2b_512CoreTest : Blake2b_512Test() {
     }
 }
 
-class Blake2b_512PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Blake2b_512))
-    }
-}
-
-// No built-in iOS support
+// No built-in support
 @IgnoreIos
-class Blake2b_512InstalledProviderTest : Blake2b_512Test() {
+class Blake2b_512InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -62,11 +53,9 @@ class Blake2b_512InstalledProviderTest : Blake2b_512Test() {
         removePlatformProvider()
     }
 
-    override fun digest(algorithm: Algorithm): Digest<*> = PlatformDigest().create(algorithm) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest(Algorithm.Blake2b_512))
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Blake2b_512))
     }
 }
 
@@ -79,7 +68,8 @@ abstract class Blake2b_512Test {
 
     private val mainAlgorithm = Algorithm.Blake2b_512
     private val keyedAlgorithm = Algorithm.Blake2b.Keyed(
-        strtobin("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f")
+        key = strtobin("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f"),
+        outputSizeBits = 512
     )
 
     @Test

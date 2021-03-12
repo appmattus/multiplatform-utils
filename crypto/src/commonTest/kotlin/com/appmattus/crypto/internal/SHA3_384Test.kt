@@ -20,7 +20,6 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import com.appmattus.ignore.IgnoreIos
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatExtremelyLong
 import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
@@ -42,17 +41,6 @@ class SHA3_384CoreTest : SHA3_384Test() {
 
 // Only supported in Java 9+ and no built-in support on iOS
 @Ignore
-class SHA3_384PlatformTest : SHA3_384Test() {
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.SHA3_384) ?: fail()
-
-    @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
 class SHA3_384InstalledProviderTest : SHA3_384Test() {
 
     @BeforeTest

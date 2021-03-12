@@ -18,7 +18,6 @@ package com.appmattus.crypto.internal
 
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
-import com.appmattus.ignore.IgnoreIos
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
 import kotlin.test.AfterTest
@@ -26,7 +25,6 @@ import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class RipeMD320CoreTest : RipeMD320Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.RipeMD320)
@@ -37,18 +35,8 @@ class RipeMD320CoreTest : RipeMD320Test() {
     }
 }
 
-class RipeMD320PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.RipeMD320))
-    }
-}
-
-// On iOS this test is equivalent to the "...PlatformTest"
-// No built-in iOS support
-@IgnoreIos
-class RipeMD320InstalledProviderTest : RipeMD320Test() {
+// No built-in support
+class RipeMD320InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -60,11 +48,9 @@ class RipeMD320InstalledProviderTest : RipeMD320Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.RipeMD320) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.RipeMD320))
     }
 }
 

@@ -21,13 +21,11 @@ package com.appmattus.crypto.internal
 import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKat
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class Skein256_128CoreTest : Skein256_128Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.Skein256_128)
@@ -38,17 +36,8 @@ class Skein256_128CoreTest : Skein256_128Test() {
     }
 }
 
-class Skein256_128PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.Skein256_128))
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
-class Skein256_128InstalledProviderTest : Skein256_128Test() {
+// No built-in support
+class Skein256_128InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -60,11 +49,9 @@ class Skein256_128InstalledProviderTest : Skein256_128Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.Skein256_128) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.Skein256_128))
     }
 }
 

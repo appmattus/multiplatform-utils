@@ -22,13 +22,11 @@ import com.appmattus.crypto.Algorithm
 import com.appmattus.crypto.Digest
 import com.appmattus.crypto.internal.core.sphlib.testKat
 import com.appmattus.crypto.internal.core.sphlib.testKatMillionA
-import com.appmattus.ignore.IgnoreIos
 import kotlin.test.AfterTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
-import kotlin.test.fail
 
 class GOST3411CoreTest : GOST3411Test() {
     override fun digest(): Digest<*> = CoreDigest.create(Algorithm.GOST3411_94)
@@ -40,17 +38,7 @@ class GOST3411CoreTest : GOST3411Test() {
 }
 
 // No built-in support
-class GOST3411PlatformTest {
-
-    @Test
-    fun noImplementation() {
-        assertNull(PlatformDigest().create(Algorithm.GOST3411_94))
-    }
-}
-
-// No built-in iOS support
-@IgnoreIos
-class GOST3411InstalledProviderTest : GOST3411Test() {
+class GOST3411InstalledProviderTest {
 
     @BeforeTest
     fun beforeTest() {
@@ -62,11 +50,9 @@ class GOST3411InstalledProviderTest : GOST3411Test() {
         removePlatformProvider()
     }
 
-    override fun digest(): Digest<*> = PlatformDigest().create(Algorithm.GOST3411_94) ?: fail()
-
     @Test
-    fun hasImplementation() {
-        assertNotNull(digest())
+    fun noImplementation() {
+        assertNull(PlatformDigest().create(Algorithm.GOST3411_94))
     }
 }
 
