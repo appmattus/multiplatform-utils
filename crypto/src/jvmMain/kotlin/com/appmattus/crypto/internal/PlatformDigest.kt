@@ -24,6 +24,7 @@ import org.bouncycastle.crypto.digests.Blake2bDigest
 import org.bouncycastle.crypto.digests.Blake2sDigest
 import org.bouncycastle.crypto.digests.SkeinDigest
 import org.bouncycastle.crypto.params.SkeinParameters
+import org.bouncycastle.jce.provider.BouncyCastleProvider
 
 @Suppress("MagicNumber", "NestedBlockDepth", "ComplexMethod", "LongMethod")
 internal actual class PlatformDigest {
@@ -83,6 +84,23 @@ internal actual class PlatformDigest {
                 }
             } catch (expected: Exception) {
                 null
+            }
+
+            is Algorithm.SHAKE128,
+            is Algorithm.SHAKE256 -> {
+                try {
+                    val (major, minor, patch) = BouncyCastleProvider::class.java.`package`.implementationVersion
+                        .split(",")
+                        .map { it.toInt() }
+
+                    if (major > 1 || (major == 1 && minor > 68) || (major == 1 && minor == 68 && patch > 0)) {
+                        MessageDigestPlatform(algorithm.algorithmName, algorithm.blockLength)
+                    } else {
+                        null
+                    }
+                } catch (expected: Exception) {
+                    null
+                }
             }
 
             else -> try {

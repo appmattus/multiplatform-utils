@@ -170,6 +170,9 @@ sealed class Algorithm(val algorithmName: String, internal val blockLength: Int)
     object Shabal384 : Algorithm("Shabal-384", 64)
     object Shabal512 : Algorithm("Shabal-512", 64)
 
+    object SHAKE128 : Algorithm("SHAKE128", 64)
+    object SHAKE256 : Algorithm("SHAKE256", 128)
+
     object SHAvite224 : Algorithm("SHAvite-224", 64)
     object SHAvite256 : Algorithm("SHAvite-256", 64)
     object SHAvite384 : Algorithm("SHAvite-384", 128)

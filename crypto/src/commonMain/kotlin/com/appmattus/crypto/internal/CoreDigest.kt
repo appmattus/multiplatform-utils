@@ -40,6 +40,7 @@ import com.appmattus.crypto.internal.core.bouncycastle.blake2.Blake2b
 import com.appmattus.crypto.internal.core.bouncycastle.blake2.Blake2s
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka256_256
 import com.appmattus.crypto.internal.core.bouncycastle.haraka.Haraka512_256
+import com.appmattus.crypto.internal.core.bouncycastle.shake.SHAKEDigest
 import com.appmattus.crypto.internal.core.sphlib.BLAKE224
 import com.appmattus.crypto.internal.core.sphlib.BLAKE256
 import com.appmattus.crypto.internal.core.sphlib.BLAKE384
@@ -248,6 +249,9 @@ internal object CoreDigest {
             Algorithm.Shabal256 -> ShabalGeneric(256)
             Algorithm.Shabal384 -> ShabalGeneric(384)
             Algorithm.Shabal512 -> ShabalGeneric(512)
+
+            Algorithm.SHAKE128 -> SHAKEDigest(128)
+            Algorithm.SHAKE256 -> SHAKEDigest(256)
 
             Algorithm.SHAvite224 -> SHAvite224()
             Algorithm.SHAvite256 -> SHAvite256()

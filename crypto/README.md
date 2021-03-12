@@ -34,6 +34,7 @@ The following hashing algorithms are supported
 - SHA-0, SHA-1, SHA-224, SHA-384, SHA-512, SHA-512/224, SHA-512/256
 - SHA3-224, SHA3-256, SHA3-384, SHA3-512
 - Shabal-192, Shabal-224, Shabal-256, Shabal-384, Shabal-512
+- SHAKE128, SHAKE256
 - SHAvite-224, SHAvite-256, SHAvite-384, SHAvite-512
 - SIMD-224, SIMD-256, SIMD-384, SIMD-512
 - Skein-256-128, Skein-256-160, Skein-256-224, Skein-256-256, Skein-512-128,
