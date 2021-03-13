@@ -1,5 +1,7 @@
 include(":battery")
 include(":connectivity")
+include(":crypto")
+include(":ignore-test")
 include(":package-info")
 include(":samples:shared")
 include(":samples:androidApp")
