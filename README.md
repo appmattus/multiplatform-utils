@@ -6,8 +6,8 @@ development.
 [battery](battery/README.md): Access various information about the battery of
 the device the app is running on.
 
-[cryptohash](https://github.com/appmattus/crypto/tree/main/cryptohash/): A set of cryptographic (and
-not so cryptographic) hashing functions.
+[cryptohash](https://github.com/appmattus/crypto/tree/main/cryptohash/): A set
+of cryptographic (and not so cryptographic) hashing functions.
 
 [connectivity](connectivity/README.md): Discover network connectivity and
 distinguish between cellular vs WiFi connection.
