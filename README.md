@@ -6,8 +6,14 @@ development.
 [battery](battery/README.md): Access various information about the battery of
 the device the app is running on.
 
+[cryptohash](https://github.com/appmattus/crypto/tree/main/cryptohash/): A set
+of cryptographic (and not so cryptographic) hashing functions.
+
 [connectivity](connectivity/README.md): Discover network connectivity and
 distinguish between cellular vs WiFi connection.
+
+[ignore-test](ignore-test/README.md): Annotations to ignore tests from
+specific platforms.
 
 [package-info](package-info/README.md): An API for querying information about
 an application package.
