@@ -17,20 +17,25 @@
 package com.appmattus.connectivity
 
 import android.annotation.TargetApi
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.net.ConnectivityManager
+import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkRequest
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import com.appmattus.connectivity.ConnectivityStatus.Status.Mobile
 import com.appmattus.connectivity.ConnectivityStatus.Status.None
 import com.appmattus.connectivity.ConnectivityStatus.Status.Wifi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
 actual class Connectivity(private val context: Context) {
 
@@ -83,18 +88,39 @@ actual class Connectivity(private val context: Context) {
     @Suppress("EXPERIMENTAL_API_USAGE")
     actual val connectivityStatus: Flow<ConnectivityStatus>
         get() = callbackFlow {
-            val receiver = object : BroadcastReceiver() {
-                override fun onReceive(context: Context, intent: Intent) {
+            var statusJob: Job? = null
+
+            fun updateNetworkStatus() {
+                statusJob?.cancel()
+                statusJob = launch {
+                    delay(StatusCheckDelay)
                     trySend(connectivity)
                 }
             }
 
-            // TODO Wrap in version
-            @Suppress("DEPRECATION")
-            context.registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+            val networkCallback = object : ConnectivityManager.NetworkCallback() {
+                override fun onAvailable(network: Network) {
+                    super.onAvailable(network)
+                    updateNetworkStatus()
+                }
+
+                override fun onLost(network: Network) {
+                    super.onLost(network)
+                    updateNetworkStatus()
+                }
+            }
+
+            val networkChangeFilter = NetworkRequest.Builder().build()
+            connectivityManager.registerNetworkCallback(networkChangeFilter, networkCallback)
+
+            trySend(connectivity)
 
             awaitClose {
-                context.unregisterReceiver(receiver)
+                connectivityManager.unregisterNetworkCallback(networkCallback)
             }
-        }
+        }.flowOn(Dispatchers.Unconfined).distinctUntilChanged()
+
+    companion object {
+        private const val StatusCheckDelay = 100L
+    }
 }
