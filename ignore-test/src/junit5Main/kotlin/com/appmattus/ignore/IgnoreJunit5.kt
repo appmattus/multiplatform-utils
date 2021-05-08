@@ -18,4 +18,4 @@ package com.appmattus.ignore
 
 import org.junit.jupiter.api.Disabled
 
-actual typealias IgnoreJvm = Disabled
+actual typealias IgnoreJunit5 = Disabled
