@@ -20,11 +20,9 @@ import com.appmattus.battery.ChargingStatus.Status.Charging
 import com.appmattus.battery.ChargingStatus.Status.Discharging
 import com.appmattus.battery.ChargingStatus.Status.Full
 import com.appmattus.battery.ChargingStatus.Status.Unavailable
-import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.runBlocking
 import platform.Foundation.NSNotificationCenter
 import platform.Foundation.NSProcessInfo
 import platform.UIKit.UIDevice
@@ -45,17 +43,17 @@ actual class Battery {
 
     @Suppress("EXPERIMENTAL_API_USAGE")
     actual val chargingStatus: Flow<ChargingStatus>
-        get() = callbackFlow<ChargingStatus> {
+        get() = callbackFlow {
             UIDevice.currentDevice.batteryMonitoringEnabled = true
 
-            sendBlocking(UIDevice.currentDevice.batteryState.asChargingStatus)
+            trySend(UIDevice.currentDevice.batteryState.asChargingStatus)
 
             val observer = NSNotificationCenter.defaultCenter.addObserverForName(
                 name = UIDeviceBatteryStateDidChangeNotification,
                 `object` = null,
                 queue = null,
                 usingBlock = {
-                    sendBlocking(UIDevice.currentDevice.batteryState.asChargingStatus)
+                    trySend(UIDevice.currentDevice.batteryState.asChargingStatus)
                 }
             )
 
@@ -69,20 +67,10 @@ actual class Battery {
             get() = if (NSProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != null) ChargingStatus(Full) else when (this) {
                 UIDeviceBatteryState.UIDeviceBatteryStateCharging -> ChargingStatus(Charging)
                 UIDeviceBatteryState.UIDeviceBatteryStateFull -> ChargingStatus(Full)
-                UIDeviceBatteryState.UIDeviceBatteryStateUnknown -> ChargingStatus(Unavailable)
                 UIDeviceBatteryState.UIDeviceBatteryStateUnplugged -> ChargingStatus(Discharging)
+                UIDeviceBatteryState.UIDeviceBatteryStateUnknown -> ChargingStatus(Unavailable)
+                else -> ChargingStatus(Unavailable)
             }
-
-        private fun <E> SendChannel<E>.sendBlocking(element: E) {
-            // fast path
-            if (offer(element)) {
-                return
-            }
-            // slow path
-            runBlocking {
-                send(element)
-            }
-        }
 
         private const val BATTERY_MAX_VALUE = 100
     }

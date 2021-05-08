@@ -29,7 +29,6 @@ import com.appmattus.connectivity.ConnectivityStatus.Status.Mobile
 import com.appmattus.connectivity.ConnectivityStatus.Status.None
 import com.appmattus.connectivity.ConnectivityStatus.Status.Wifi
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
@@ -86,10 +85,12 @@ actual class Connectivity(private val context: Context) {
         get() = callbackFlow {
             val receiver = object : BroadcastReceiver() {
                 override fun onReceive(context: Context, intent: Intent) {
-                    sendBlocking(connectivity)
+                    trySend(connectivity)
                 }
             }
 
+            // TODO Wrap in version
+            @Suppress("DEPRECATION")
             context.registerReceiver(receiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
 
             awaitClose {

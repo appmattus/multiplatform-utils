@@ -30,7 +30,6 @@ import kotlinx.cinterop.value
 import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.runBlocking
 import platform.CoreFoundation.CFRelease
 import platform.CoreFoundation.CFRunLoopGetCurrent
 import platform.CoreFoundation.kCFRunLoopDefaultMode
@@ -80,7 +79,7 @@ actual class Connectivity(private val nodename: String = "example.com") {
                 val callbackSuccessful = SCNetworkReachabilitySetCallback(
                     target = reachability,
                     callout = staticCFunction { _: SCNetworkReachabilityRef?, flags: SCNetworkReachabilityFlags, info: COpaquePointer? ->
-                        info?.asStableRef<SendChannel<ConnectivityStatus>>()?.get()?.sendBlocking(flags.asConnectivityStatus)
+                        info?.asStableRef<SendChannel<ConnectivityStatus>>()?.get()?.trySend(flags.asConnectivityStatus)
                         Unit
                     },
                     context = context.ptr
@@ -101,17 +100,6 @@ actual class Connectivity(private val nodename: String = "example.com") {
         }
 
     companion object {
-        private fun <E> SendChannel<E>.sendBlocking(element: E) {
-            // fast path
-            if (offer(element)) {
-                return
-            }
-            // slow path
-            runBlocking {
-                send(element)
-            }
-        }
-
         private val SCNetworkReachabilityFlags.asConnectivityStatus: ConnectivityStatus
             get() = when {
                 !reachable -> None
