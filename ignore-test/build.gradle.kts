@@ -23,7 +23,8 @@ plugins {
 }
 
 kotlin {
-    jvm()
+    jvm("junit4")
+    jvm("junit5")
     ios()
 
     sourceSets {
@@ -34,13 +35,18 @@ kotlin {
             }
         }
         val commonTest by getting
-        val jvmMain by getting {
+        val junit4Main by getting {
             dependencies {
                 compileOnly(kotlin("test-junit"))
+            }
+        }
+        val junit4Test by getting
+        val junit5Main by getting {
+            dependencies {
                 compileOnly(kotlin("test-junit5"))
             }
         }
-        val jvmTest by getting
+        val junit5Test by getting
         val iosMain by getting
         val iosTest by getting
     }

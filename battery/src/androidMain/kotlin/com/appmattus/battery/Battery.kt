@@ -29,7 +29,6 @@ import com.appmattus.battery.ChargingStatus.Status.Discharging
 import com.appmattus.battery.ChargingStatus.Status.Full
 import com.appmattus.battery.ChargingStatus.Status.Unavailable
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
@@ -58,7 +57,7 @@ actual class Battery(private val context: Context) {
                         BatteryManager.BATTERY_STATUS_DISCHARGING -> ChargingStatus(Discharging)
                         else -> ChargingStatus(Unavailable)
                     }.let {
-                        sendBlocking(it)
+                        trySend(it)
                     }
                 }
             }
