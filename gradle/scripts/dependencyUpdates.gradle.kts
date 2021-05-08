@@ -20,7 +20,6 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 buildscript {
     repositories {
         google()
-        jcenter()
         maven(url = "https://plugins.gradle.org/m2/")
     }
     dependencies {
