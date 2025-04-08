@@ -17,8 +17,8 @@
 plugins {
     id("com.android.library")
     kotlin("multiplatform")
-    id(libs.plugins.gradleMavenPublishPlugin.get().pluginId)
-    id(libs.plugins.dokkaPlugin.get().pluginId)
+    alias(libs.plugins.gradleMavenPublishPlugin)
+    alias(libs.plugins.dokkaPlugin)
 }
 
 kotlin {
@@ -44,7 +44,7 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinCoroutines)
+            implementation(libs.kotlinx.coroutines)
         }
 
         androidMain.dependencies {

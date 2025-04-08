@@ -45,6 +45,7 @@ allprojects {
         gradlePluginPortal()
         google()
         mavenCentral()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 

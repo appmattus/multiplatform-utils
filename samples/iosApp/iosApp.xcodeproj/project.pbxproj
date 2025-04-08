@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,12 +18,12 @@
 		C5D0B56525CD8DB9000FAA1A /* TwoLineTextRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B56425CD8DB9000FAA1A /* TwoLineTextRow.swift */; };
 		C5D0B57625CD9D4D000FAA1A /* Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B57525CD9D4D000FAA1A /* Publisher.swift */; };
 		C5D0B57A25CD9DB5000FAA1A /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B57925CD9DB5000FAA1A /* BatteryView.swift */; };
-		C5D0B58225CDA472000FAA1A /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5D0B58125CDA472000FAA1A /* shared.xcframework */; };
-		C5D0B58325CDA472000FAA1A /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C5D0B58125CDA472000FAA1A /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C5D0B58A25CDA73D000FAA1A /* BatteryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B58925CDA73D000FAA1A /* BatteryViewModel.swift */; };
 		C5D0B59725CDB183000FAA1A /* ConnectivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B59625CDB183000FAA1A /* ConnectivityView.swift */; };
 		C5D0B59925CDB194000FAA1A /* ConnectivityViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B59825CDB194000FAA1A /* ConnectivityViewModel.swift */; };
 		C5D0B59B25CEB230000FAA1A /* PackageInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5D0B59A25CEB230000FAA1A /* PackageInfoViewModel.swift */; };
+		C627FBC42DA5D99700B1D5AC /* shared.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C6EB60072DA53CF400FC60C2 /* shared.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		C6E9E6242DA53E4C00500D81 /* shared.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6EB60072DA53CF400FC60C2 /* shared.xcframework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,7 +33,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C5D0B58325CDA472000FAA1A /* shared.xcframework in Embed Frameworks */,
+				C627FBC42DA5D99700B1D5AC /* shared.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -55,11 +55,11 @@
 		C5D0B56425CD8DB9000FAA1A /* TwoLineTextRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoLineTextRow.swift; sourceTree = "<group>"; };
 		C5D0B57525CD9D4D000FAA1A /* Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Publisher.swift; sourceTree = "<group>"; };
 		C5D0B57925CD9DB5000FAA1A /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
-		C5D0B58125CDA472000FAA1A /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = shared.xcframework; path = "../shared/build/xcode-frameworks/shared.xcframework"; sourceTree = "<group>"; };
 		C5D0B58925CDA73D000FAA1A /* BatteryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryViewModel.swift; sourceTree = "<group>"; };
 		C5D0B59625CDB183000FAA1A /* ConnectivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityView.swift; sourceTree = "<group>"; };
 		C5D0B59825CDB194000FAA1A /* ConnectivityViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityViewModel.swift; sourceTree = "<group>"; };
 		C5D0B59A25CEB230000FAA1A /* PackageInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInfoViewModel.swift; sourceTree = "<group>"; };
+		C6EB60072DA53CF400FC60C2 /* shared.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = shared.xcframework; path = ../shared/build/XCFrameworks/release/shared.xcframework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C5D0B58225CDA472000FAA1A /* shared.xcframework in Frameworks */,
+				C6E9E6242DA53E4C00500D81 /* shared.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +121,7 @@
 		7555FFB0242A642200829871 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C5D0B58125CDA472000FAA1A /* shared.xcframework */,
+				C6EB60072DA53CF400FC60C2 /* shared.xcframework */,
 				446563EA2538941000A6AB4D /* Accessibility.framework */,
 			);
 			name = Frameworks;
@@ -265,7 +265,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"$SRCROOT/..\"\n./../gradlew :samples:shared:buildXcFramework -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
+			shellScript = "cd \"$SRCROOT/..\"\n./../gradlew :samples:shared:assembleXCFramework -PXCODE_CONFIGURATION=${CONFIGURATION}\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

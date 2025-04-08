@@ -16,8 +16,8 @@
 
 plugins {
     kotlin("multiplatform")
-    id(libs.plugins.gradleMavenPublishPlugin.get().pluginId)
-    id(libs.plugins.dokkaPlugin.get().pluginId)
+    alias(libs.plugins.gradleMavenPublishPlugin)
+    alias(libs.plugins.dokkaPlugin)
 }
 
 kotlin {
