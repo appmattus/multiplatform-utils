@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,6 @@
 
 package com.appmattus.connectivity
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
@@ -24,6 +23,7 @@ import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
+import androidx.annotation.RequiresApi
 import com.appmattus.connectivity.ConnectivityStatus.Status.Mobile
 import com.appmattus.connectivity.ConnectivityStatus.Status.None
 import com.appmattus.connectivity.ConnectivityStatus.Status.Wifi
@@ -50,7 +50,7 @@ actual class Connectivity(private val context: Context) {
             getNetworkTypeLegacy()
         }
 
-    @TargetApi(VERSION_CODES.M)
+    @RequiresApi(VERSION_CODES.M)
     private fun getNetworkTypeApi23(): ConnectivityStatus {
         val network = connectivityManager.activeNetwork
         val capabilities =
@@ -81,11 +81,11 @@ actual class Connectivity(private val context: Context) {
             ConnectivityManager.TYPE_MOBILE,
             ConnectivityManager.TYPE_MOBILE_DUN,
             ConnectivityManager.TYPE_MOBILE_HIPRI -> ConnectivityStatus(Mobile)
+
             else -> ConnectivityStatus(None)
         }
     }
 
-    @Suppress("EXPERIMENTAL_API_USAGE")
     actual val connectivityStatus: Flow<ConnectivityStatus>
         get() = callbackFlow {
             var statusJob: Job? = null

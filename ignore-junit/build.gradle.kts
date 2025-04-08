@@ -1,5 +1,5 @@
 /*
- * Copyright 2021-2025 Appmattus Limited
+ * Copyright 2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,13 @@
  */
 
 plugins {
-    id("com.android.library")
     kotlin("multiplatform")
     id(libs.plugins.gradleMavenPublishPlugin.get().pluginId)
     id(libs.plugins.dokkaPlugin.get().pluginId)
 }
 
 kotlin {
-    androidTarget()
+    jvm()
 
     iosX64()
     iosArm64()
@@ -34,7 +33,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "multiplatformutils-battery"
+            baseName = "multiplatformutils-ignorejunit"
             isStatic = true
         }
     }
@@ -44,31 +43,17 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinCoroutines)
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
+        }
+
+        jvmMain.dependencies {
+            compileOnly(kotlin("test-junit"))
         }
     }
 
     compilerOptions {
         jvmToolchain(8)
         freeCompilerArgs.add("-Xexpect-actual-classes")
-    }
-}
-
-android {
-    namespace = "com.appmattus.multiplatformutils.battery"
-    compileSdk = 35
-
-    defaultConfig {
-        minSdk = 21
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
     }
 }

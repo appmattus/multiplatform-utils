@@ -1,0 +1,49 @@
+[versions]
+
+kotlin = "2.1.20"
+
+androidGradlePlugin = "8.9.1"
+detektGradlePlugin = "1.23.8"
+gradleVersionsPlugin = "0.52.0"
+markdownlintGradlePlugin = "0.6.0"
+gradleMavenPublishPlugin = "0.31.0"
+dokkaPlugin = "2.0.0"
+
+coil = "3.1.0"
+coroutines = "1.10.1"
+groupie = "2.9.0" ##
+orbitMvi = "9.0.0"
+
+desugar = "2.1.5"
+leakCanary = "2.14"
+
+androidx_annotation = "1.9.1"
+androidx_appCompat = "1.7.0"
+androidx_constraintLayout = "2.2.1"
+androidx_fragment = "1.8.6"
+androidx_lifecycle = "2.8.7"
+androidx_navigation = "2.8.9"
+androidx_vectorDrawable = "1.2.0"
+
+google_dagger = "2.56"
+google_material = "1.12.0"
+
+[libraries]
+
+kotlinCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "androidx_annotation" }
+
+buildscript_android = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+buildscript_kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+buildscript_hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "google_dagger" }
+buildscript_safeargs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx_navigation" }
+
+[plugins]
+
+androidGradlePlugin = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektGradlePlugin" }
+gradleVersionsPlugin = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionsPlugin" }
+markdownlintGradlePlugin = { id = "com.appmattus.markdown", version.ref = "markdownlintGradlePlugin" }
+gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradleMavenPublishPlugin" }
+dokkaPlugin = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }
