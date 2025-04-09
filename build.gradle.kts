@@ -37,7 +37,7 @@ buildscript {
     }
 }
 
-//apply(from = "$rootDir/gradle/scripts/dependencyUpdates.gradle.kts")
+apply(from = "$rootDir/gradle/scripts/dependencyUpdates.gradle.kts")
 
 allprojects {
     repositories {
