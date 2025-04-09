@@ -58,7 +58,7 @@ actual class Connectivity(private val context: Context) {
 
         return when {
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                    capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> ConnectivityStatus(Wifi)
+                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> ConnectivityStatus(Wifi)
 
             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> ConnectivityStatus(Mobile)
 

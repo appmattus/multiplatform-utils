@@ -24,9 +24,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.appmattus.multiplatformutils.samples.databinding.RecyclerViewFragmentBinding
 import com.appmattus.multiplatformutils.samples.ui.component.SingleLineTextHeaderItem
 import com.appmattus.multiplatformutils.samples.ui.component.SingleLineTextItem
-import com.appmattus.multiplatformutils.samples.databinding.RecyclerViewFragmentBinding
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,17 +46,23 @@ class SamplesFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
             adapter = GroupAdapter<GroupieViewHolder>().apply {
                 add(SingleLineTextHeaderItem("Samples"))
-                add(SingleLineTextItem("battery") {
-                    findNavController().navigate(R.id.action_samplesFragment_to_batteryFragment)
-                })
+                add(
+                    SingleLineTextItem("battery") {
+                        findNavController().navigate(R.id.action_samplesFragment_to_batteryFragment)
+                    }
+                )
 
-                add(SingleLineTextItem("connectivity") {
-                    findNavController().navigate(R.id.action_samplesFragment_to_connectivityFragment)
-                })
+                add(
+                    SingleLineTextItem("connectivity") {
+                        findNavController().navigate(R.id.action_samplesFragment_to_connectivityFragment)
+                    }
+                )
 
-                add(SingleLineTextItem("package-info") {
-                    findNavController().navigate(R.id.action_samplesFragment_to_packageInfoFragment)
-                })
+                add(
+                    SingleLineTextItem("package-info") {
+                        findNavController().navigate(R.id.action_samplesFragment_to_packageInfoFragment)
+                    }
+                )
             }
         }
     }

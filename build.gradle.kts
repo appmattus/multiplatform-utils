@@ -17,7 +17,6 @@
 import io.gitlab.arturbosch.detekt.Detekt
 
 plugins {
-    //id("io.gitlab.arturbosch.detekt") version Versions.detektGradlePlugin
     alias(libs.plugins.detektGradlePlugin)
     alias(libs.plugins.markdownlintGradlePlugin)
     alias(libs.plugins.gradleMavenPublishPlugin) apply false
@@ -49,27 +48,27 @@ allprojects {
     }
 }
 
-//dependencies {
-//    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektGradlePlugin}")
-//}
-//
-//tasks.withType<Detekt> {
-//    jvmTarget = "1.8"
-//}
-//
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${libs.versions.detektGradlePlugin.get()}")
+}
+
+tasks.withType<Detekt> {
+    jvmTarget = "1.8"
+}
+
 detekt {
-    input = files(subprojects.map { File(it.projectDir, "src") })
+    source.setFrom(files(subprojects.map { File(it.projectDir, "src") }))
 
     buildUponDefaultConfig = true
 
     autoCorrect = true
 
-    config = files("detekt-config.yml")
+    config.setFrom(files("detekt-config.yml"))
 }
-//
-//tasks.maybeCreate("check").dependsOn(tasks.named("detekt"))
-//
-//tasks.maybeCreate("check").dependsOn(tasks.named("markdownlint"))
+
+tasks.maybeCreate("check").dependsOn(tasks.named("detekt"))
+
+tasks.maybeCreate("check").dependsOn(tasks.named("markdownlint"))
 
 allprojects {
     version = System.getenv("GITHUB_REF")?.substring(10) ?: System.getProperty("GITHUB_REF")?.substring(10) ?: "unknown"

@@ -23,17 +23,17 @@ distinguish between cellular vs WiFi connection.
 ![badge][badge-android]
 ![badge][badge-ios]
 
-[ignore-ios](ignore-test/README.md): Annotations to ignore iOS tests.  
+[ignore-ios](ignore-ios/README.md): Annotations to ignore iOS tests.  
 ![badge][badge-android]
 ![badge][badge-ios]
 ![badge][badge-jvm]
 
-[ignore-junit](ignore-test/README.md): Annotations to ignore JUnit 4 tests.  
+[ignore-junit](ignore-junit/README.md): Annotations to ignore JUnit 4 tests.  
 ![badge][badge-android]
 ![badge][badge-ios]
 ![badge][badge-jvm]
 
-[ignore-junit5](ignore-test/README.md): Annotations to ignore JUnit 5 tests.  
+[ignore-junit5](ignore-junit5/README.md): Annotations to ignore JUnit 5 tests.  
 ![badge][badge-android]
 ![badge][badge-ios]
 ![badge][badge-jvm]

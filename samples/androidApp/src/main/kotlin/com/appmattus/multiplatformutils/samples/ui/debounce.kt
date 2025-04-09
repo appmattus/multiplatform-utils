@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("Filename")
+
 package com.appmattus.multiplatformutils.samples.ui
 
 import kotlinx.coroutines.CoroutineScope
