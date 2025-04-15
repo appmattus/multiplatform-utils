@@ -49,7 +49,7 @@ kotlin {
     }
 
     compilerOptions {
-        jvmToolchain(8)
+        jvmToolchain(11)
         freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }

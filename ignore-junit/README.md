@@ -1,6 +1,7 @@
 # ignore-junit
 
-A Kotlin Multiplatform Mobile library to add annotations to ignore JUnit 4 tests.
+A Kotlin Multiplatform Mobile library to add annotations to ignore JUnit 4
+tests.
 
 ## Getting started
 

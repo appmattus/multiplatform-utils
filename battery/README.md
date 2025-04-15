@@ -17,7 +17,7 @@ commonMain {
 }
 ```
 
-Create an instance of Battery 
+Create an instance of Battery
 
 To create a hash first create a digest with `Digest.create` providing the name
 of the hash you wish to use, then update with `update` and create the hash with
@@ -34,8 +34,6 @@ val hash: ByteArray = digest.digest()
 // Alternatively use the shorthand form to update and generate with one function
 digest.digest(byteArray)
 ```
-
-
 
 ---
 

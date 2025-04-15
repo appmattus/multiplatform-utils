@@ -1,6 +1,7 @@
 # ignore-junit5
 
-A Kotlin Multiplatform Mobile library to add annotations to ignore JUnit 5 tests.
+A Kotlin Multiplatform Mobile library to add annotations to ignore JUnit 5
+tests.
 
 ## Getting started
 
