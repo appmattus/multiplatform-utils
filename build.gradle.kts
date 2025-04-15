@@ -15,6 +15,7 @@
  */
 
 import io.gitlab.arturbosch.detekt.Detekt
+import java.time.ZonedDateTime
 
 plugins {
     alias(libs.plugins.detektGradlePlugin)
@@ -73,21 +74,25 @@ tasks.maybeCreate("check").dependsOn(tasks.named("markdownlint"))
 allprojects {
     version = System.getenv("GITHUB_REF")?.substring(10) ?: System.getProperty("GITHUB_REF")?.substring(10) ?: "unknown"
 
-//    plugins.withType<org.jetbrains.dokka.gradle.DokkaPlugin> {
-//        tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
-//            dokkaSourceSets {
-//                configureEach {
-//                    if (name.startsWith("ios")) {
-//                        displayName.set("ios")
-//                    }
-//
-//                    sourceLink {
-//                        localDirectory.set(rootDir)
-//                        remoteUrl.set(java.net.URL("https://github.com/appmattus/multiplatform-utils/blob/main"))
-//                        remoteLineSuffix.set("#L")
-//                    }
-//                }
-//            }
-//        }
-//    }
+    plugins.withType<org.jetbrains.dokka.gradle.DokkaPlugin> {
+        dokka {
+            dokkaSourceSets {
+                configureEach {
+                    sourceLink {
+                        localDirectory.set(rootDir)
+                        remoteUrl("https://github.com/appmattus/multiplatform-utils/blob/main")
+                        remoteLineSuffix.set("#L")
+                    }
+                }
+            }
+
+            pluginsConfiguration.html {
+                footerMessage.set(
+                    provider {
+                        "Copyright © 2021-${ZonedDateTime.now().year} Appmattus Limited"
+                    }
+                )
+            }
+        }
+    }
 }
