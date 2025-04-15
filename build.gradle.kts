@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,12 +15,13 @@
  */
 
 import io.gitlab.arturbosch.detekt.Detekt
+import java.time.ZonedDateTime
 
 plugins {
-    id("io.gitlab.arturbosch.detekt") version Versions.detektGradlePlugin
-    id("com.appmattus.markdown") version Versions.markdownlintGradlePlugin
-    id("com.vanniktech.maven.publish") version Versions.gradleMavenPublishPlugin apply false
-    id("org.jetbrains.dokka") version Versions.dokkaPlugin
+    alias(libs.plugins.detektGradlePlugin)
+    alias(libs.plugins.markdownlintGradlePlugin)
+    alias(libs.plugins.gradleMavenPublishPlugin) apply false
+    alias(libs.plugins.dokkaPlugin)
 }
 
 buildscript {
@@ -30,10 +31,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin}")
-        classpath("com.android.tools.build:gradle:${Versions.androidGradlePlugin}")
-        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.Google.dagger}")
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.AndroidX.navigation}")
+        classpath(libs.buildscript.android)
+        classpath(libs.buildscript.kotlin)
+        classpath(libs.buildscript.hilt)
+        classpath(libs.buildscript.safeargs)
     }
 }
 
@@ -44,26 +45,26 @@ allprojects {
         gradlePluginPortal()
         google()
         mavenCentral()
-        maven(url = "https://kotlin.bintray.com/kotlinx/")
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${Versions.detektGradlePlugin}")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${libs.versions.detektGradlePlugin.get()}")
 }
 
 tasks.withType<Detekt> {
-    jvmTarget = "1.8"
+    jvmTarget = "11"
 }
 
 detekt {
-    input = files(subprojects.map { File(it.projectDir, "src") })
+    source.setFrom(files(subprojects.map { File(it.projectDir, "src") }))
 
     buildUponDefaultConfig = true
 
     autoCorrect = true
 
-    config = files("detekt-config.yml")
+    config.setFrom(files("detekt-config.yml"))
 }
 
 tasks.maybeCreate("check").dependsOn(tasks.named("detekt"))
@@ -74,19 +75,23 @@ allprojects {
     version = System.getenv("GITHUB_REF")?.substring(10) ?: System.getProperty("GITHUB_REF")?.substring(10) ?: "unknown"
 
     plugins.withType<org.jetbrains.dokka.gradle.DokkaPlugin> {
-        tasks.withType<org.jetbrains.dokka.gradle.DokkaTask>().configureEach {
+        dokka {
             dokkaSourceSets {
                 configureEach {
-                    if (name.startsWith("ios")) {
-                        displayName.set("ios")
-                    }
-
                     sourceLink {
                         localDirectory.set(rootDir)
-                        remoteUrl.set(java.net.URL("https://github.com/appmattus/multiplatform-utils/blob/main"))
+                        remoteUrl("https://github.com/appmattus/multiplatform-utils/blob/main")
                         remoteLineSuffix.set("#L")
                     }
                 }
+            }
+
+            pluginsConfiguration.html {
+                footerMessage.set(
+                    provider {
+                        "Copyright © 2021-${ZonedDateTime.now().year} Appmattus Limited"
+                    }
+                )
             }
         }
     }

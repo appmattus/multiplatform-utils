@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,6 @@ actual class Battery {
             }
         }
 
-    @Suppress("EXPERIMENTAL_API_USAGE")
     actual val chargingStatus: Flow<ChargingStatus>
         get() = callbackFlow {
             UIDevice.currentDevice.batteryMonitoringEnabled = true
@@ -63,13 +62,18 @@ actual class Battery {
         }
 
     companion object {
+        @Suppress("REDUNDANT_ELSE_IN_WHEN", "KotlinRedundantDiagnosticSuppress")
         private val UIDeviceBatteryState.asChargingStatus
-            get() = if (NSProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != null) ChargingStatus(Full) else when (this) {
-                UIDeviceBatteryState.UIDeviceBatteryStateCharging -> ChargingStatus(Charging)
-                UIDeviceBatteryState.UIDeviceBatteryStateFull -> ChargingStatus(Full)
-                UIDeviceBatteryState.UIDeviceBatteryStateUnplugged -> ChargingStatus(Discharging)
-                UIDeviceBatteryState.UIDeviceBatteryStateUnknown -> ChargingStatus(Unavailable)
-                else -> ChargingStatus(Unavailable)
+            get() = if (NSProcessInfo.processInfo.environment["SIMULATOR_DEVICE_NAME"] != null) {
+                ChargingStatus(Full)
+            } else {
+                when (this) {
+                    UIDeviceBatteryState.UIDeviceBatteryStateCharging -> ChargingStatus(Charging)
+                    UIDeviceBatteryState.UIDeviceBatteryStateFull -> ChargingStatus(Full)
+                    UIDeviceBatteryState.UIDeviceBatteryStateUnplugged -> ChargingStatus(Discharging)
+                    UIDeviceBatteryState.UIDeviceBatteryStateUnknown -> ChargingStatus(Unavailable)
+                    else -> ChargingStatus(Unavailable)
+                }
             }
 
         private const val BATTERY_MAX_VALUE = 100

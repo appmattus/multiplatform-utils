@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,12 +18,9 @@ package com.appmattus.battery
 
 import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.ContextWrapper
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.BatteryManager
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
 import com.appmattus.battery.ChargingStatus.Status.Charging
 import com.appmattus.battery.ChargingStatus.Status.Discharging
 import com.appmattus.battery.ChargingStatus.Status.Full
@@ -35,18 +32,11 @@ import kotlinx.coroutines.flow.callbackFlow
 actual class Battery(private val context: Context) {
 
     actual val batteryLevel: Int
-        get() = if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+        get() {
             val batteryManager = context.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-            batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
-        } else {
-            val intent = ContextWrapper(context)
-                .registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))!!
-            @Suppress("MagicNumber")
-            (intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 /
-                    intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1))
+            return batteryManager.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY)
         }
 
-    @Suppress("EXPERIMENTAL_API_USAGE")
     actual val chargingStatus: Flow<ChargingStatus>
         get() = callbackFlow {
             val receiver = object : BroadcastReceiver() {

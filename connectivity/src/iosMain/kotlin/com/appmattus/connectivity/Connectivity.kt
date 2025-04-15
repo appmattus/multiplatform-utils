@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import com.appmattus.connectivity.ConnectivityStatus.Status.Mobile
 import com.appmattus.connectivity.ConnectivityStatus.Status.None
 import com.appmattus.connectivity.ConnectivityStatus.Status.Wifi
 import kotlinx.cinterop.COpaquePointer
+import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.StableRef
 import kotlinx.cinterop.alloc
 import kotlinx.cinterop.asStableRef
@@ -50,6 +51,7 @@ import platform.SystemConfiguration.kSCNetworkReachabilityFlagsInterventionRequi
 import platform.SystemConfiguration.kSCNetworkReachabilityFlagsIsWWAN
 import platform.SystemConfiguration.kSCNetworkReachabilityFlagsReachable
 
+@OptIn(ExperimentalForeignApi::class)
 actual class Connectivity(private val nodename: String = "example.com") {
 
     @Suppress("MemberNameEqualsClassName")
@@ -67,7 +69,6 @@ actual class Connectivity(private val nodename: String = "example.com") {
             flags.asConnectivityStatus
         }
 
-    @Suppress("EXPERIMENTAL_API_USAGE")
     actual val connectivityStatus
         get() = callbackFlow<ConnectivityStatus> {
             val reachability = SCNetworkReachabilityCreateWithName(null, nodename)!!
@@ -110,27 +111,21 @@ actual class Connectivity(private val nodename: String = "example.com") {
                 else -> None
             }.let(::ConnectivityStatus)
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
         private val SCNetworkReachabilityFlags.connectionOnDemand: Boolean
             get() = (kSCNetworkReachabilityFlagsConnectionOnDemand and this) != 0.toUInt()
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
         private val SCNetworkReachabilityFlags.connectionOnTraffic: Boolean
             get() = (kSCNetworkReachabilityFlagsConnectionOnTraffic and this) != 0.toUInt()
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
         private val SCNetworkReachabilityFlags.connectionRequired: Boolean
             get() = (kSCNetworkReachabilityFlagsConnectionRequired and this) != 0.toUInt()
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
         private val SCNetworkReachabilityFlags.interventionRequired: Boolean
             get() = (kSCNetworkReachabilityFlagsInterventionRequired and this) != 0.toUInt()
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
         private val SCNetworkReachabilityFlags.isWWAN: Boolean
             get() = (kSCNetworkReachabilityFlagsIsWWAN and this) != 0.toUInt()
 
-        @Suppress("EXPERIMENTAL_API_USAGE")
         private val SCNetworkReachabilityFlags.reachable: Boolean
             get() = (kSCNetworkReachabilityFlagsReachable and this) != 0.toUInt()
     }

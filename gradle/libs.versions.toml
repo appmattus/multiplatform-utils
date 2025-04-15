@@ -1,0 +1,77 @@
+[versions]
+
+kotlin = "2.1.20"
+
+androidGradlePlugin = "8.9.1"
+detektGradlePlugin = "1.23.8"
+gradleVersionsPlugin = "0.52.0"
+markdownlintGradlePlugin = "0.6.0"
+gradleMavenPublishPlugin = "0.31.0"
+dokkaPlugin = "2.0.0"
+
+androidx_annotation = "1.9.1"
+androidx_appCompat = "1.7.0"
+androidx_constraintLayout = "2.2.1"
+androidx_fragment = "1.8.6"
+androidx_lifecycle = "2.8.7"
+androidx_navigation = "2.8.9"
+androidx_vectorDrawable = "1.2.0"
+
+coil = "3.1.0"
+desugar = "2.1.5"
+
+google_dagger = "2.56.1"
+google_material = "1.12.0"
+
+groupie = "2.10.1"
+
+kotlinx_coroutines = "1.10.2"
+
+leakCanary = "2.14"
+orbitMvi = "9.0.0"
+
+[libraries]
+
+androidx_annotation = { module = "androidx.annotation:annotation", version.ref = "androidx_annotation" }
+androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx_appCompat" }
+androidx_constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx_constraintLayout" }
+androidx_fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_fragment" }
+androidx_lifecycle_runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidx_lifecycle" }
+androidx_lifecycle_viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidx_lifecycle" }
+androidx_navigation_fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx_navigation" }
+androidx_navigation_ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation" }
+androidx_vectordrawable = { module = "androidx.vectordrawable:vectordrawable", version.ref = "androidx_vectorDrawable" }
+
+coil_svg = { module = "io.coil-kt.coil3:coil-svg", version.ref = "coil" }
+
+desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+
+google_material = { module = "com.google.android.material:material", version.ref = "google_material" }
+
+groupie = { module = "com.github.lisawray.groupie:groupie", version.ref = "groupie" }
+groupieViewbinding = { module = "com.github.lisawray.groupie:groupie-viewbinding", version.ref = "groupie" }
+
+hiltAndroid = { module = "com.google.dagger:hilt-android", version.ref = "google_dagger" }
+hiltCompiler = { module = "com.google.dagger:hilt-compiler", version.ref = "google_dagger" }
+
+kotlinx_coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx_coroutines" }
+
+leakcanary_android = { module = "com.squareup.leakcanary:leakcanary-android", version.ref = "leakCanary" }
+leakcanary_plumber = { module = "com.squareup.leakcanary:plumber-android", version.ref = "leakCanary" }
+
+orbitViewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbitMvi" }
+
+buildscript_android = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
+buildscript_kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+buildscript_hilt = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "google_dagger" }
+buildscript_safeargs = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx_navigation" }
+
+
+[plugins]
+
+androidGradlePlugin = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+detektGradlePlugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detektGradlePlugin" }
+gradleVersionsPlugin = { id = "com.github.ben-manes.versions", version.ref = "gradleVersionsPlugin" }
+markdownlintGradlePlugin = { id = "com.appmattus.markdown", version.ref = "markdownlintGradlePlugin" }
+gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradleMavenPublishPlugin" }
+dokkaPlugin = { id = "org.jetbrains.dokka", version.ref = "dokkaPlugin" }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,13 +20,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.appmattus.connectivity.Connectivity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
-import org.orbitmvi.orbit.syntax.simple.intent
-import org.orbitmvi.orbit.syntax.simple.reduce
 import org.orbitmvi.orbit.viewmodel.container
+import javax.inject.Inject
 
 @HiltViewModel
 class ConnectivityViewModel @Inject constructor(
@@ -41,7 +38,7 @@ class ConnectivityViewModel @Inject constructor(
     private fun loadConnectivity() = intent(registerIdling = false) {
         connectivity.connectivityStatus.collect {
             reduce {
-                 state.copy(connectivityStatus = it)
+                state.copy(connectivityStatus = it)
             }
         }
     }

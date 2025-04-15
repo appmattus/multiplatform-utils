@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 Appmattus Limited
+ * Copyright 2021-2025 Appmattus Limited
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,49 +14,56 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-    kotlin("multiplatform")
     id("com.android.library")
-    id("com.vanniktech.maven.publish")
-    id("org.jetbrains.dokka")
+    kotlin("multiplatform")
+    alias(libs.plugins.gradleMavenPublishPlugin)
+    alias(libs.plugins.dokkaPlugin)
 }
 
 kotlin {
-    android()
-    ios()
+    androidTarget()
+
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "multiplatformutils-connectivity"
+            isStatic = true
+        }
+    }
+
+    // Apply the default hierarchy again. It'll create, for example, the iosMain source set:
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core") {
-                    version {
-                        strictly(Versions.coroutinesNative)
-                    }
-                }
-            }
+        commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines)
         }
-        val commonTest by getting
-        val androidMain by getting {
-            dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}")
-            }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.annotation)
         }
-        val androidTest by getting
-        val iosMain by getting
-        val iosTest by getting
+    }
+
+    compilerOptions {
+        jvmToolchain(11)
+        freeCompilerArgs.add("-Xexpect-actual-classes")
     }
 }
 
 android {
-    compileSdkVersion(30)
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    namespace = "com.appmattus.multiplatformutils.connectivity"
+    compileSdk = 35
+
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
-        versionCode = 1
-        versionName = "1.0"
+        minSdk = 21
     }
     buildTypes {
         getByName("release") {
@@ -65,9 +72,7 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 }
-
-tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString() }
