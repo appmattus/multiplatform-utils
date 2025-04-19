@@ -21,8 +21,13 @@ import java.util.Currency
 import java.util.Locale
 
 actual object Currency {
-    actual fun format(amount: Double, currencyCode: String, locale: String, showFractionDigits: Boolean, roundingMode: RoundingMode): String {
-
+    actual fun format(
+        amount: Double,
+        currencyCode: String,
+        locale: String,
+        showFractionDigits: Boolean,
+        roundingMode: RoundingMode
+    ): String {
         return NumberFormat.getCurrencyInstance(Locale.forLanguageTag(locale)).apply {
             val currency = Currency.getInstance(currencyCode)
             this.currency = currency

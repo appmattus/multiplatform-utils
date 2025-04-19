@@ -20,6 +20,7 @@ import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 
+@Suppress("TooManyFunctions")
 class CurrencyTest : RobolectricTest() {
 
     @Test
@@ -27,7 +28,10 @@ class CurrencyTest : RobolectricTest() {
         val actual = listOf("GBP", "EUR", "USD", "CAD", "MXN", "JPY").map { currencyCode ->
             Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "en-GB")
         }
-        assertContentEquals(listOf("£1,345.23", "€1,345.23", "US$1,345.23", "CA$1,345.23", "MX$1,345.23", "JP¥1,345"), actual)
+        assertContentEquals(
+            listOf("£1,345.23", "€1,345.23", "US$1,345.23", "CA$1,345.23", "MX$1,345.23", "JP¥1,345"),
+            actual
+        )
     }
 
     @Test
@@ -45,7 +49,10 @@ class CurrencyTest : RobolectricTest() {
             Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "en-US")
         }
 
-        assertContentEquals(listOf("£1,345.23", "€1,345.23", "$1,345.23", "CA$1,345.23", "MX$1,345.23", "¥1,345"), actual)
+        assertContentEquals(
+            listOf("£1,345.23", "€1,345.23", "$1,345.23", "CA$1,345.23", "MX$1,345.23", "¥1,345"),
+            actual
+        )
     }
 
     @Test
@@ -63,7 +70,10 @@ class CurrencyTest : RobolectricTest() {
             Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "en-CA")
         }
 
-        assertContentEquals(listOf("£1,345.23", "€1,345.23", "US$1,345.23", "$1,345.23", "MX$1,345.23", "JP¥1,345"), actual)
+        assertContentEquals(
+            listOf("£1,345.23", "€1,345.23", "US$1,345.23", "$1,345.23", "MX$1,345.23", "JP¥1,345"),
+            actual
+        )
     }
 
     @Test
@@ -81,7 +91,10 @@ class CurrencyTest : RobolectricTest() {
             Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "fr-CA")
         }
 
-        assertContentEquals(listOf("1 345,23 £", "1 345,23 €", "1 345,23 $ US", "1 345,23 $", "1 345,23 MXN", "1 345 ¥"), actual)
+        assertContentEquals(
+            listOf("1 345,23 £", "1 345,23 €", "1 345,23 $ US", "1 345,23 $", "1 345,23 MXN", "1 345 ¥"),
+            actual
+        )
     }
 
     @Test
@@ -99,7 +112,10 @@ class CurrencyTest : RobolectricTest() {
             Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "de-DE")
         }
 
-        assertContentEquals(listOf("1.345,23 £", "1.345,23 €", "1.345,23 $", "1.345,23 CA$", "1.345,23 MX\$", "1.345 ¥"), actual)
+        assertContentEquals(
+            listOf("1.345,23 £", "1.345,23 €", "1.345,23 $", "1.345,23 CA$", "1.345,23 MX\$", "1.345 ¥"),
+            actual
+        )
     }
 
     @Test
@@ -117,25 +133,43 @@ class CurrencyTest : RobolectricTest() {
             Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "fr-FR").replace(" ", " ")
         }
 
-        assertContentEquals(listOf("1 345,23 £GB", "1 345,23 €", "1 345,23 \$US", "1 345,23 \$CA", "1 345,23 \$MX", "1 345 JPY"), actual)
+        assertContentEquals(
+            listOf("1 345,23 £GB", "1 345,23 €", "1 345,23 \$US", "1 345,23 \$CA", "1 345,23 \$MX", "1 345 JPY"),
+            actual
+        )
     }
 
     @Test
     fun testFrFrWithoutDecimals() {
         val actual = listOf("GBP", "EUR", "USD", "CAD", "MXN", "JPY").map { currencyCode ->
-            Currency.format(amount = 1345.23, currencyCode = currencyCode, locale = "fr-FR", showFractionDigits = false).replace(" ", " ")
+            Currency.format(
+                amount = 1345.23,
+                currencyCode = currencyCode,
+                locale = "fr-FR",
+                showFractionDigits = false
+            ).replace(" ", " ")
         }
 
-        assertContentEquals(listOf("1 345 £GB", "1 345 €", "1 345 \$US", "1 345 \$CA", "1 345 \$MX", "1 345 JPY"), actual)
+        assertContentEquals(
+            listOf("1 345 £GB", "1 345 €", "1 345 \$US", "1 345 \$CA", "1 345 \$MX", "1 345 JPY"),
+            actual
+        )
     }
 
     @Test
     fun testTnd() {
         val actual = listOf("en-GB", "en-US", "en-CA", "fr-CA", "de-DE", "fr-FR").map { locale ->
-            Currency.format(amount = 1345.23, currencyCode = "TND", locale = locale).replace("TND ", "TND").replace(" ", " ")
+            Currency.format(
+                amount = 1345.23,
+                currencyCode = "TND",
+                locale = locale
+            ).replace("TND ", "TND").replace(" ", " ")
         }
 
-        assertContentEquals(listOf("TND1,345.230", "TND1,345.230", "TND1,345.230", "1 345,230 TND", "1.345,230 TND", "1 345,230 TND"), actual)
+        assertContentEquals(
+            listOf("TND1,345.230", "TND1,345.230", "TND1,345.230", "1 345,230 TND", "1.345,230 TND", "1 345,230 TND"),
+            actual
+        )
     }
 
     @Test
