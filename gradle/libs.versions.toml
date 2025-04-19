@@ -29,6 +29,7 @@ kotlinx_coroutines = "1.10.2"
 
 leakCanary = "2.14"
 orbitMvi = "9.0.0"
+robolectric = "4.14.1"
 
 [libraries]
 
@@ -60,6 +61,8 @@ leakcanary_android = { module = "com.squareup.leakcanary:leakcanary-android", ve
 leakcanary_plumber = { module = "com.squareup.leakcanary:plumber-android", version.ref = "leakCanary" }
 
 orbitViewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbitMvi" }
+
+robolectric = { module = "org.robolectric:robolectric", version.ref = "robolectric" }
 
 buildscript_android = { module = "com.android.tools.build:gradle", version.ref = "androidGradlePlugin" }
 buildscript_kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }

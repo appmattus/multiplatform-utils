@@ -1,5 +1,6 @@
 include(":battery")
 include(":connectivity")
+include(":currency")
 include(":ignore-ios")
 include(":ignore-junit")
 include(":ignore-junit5")

@@ -23,6 +23,12 @@ distinguish between cellular vs WiFi connection.
 ![badge][badge-android]
 ![badge][badge-ios]
 
+[currency](currency/README.md): Format currency values.  
+![badge][badge-android]
+![badge][badge-ios]
+![badge][badge-js]
+![badge][badge-jvm]
+
 [ignore-ios](ignore-ios/README.md): Annotations to ignore iOS tests.  
 ![badge][badge-android]
 ![badge][badge-ios]
@@ -54,7 +60,7 @@ language translations, unit/integration tests are welcomed.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
 
-Copyright 2021 Appmattus Limited
+Copyright 2021-2025 Appmattus Limited
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use
 this file except in compliance with the License. You may obtain a copy of the
