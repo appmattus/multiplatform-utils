@@ -46,9 +46,9 @@ jobs:
 
       - name: Prepare tag properties
         run: |
-          echo "${{secrets.GPG_SIGNING_SECRET_KEY_RING_FILE_BASE64}}" > ~/.gradle/sonatype-appmattus-keys.gpg.b64
-          base64 -d ~/.gradle/sonatype-appmattus-keys.gpg.b64 > ~/.gradle/sonatype-appmattus-keys.gpg
-          echo "${{secrets.GPG_GRADLE_PROPERTIES}}" > ~/.gradle/gradle.properties
+          echo "${{secrets.GPG_SIGNING_SECRET_KEY_RING_FILE_BASE64}}" > $HOME/.gradle/sonatype-appmattus-keys.gpg.b64
+          base64 -d -i $HOME/.gradle/sonatype-appmattus-keys.gpg.b64 -o $HOME/.gradle/sonatype-appmattus-keys.gpg
+          echo "${{secrets.GPG_GRADLE_PROPERTIES}}" > $HOME/.gradle/gradle.properties
         if: startsWith(github.ref, 'refs/tags/')
 
       - name: Upload tag
