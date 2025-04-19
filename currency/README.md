@@ -17,7 +17,7 @@ commonMain {
 }
 ```
 
-Format a currency value: 
+Format a currency value:
 
 ```kotlin
 Currency.format(value = 1345.23, currencyCode = "GBP", locale = "en-GB")
